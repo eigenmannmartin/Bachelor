@@ -1,0 +1,119 @@
+\documentclass[oneside,11pt,parskip=half,ngerman]{scrreprt}
+%\documentclass[a4paper,oneside,11pt,parskip=half,ngerman]{scrreprt}
+\usepackage{typearea}
+
+\usepackage[ngerman]{babel}
+\usepackage[colorlinks=false, pdfborder={0 0 0}]{hyperref}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{charter}
+\usepackage[expert]{mathdesign}
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyhdr}
+\usepackage{rotating}
+\usepackage{titlesec}
+\usepackage{mathptmx}
+\usepackage{amssymb} % checkmark
+% \usepackage{helvet}
+\usepackage[scaled]{uarial}
+\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+\usepackage[squaren]{SIunits}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{geometry}
+\usepackage[absolute]{textpos}
+\usepackage{makeidx}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{pdfpages}
+\usepackage{tabularx}
+\usepackage{lmodern}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{float}
+\usepackage{scrhack}
+\usepackage{fancyhdr}
+\usepackage{fancyvrb}
+
+\usepackage[section]{placeins}
+
+\usepackage{pdfpages}
+
+\usepackage[firstpage]{draftwatermark}
+
+%Typesetting
+\usepackage[activate=true,final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\SetProtrusion{encoding={*},family={bch},series={*},size={6,7}}
+              {1={ ,750},2={ ,500},3={ ,500},4={ ,500},5={ ,500},
+               6={ ,500},7={ ,600},8={ ,500},9={ ,500},0={ ,500}}
+
+% Bibliography
+\usepackage[backend=bibtex]{biblatex}
+\usepackage{csquotes}
+\bibliography{./Citer}
+
+
+%define page margin
+\geometry{a4paper, top=30mm, left=30mm, right=30mm, bottom=30mm,headsep=10mm,footskip=10mm}
+
+\usepackage{tocloft}
+\setlength\cftbeforetoctitleskip{-2.5em}
+\setlength\cftbeforeloftitleskip{-2.5em}
+\setlength\cftbeforelottitleskip{-2.5em}
+
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=r,basicstyle=\small\ttfamily}}{}
+$endif$
+
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+
+$if(graphics)$
+\usepackage{graphicx}
+% We will generate all images so they have a width \maxwidth. This means
+% that they will get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+\else\Gin@nat@width\fi}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth,height=20em,keepaspectratio]{#1}}
+$endif$
+
+
+% Chapter styling
+\usepackage[grey]{quotchap}
+\makeatletter 
+\renewcommand*{\chapnumfont}{%
+  \usefont{T1}{\@defaultcnfont}{b}{n}\fontsize{80}{100}\selectfont% Default: 100/130
+  \color{chaptergrey}%
+}
+\makeatother
+
+\begin{titlepage}
+\title{\bigskip \bigskip $title$}
+\author{$for(author)$$author$$sep$\\$endfor$}
+
+%\include{../content/Titelblatt.tex}
+%\includepdf[pages=1]{../content/Titelblatt}
+
+\end{titlepage}
+
+\begin{document}  
+\maketitle
+
+$body$
+
+$for(include-after)$
+$include-after$
+$endfor$
+
+\end{document}
