@@ -11,11 +11,39 @@ Typen von Daten:
 - Logische (boolean)
 
 Beschaffenheit von Daten
-- eigene Daten (eigener Post eines Blogs)
-- geteilte Daten (geteilter Post eines Blogs (mehrere Autoren))
-- kontextuell abhängige Daten (Kommentar eines Posts)
-- logisch abhängige Daten (Alter eines Posts (seit Publizierung))
+- eigene Daten (eigener Post eines Blogs) (exclusive Daten)
+- geteilte Daten (geteilter Post eines Blogs (mehrere Autoren)) (gemeinsame Daten)
+- kontextuell abhängige Daten (Kommentar eines Posts) (Kontextbezogene Daten)
+- logisch abhängige Daten (Alter eines Posts (seit Publizierung)) (Logisch abhängige Daten)
 -->
+
+Daten können bezüglich ihrer Beschaffenheit, Geltungsbereich und Gültigkeitsdauer unterschieden werden.
+
+### Kontextbezogene Daten
+Daten die nur in einem bestimmten Kontext einen signifikanten Informationsgehalt aufweisen, der ohne Kontext nicht greifbar ist, werden als kontextbezogene Daten bezeichnet.
+(Kommentar auf einen Artikel)
+
+### Unabhängige Daten
+Mit dem Begriff der unabhängigen Daten werden all jene Datensätze bezeichnet die in sich abgeschlossene Informationen beinhalten.
+(Artikel)
+
+### Exklusive Daten
+Exklusive Daten sind Daten und Datensätze die nur von einem Aktor bearbeitet werden dürfen.
+(Wecker-Einstellungen)
+
+### Gemeinsame Daten
+Daten die von mehreren Aktoren gleichzeitig gelesen und bearbeitet werden dürfen, werden als gemeinsame Daten bezeichnet.
+(Firmen-Todo-Liste)
+
+### Statische Daten
+(Koch-Rezept)
+
+### Dynamische Daten
+(Inhalt im Kühlschrank)
+
+### Temporäre Daten
+Als Temporäre Daten können all jene Daten bezeichnet werden, die nur für einen begrenzten Zeitraum gültig sind. 
+(Transaktions Logs)
 
 ## Diskussion bekannter Verfahren
 <!-- (und Erklährung) in Bezug auf Ergebnisse der Datenanalyse -->
