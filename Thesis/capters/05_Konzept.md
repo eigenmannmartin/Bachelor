@@ -5,12 +5,6 @@
 
 ## Konfliktverhinderung
 
-### 2PC/3PC
-<!-- Emulation einer einzigen Datenbank -->
-
-### Block-Chain
-<!-- Verteilte Datenbank mit nur insert -->
-
 ### Update Transformation
 <!-- Überfürung von Update in Insert -->
 

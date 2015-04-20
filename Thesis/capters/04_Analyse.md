@@ -35,11 +35,13 @@ Exklusive Daten sind Daten und Datensätze die nur von einem Aktor bearbeitet we
 Daten die von mehreren Aktoren gleichzeitig gelesen und bearbeitet werden dürfen, werden als gemeinsame Daten bezeichnet.
 (Firmen-Todo-Liste)
 
-### Statische Daten
-(Koch-Rezept)
-
 ### Dynamische Daten
+Automatisch generierte oder sich sehr schnell verändernde Daten werden dynamische Daten genannt. 
 (Inhalt im Kühlschrank)
+
+### Statische Daten
+Daten die über einen grossen Zeitraum hinweg nicht an Gültigkeit verlieren werden statische Daten genannt.
+(Koch-Rezept)
 
 ### Temporäre Daten
 Als Temporäre Daten können all jene Daten bezeichnet werden, die nur für einen begrenzten Zeitraum gültig sind. 
