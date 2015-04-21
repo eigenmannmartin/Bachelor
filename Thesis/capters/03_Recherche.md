@@ -20,7 +20,7 @@ Ein DBMS muss die vier Aufgaben [^Datenbanken_ACID] erfüllen.
 - Isolation
 - Dauerhaftigkeit
 
-Neben den vielen neu auf den Markt erschienen Technologien wie Document Store oder Key-Value Store ist das Relationale Datenbankmodell immer noch am verbreitetsten. [@dbenginesranking]. 
+Neben den vielen neu auf den Markt erschienen Technologien wie Document Store oder Key-Value Store ist das Relationale Datenbankmodell immer noch am weit verbreitet. [@dbenginesranking]. 
 
 
 [^Datenbanken_DBS]: In der Literatur oft auch als **D**aten**B**ank**S**ystemen (DBS) oder Informationssystem bezeichnet. [@rupDatenbanken pp. 3-4]
@@ -36,7 +36,7 @@ Das System selbst muss jedoch nicht notwendigerweise aus nur einem Rechenknoten 
 Man kann zwischen physisch und logisch verteilten Systemen unterscheiden. Weiter kann das System auf verschiedenen Abstraktionsstufen betrachtet werden. So sind je nach Betrachtungsvektor unterschiedliche Aspekte relevant und interessant. [@ethdistribsystems]
 
 #### physisch verteilte Systeme
-Rechnernetze und Cluster-Systeme werden typischerweise als physisch verteiltes System betrachtet. Die Kommunikation zwischen den einzelnen Rechenknoten erfolgt Nachrichten orientiert und ist somit asynchron ausgelegt. Jeder Rechenknoten verfügt über exklusive Speicherressourcen und einen eigenen Zeitgeber.
+Rechnernetze und Cluster-Systeme werden typischerweise als physisch verteiltes System betrachtet. Die Kommunikation zwischen den einzelnen Rechenknoten erfolgt nachrichtenorientiert und ist somit asynchron ausgelegt. Jeder Rechenknoten verfügt über exklusive Speicherressourcen und einen eigenen Zeitgeber.
 Durch die Implementation eines Systems über mehrere unabhängige physische Rechenknoten kann eine erhöhte Ausfallsicherheit und/oder ein Performance-Gewinn erreicht werden.
 
 #### logisch verteilte Systeme
@@ -66,7 +66,7 @@ Replikation vervielfacht ein sich möglicherweise mutierendes Objekt (Datei, Dat
 Eine synchrone Replikation stellt sicher, dass zu jeder Zeit der gesamte Objektbestand auf allen Replikationsteilnehmern identisch ist.
 
 Wird ein Objekt eines Replikationsteilnehmer mutiert, wird zum erfolgreichen Abschluss dieser Transaktion, von allen anderen Replikationsteilnehmern verlangt, dass sie diese Operation ebenfalls erfolgreich abschliessen. 
-Üblicherweise wird dies über ein Primary-Backup Verfahren realisiert. Andere Verfahren wie der 2-Phase-Commit und 3-Phase-Commit ermöglichen darüber hinaus auch das editieren von Objekten auf allen Replikationsteilnehmern. [@SWB-327013990 p. 23ff, 134ff]
+Üblicherweise wird dies über ein Primary-Backup Verfahren realisiert. Andere Verfahren wie der 2-Phase-Commit und 3-Phase-Commit ermöglichen darüber hinaus auch das synchrone Editieren von Objekten auf allen Replikationsteilnehmern. [@SWB-327013990 p. 23ff, 134ff]
 
 
 #### Asynchrone Replikation
@@ -77,8 +77,9 @@ Entgegen der [synchronen Replikation][Synchrone Replikation] müssen nicht alle 
 
 
 #### Merge Replikation
-Die merge Replikation erlaubt das mutieren des Objekts auf allen Replikationsteilnehmern. 
-Mutationen an einem einzelnen Replikationsteilnehmer werden allen übrigen Replikationsteilnehmern mitgeteilt. Da ein Objekt zwischenzeitlich[^merge_repl_latenz] auch auf anderen Teilnehmern mutiert worden sein kann, müssen während des Synchronisationsvorgang[^merge_repl] eventuell auftretenden Konflikte aufgelöst werden.
+<!-- Merge Konflikt beschreiben -->
+Die merge Replikation erlaubt das mutieren des Objekts auf einem beliebigen Replikationsteilnehmer. 
+Mutationen auf einem einzelnen Replikationsteilnehmer werden periodisch allen übrigen Replikationsteilnehmern mitgeteilt. Da ein Objekt zwischenzeitlich[^merge_repl_latenz] auch auf anderen Teilnehmern mutiert worden sein kann, müssen während des Synchronisationsvorgang[^merge_repl] eventuell auftretenden Konflikte aufgelöst werden.
 
 [^merge_repl_latenz]: Zwischen der lokalen Mutation und der Publikation dieser an die übrigen Replikationsteilnehmer, liegt eine beliebige Latenz.
 

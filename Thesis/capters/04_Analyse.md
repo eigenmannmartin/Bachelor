@@ -17,11 +17,24 @@ Beschaffenheit von Daten
 - logisch abhängige Daten (Alter eines Posts (seit Publizierung)) (Logisch abhängige Daten)
 -->
 
-Daten können bezüglich ihrer Beschaffenheit, Geltungsbereich und Gültigkeitsdauer unterschieden werden.
+Daten können bezüglich ihrer Beschaffenheit, Geltungsbereich und Gültigkeitsdauer unterschieden werden. Dabei spricht man von der Klassifikation. Es werden nur die in den Daten enthaltenen Informationen herangezogen. Die Form der Daten, also der Datentyp selbst ist für die Klassifikation unerheblich.
+
+Die Datentypisierung unterscheidet zwischen numerischen (num), binären (bin), logischen (bool) und textuellen (text) Daten.
+
+Eine Attributsgruppe, also eine logische Aufteilung der Informationen in mehrere Attribute ist eine zusammenhängende Informationseinheit.
+
+<!-- 
+Begriff der Klassifikation einführen
+Begriff der Attribute und Attributgruppen, Bildung von Gruppen durch Dateningenieur
+
+Klassifikation... aber nicht nötigerweise Datentyp (num, bin, text, logical)
+ -->
+
 
 ### Kontextbezogene Daten
 Daten die nur in einem bestimmten Kontext einen signifikanten Informationsgehalt aufweisen, der ohne Kontext nicht greifbar ist, werden als kontextbezogene Daten bezeichnet.
 (Kommentar auf einen Artikel)
+<!-- Korrektur der Prüfung -->
 
 ### Unabhängige Daten
 Mit dem Begriff der unabhängigen Daten werden all jene Datensätze bezeichnet die in sich abgeschlossene Informationen beinhalten.
@@ -44,8 +57,14 @@ Daten die über einen grossen Zeitraum hinweg nicht an Gültigkeit verlieren wer
 (Koch-Rezept)
 
 ### Temporäre Daten
-Als Temporäre Daten können all jene Daten bezeichnet werden, die nur für einen begrenzten Zeitraum gültig sind. 
+Als Temporäre Daten können all jene Daten bezeichnet werden, die nur für einen sehr begrenzten Zeitraum gültig sind. 
 (Transaktions Logs)
+
+
+## Diskussion Synchronisationsproblem
+- Bearbeitung gemeinsamer Daten, wer gewinnt? (letzter Veränderer, erster Synchronisierer, Berechtigungshierarchie)
+- Bearbeiten von eigenen Daten auf unterschiedlichen Geräten
+- 
 
 ## Diskussion bekannter Verfahren
 <!-- (und Erklährung) in Bezug auf Ergebnisse der Datenanalyse -->
@@ -56,14 +75,14 @@ Als Temporäre Daten können all jene Daten bezeichnet werden, die nur für eine
 ## Vorgehensweise
 
 ### Use-Cases
-<!-- UC1: Lesen eines Elements (online) -->
-<!-- UC2: Einfügen eines neuen Elements (online) -->
-<!-- UC3: Ändern eines Elements (online) -->
-<!-- UC4: Löschen eines Elements (online) -->
-<!-- UC5: Lesen eines Elements (offline) -->
-<!-- UC6: Einfügen eines neuen Elements (offline) -->
-<!-- UC7: Ändern eines Elements (offline) -->
-<!-- UC8: Löschen eines Elements (offline) -->
+UC1: Lesen eines Elements (online) 
+UC2: Einfügen eines neuen Elements (online) 
+UC3: Ändern eines Elements (online) 
+UC4: Löschen eines Elements (online) 
+UC5: Lesen eines Elements (offline) 
+UC6: Einfügen eines neuen Elements (offline) 
+UC7: Ändern eines Elements (offline) 
+UC8: Löschen eines Elements (offline) 
 
 
 ### Anforderungen
