@@ -54,4 +54,10 @@ Bei Attributsgruppen wird die Gruppe mit der insgesamt geringsten Abweichung ver
 Statt das wahrscheinlichsten oder des erste eingehenden Attribut zu verwenden wird die Kausalität sichergestellt. So wird für jede Mutation ein "quasi" Timestamp generiert (auch auf den mobilen Endgeräten) um so den Zeitpunkt der Synchronisierung zu egalisieren. Mutationen die echt zu erst durchgeführt wurden, gelten;
 
 
+
+\part[Teil iii]{Konzept und Implementierung}
+
+
 ## Gesamtkonzept
+
+

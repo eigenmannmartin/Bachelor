@@ -1,5 +1,9 @@
 <!-- Fachbegriffe, techn. Grundlagen -->
 
+
+\part[Teil ii]{Technische Grundlagen und Architekturen}
+
+
 # Recherche
 
 Dieses Kapitel erklärt die wichtigsten Grundbegriffe und wiedergibt die während der Recherche gesammelten Informationen.

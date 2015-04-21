@@ -17,7 +17,7 @@ Beschaffenheit von Daten
 - logisch abhängige Daten (Alter eines Posts (seit Publizierung)) (Logisch abhängige Daten)
 -->
 
-Daten können bezüglich ihrer Beschaffenheit, Geltungsbereich und Gültigkeitsdauer unterschieden werden. Dabei spricht man von der Klassifikation. Es werden nur die in den Daten enthaltenen Informationen herangezogen. Die Form der Daten, also der Datentyp selbst ist für die Klassifikation unerheblich.
+Daten können bezüglich ihrer Beschaffenheit, Geltungsbereich und Gültigkeitsdauer unterschieden werden. Dabei spricht man von der Klassifikation. Es werden nur die in den Daten enthaltenen Informationen dafür herangezogen. Die Form der Daten, also der Datentyp selbst ist für die Klassifikation unerheblich.
 
 Die Datentypisierung unterscheidet zwischen numerischen (num), binären (bin), logischen (bool) und textuellen (text) Daten.
 
