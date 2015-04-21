@@ -39,7 +39,7 @@ Da die Beschaffenheit und Struktur der Daten, bei dieser Problemstellung eine en
 
 ### Zusammenführung (Merge)
 <!-- Manueller Merge -->
-Einzelne Attribute oder Attributsgruppen innerhalb eines Objekts werden als eigenständige Objekte betrachtet. So kann ein Konflikt, der auftritt wenn zwei Objekte mit Mutationen in unterschiedlichen Attributsgruppen synchronisiert werden werden, aufgelöst werden, indem nur die jeweils mutierten Attributgrupen als synchronisationswürdig betrachtet werden.
+Einzelne Attribute oder Attributsgruppen innerhalb eines Objekts werden als eigenständige Objekte betrachtet. So kann ein Konflikt, der auftritt wenn zwei Objekte mit Mutationen in unterschiedlichen Attributsgruppen synchronisiert werden , aufgelöst werden, indem nur die jeweils mutierten Attributgrupen als synchronisationswürdig betrachtet werden.
 
 Kontextbezogene Attribute sind in der selben Attributgruppe wie der Kontext.
 
