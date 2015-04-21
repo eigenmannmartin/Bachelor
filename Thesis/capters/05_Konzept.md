@@ -44,6 +44,18 @@ Einzelne Attribute oder Attributsgruppen innerhalb eines Objekts werden als eige
 
 Kontextbezogene Attribute sind in der selben Attributgruppe wie der Kontext.
 
+<!-- ~~~~~ {.dot .scale=100% .title=Zusammenführung .label=fig:merge}
+digraph g {
+    node [shape = record,height=.1];
+    node0 [label = "<f0> A1|<f1> A2|<f2> A3"];
+    node1 [label = "<f0> A1|<f1> A2|<f2> A3"];
+    node2 [label = "<f0> A1|<f1> A2|<f2> A3"];
+    "node0":f0 -> "node2":f0;
+    "node0":f1 -> "node2":f1;
+    "node1":f2 -> "node2":f2;
+}
+~~~~~ -->
+
 ### normalisierte Zusammenführung (Normalized Merge)
 <!-- Maschineller Merge (wahrscheinlichste Lösung) -->
 Wenn bei einer Synchronisierung mit zwei Objekten die selben Attribute mutiert wurden, kann im Falle von numerischen Attributen, das Objekt mit den geringsten Abweichungen vom Meridian über alle verfügbaren Datensätze verwendet werden. Es wird also das normalisierteste Attribut verwendet.

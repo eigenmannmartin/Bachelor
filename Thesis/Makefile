@@ -14,7 +14,7 @@ clean:
 	rm -rf build
 
 pdf: pre
-	cat ./capters/*.md | pandoc -s -f markdown+yaml_metadata_block+hard_line_breaks+footnotes --filter pandoc-fignos -S -o ./build/out.tex --chapters --bibliography=./Citer.bib --template=./template.tex --biblatex && pdflatex -output-directory=./build/ ./build/out.tex && cp ./Citer.bib  ./build && cd ./build && bibtex out.aux && cd .. && pdflatex -output-directory=./build/ ./build/out.tex 
+	cat ./capters/*.md | ./ppp | pandoc -s -f markdown+yaml_metadata_block+hard_line_breaks+footnotes --filter pandoc-fignos -S -o ./build/out.tex --chapters --bibliography=./Citer.bib --template=./template.tex --biblatex && pdflatex -output-directory=./build/ ./build/out.tex && cp ./Citer.bib  ./build && cd ./build && bibtex out.aux && cd .. && pdflatex -output-directory=./build/ ./build/out.tex 
 	evince ./build/out.pdf
 
 default: pdf
