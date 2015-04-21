@@ -56,6 +56,8 @@ digraph g {
 }
 ~~~~~ -->
 
+![Merge](./img/merge.jpg)
+
 ### normalisierte Zusammenführung (Normalized Merge)
 <!-- Maschineller Merge (wahrscheinlichste Lösung) -->
 Wenn bei einer Synchronisierung mit zwei Objekten die selben Attribute mutiert wurden, kann im Falle von numerischen Attributen, das Objekt mit den geringsten Abweichungen vom Meridian über alle verfügbaren Datensätze verwendet werden. Es wird also das normalisierteste Attribut verwendet.
