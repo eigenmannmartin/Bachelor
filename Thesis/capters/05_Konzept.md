@@ -14,17 +14,17 @@ Auflösung: möglicher Datenverlust
 
 
 ## Konfliktvermeidung
-Das Konzept der Konfliktvermeidung verhindert das Auftreten von möglichen Konflikten durch die Definition von Einschränkungen im Funktionsumfang der Datenbanktransaktionen. So sind direkt Objekt aktualisierende Operationen nicht möglich und werden stattdessen, Client seitig, über hinzufügende Operationen ersetzt.
+Das Konzept der Konfliktvermeidung verhindert das Auftreten von möglichen Konflikten durch die Definition von Einschränkungen im Funktionsumfang der Datenbanktransaktionen. So sind Objekt aktualisierende Operationen nicht möglich und werden stattdessen, Client seitig, über hinzufügende Operationen ersetzt.
 
 ### Update Transformation
 <!-- Überfürung von Update in Insert -->
-Damit Mutationen für eine bestimmte Gruppe von Daten (???) konfliktfrei synchronisiert werden können, werden Mutationen in "inserts" verpackt.
+Damit Mutationen für eines oder mehrere Attribute konfliktfrei synchronisiert werden können, wird die Änderung als neues Objekt der Datensammlung hinzugefügt.
 
->nehme einen Jogurt aus dem Kühlschrank
+Änderungen 
 
-statt
+![Update Transformation](img/update-transformation.jpg)  {#fig:updatetransform}
 
->jetzt hat es noch 5 Jogurts im Kühlschrank
+{@fig:updatetransform}
 
 
 ### Wiederholbare Transaktion
