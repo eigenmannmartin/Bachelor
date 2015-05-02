@@ -28,36 +28,42 @@ Begriff der Klassifikation einführen
 Begriff der Attribute und Attributgruppen, Bildung von Gruppen durch Dateningenieur
 
 Klassifikation... aber nicht nötigerweise Datentyp (num, bin, text, logical)
+
+Diskussion Auftreten von Daten
  -->
 
 
-### Kontextbezogene Daten
+### Kontextbezogene Daten (Struktur)
 Daten die nur in einem bestimmten Kontext einen signifikanten Informationsgehalt aufweisen, der ohne Kontext nicht greifbar ist, werden als kontextbezogene Daten bezeichnet.
 (Kommentar auf einen Artikel)
 <!-- Korrektur der Prüfung -->
 
-### Unabhängige Daten
+### Unabhängige Daten (Struktur)
 Mit dem Begriff der unabhängigen Daten werden all jene Datensätze bezeichnet die in sich abgeschlossene Informationen beinhalten.
 (Artikel)
 
-### Exklusive Daten
+### Exklusive Daten (Art)
 Exklusive Daten sind Daten und Datensätze die nur von einem Aktor bearbeitet werden dürfen.
 (Wecker-Einstellungen)
 
-### Gemeinsame Daten
+### Gemeinsame Daten (Art)
 Daten die von mehreren Aktoren gleichzeitig gelesen und bearbeitet werden dürfen, werden als gemeinsame Daten bezeichnet.
 (Firmen-Todo-Liste)
 
-### Dynamische Daten
+### Dynamische Daten (Art)
 Automatisch generierte oder sich sehr schnell verändernde Daten werden dynamische Daten genannt. 
 (Inhalt im Kühlschrank)
 
-### Statische Daten
+Dynamische Daten werden vom Benutzer nicht verändert, und müssen desshalb auch nicht synchronisiert werden.
+
+### Statische Daten (Art)
 Daten die über einen grossen Zeitraum hinweg nicht an Gültigkeit verlieren werden statische Daten genannt.
 (Koch-Rezept)
 
-### Temporäre Daten
-Als Temporäre Daten können all jene Daten bezeichnet werden, die nur für einen sehr begrenzten Zeitraum gültig sind. 
+Statische Daten werden vom Benutzer nicht verändert und müssen desshalb auch nicht synchronisiert werden.
+
+### Temporäre Daten (Art)
+Als Temporäre Daten können all jene Daten bezeichnet werden, die nur für einen sehr begrenzten Zeitraum gültig sind. Diese Daten sind auch immer exclusive Daten.
 (Transaktions Logs)
 
 
