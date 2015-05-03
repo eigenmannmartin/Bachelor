@@ -16,10 +16,13 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       
-      {pattern: 'src/**/*.js', included: false},
-      {pattern: 'spec/**/*Spec.js', included: false},
+      {pattern: 'src/**/*.coffee', included: false},
+      //{pattern: 'src/**/*.js', included: false},
 
-      'test-main.js',
+      {pattern: 'spec/**/*Spec.coffee', included: false},
+      //{pattern: 'spec/**/*Spec.js', included: false},
+
+      'spec/test-main.js',
     ],
 
 
@@ -31,13 +34,26 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+        '**/*.coffee': 'coffee',
+        'src/**/*.coffee': 'coverage'
+    },
+
+    coverageReporter: { type : 'html', dir : 'coverage/' },
+    //coverageReporter: { type : 'text', dir : 'coverage/', file : 'coverage.txt' },
+
+    coffeePreprocessor: {
+      // options passed to the coffee compiler
+      options: {
+        bare: false,
+        sourceMap: false
+      }
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
 
     // web server port
