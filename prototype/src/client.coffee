@@ -1,4 +1,4 @@
-define 'client', [], () ->
+define 'src/client', [], () ->
   class App
   	constructor: ->
 
@@ -11,8 +11,10 @@ define 'client', [], () ->
   	stop: () ->
   		true
 
-  	### istanbul ignore next ###
-  	resume: () ->
-  		true
+  	resume: ( a, b ) ->
+  		if a or b
+  			true
+  		else
+  			false
 
   new App()

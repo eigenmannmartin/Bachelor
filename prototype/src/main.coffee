@@ -1,8 +1,10 @@
-define ['client'], ( client ) ->
-  class App
-  	constructor: ->
-      console.log('asdfasdfasdfasdf')
-      console.log( client.start() )
+require
+paths:
+    jquery:'Libs/jquery/jquery-1.8.0.min'
 
+shim:
+    'underscore':
+        exports : '_'
 
-  new App()
+require ["src/app"], (App)->
+  app = new App()

@@ -11,4 +11,5 @@ define ['src/client'], (client) ->
             expect(client.stop()).toBe true 
 
         it 'resume', ->
-            expect(client.resume()).toBe true
+            expect(client.resume( true )).toBe true
+            expect(client.resume( false )).toBe false

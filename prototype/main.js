@@ -1,5 +1,26 @@
 (function() {
-  define('client', [], function() {
+  define('src/app', ['src/client'], function(client) {
+    var App;
+    App = (function() {
+      function App() {
+        console.log('asdfasdfasdfasdf');
+        console.log(client.start());
+      }
+
+      App.prototype.asdf = function() {
+        return false;
+      };
+
+      return App;
+
+    })();
+    return App;
+  });
+
+}).call(this);
+
+(function() {
+  define('src/client', [], function() {
     var App;
     App = (function() {
       function App() {}
@@ -16,11 +37,12 @@
         return true;
       };
 
-
-      /* istanbul ignore next */
-
-      App.prototype.resume = function() {
-        return true;
+      App.prototype.resume = function(a, b) {
+        if (a || b) {
+          return true;
+        } else {
+          return false;
+        }
       };
 
       return App;
@@ -32,18 +54,21 @@
 }).call(this);
 
 (function() {
-  define(['client'], function(client) {
-    var App;
-    App = (function() {
-      function App() {
-        console.log('asdfasdfasdfasdf');
-        console.log(client.start());
+  require;
+  ({
+    paths: {
+      jquery: 'Libs/jquery/jquery-1.8.0.min'
+    },
+    shim: {
+      'underscore': {
+        exports: '_'
       }
+    }
+  });
 
-      return App;
-
-    })();
-    return new App();
+  require(["src/app"], function(App) {
+    var app;
+    return app = new App();
   });
 
 }).call(this);

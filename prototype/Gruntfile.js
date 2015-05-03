@@ -16,6 +16,11 @@ require('load-grunt-tasks')(grunt);
         options: {
           livereload: true
         }
+      },
+
+      tests: {
+        files: 'spec/**/*',
+        tasks: []
       }
     },
 
@@ -25,6 +30,13 @@ require('load-grunt-tasks')(grunt);
           port: 9991,
           base: './',
           livereload: true,
+          open: true
+        }
+      },
+      coverage: {
+        options: {
+          port: 9992,
+          base: './coverage',
           open: true
         }
       }
@@ -53,6 +65,7 @@ require('load-grunt-tasks')(grunt);
   grunt.registerTask('default', [
       
       'connect:app',
+      'connect:coverage',
       'coffee',
       'watch'
     ]);
