@@ -5,7 +5,7 @@
 
 <!-- redo -->
 Im Rahmen dieser Bachelorarbeit werden zwei grundsätzliche Umgangsmethodiken mit Synchronisationen bzw. Synchronisationskonflikten betrachtet.
-Synchronisationen können so gestaltet werden, dass keine Synchronisationskonflikte auftreten.
+Synchronisationen können so gestaltet werden, dass keine Synchronisationskonflikte auftreten, oder es können auftretende Konflikte gelöst werden.
 <!-- 
 Verhinderung: beschneidung Funktionsumfang
 
@@ -97,3 +97,82 @@ Statt das wahrscheinlichsten oder des erste eingehenden Attribut zu verwenden wi
 Das Gesamtkonzept besteht in einer Zusammenführung aller bereits erwähnter Konzepte. Je nach zu synchronisierendem Datenbestand müssend entsprechend Passende Lösungsverfahren angewendet werden.
 
 
+# Design des Prototypen
+In diesem Kapitel werden die aus dem Kapitel [Konzept] gewonnenen Erkenntnisse umgesetzt.
+
+## Design-Ansätze
+Zur Lösung der Aufgabenstellung wurden drei Design-Ansätze erarbeitet. Diese werden folgend kurz erläutert.
+
+### Server zentrierte Architektur
+Der Server führt alle Berechnungen o.ä. durch. Nur mit einer aktiven Verbindung zum Server können Manipulationen am Datenbestand durchgeführt werden.
+
+### Client zentrierte Architektur
+Der Client trifft Entscheidungen und führt die Berechtigungsprüfung durch. Die Resultate werden dann dem Server übermittelt.
+
+### Client zentrierte, Server basierte Architektur
+Der Client simuliert alle Manipulationen. Der Server entscheidet über das Resultat.
+
+## Entscheid
+Anforderung UC 5-8 => {Client zentrierte, Server basierte Architektur}
+
+
+## Design
+Der Prototyp besteht aus 2 Bausteinen; Server und Client.
+
+<!-- ~~~~~ {.plantuml .scale=100% .title=Komponenten .label=fig:components}
+@startuml
+
+package "Server" {
+    [Database]
+    [BE-Controller]
+    [Data-API]
+}
+package "Client" {
+    [Datastore]
+    [FE-Controller]
+}
+
+[FE-Controller] -> [BE-Controller]
+
+@enduml
+~~~~~ -->
+
+
+Die Bausteine werden in den folgenden Kapitel erläutert.
+
+## Server
+Der Server bietet einen Persistenz-, Verarbitungs- und Dastellungslayer.
+
+### Controller
+Aufgabe: Konfliktauflösung
+
+<!-- genaue Ausführung mit Ablaufdiagrammen -->
+
+### Data-API
+Aufgabe: Darstellung und Annahme der Daten
+vermutlich Rest-Like Standards - Aber plugable
+
+### Database
+Aufgabe: Persistenz
+
+
+## Client
+Der Client bietet keine Persistenz über einen Neustart hinweg.
+
+### Controller
+Aufgabe: Konfliktverhinderung wo möglich.
+
+### Datastore
+Speicherung der Daten + markieren nicht synchronisierter Daten.
+
+
+
+## Beispielapplikation
+Gem. Aufgabenstellung soll der Prototyp anhand eines passenden Fallbeispiel die Funktionsfähigkeit Zeigen.
+
+Die Beispielapplikation soll eine Ressourcenplan-Software sein. Folgendes soll möglich sein:
+
+1. einen neuen Raum erfassen (Name, Grösse, Anzahl Sitze)
+2. einen bestehenden Raum anpassen/löschen
+3. einen Termin auf einem Raum Buchen (Name, Zeit&Datum, Kurzbeschreibung, Besucherliste, persönliche Notizen)
+4. einen Bestehenden Termin anpassen/absagen

@@ -12,7 +12,15 @@ Dieses Kapitel adressiert die Implementation des Prototypen gemäss den Anroderu
 
 ## Entwicklung
 
+## Grafische Umsetung Fallbeispiel
 
 
 # Testing
 
+## Unit-Testing
+
+## Integration-Testing
+
+## Test der Akzeptanzkriterien
+
+## Überprüfung der Aufgabenstellung
