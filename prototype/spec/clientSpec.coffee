@@ -1,15 +1,7 @@
-define ['src/client'], (client) ->
-    describe 'just checking', ->
-        it 'works for app', ->
-            expect(client.start(1,1)).toBe true 
+define ['src/client'], ( client ) ->
+    describe 'checking basic setup', ->
+        it 'should be defined', ->
+            expect( client ).toBeDefined
 
-        it 'works for app', ->
-            expect(client.start(1,2)).toBe false
-
-    describe 'stoping', ->
-        it 'really needs to stop', ->
-            expect(client.stop()).toBe true 
-
-        it 'resume', ->
-            expect(client.resume( true )).toBe true
-            expect(client.resume( false )).toBe false
+        it 'should be a function', ->
+            expect( client ).toEqual( jasmine.any(Function) )

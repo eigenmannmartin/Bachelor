@@ -2,14 +2,7 @@
   define('src/app', ['src/client'], function(client) {
     var App;
     App = (function() {
-      function App() {
-        console.log('asdfasdfasdfasdf');
-        console.log(client.start());
-      }
-
-      App.prototype.asdf = function() {
-        return false;
-      };
+      function App() {}
 
       return App;
 
@@ -21,34 +14,14 @@
 
 (function() {
   define('src/client', [], function() {
-    var App;
-    App = (function() {
-      function App() {}
+    var Client;
+    Client = (function() {
+      function Client() {}
 
-      App.prototype.start = function(a, b) {
-        if (a === b) {
-          return true;
-        } else {
-          return false;
-        }
-      };
-
-      App.prototype.stop = function() {
-        return true;
-      };
-
-      App.prototype.resume = function(a, b) {
-        if (a || b) {
-          return true;
-        } else {
-          return false;
-        }
-      };
-
-      return App;
+      return Client;
 
     })();
-    return new App();
+    return Client;
   });
 
 }).call(this);
@@ -60,8 +33,8 @@
       jquery: 'Libs/jquery/jquery-1.8.0.min'
     },
     shim: {
-      'underscore': {
-        exports: '_'
+      'jquery': {
+        exports: '$'
       }
     }
   });
@@ -69,6 +42,20 @@
   require(["src/app"], function(App) {
     var app;
     return app = new App();
+  });
+
+}).call(this);
+
+(function() {
+  define('src/server', [], function() {
+    var Server;
+    Server = (function() {
+      function Server() {}
+
+      return Server;
+
+    })();
+    return Server;
   });
 
 }).call(this);

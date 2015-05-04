@@ -1,6 +1,5 @@
 define ['src/app'], (app) ->
-    describe 'just checking', ->
-        it 'works for app', ->
+    describe 'checking basic setup', ->
+        it 'app sould be able to get instanciated', ->
             App = new app()
             expect(App).toBeDefined
-            expect(App.asdf()).toBe false
