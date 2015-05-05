@@ -7,4 +7,4 @@ shim:
         exports : '$'
 
 require ["src/app"], (App)->
-  app = new App()
+  window.app = new App

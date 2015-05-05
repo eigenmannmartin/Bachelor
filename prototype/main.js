@@ -1,8 +1,24 @@
 (function() {
-  define('src/app', ['src/client'], function(client) {
+  define('src/app', ['src/client', 'src/datastoreInMemory'], function(client, ds) {
     var App;
     App = (function() {
       function App() {}
+
+      App.prototype.start = function() {
+        return new ds({
+          tables: [
+            {
+              users: {
+                'gender': {
+                  struct: 'enum',
+                  type: 'static',
+                  group: ''
+                }
+              }
+            }
+          ]
+        });
+      };
 
       return App;
 
@@ -126,8 +142,7 @@
   });
 
   require(["src/app"], function(App) {
-    var app;
-    return app = new App();
+    return window.app = new App;
   });
 
 }).call(this);

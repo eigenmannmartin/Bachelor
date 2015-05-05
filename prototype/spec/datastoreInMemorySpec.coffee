@@ -3,19 +3,19 @@ define [
 	], ( 
 		inMemoryDatastore
 	) ->
-	describe 'checking basic setup', ->
+	describe 'inMemoryDatastore', ->
 		it 'should be defined', ->
 			expect( inMemoryDatastore ).toBeDefined
 
 		it 'should be a function', ->
 			expect( inMemoryDatastore ).toEqual( jasmine.any(Function) )
 
-		it 'should be able to get instanciated', ->
+		it 'should be instancable', ->
 			iStore = new inMemoryDatastore
 			expect( iStore ).toEqual( jasmine.any(Object) )
 
-	describe 'creating tables', ->
-		it 'sould create a 2-value Table', ->
+	describe 'init', ->
+		it 'sould create a 2 attr table', ->
 			iStore = new inMemoryDatastore
 			iStore.init({
 				tables: [ users: [ 'firstname', 'lastname' ] ]
@@ -23,21 +23,45 @@ define [
 
 			expect( iStore.schema['users'] ).toEqual ['firstname', 'lastname']
 
-		it 'init also callable via constructor', ->
+		it 'schould be callable via constructor', ->
 			iStore = new inMemoryDatastore({
 				tables: [ users: [ 'firstname' ] ]
 			})
 
 			expect( iStore.schema['users'] ).toEqual ['firstname' ]
 
-	describe 'writing data to table', ->
+		it 'schould handle schema dependencies', ->
+			@iStore = new inMemoryDatastore
+			@iStore.init({
+				tables: [
+					users: {
+						'gender': 		{ struct:'enum', type:'static', 					group:'' },
+						'firstname': 	{ struct:'text', type:'depend', 	context:'name', group:'name' },
+						'lastname': 	{ struct:'text', type:'depend', 	context:'name', group:'name' },
+						'username': 	{ struct:'text', type:'dynamic', 	context:'name',	group:'name' },
+						'email': 		{ struct:'text', type:'excl', 						group:'' },
+						'street': 		{ struct:'text', type:'excl', 						group:'location' },
+						'city': 		{ struct:'text', type:'excl', 						group:'location' },
+						'state': 		{ struct:'text', type:'dynamic', 	context:'zip',	group:'location' },
+						'zip': 			{ struct:'text', type:'excl', 						group:'location' },
+						'job': 			{ struct:'text', type:'excel', 						group:'' },
+						'phone': 		{ struct:'text', type:'excel', 						group:'' },
+						'cell': 		{ struct:'text', type:'excel', 						group:'' },
+						'registered': 	{ struct:'text', type:'static', 					group:'' }
+						'lastlogin': 	{ struct:'text', type:'temp', 						group:'' }
+					}
+				]
+			})
+			expect( @iStore.schema['users']['gender']['type'] ).toEqual "static"
+
+	describe 'insert', ->
 		beforeEach () ->
 			@iStore = new inMemoryDatastore
 			@iStore.init({
 				tables: [ users: [ 'user', 'lastname' ] ]
 			})
 
-		it 'insert 2 values to store', ->
+		it 'schould be able to insert multiple rows', ->
 			@iStore.insert({
 				table: 'users',
 				data: [[ user: "Martin" ],
@@ -46,7 +70,7 @@ define [
 
 			expect( @iStore.datastore['users'][0]['user'] ).toEqual  "Martin"
 
-		it 'insert 2 values to store (2 keys)', ->
+		it 'schould be able to insert multiple rows (2 attributes)', ->
 			@iStore.insert({
 				table: 'users',
 				data: [[ user: "Martin", lastname: "Eigenmann" ],
@@ -55,7 +79,7 @@ define [
 			expect( @iStore.datastore['users'][0]['user'] ).toEqual "Martin"
 			expect( @iStore.datastore['users'][1]['lastname'] ).toEqual "Eigenmann"
 		
-		it 'only insert data to defined schema-fields', ->
+		it 'schould only insert data to defined schema-fields', ->
 			iStore = @iStore
 			func = () -> 
 				iStore.insert({
@@ -65,7 +89,7 @@ define [
 
 			expect( func ).toThrowError "age is not defined in schema"
 
-	describe 'reading from table', ->
+	describe 'get', ->
 		beforeEach () ->
 			@iStore = new inMemoryDatastore
 			@iStore.init({
@@ -78,15 +102,15 @@ define [
 					   [ user: "Fabian", lastname: "Eison" ]]
 			})
 
-		it 'single element', ->
+		it 'schould read single element (pk=0)', ->
 			expect( @iStore.get({ table: 'users', query: { pk: "0" } } )[0]['user'] ).toEqual "Martin"
 
-		it 'multiple elements ==', ->
+		it 'schould read multiple elements (lastname="Eigenmann")', ->
 			expect( @iStore.get( { table: 'users', query: { lastname: "Eigenmann" } } )[0]['user'] ).toEqual "Martin"
 			expect( @iStore.get( { table: 'users', query: { lastname: "Eigenmann" } } )[1]['user'] ).toEqual "Domenik"
 
-		it 'wildcard search', ->
+		it 'schould read evaluate wildcards (lastname=/Eis.*/)', ->
 			expect( @iStore.get( { table: 'users', query: { lastname: /Eis.*/ } } )[0]['user'] ).toEqual "Fabian"
 
-		it 'wildcard search, only match required', ->
+		it 'schould read only requested elements (lastname=/Eis/)', ->
 			expect( @iStore.get( { table: 'users', query: { lastname: /Eis/ } } ).length ).toEqual 0
