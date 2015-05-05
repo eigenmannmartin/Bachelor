@@ -39,7 +39,8 @@ define 'src/datastoreInMemory', [], () ->
 			result = []
 			for key, val of _query
 				for index of this.datastore[ _tblname ]
-					if this.datastore[ _tblname ][index][key] is val
+					_match = this.datastore[ _tblname ][index][key].toString().match( val ) 
+					if _match and _match[0] is this.datastore[ _tblname ][index][key].toString()
 						result.push this.datastore[ _tblname ][index]
 
 			result

@@ -88,14 +88,15 @@
       };
 
       inMemoryDatastore.prototype.get = function(data) {
-        var _query, _tblname, index, key, result, val;
+        var _match, _query, _tblname, index, key, result, val;
         _tblname = data['table'];
         _query = data['query'];
         result = [];
         for (key in _query) {
           val = _query[key];
           for (index in this.datastore[_tblname]) {
-            if (this.datastore[_tblname][index][key] === val) {
+            _match = this.datastore[_tblname][index][key].toString().match(val);
+            if (_match && _match[0] === this.datastore[_tblname][index][key].toString()) {
               result.push(this.datastore[_tblname][index]);
             }
           }

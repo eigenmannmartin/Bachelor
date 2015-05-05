@@ -74,12 +74,19 @@ define [
 			@iStore.insert({
 				table: 'users'
 				data: [[ user: "Martin", lastname: "Eigenmann" ],
-					   [ user: "Domenik", lastname: "Eigenmann" ]]
+					   [ user: "Domenik", lastname: "Eigenmann" ],
+					   [ user: "Fabian", lastname: "Eison" ]]
 			})
 
 		it 'single element', ->
-			expect( @iStore.get({ table: 'users', query: { pk: 0 } } )[0]['user'] ).toEqual "Martin"
+			expect( @iStore.get({ table: 'users', query: { pk: "0" } } )[0]['user'] ).toEqual "Martin"
 
 		it 'multiple elements ==', ->
 			expect( @iStore.get( { table: 'users', query: { lastname: "Eigenmann" } } )[0]['user'] ).toEqual "Martin"
 			expect( @iStore.get( { table: 'users', query: { lastname: "Eigenmann" } } )[1]['user'] ).toEqual "Domenik"
+
+		it 'wildcard search', ->
+			expect( @iStore.get( { table: 'users', query: { lastname: /Eis.*/ } } )[0]['user'] ).toEqual "Fabian"
+
+		it 'wildcard search, only match required', ->
+			expect( @iStore.get( { table: 'users', query: { lastname: /Eis/ } } ).length ).toEqual 0
