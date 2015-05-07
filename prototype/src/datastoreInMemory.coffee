@@ -33,7 +33,7 @@ define 'datastoreInMemory', [], () ->
 				this.datastore[ _tblname ].push newrow
 
 
-		get: ( data ) ->
+		select: ( data ) ->
 			_tblname = data[ 'table' ]
 			_query = data[ 'query' ]
 			result = []

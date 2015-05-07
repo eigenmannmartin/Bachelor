@@ -17,6 +17,7 @@ module.exports = function(config) {
     files: [
       
       {pattern: 'src/**/*.coffee', included: false},
+      {pattern: 'src/templates/**/*.tpl', included: false},
       //{pattern: 'src/**/*.js', included: false},
 
       {pattern: 'spec/**/*Spec.coffee', included: false},
@@ -24,12 +25,15 @@ module.exports = function(config) {
 
       {pattern: 'bower_components/**/*', included: false},
 
+      {pattern: 'components/**/*', included: false},
+
       'spec/test-main.js',
     ],
 
 
     // list of files to exclude
     exclude: [
+      'src/main.coffee'
     ],
 
 
@@ -55,7 +59,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress'],
 
 
     // web server port

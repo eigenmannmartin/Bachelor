@@ -17,7 +17,9 @@ require.config({
   baseUrl: '/base/src/',
 
   paths : {
-    jquery:'/base/bower_components/jquery/dist/jquery',
+    jquery:'/base/bower_components/jquery/dist/jquery.min',
+    underscore: '/base/bower_components/underscore/underscore-min',
+    text: '/base/components/requirejs/text',
     spec:'../spec'
   },
 

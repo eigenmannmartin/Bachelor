@@ -11,8 +11,8 @@ require('load-grunt-tasks')(grunt);
     },
     watch: {
       app: {
-        files: 'src/**/*',
-        tasks: ['coffee:compile', 'requirejs'],
+        files: ['src/**/*', 'index.html', 'copy'],
+        tasks: ['coffee:compile', /*'requirejs'*/],
         options: {
           livereload: true
         }
@@ -50,9 +50,19 @@ require('load-grunt-tasks')(grunt);
         src: ['**/*.coffee'],
         dest: './js/src',
         bare: true,
-        sourceMap: false,
-        ext: '.js'
+        ext: '.js',
+        options: {
+          sourceMap: true
+        }
       },
+    },
+
+    copy: {
+      tpl: {
+        files: [
+          {expand: true, src: ['src/templates/**/*.tpl'], dest: 'js/'},
+        ]
+      }
     },
 
     requirejs: {
@@ -78,9 +88,11 @@ require('load-grunt-tasks')(grunt);
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   grunt.registerTask('default', [
       'coffee',
+      'copy',
       //'requirejs',
       'connect:app',
       'connect:coverage',

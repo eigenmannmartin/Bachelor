@@ -30,29 +30,6 @@ define [
 
 			expect( iStore.schema['users'] ).toEqual ['firstname' ]
 
-		it 'schould handle schema dependencies', ->
-			@iStore = new inMemoryDatastore
-			@iStore.init({
-				tables: [
-					users: {
-						'gender': 		{ struct:'enum', type:'static', 					group:'' },
-						'firstname': 	{ struct:'text', type:'depend', 	context:'name', group:'name' },
-						'lastname': 	{ struct:'text', type:'depend', 	context:'name', group:'name' },
-						'username': 	{ struct:'text', type:'dynamic', 	context:'name',	group:'name' },
-						'email': 		{ struct:'text', type:'excl', 						group:'' },
-						'street': 		{ struct:'text', type:'excl', 						group:'location' },
-						'city': 		{ struct:'text', type:'excl', 						group:'location' },
-						'state': 		{ struct:'text', type:'dynamic', 	context:'zip',	group:'location' },
-						'zip': 			{ struct:'text', type:'excl', 						group:'location' },
-						'job': 			{ struct:'text', type:'excel', 						group:'' },
-						'phone': 		{ struct:'text', type:'excel', 						group:'' },
-						'cell': 		{ struct:'text', type:'excel', 						group:'' },
-						'registered': 	{ struct:'text', type:'static', 					group:'' }
-						'lastlogin': 	{ struct:'text', type:'temp', 						group:'' }
-					}
-				]
-			})
-			expect( @iStore.schema['users']['gender']['type'] ).toEqual "static"
 
 	describe 'insert', ->
 		beforeEach () ->
@@ -89,7 +66,7 @@ define [
 
 			expect( func ).toThrowError "age is not defined in schema"
 
-	describe 'get', ->
+	describe 'select', ->
 		beforeEach () ->
 			@iStore = new inMemoryDatastore
 			@iStore.init({
@@ -103,14 +80,14 @@ define [
 			})
 
 		it 'schould read single element (pk=0)', ->
-			expect( @iStore.get({ table: 'users', query: { pk: "0" } } )[0]['user'] ).toEqual "Martin"
+			expect( @iStore.select({ table: 'users', query: { pk: "0" } } )[0]['user'] ).toEqual "Martin"
 
 		it 'schould read multiple elements (lastname="Eigenmann")', ->
-			expect( @iStore.get( { table: 'users', query: { lastname: "Eigenmann" } } )[0]['user'] ).toEqual "Martin"
-			expect( @iStore.get( { table: 'users', query: { lastname: "Eigenmann" } } )[1]['user'] ).toEqual "Domenik"
+			expect( @iStore.select( { table: 'users', query: { lastname: "Eigenmann" } } )[0]['user'] ).toEqual "Martin"
+			expect( @iStore.select( { table: 'users', query: { lastname: "Eigenmann" } } )[1]['user'] ).toEqual "Domenik"
 
 		it 'schould read evaluate wildcards (lastname=/Eis.*/)', ->
-			expect( @iStore.get( { table: 'users', query: { lastname: /Eis.*/ } } )[0]['user'] ).toEqual "Fabian"
+			expect( @iStore.select( { table: 'users', query: { lastname: /Eis.*/ } } )[0]['user'] ).toEqual "Fabian"
 
 		it 'schould read only requested elements (lastname=/Eis/)', ->
-			expect( @iStore.get( { table: 'users', query: { lastname: /Eis/ } } ).length ).toEqual 0
+			expect( @iStore.select( { table: 'users', query: { lastname: /Eis/ } } ).length ).toEqual 0
