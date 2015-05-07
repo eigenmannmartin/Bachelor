@@ -1,4 +1,4 @@
-define 'src/client', [], () ->
+define 'client', [], () ->
 	class Client
 		constructor: ->
 

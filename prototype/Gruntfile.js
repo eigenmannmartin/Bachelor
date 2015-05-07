@@ -12,7 +12,7 @@ require('load-grunt-tasks')(grunt);
     watch: {
       app: {
         files: 'src/**/*',
-        tasks: ['coffee:compile'],
+        tasks: ['coffee:compile', 'requirejs'],
         options: {
           livereload: true
         }
@@ -44,10 +44,26 @@ require('load-grunt-tasks')(grunt);
 
     coffee: {
       compile: {
-        files: {
-          './main.js': ['src/**/*.coffee']
-        }
+        expand: true,
+        flatten: false,
+        cwd: './src/',
+        src: ['**/*.coffee'],
+        dest: './js/src',
+        bare: true,
+        sourceMap: false,
+        ext: '.js'
       },
+    },
+
+    requirejs: {
+      compile: {
+        options: {
+          baseUrl: "./js/",
+          mainConfigFile: "./js/src/main.js",
+          name: "src/main",
+          out: "./js/main.min.js"
+        }
+      }
     },
 
     karma: {
@@ -61,12 +77,13 @@ require('load-grunt-tasks')(grunt);
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-requirejs');
 
   grunt.registerTask('default', [
-      
+      'coffee',
+      //'requirejs',
       'connect:app',
       'connect:coverage',
-      'coffee',
       'watch'
     ]);
 

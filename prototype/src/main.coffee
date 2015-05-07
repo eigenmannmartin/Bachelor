@@ -1,10 +1,17 @@
+###
+
+TODO:
+API-Design dependend on Domain
+
+###
+
 require
 paths:
-    jquery:'Libs/jquery/jquery-1.8.0.min'
+    jquery:'bower_components/jquery/dist/jquery'
 
 shim:
     'jquery':
         exports : '$'
 
-require ["src/app"], (App)->
+require ["app"], (App)->
   window.app = new App

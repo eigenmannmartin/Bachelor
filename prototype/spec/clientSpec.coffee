@@ -1,4 +1,4 @@
-define ['src/client'], ( client ) ->
+define ['client'], ( client ) ->
     describe 'checking basic setup', ->
         it 'should be defined', ->
             expect( client ).toBeDefined

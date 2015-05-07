@@ -1,9 +1,32 @@
-define 'src/app', ['src/client', 'src/datastoreInMemory'], ( client, ds ) ->
-  class App
+define [
+	 'jquery'
+	,'client'
+	,'visual/datastore'
+	,'datastoreInMemory'
+],( 
+	 $
+	,client
+	,visualdatastore 
+	,datastore
+) ->
+	class App
 
-  	constructor: ->
+		constructor: ->
+			this.run
 
-  	start: ()->
-  		new ds({tables:[ users: { 'gender':{ struct:'enum', type:'static', group:'' }}]})
-
-  App
+		run: () ->
+			this.store = new datastore({ tables:[users:{'gender','firstname','lastname','username','email','street','city','state','zip','job'}]})
+			this.store.insert({ table: 'users', data: [[ gender: "Male", 
+							 firstname: "Martin", 
+							 lastname: "Eigenmann",
+							 username: "eim",
+							 email: "mail@mail.com",
+							 street: "Strasse 12",
+							 city: "St.Gallen",
+							 zip: "9000",
+							 job: "IT specialist" ]]
+			})
+			vStore = new visualdatastore( a )
+			$('#container').html vStore.render()
+	
+	App

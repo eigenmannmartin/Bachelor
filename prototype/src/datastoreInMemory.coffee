@@ -1,4 +1,4 @@
-define 'src/datastoreInMemory', [], () ->
+define 'datastoreInMemory', [], () ->
 	class inMemoryDatastore
 
 		datastore: []

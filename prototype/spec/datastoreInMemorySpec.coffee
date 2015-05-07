@@ -1,5 +1,5 @@
 define [
-		'src/datastoreInMemory'
+		'datastoreInMemory'
 	], ( 
 		inMemoryDatastore
 	) ->

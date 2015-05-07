@@ -1,4 +1,4 @@
-define 'src/server', [], () ->
+define 'server', [], () ->
 	class Server
 		constructor: ->
 

@@ -1,6 +1,6 @@
 define [
-		'src/server'
-		,'src/datastoreInMemory'
+		'server'
+		,'datastoreInMemory'
 	], ( 
 		server
 		,inMemoryDatastore

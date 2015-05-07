@@ -22,6 +22,8 @@ module.exports = function(config) {
       {pattern: 'spec/**/*Spec.coffee', included: false},
       //{pattern: 'spec/**/*Spec.js', included: false},
 
+      {pattern: 'bower_components/**/*', included: false},
+
       'spec/test-main.js',
     ],
 
