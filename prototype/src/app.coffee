@@ -1,12 +1,10 @@
 define [
-	'jquery'
-	,'underscore'
+	'flux'
 	,'client'
 	,'visual/datastore'
 	,'datastoreInMemory'
 ],( 
-	$
-	,_
+	Flux
 	,client
 	,visualdatastore 
 	,datastore
@@ -14,17 +12,18 @@ define [
 	class App
 
 		constructor: ->
-			this.run()
+			Flux.dispatcher.dispatch {actionType: 'log2'}
+			@run()
 
 		run: () ->
 	
-			this.store = new datastore({
+			@store = new datastore({
 				tables:[
 					users: ['gender','firstname','lastname','username','email','street','city','state','zip','job']
 				]
 			})
 
-			this.store.insert({ table: 'users', data: [[ gender: "Male", 
+			@store.insert({ table: 'users', data: [[ gender: "Male", 
 							 firstname: "Martin", 
 							 lastname: "Eigenmann",
 							 username: "eim",
@@ -35,11 +34,11 @@ define [
 							 job: "IT specialist" ]]
 			})
 
-			vStore = new visualdatastore( this.store )
+			vStore = new visualdatastore( @store )
 			
 
 
-			$('#container').html(  "it works!" )
+			#$('#container').html(  "it works!" )
 
 	
 	App

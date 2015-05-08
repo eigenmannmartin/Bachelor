@@ -20,6 +20,10 @@ require.config({
     jquery:'/base/bower_components/jquery/dist/jquery.min',
     underscore: '/base/bower_components/underscore/underscore-min',
     text: '/base/components/requirejs/text',
+    flux: '/base/bower_components/fluxify/build/fluxify.min',
+    react: '/base/bower_components/react/react',
+    reactrouter: '/base/bower_components/react-router/build/umd/ReactRouter.min',
+
     spec:'../spec'
   },
 

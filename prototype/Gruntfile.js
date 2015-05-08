@@ -12,7 +12,7 @@ require('load-grunt-tasks')(grunt);
     watch: {
       app: {
         files: ['src/**/*', 'index.html', 'copy'],
-        tasks: ['coffee:compile', /*'requirejs'*/],
+        tasks: ['cjsx:compile', /*'requirejs'*/],
         options: {
           livereload: true
         }
@@ -42,7 +42,7 @@ require('load-grunt-tasks')(grunt);
       }
     },  
 
-    coffee: {
+    cjsx: {
       compile: {
         expand: true,
         flatten: false,
@@ -87,11 +87,12 @@ require('load-grunt-tasks')(grunt);
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-coffee-react');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-copy');
 
   grunt.registerTask('default', [
-      'coffee',
+      'cjsx',
       'copy',
       //'requirejs',
       'connect:app',
