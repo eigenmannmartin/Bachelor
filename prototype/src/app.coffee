@@ -1,36 +1,29 @@
-define ['flux','client','visual/datastore','datastoreInMemory'
-],( 	 Flux,  client,  visualdatastore,   datastore
+define ['flux'
+],( 	 flux
 ) ->
 	class App
 
 		constructor: ->
-			Flux.dispatcher.dispatch {actionType: 'log2'}
-			@run()
+			@setupLogger()
+
+		setupLogger: ->
+			flux.dispatcher.register (payload) ->
+				if payload.actionType is 'log.info'
+					console.log "Info: " + payload.msg
+
+				if payload.actionType is 'log.warn'
+					console.log "Warn: " + payload.msg
+
+				if payload.actionType is 'log.error'
+					console.log "Error: " + payload.msg
 
 		run: () ->
-	
-			@store = new datastore({
-				tables:[
-					users: ['gender','firstname','lastname','username','email','street','city','state','zip','job']
-				]
-			})
+			#log just to indicate
+			flux.dispatcher.dispatch {actionType: 'log.info', msg: 'called App.run()'}
 
-			@store.insert({ table: 'users', data: [[ gender: "Male", 
-							 firstname: "Martin", 
-							 lastname: "Eigenmann",
-							 username: "eim",
-							 email: "mail@mail.com",
-							 street: "Strasse 12",
-							 city: "St.Gallen",
-							 zip: "9000",
-							 job: "IT specialist" ]]
-			})
+			#fire up router
+			require(['router'])
 
-			vStore = new visualdatastore( @store )
-			
-
-
-			#$('#container').html(  "it works!" )
 
 	
 	App

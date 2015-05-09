@@ -23,25 +23,14 @@ require.config
 
 
 
-require ["app", 'flux', 'router'
-],(		  App,   Flux,   Router
+require ["app", 'flux'
+],(		  App,   Flux
 )->
 	window.app = new App()
+	window.app.run()
+
+
 	window.flux = Flux
-	#console.log Flux
-	#console.log React
-	#console.log Router
-
-	Flux.dispatcher.register (payload) ->
-		if payload.actionType is 'log' or 'log2'
-			console.log "logging :-D"
-
-		console.log arguments
-
-	Flux.dispatcher.dispatch {actionType: 'log'}
-		.then ()->
-			console.log "everithing dispatched properly"
-
 
 
 
