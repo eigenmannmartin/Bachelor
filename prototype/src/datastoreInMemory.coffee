@@ -1,4 +1,6 @@
-define 'datastoreInMemory', [], () ->
+define 'datastoreInMemory', [ 'flux'
+], (						   flux
+) ->
 	class inMemoryDatastore
 
 		datastore: []
@@ -9,6 +11,8 @@ define 'datastoreInMemory', [], () ->
 				this.init opts 
 
 		init: ( opts ) ->
+			flux.dispatcher.dispatch {actionType: 'log.info', msg: 'called datastoreInMemory.init()'}
+
 			this.datastore = []
 			this.schema = []
 			for tables in opts[ 'tables' ]
@@ -20,7 +24,9 @@ define 'datastoreInMemory', [], () ->
 			_tblname = data[ 'table' ]
 			_tblrows = data[ 'data' ]
 
+			flux.dispatcher.dispatch {actionType: 'log.info', msg: 'called datastoreInMemory.insert() on table: ' + _tblname}
 
+			result = 0
 			for row in _tblrows
 				newrow = []
 				for key, val of row[0]
@@ -31,11 +37,17 @@ define 'datastoreInMemory', [], () ->
 
 				newrow[ 'pk' ] = this.datastore[ _tblname ].length
 				this.datastore[ _tblname ].push newrow
+				result += 1
+
+			result
 
 
 		select: ( data ) ->
 			_tblname = data[ 'table' ]
 			_query = data[ 'select' ]
+
+			flux.dispatcher.dispatch {actionType: 'log.info', msg: 'called datastoreInMemory.select() on table: ' + _tblname}
+
 			result = []
 			for key, val of _query
 				for index of this.datastore[ _tblname ]
@@ -49,20 +61,29 @@ define 'datastoreInMemory', [], () ->
 			_tblname = data[ 'table' ]
 			_query = data[ 'select' ]
 			_update = data[ 'update' ]
-			result = []
+
+			flux.dispatcher.dispatch {actionType: 'log.info', msg: 'called datastoreInMemory.update() on table: ' + _tblname}
+
+			result = 0
 
 			for key, val of _query
 				for index of this.datastore[ _tblname ]
 					_match = this.datastore[ _tblname ][index][key].toString().match( val ) 
 					if _match and _match[0] is this.datastore[ _tblname ][index][key].toString()
+						result += 1
 						for u_key, u_val of _update							
 							this.datastore[ _tblname ][index][u_key] = u_val
+
+			result
 
 
 
 		delete: ( data ) ->
 			_tblname = data[ 'table' ]
 			_query = data[ 'select' ]
+
+			flux.dispatcher.dispatch {actionType: 'log.info', msg: 'called datastoreInMemory.delete() on table: ' + _tblname}
+
 			result = []
 			for key, val of _query
 				for index of this.datastore[ _tblname ]

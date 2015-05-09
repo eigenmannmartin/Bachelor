@@ -8,6 +8,7 @@ define ['flux'
 
 		setupLogger: ->
 			flux.dispatcher.register (payload) ->
+				return false
 				if payload.actionType is 'log.info'
 					console.log "Info: " + payload.msg
 
