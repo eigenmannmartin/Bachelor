@@ -29,7 +29,7 @@ define 'datastoreInMemory', [ 'flux'
 			result = 0
 			for row in _tblrows
 				newrow = []
-				for key, val of row[0]
+				for key, val of row
 					if key not in this.schema[ _tblname ]
 						throw new Error key + " is not defined in schema" 
 					else

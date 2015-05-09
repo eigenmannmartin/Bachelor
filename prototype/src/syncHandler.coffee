@@ -9,6 +9,11 @@ define 'syncHandler', ['flux', 'datastoreInMemory'
 		@DATE = "date"
 		@TEXT = "text"
 
+		@STATIC = "stat"
+		@PRIVATE = "priv"
+		@DYNAMIC = "dyn"
+		@TEMPORARY = "temp"
+
 		constructor: ( opts ) ->
 			@DatastoreConfig = false
 			@DATASTORE = false
@@ -37,6 +42,7 @@ define 'syncHandler', ['flux', 'datastoreInMemory'
 
 			definition.created = { type: SyncHandler.DATE }
 			definition.modified = { type: SyncHandler.DATE }
+			definition.id = { type: SyncHandler.INTEGER }
 			
 			@Models[name] = definition
 
@@ -49,6 +55,13 @@ define 'syncHandler', ['flux', 'datastoreInMemory'
 
 
 
+		_uuid: () ->
+			'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) ->
+				r = Math.random() * 16 | 0
+				v = if c is 'x' then r else (r & 0x3|0x8)
+				v.toString(16)
+			)
+
 
 		_get: ( msg ) ->
 			[ressource, data] = @_getHoock( msg.ressource, msg.data )
@@ -58,24 +71,18 @@ define 'syncHandler', ['flux', 'datastoreInMemory'
 			}
 			@Datastore.select( _statement )
 
-		_getHoock: ( ressource, data ) ->
-			[ressource, data]
-
 
 		_put: ( msg ) ->
-			[ressource, data] = @_putHoock( msg.ressource, msg.data)
+			[ressource, data] = @_putHoock( msg.ressource, msg.data )
 			_statement = {
 				table: ressource,
 				data: data
 			}
 			@Datastore.insert( _statement )
 
-		_putHoock: ( ressource, data ) ->
-			[ressource, data]
-
 
 		_update: ( msg ) ->
-			[ressource, select, update] = @_updateHoock( msg.ressource, msg.data.select, msg.data.update)
+			[ressource, select, update] = @_updateHoock( msg.ressource, msg.data.select, msg.data.update )
 			_statement = {
 				table: ressource,
 				select: select,
@@ -83,17 +90,36 @@ define 'syncHandler', ['flux', 'datastoreInMemory'
 			}
 			@Datastore.update( _statement )
 
-		_updateHoock: ( ressource, select, update ) ->
-			[ressource, select, update]
-
 
 		_delete: ( msg ) ->
-			[ressource, data] = @_updateHoock( msg.ressource, msg.data)
+			[ressource, data] = @_deleteHoock( msg.ressource, msg.data )
 			_statement = {
 				table: ressource
 				select: data
 			}
 			@Datastore.delete( _statement )
+
+
+
+		_getHoock: ( ressource, data ) ->
+			[ressource, data]
+
+		_updateHoock: ( ressource, select, update ) ->
+			if select.pk?
+				all_existing = @Datastore.select({ table: ressource, select: select })
+				existing = all_existing[0]
+				if all_existing.length > 1 then throw new Error "Update failed: selected multiple elements to update"
+				if existing.id != update.id then throw new Error "You are trying to update an already changed element"
+
+			[ressource, select, update]
+
+		_putHoock: ( ressource, data ) ->
+			for element in data  #set default fields
+				element.id = @_uuid()
+				element.created = new Date().getTime()
+				element.modified = 0
+
+			[ressource, data]
 
 		_deleteHoock: ( ressource, data ) ->
 			[ressource, data]

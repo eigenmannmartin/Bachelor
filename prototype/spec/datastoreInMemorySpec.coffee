@@ -39,29 +39,45 @@ define [
 			})
 
 		it 'schould be able to insert multiple rows', ->
+			u1 = []
+			u1['user'] = "Martin"
+
+			u2 = []
+			u2['user'] = "Domenik"
+
 			@iStore.insert({
 				table: 'users',
-				data: [[ user: "Martin" ],
-					   [ user: "Domenik" ]]
+				data: [u1, u2]
 			})
 
 			expect( @iStore.datastore['users'][0]['user'] ).toEqual  "Martin"
 
 		it 'schould be able to insert multiple rows (2 attributes)', ->
+			u1 = []
+			u1['user'] = "Martin"
+			u1['lastname'] = "Eigenmann"
+
+			u2 = []
+			u2['user'] = "Domenik"
+			u2['lastname'] = "Eigenmann"
+
 			@iStore.insert({
 				table: 'users',
-				data: [[ user: "Martin", lastname: "Eigenmann" ],
-					   [ user: "Domenik", lastname: "Eigenmann" ]]
+				data: [u1, u2]
 			})
 			expect( @iStore.datastore['users'][0]['user'] ).toEqual "Martin"
 			expect( @iStore.datastore['users'][1]['lastname'] ).toEqual "Eigenmann"
 		
 		it 'schould only insert data to defined schema-fields', ->
+			u1 = []
+			u1['user'] = "Martin"
+			u1['age'] = "20"
+
 			iStore = @iStore
 			func = () -> 
 				iStore.insert({
 					table: 'users',
-					data: [[ user: "Martin", age: "20" ]]
+					data: [u1]
 				})
 
 			expect( func ).toThrowError "age is not defined in schema"
@@ -72,11 +88,22 @@ define [
 			@iStore.init({
 				tables: [ users: [ 'user', 'lastname' ] ]
 			})
+
+			u1 = []
+			u1['user'] = "Martin"
+			u1['lastname'] = "Eigenmann"
+
+			u2 = []
+			u2['user'] = "Domenik"
+			u2['lastname'] = "Eigenmann"
+
+			u3 = []
+			u3['user'] = "Fabian"
+			u3['lastname'] = "Eison"
+
 			@iStore.insert({
 				table: 'users'
-				data: [[ user: "Martin", lastname: "Eigenmann" ],
-					   [ user: "Domenik", lastname: "Eigenmann" ],
-					   [ user: "Fabian", lastname: "Eison" ]]
+				data: [u1, u2, u3]
 			})
 
 		describe 'select', ->
