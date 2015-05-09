@@ -1,13 +1,5 @@
-define [
-	'flux'
-	,'client'
-	,'visual/datastore'
-	,'datastoreInMemory'
-],( 
-	Flux
-	,client
-	,visualdatastore 
-	,datastore
+define ['flux','client','visual/datastore','datastoreInMemory'
+],( 	 Flux,  client,  visualdatastore,   datastore
 ) ->
 	class App
 

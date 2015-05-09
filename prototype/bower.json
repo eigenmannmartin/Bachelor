@@ -20,6 +20,7 @@
     "underscore": "~1.8.3",
     "react": "~0.13.2",
     "react-router": "~0.13.3",
-    "fluxify": "~0.2.1"
+    "fluxify": "~0.2.1",
+    "bootstrap": "~3.3.4"
   }
 }
