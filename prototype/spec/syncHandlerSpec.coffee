@@ -1,9 +1,11 @@
 define ['syncHandler'], (SyncHandler) ->
 	describe 'checking basic setup', ->
 		beforeEach () ->
-			@SH = new SyncHandler( { DatastoreConfig: {
-				tables: [ users: [ 'user', 'lastname' ] ]
-			}})
+			@SH = new SyncHandler()
+			@SH.define( 'users', 
+				user: { type: SyncHandler.STRING }
+				lastname: { type: SyncHandler.STRING }
+			)
 			@SH.run()
 			
 
@@ -12,8 +14,6 @@ define ['syncHandler'], (SyncHandler) ->
 
 		it 'schould use opts:DatastoreConfig or false', ->
 			expect(new SyncHandler().DatastoreConfig).toEqual false
-			expect(new SyncHandler({DatastoreConfig: "test"}).DatastoreConfig).toEqual "test"
-
 
 		it 'should startup a Datastore', ->
 			###!!! this test might not work !!!###
@@ -44,9 +44,11 @@ define ['syncHandler'], (SyncHandler) ->
 
 	describe 'get/update/delete', ->
 		beforeEach () ->
-			@SH = new SyncHandler( { DatastoreConfig: {
-				tables: [ users: [ 'user', 'lastname' ] ]
-			}})
+			@SH = new SyncHandler()
+			@SH.define( 'users', 
+				user: { type: SyncHandler.STRING }
+				lastname: { type: SyncHandler.STRING }
+			)
 			@SH.run()
 
 			message =
@@ -72,3 +74,53 @@ define ['syncHandler'], (SyncHandler) ->
 			result = @SH.dispatch({ actionType: "update", msg: message })
 			expect( result ).toEqual 1
 			expect( @SH.Datastore.datastore['users'][0]['user'] ).toEqual "Maddin"
+
+		it 'should execute delete action', ->
+			message =
+				ressource: "users"
+				data: { pk: "0" }
+			result = @SH.dispatch({ actionType: "delete", msg: message })
+			expect( result ).toEqual 1
+			expect( @SH.Datastore.datastore['users'][0]['user'] ).toEqual "Domenik"
+
+
+	describe 'define datastructure', ->
+		beforeEach () ->
+			@SH = new SyncHandler()
+
+		it 'defines "define" as a function', ->
+			expect( @SH.define() ).toBeDefined
+
+		it 'creates structure', ->
+			@SH.define( 'users', {
+				user: { type: SyncHandler.STRING }
+				lastname: { type: SyncHandler.STRING }
+			})
+			@SH.run()
+
+			expect( @SH.Datastore.datastore['users'] ).toBeDefined
+			expect( @SH.Datastore.schema['users'][0] ).toEqual 'user'
+
+		it 'set default fields created and modified', ->
+			@SH.define( 'users', {
+				user: { type: SyncHandler.STRING }
+				lastname: { type: SyncHandler.STRING }
+			})
+			@SH.run()
+
+			expect( @SH.Datastore.schema['users'][2] ).toEqual 'created'
+			expect( @SH.Datastore.schema['users'][3] ).toEqual 'modified'
+
+		it '', ->
+			@SH.define( 'users', {
+				user: { type: SyncHandler.STRING, group: "user" }
+				lastname: { type: SyncHandler.STRING, group: "user" }
+			})
+			@SH.run()
+
+		it '', ->
+			@SH.define( 'users', {
+				user: { type: SyncHandler.STRING, group: "user" }
+				lastname: { type: SyncHandler.STRING, group: "user" }
+			})
+			@SH.run()
