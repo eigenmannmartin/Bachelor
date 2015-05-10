@@ -32,8 +32,7 @@ define 'visual/static', ['react', 'reactrouter', 'flux'
 					<div id="navbar" className="collapse navbar-collapse">
 						<ul className="nav navbar-nav">
 							<li><Link to="Home">Home</Link></li>
-							<li><Link to="App" params={{id: "1"}}>App1</Link></li>
-							<li><Link to="App" params={{id: "2"}}>App2</Link></li>
+							<li><Link to="App">App</Link></li>
 							<li><Link to="About">About</Link></li>
 						</ul>
 					</div>

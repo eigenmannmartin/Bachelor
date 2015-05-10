@@ -1,5 +1,5 @@
-define 'router', ['react', 'reactrouter', 'flux', 'visual/static', 'visual/rooms'
-],(				   React,   Router,   	   flux,   staticPages,		Rooms
+define 'router', ['react', 'reactrouter', 'flux', 'visual/static', 'visual/rooms', 'visual/dates'
+],(				   React,   Router,   	   flux,   staticPages,		Rooms,			Dates
 ) ->
 
 	@RouteHandler = Router.RouteHandler
@@ -14,6 +14,7 @@ define 'router', ['react', 'reactrouter', 'flux', 'visual/static', 'visual/rooms
 		<Route handler={App} path="/">
 			<DefaultRoute name="Home" handler={Home}/>
 			<Route name="App" path="/App/" handler={Rooms}>
+				<Route name="SelectDate" path="/App/:roomId/" handler={Dates}/>
 			</Route>
 			<Route name="About" handler={About} />
 			<NotFoundRoute handler={NotFound}/>
