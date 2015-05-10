@@ -1,5 +1,5 @@
 define 'visual/static', ['react', 'reactrouter', 'flux'
-],(				   React,   Router,   	   flux
+],(				   		  React,   Router,   	  flux
 ) ->
 
 	@RouteHandler = Router.RouteHandler
@@ -32,7 +32,8 @@ define 'visual/static', ['react', 'reactrouter', 'flux'
 					<div id="navbar" className="collapse navbar-collapse">
 						<ul className="nav navbar-nav">
 							<li><Link to="Home">Home</Link></li>
-							<li><Link to="User">User</Link></li>
+							<li><Link to="App" params={{id: "1"}}>App1</Link></li>
+							<li><Link to="App" params={{id: "2"}}>App2</Link></li>
 							<li><Link to="About">About</Link></li>
 						</ul>
 					</div>
@@ -60,7 +61,7 @@ define 'visual/static', ['react', 'reactrouter', 'flux'
 	User = React.createClass
 		render: ->
 			<div>
-				<h1>User</h1>
+				<h1>Rooms <small>Application</small></h1>
 				<RouteHandler/>
 			</div>
 

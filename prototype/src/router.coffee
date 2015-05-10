@@ -1,17 +1,6 @@
-define 'router', ['react', 'reactrouter', 'flux', 'visual/static', 'visual/text'
-],(				   React,   Router,   	   flux,   staticPages,		    text
+define 'router', ['react', 'reactrouter', 'flux', 'visual/static', 'visual/rooms'
+],(				   React,   Router,   	   flux,   staticPages,		Rooms
 ) ->
-
-	flux.createStore
-		id: 'nameStore',
-		initialState: 
-			name: 'Alice'
-		
-		actionCallbacks: 
-			changeText: ( updater, name ) ->
-				updater.set {name: name} 
-
-
 
 	@RouteHandler = Router.RouteHandler
 	@Route = Router.Route
@@ -24,8 +13,7 @@ define 'router', ['react', 'reactrouter', 'flux', 'visual/static', 'visual/text'
 	routes = (
 		<Route handler={App} path="/">
 			<DefaultRoute name="Home" handler={Home}/>
-			<Route name="User" handler={User}>
-				<Route name="asdf" path="/asdf" handler={text}/>
+			<Route name="App" path="/App/" handler={Rooms}>
 			</Route>
 			<Route name="About" handler={About} />
 			<NotFoundRoute handler={NotFound}/>

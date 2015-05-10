@@ -44,14 +44,19 @@ module.exports = function(config) {
         'src/**/*.coffee': 'coverage'
     },
 
-    coverageReporter: { type : 'html', dir : 'coverage/' },
+    coverageReporter: { 
+      type : 'html', 
+      dir : 'coverage/',
+      includeAllSources: true,
+    },
     //coverageReporter: { type : 'text', dir : 'coverage/', file : 'coverage.txt' },
 
-    coffeePreprocessor: {
+
+    cjsxPreprocessor: {
       // options passed to the coffee compiler
       options: {
-        bare: false,
-        sourceMap: false
+        bare: true,
+        sourceMap: true
       }
     },
 
@@ -59,7 +64,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['nyan', 'coverage'],
 
 
     // web server port
@@ -81,7 +86,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: [/*'Chrome', */'Firefox'],
+    browsers: ['Chrome', 'Firefox'],
 
 
     // Continuous Integration mode

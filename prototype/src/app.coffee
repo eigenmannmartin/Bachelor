@@ -26,5 +26,14 @@ define ['flux'
 			require(['router'])
 
 
+		setup: () ->
+			flux.doAction('Store2_addRoom', {data: {name:"Eiger"}})
+			flux.doAction('Store2_addRoom', {data: {name:"Säntis"}})
+			#flux.doAction('Rooms2_changeRoom', {id:0, data: {name:"asdfasdf"}})
+
+			true
+
+
+
 	
 	App
