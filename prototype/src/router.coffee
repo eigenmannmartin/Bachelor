@@ -15,6 +15,7 @@ define 'router', ['react', 'reactrouter', 'flux', 'visual/static', 'visual/text'
 
 	@RouteHandler = Router.RouteHandler
 	@Route = Router.Route
+	@DefaultRoute = Router.DefaultRoute
 	@NotFoundRoute = Router.NotFoundRoute
 	@Link = Router.Link
 
@@ -22,7 +23,7 @@ define 'router', ['react', 'reactrouter', 'flux', 'visual/static', 'visual/text'
 
 	routes = (
 		<Route handler={App} path="/">
-			<Route name="Home" handler={Home} />
+			<DefaultRoute name="Home" handler={Home}/>
 			<Route name="User" handler={User}>
 				<Route name="asdf" path="/asdf" handler={text}/>
 			</Route>

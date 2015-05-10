@@ -115,7 +115,7 @@ define ['syncHandler'], (SyncHandler) ->
 				data: { select: {pk: "0"}, update:{ user: "Maddin", id: @SH.Datastore.datastore['users'][0]['id']} }
 
 			result = @SH.dispatch({ actionType: "update", msg: message })
-			expect( result ).toEqual 1
+			expect( result.length ).toEqual 1
 			expect( @SH.Datastore.datastore['users'][0]['user'] ).toEqual "Maddin"
 
 		it 'should execute delete action', ->

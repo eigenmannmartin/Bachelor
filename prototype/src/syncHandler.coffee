@@ -82,7 +82,7 @@ define 'syncHandler', ['flux', 'datastoreInMemory'
 
 
 		_update: ( msg ) ->
-			[ressource, select, update] = @_updateHoock( msg.ressource, msg.data.select, msg.data.update )
+			[ressource, select, update] = @_updateHoock( msg.ressource, msg.data.select, msg.data.update, msg.recent )
 			_statement = {
 				table: ressource,
 				select: select,
@@ -104,12 +104,14 @@ define 'syncHandler', ['flux', 'datastoreInMemory'
 		_getHoock: ( ressource, data ) ->
 			[ressource, data]
 
-		_updateHoock: ( ressource, select, update ) ->
-			if select.pk?
-				all_existing = @Datastore.select({ table: ressource, select: select })
-				existing = all_existing[0]
-				if all_existing.length > 1 then throw new Error "Update failed: selected multiple elements to update"
-				if existing.id != update.id then throw new Error "You are trying to update an already changed element"
+		_updateHoock: ( ressource, select, update, recent ) ->
+			all_existing = @Datastore.select({ table: ressource, select: select })
+			existing = all_existing[0]
+			if all_existing.length > 1 then throw new Error "Update failed: selected multiple elements to update"
+			
+			if existing.id isnt update.id
+				# here we need to handle all the sync-magic
+				throw new Error "You are trying to update an already changed element"
 
 			[ressource, select, update]
 

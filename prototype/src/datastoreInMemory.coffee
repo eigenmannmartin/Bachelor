@@ -64,15 +64,15 @@ define 'datastoreInMemory', [ 'flux'
 
 			flux.dispatcher.dispatch {actionType: 'log.info', msg: 'called datastoreInMemory.update() on table: ' + _tblname}
 
-			result = 0
+			result = []
 
 			for key, val of _query
 				for index of this.datastore[ _tblname ]
 					_match = this.datastore[ _tblname ][index][key].toString().match( val ) 
 					if _match and _match[0] is this.datastore[ _tblname ][index][key].toString()
-						result += 1
 						for u_key, u_val of _update							
 							this.datastore[ _tblname ][index][u_key] = u_val
+						result.push this.datastore[ _tblname ][index]
 
 			result
 
