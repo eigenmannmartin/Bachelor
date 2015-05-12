@@ -17,8 +17,8 @@ define ['react', 'reactrouter', 'flux', 'components/staticPages', 'components/pl
 			<DefaultRoute name="Home" handler={Home}/>
 			<Route name="About" handler={About} />
 			<Route name="Planner" path="/room" handler={p_planner}>
-				<Route path=":roomId/appointment" handler={p_appointments}>
-					<Route path=":apId" handler={p_details} />
+				<Route name="Planner/Appointments" path=":roomId/appointment" handler={p_appointments}>
+					<Route name="Planner/Appointments/Time" path=":timeId" handler={p_details} />
 				</Route>
 			</Route>
 			<NotFoundRoute handler={NotFound}/>

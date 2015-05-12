@@ -7,31 +7,77 @@ define ['react', 'reactrouter', 'flux'
 	@NotFoundRoute = Router.NotFoundRoute
 	@Link = Router.Link
 
-	p_roomlist = React.createClass
-		componentDidMount: ->
-			console.log @.getDOMNode().collapsible()
+	roomitem = React.createClass
 		render: ->
-			<ul className="collapsible" data-collapsible="accordion">
-				<li>
-					<div className="collapsible-header"><i className="mdi-image-filter-drama"></i>First</div>
-					<div className="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-				</li>
-				<li>
-					<div className="collapsible-header"><i className="mdi-maps-place"></i>Second</div>
-					<div className="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-				</li>
-				<li>
-					<div className="collapsible-header"><i className="mdi-social-whatshot"></i>Third</div>
-					<div className="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-				</li>
+			<Link to="Planner/Appointments" params={{roomId: @props.room.id}} className={@props.color+"-text collection-item"} activeClassName={@props.color+" white-text active"}>
+				{@props.room.name}
+			</Link>
+
+	roomlist = React.createClass
+		getInitialState: ->
+			rooms: flux.stores.prototype_rooms.getState().rooms
+			color: flux.stores.materialize_colors.getState().active_color
+
+		componentDidMount: ->
+			me = @
+			flux.stores.materialize_colors.on 'change:rooms', ( rooms ) ->
+				me.setState 
+					rooms: rooms
+
+			flux.stores.materialize_colors.on 'change:active_color', ( active_color ) ->
+				me.setState 
+					color: active_color
+		render: ->
+			me = @
+			<ul className="collection with-header">
+				<li className="collection-header"><h4>Rooms</h4></li>
+				{@state.rooms.map (room) ->
+					return <roomitem key={room.id} room={room} color={me.state.color}/>
+				}
 			</ul>
 
+
+	houritem = React.createClass
+		render: ->
+			from = @props.hour + ":00"
+			to = @props.hour + 1 + ":00"
+			text = from + " - " + to
+			<Link to="Planner/Appointments/Time" params={{timeId: @props.hour, roomId: @props.roomId}} className={@props.color+"-text collection-item"} activeClassName={@props.color+" white-text active"}>
+				 {text}
+			</Link>
+
+	dateslist = React.createClass
+		getInitialState: ->
+			color: flux.stores.materialize_colors.getState().active_color
+			hours: [6..19]
+
+		componentDidMount: ->
+			me = @
+			flux.stores.materialize_colors.on 'change:active_color', ( active_color ) ->
+				me.setState
+					color: active_color
+
+		render: ->
+			me = @
+			<ul className="collection with-header">
+				<li className="collection-header"><h4>Dates</h4></li>
+				{@state.hours.map (hour) ->
+					return <houritem key={hour} hour={hour} roomId={me.props.roomId} color={me.state.color}/>
+				}
+			</ul>
+
+
+	roomDetails = React.createClass
+		render: ->
+			<div>
+				Details Room
+			</div>
 
 	p_planner = React.createClass
 		render: ->
 			<div className="row">
 				<div className="col s4">
-					<p_roomlist />
+					<roomlist />
 				</div>
 				<RouteHandler />
 			</div>
@@ -40,7 +86,7 @@ define ['react', 'reactrouter', 'flux'
 		render: ->
 			<div>
 				<div className="col s4">
-					Dates
+					<dateslist roomId={@props.params.roomId} />
 				</div>
 				<RouteHandler />
 			</div>
@@ -48,7 +94,7 @@ define ['react', 'reactrouter', 'flux'
 	p_details = React.createClass
 		render: ->
 			<div className="col s4">
-				Details
+				Details Appointments
 			</div>
 
 

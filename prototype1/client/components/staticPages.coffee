@@ -59,6 +59,8 @@ define ['react', 'reactrouter', 'flux'
 				me.setState
 					color: active_color
 
+		componentWillUnmount: ->
+
 		changeColor: ->
 			flux.doAction 'materialize_pick_color'
 

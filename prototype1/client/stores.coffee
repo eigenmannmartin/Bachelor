@@ -13,17 +13,16 @@ define ['flux'
 				colors = updater.get "colors"
 				active_color = colors[ Math.floor Math.random()*(colors.length - 2) ]
 				updater.set { active_color: active_color }
-				this.emit "change:active_color", active_color
 				
 		}
-		
+
 	flux.doAction 'materialize_pick_color'
 
 
 	flux.createStore
 		id: "prototype_rooms",
 		initialState: {
-			rooms: [ { name: "Säntis" }, { name: "Säntis" } ]
+			rooms: [ { id: 0, name: "Säntis" }, { id: 1, name: "Eiger" }, { id: 2, name: "Bodensee" } ]
 		}
 		actionCallbacks: {
 				
