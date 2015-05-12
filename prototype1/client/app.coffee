@@ -22,8 +22,13 @@ define ['flux'
 			#log just to indicate
 			flux.dispatcher.dispatch {actionType: 'log.info', msg: 'called App.run()'}
 
+			#load all stores
+			require ['stores']
+
 			#fire up router
-			require(['router'])
+			require ['router']
+
+
 
 
 		setup: () ->
