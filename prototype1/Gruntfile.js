@@ -20,7 +20,7 @@ require('load-grunt-tasks')(grunt);
 
       server: {
         files: ['server/**/*'],
-        tasks: ['cjsx:compileSRV', 'express:dev'],
+        tasks: ['cjsx:compileSRV', 'express:dev', 'copy:srv'],
         options: {
           spawn: false 
         }
@@ -72,13 +72,18 @@ require('load-grunt-tasks')(grunt);
         bare: true,
         ext: '.js',
         options: {
-          sourceMap: true
+          sourceMap: false
         }
       },
     },
 
     copy: {
-      tpl: {
+      srv: {
+        files: [
+          {expand: true, src: ['server/**/*.js', 'server/**/*.json'], dest: 'build/'},
+        ]
+      },
+      cli:{
         files: [
           {expand: true, src: ['client/**/*.html'], dest: 'build/'},
         ]
