@@ -9,19 +9,17 @@ define ['react', 'reactrouter', 'flux', 'components/staticPages', 'components/pl
 	@Link = Router.Link
 
 	[ App, NotFound, Nav, Home, About ] = staticPages
-	[ p_planner, p_appointments, p_details ] = planner
+	[ Rooms, PlannerRoomSettings ] = planner
 
 
 	routes = (
 		<Route handler={App} path="/">
-			<DefaultRoute name="Home" handler={Home}/>
+			<DefaultRoute name="Home" handler={Home} />
 			<Route name="About" handler={About} />
-			<Route name="Planner" path="/room" handler={p_planner}>
-				<Route name="Planner/Appointments" path=":roomId/appointment" handler={p_appointments}>
-					<Route name="Planner/Appointments/Time" path=":timeId" handler={p_details} />
-				</Route>
-			</Route>
-			<NotFoundRoute handler={NotFound}/>
+			<Route name="Rooms" path="Rooms" handler={Rooms} />
+			<Route name="Rooms/Edit" path="/Rooms/edit/:roomId" handler={PlannerRoomSettings} />
+			<Route name="Rooms/Create" path="/Rooms/edit/new" handler={PlannerRoomSettings} />
+			<NotFoundRoute handler={NotFound} />
 		</Route>
 	);
 

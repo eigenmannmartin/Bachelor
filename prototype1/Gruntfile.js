@@ -12,7 +12,7 @@ require('load-grunt-tasks')(grunt);
     watch: {
       app: {
         files: ['client/**/*'],
-        tasks: ['cjsx:compileCLI', 'copy'/*'requirejs'*/],
+        tasks: ['cjsx:compileCLI', 'copy:cli'/*'requirejs'*/],
         options: {
           livereload: true
         }
@@ -85,7 +85,7 @@ require('load-grunt-tasks')(grunt);
       },
       cli:{
         files: [
-          {expand: true, src: ['client/**/*.html'], dest: 'build/'},
+          {expand: true, src: ['client/**/*.html','client/**/*.jpg', 'client/**/*.css'], dest: 'build/'},
         ]
       }
     },

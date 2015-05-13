@@ -32,8 +32,8 @@ define ['flux'
 
 
 		setup: () ->
-			flux.doAction('Rooms_add', {data: {name:"Eiger"}})
-			flux.doAction('Rooms_add', {data: {name:"Säntis"}})
+			#flux.doAction('Rooms_add', {data: {name:"Eiger"}})
+			#flux.doAction('Rooms_add', {data: {name:"Säntis"}})
 			#flux.doAction('Rooms_update', {id:0, data: {name:"asdfasdf"}})
 
 			true

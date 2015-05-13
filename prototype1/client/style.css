@@ -1,0 +1,34 @@
+.example-enter {
+}
+
+.example-enter.example-enter-active {
+}
+
+.example-leave {
+}
+
+.example-leave.example-leave-active {
+}
+
+
+
+	/* add-btn */
+	.planner-add-btn {
+		margin-top: -2.7em;
+	}
+
+
+
+	/* label color */
+   .input-field label {
+     /*color: #FFF;*/
+   }
+   /* label focus color */
+   .input-field input[type=text]:focus + label {
+     /*color: #FFF;*/
+   }
+   /* label underline focus color */
+   .input-field input[type=text]:focus {
+     /*border-bottom: 1px solid #FFF;
+     box-shadow: 0 1px 0 0 #FFF;*/
+   }

@@ -6,6 +6,7 @@ define ['react', 'reactrouter', 'flux'
 	@Route = Router.Route
 	@NotFoundRoute = Router.NotFoundRoute
 	@Link = Router.Link
+	@ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 
 	NotFound = React.createClass
@@ -42,7 +43,7 @@ define ['react', 'reactrouter', 'flux'
 					<div className={"nav-wrapper "+@state.color}>
 						<ul id="nav-mobile" className="right hide-on-med-and-down">
 							<li><Link to="Home">Home</Link></li>
-							<li><Link to="Planner">Planner</Link></li>
+							<li><Link to="Rooms">Planner</Link></li>
 							<li><Link to="About">About</Link></li>
 						</ul>
 					</div>
@@ -64,6 +65,9 @@ define ['react', 'reactrouter', 'flux'
 		changeColor: ->
 			flux.doAction 'materialize_pick_color'
 
+		partyColor: ->
+			flux.doAction 'materialize_party_color'
+
 		render: ->
 			<div className="container">
 				<div className="row">
@@ -75,15 +79,23 @@ define ['react', 'reactrouter', 'flux'
 						<p> You do not like this color?  <br />
 							<a className={"waves-effect waves-light btn "+@state.color} onClick={@changeColor}>Change</a>
 						</p>
+						<p>
+							You still think this is not fancy enough? <br />
+							<a className={"waves-effect waves-light btn "+@state.color} onClick={@partyColor}>Party Mode</a>
+						</p>
 					</div>
 				</div>
 			</div>
 
 	App = React.createClass
+		contextTypes:
+			router: React.PropTypes.func
+
 		render: ->
+			name = @context.router.getCurrentPath()
 			<div>
 				<Nav />
-				<RouteHandler />
+				<RouteHandler key={name} />
 			</div>
 
 
