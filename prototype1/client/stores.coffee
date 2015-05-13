@@ -20,7 +20,6 @@ define ['flux', 'state'
 				updater.set { active_color: color }
 
 			materialize_party_color: ( updater ) ->
-				if @colors_interval? then clearInterval @colors_interval
 				func = () ->
 					flux.doAction 'materialize_pick_color', true
 				@colors_interval  = setInterval func, 250
@@ -28,7 +27,7 @@ define ['flux', 'state'
 				
 		}
 
-	flux.doAction 'materialize_set_color', 'blue'
+	flux.doAction 'materialize_set_color', 'indigo'
 		
 
 
@@ -36,17 +35,28 @@ define ['flux', 'state'
 		id: "prototype_rooms",
 		initialState: {
 			rooms: [ 
-				{ id: 0, name: "Säntis", description: "", free: true  } 
-				{ id: 1, name: "Eiger", description: "", free: true }
-				{ id: 2, name: "Bodensee", description: "", free: false }
-				{ id: 3, name: "Grand Canyon", description: "", free: true }
+				{ id: 0, ac: true, beamer: true, seats: 24, name: "Säntis", description: "", free: true, image: "/img/rooms/0.jpg"  } 
+				{ id: 1, ac: true, beamer: true, seats: 12, name: "Eiger", description: "", free: true, image: "/img/rooms/1.jpg" }
+				{ id: 2, ac: false, beamer: false, seats: 5, name: "Bodensee", description: "", free: false, image: "/img/rooms/2.jpg" }
+				{ id: 3, ac: false, beamer: true, seats: 40, name: "Grand Canyon", description: "", free: true, image: "/img/rooms/3.jpg" }
+				{ id: 4, ac: true, beamer: true, seats: 18, name: "Himalaya", description: "", free: true, image: "/img/rooms/4.jpg" }
 			]
 		}
 		actionCallbacks: {
 			prototype_rooms_save_room: ( updater, room ) ->
 				newrooms = @.getState().rooms
-				newrooms[ room.id ] = room
+				for key, val of room
+					newrooms[ room.id ][key] = val
 				updater.set { rooms: newrooms }
+
+			prototype_rooms_create_room: ( updater, room ) ->
+				console.log room
+				newrooms = @.getState().rooms
+				room.id = newrooms.length
+				room.image = "/img/rooms/"+room.id+".jpg"
+				newrooms.push room
+				updater.set { rooms: newrooms }
+				console.log newrooms
 		}
 
 

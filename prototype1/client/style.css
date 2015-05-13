@@ -16,6 +16,26 @@
 	.planner-add-btn {
 		margin-top: -2.7em;
 	}
+  /* save-btn */
+  .planner-save-btn {
+    margin-top: -2.7em;
+  }
+
+
+  .planner-a-details {
+    font-size: 1.4rem;
+  }
+
+  a + label {
+    position: relative;
+    padding-left: 13px;
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    line-height: 25px;
+    font-size: 1rem;
+    -moz-user-select: none;
+  }
 
 
 

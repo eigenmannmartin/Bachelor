@@ -24,8 +24,8 @@ define ['react', 'reactrouter', 'flux'
 			<div className="col s4">
 				<div className="card">
 					<div className="card-image waves-effect waves-block waves-light">
-						<img className="activator" src={"img/rooms/"+@props.room.id+".jpg"} />
-						<span className="card-title activator">{@props.room.name} <i className="mdi-navigation-more-vert right"></i></span>
+						<img className="activator" src={@props.room.image} />
+						<span className="card-title activator">{@props.room.name} <i className="mdi-navigation-more-vert right activator"></i></span>
 					</div>
 					<div className="card-content">
 						<div className="row">
@@ -40,12 +40,26 @@ define ['react', 'reactrouter', 'flux'
 					<div className="card-reveal">
 						<span className="card-title grey-text text-darken-4">{@props.room.name} <i className="mdi-navigation-close right"></i></span>
 						<p>{@props.room.description}</p>
+						<p>
+							<input type="checkbox" id="beamer" checked={@props.room.beamer} disabled=true />
+							<label htmlFor="beamer">Beamer</label>
+						</p>
+						<p>
+							<input type="checkbox" id="ac" checked={@props.room.ac} disabled=true />
+							<label htmlFor="ac">Air Con</label>
+						</p>
+						<p>
+							<a id="seats" className="planner-a-details grey-text">{@props.room.seats}</a>
+							<label htmlFor="seats">Seats</label>
+						</p>
 						<Link to="Rooms/Edit" params={{roomId: @props.room.id}} className="btn right">Edit</Link>
 					</div>
 				</div>
 			</div>
 
 	PlannerRoomSettings = React.createClass
+		mixins: [Router.Navigation]
+
 		getInitialState: ->
 			if @props.params.roomId isnt 'new'
 				room = flux.stores.prototype_rooms.getState().rooms[@props.params.roomId]
@@ -54,6 +68,9 @@ define ['react', 'reactrouter', 'flux'
 					room_name: room.name 
 					room_description: room.description 
 					room_free: room.free
+					room_beamer: room.beamer
+					room_seats: room.seats
+					room_ac: room.ac
 				}
  
 			else
@@ -62,6 +79,9 @@ define ['react', 'reactrouter', 'flux'
 					room_name: ""
 					room_description: ""
 					room_free: true
+					room_beamer: false
+					room_seats: 0
+					room_ac: false
 				}
 
 		componentDidMount: ->
@@ -73,6 +93,9 @@ define ['react', 'reactrouter', 'flux'
 						room_name: rooms[@props.params.roomId].name
 						room_description: rooms[@props.params.roomId].description
 						room_free: rooms[@props.params.roomId].free
+						room_beamer: rooms[@props.params.roomId].beamer
+						room_seats: rooms[@props.params.roomId].seats
+						room_ac: rooms[@props.params.roomId].ac
 
 		click_free: (event) ->
 			result = !event.target.checked
@@ -89,15 +112,40 @@ define ['react', 'reactrouter', 'flux'
 			@.setState
 				room_description: result
 
+		click_beamer: (event) ->
+			result = event.target.checked
+			@.setState 
+				room_beamer: result
 
-		click_save: (event) ->
-			room={}
+		click_ac: (event) ->
+			result = event.target.checked
+			@.setState 
+				room_ac: result
+
+		change_seats: (event) ->
+			result = event.target.value
+			@.setState
+				room_seats: result
+
+		_assemble_room: () ->
+			room = {}
 			room.id = @state.room_id
 			room.name = @state.room_name
 			room.description = @state.room_description
 			room.free = @state.room_free
+			room.beamer = @state.room_beamer
+			room.seats = @state.room_seats
+			room.ac = @state.room_ac
 
-			flux.doAction 'prototype_rooms_save_room', room
+			room
+
+		click_save: (event) ->
+			flux.doAction 'prototype_rooms_save_room', @_assemble_room()
+			@transitionTo('Rooms')
+
+		click_create: (event) ->
+			flux.doAction 'prototype_rooms_create_room', @_assemble_room()
+			@transitionTo('Rooms')
 
 		render: ->
 			<div className="container">
@@ -109,7 +157,7 @@ define ['react', 'reactrouter', 'flux'
 								{if @state.room_id
 									<a className="btn-floating btn-large waves-effect waves-light red right planner-save-btn" onClick={@click_save}><i className="mdi-content-save"></i></a>
 								else
-									<a className="btn-floating btn-large waves-effect waves-light red right planner-add-btn"><i className="mdi-content-add"></i></a>
+									<a className="btn-floating btn-large waves-effect waves-light red right planner-add-btn" onClick={@click_create}><i className="mdi-content-add"></i></a>
 								}
 
 								<div className="row">
@@ -134,6 +182,32 @@ define ['react', 'reactrouter', 'flux'
 														occupied
 													</label>
 												</div>
+											</div>
+										</div>
+										<div className="row">
+											<div className="col s12">
+												<p>
+													<input type="checkbox" id="beamer" checked={@state.room_beamer} onChange={@click_beamer} />
+													<label htmlFor="beamer">Beamer</label>
+												</p>
+											</div>
+										</div>
+										<div className="row">
+											<div className="col s12">
+												<p>
+													<input type="checkbox" id="ac" checked={@state.room_ac} onChange={@click_ac} />
+													<label htmlFor="ac">Air Con</label>
+												</p>
+											</div>
+										</div>
+										<div className="row">
+											<div className="col s4">
+												{@state.room_seats} Seats
+											</div>
+											<div className="col s5">
+												<p class="range-field">
+													<input type="range" id="seats" min="5" max="50" value=@state.room_seats onChange={@change_seats}/>
+												</p>
 											</div>
 										</div>
 
