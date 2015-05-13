@@ -33,7 +33,7 @@ define ['react', 'reactrouter', 'flux'
 								<RoomCardFreeBadge free={@props.room.free} />
 							</div>
 							<div className="col s6">
-								<Link to="Rooms/Edit" params={{roomId: @props.room.id}} className="btn right">Book</Link>
+								<Link to="Rooms/Dates" params={{roomId: @props.room.id}} className="btn right">Book</Link>
 							</div>
 						</div>
 					</div>
@@ -222,6 +222,15 @@ define ['react', 'reactrouter', 'flux'
 			</div>
 
 
+	PlannerRoomDates = React.createClass
+		render: ->
+			<div className="container">
+				<div className="row">
+						Dates
+				</div>
+			</div>
+
+
 	Rooms = React.createClass
 		getInitialState: ->
 			rooms: flux.stores.prototype_rooms.getState().rooms
@@ -246,4 +255,4 @@ define ['react', 'reactrouter', 'flux'
 			</div>
 
 
-	[ Rooms, PlannerRoomSettings ]
+	[ Rooms, PlannerRoomSettings, PlannerRoomDates ]

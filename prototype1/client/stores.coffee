@@ -37,7 +37,7 @@ define ['flux', 'state'
 			rooms: [ 
 				{ id: 0, ac: true, beamer: true, seats: 24, name: "Säntis", description: "", free: true, image: "/img/rooms/0.jpg"  } 
 				{ id: 1, ac: true, beamer: true, seats: 12, name: "Eiger", description: "", free: true, image: "/img/rooms/1.jpg" }
-				{ id: 2, ac: false, beamer: false, seats: 5, name: "Bodensee", description: "", free: false, image: "/img/rooms/2.jpg" }
+				{ id: 2, ac: false, beamer: false, seats: 10, name: "Bodensee", description: "", free: false, image: "/img/rooms/2.jpg" }
 				{ id: 3, ac: false, beamer: true, seats: 40, name: "Grand Canyon", description: "", free: true, image: "/img/rooms/3.jpg" }
 				{ id: 4, ac: true, beamer: true, seats: 18, name: "Himalaya", description: "", free: true, image: "/img/rooms/4.jpg" }
 			]
