@@ -8,10 +8,9 @@
     }
   });
 
-  require(['flux', 'io', 'app'], function(flux, io, app) {
+  require(['flux', 'app'], function(flux, app) {
     window.app = new app;
     window.app.run();
-    window.socket = io.connect('http://localhost:3000/');
     return window.flux = flux;
   });
 

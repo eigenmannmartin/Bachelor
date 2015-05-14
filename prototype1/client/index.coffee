@@ -7,14 +7,12 @@ require.config
 
 
 
-require ['flux', 'io', 'app'
-],(		  flux,	  io,	app
+require ['flux', 'app'
+],(		  flux,	  app
 )->
 
 	window.app = new app
 	window.app.run()
-
-	window.socket = io.connect 'http://localhost:3000/'
 
 	window.flux = flux
 

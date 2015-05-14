@@ -11,7 +11,7 @@ define [],() ->
 				api.handle_message msg
 
 		handle_message: ( msg ) ->
-			console.log "got a new msg: "+ msg
+			console.log  msg.actionType + " - " + msg.data.name
 
 
 	Api

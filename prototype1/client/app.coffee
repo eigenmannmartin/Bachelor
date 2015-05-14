@@ -1,5 +1,5 @@
-define ['flux'
-],( 	 flux
+define ['flux', 'stores', 'api'
+],( 	 flux,	 stores,   api
 ) ->
 	class App
 
@@ -22,11 +22,13 @@ define ['flux'
 			#log just to indicate
 			flux.dispatcher.dispatch {actionType: 'log.info', msg: 'called App.run()'}
 
-			#load all stores
-			require ['stores']
+			#start api
+			new api()
 
 			#fire up router
 			require ['router']
+
+
 
 
 

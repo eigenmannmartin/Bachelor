@@ -27,6 +27,43 @@ define ['react', 'reactrouter', 'flux'
 				</div>
 			</div>
 
+	Nav_connectionIndicator = React.createClass
+		getInitialState: ->
+			connected: flux.stores.prototype_api.getState().connected
+			connecting: flux.stores.prototype_api.getState().connecting
+			disabled: flux.stores.prototype_api.getState().disabled
+
+		componentDidMount: ->
+			me = @
+			flux.stores.prototype_api.on 'change:connected', ( data ) ->
+				me.setState
+					connected: data
+
+			flux.stores.prototype_api.on 'change:connecting', ( data ) ->
+				me.setState
+					connecting: data
+
+			flux.stores.prototype_api.on 'change:disabled', ( data ) ->
+				me.setState
+					disabled: data
+
+		disable: ->
+			flux.doAction 'prototype_api_disable'
+
+		enable: ->
+			flux.doAction 'prototype_api_enable'
+
+		render: ->
+			<div>
+				{if @state.connected
+					<i className="mdi-notification-sync" onClick={@disable}></i>
+				else if @state.disabled
+					<i className="mdi-notification-sync-disabled" onClick={@enable}></i>
+				else if not @state.connected
+					<i className="mdi-notification-sync-problem" onClick={@disable}></i>
+				}
+			</div>
+
 	Nav = React.createClass
 		getInitialState: ->
 			color: flux.stores.materialize_colors.getState().active_color
@@ -45,6 +82,7 @@ define ['react', 'reactrouter', 'flux'
 							<li><Link to="Home">Home</Link></li>
 							<li><Link to="Rooms">Planner</Link></li>
 							<li><Link to="About">About</Link></li>
+							<li><Nav_connectionIndicator /></li>
 						</ul>
 					</div>
 				</nav>

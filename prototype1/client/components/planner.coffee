@@ -9,19 +9,19 @@ define ['react', 'reactrouter', 'flux'
 
 
 
-	RoomCardFreeBadge = React.createClass
+	RoomCardBookLink = React.createClass
 		render: ->
 			<div>
-				{if @props.free
-					<a className="btn disabled green white-text">free</a>
+				{if @props.room.free
+					<Link to="Rooms/Dates" params={{roomId: @props.room.id}} className="waves-effect waves-light btn">Book</Link>
 				else
-					<a className="btn disabled red white-text">reserved</a>
+					<Link to="Rooms/Dates" params={{roomId: @props.room.id}} className="waves-effect waves-light btn disabled red">Booked</Link>
 				}
 			</div>
 
 	RoomCard = React.createClass
 		render: ->
-			<div className="col s4">
+			<div className="col s12 m6 l4">
 				<div className="card">
 					<div className="card-image waves-effect waves-block waves-light">
 						<img className="activator" src={@props.room.image} />
@@ -29,11 +29,8 @@ define ['react', 'reactrouter', 'flux'
 					</div>
 					<div className="card-content">
 						<div className="row">
-							<div className="col s6">
-								<RoomCardFreeBadge free={@props.room.free} />
-							</div>
-							<div className="col s6">
-								<Link to="Rooms/Dates" params={{roomId: @props.room.id}} className="btn right">Book</Link>
+							<div className="col s12 center">
+								<RoomCardBookLink room={@props.room} />
 							</div>
 						</div>
 					</div>
@@ -52,7 +49,7 @@ define ['react', 'reactrouter', 'flux'
 							<a id="seats" className="planner-a-details grey-text">{@props.room.seats}</a>
 							<label htmlFor="seats">Seats</label>
 						</p>
-						<Link to="Rooms/Edit" params={{roomId: @props.room.id}} className="btn right">Edit</Link>
+						<Link to="Rooms/Edit" params={{roomId: @props.room.id}} className="waves-effect waves-light btn right">Edit</Link>
 					</div>
 				</div>
 			</div>
@@ -71,10 +68,12 @@ define ['react', 'reactrouter', 'flux'
 					room_beamer: room.beamer
 					room_seats: room.seats
 					room_ac: room.ac
+					room_new: false
 				}
  
 			else
 				return {
+					room_new: true
 					room_id: false
 					room_name: ""
 					room_description: ""
@@ -140,24 +139,24 @@ define ['react', 'reactrouter', 'flux'
 			room
 
 		click_save: (event) ->
-			flux.doAction 'prototype_rooms_save_room', @_assemble_room()
+			flux.doAction 'prototype_stores_rooms_update', @_assemble_room()
 			@transitionTo('Rooms')
 
 		click_create: (event) ->
-			flux.doAction 'prototype_rooms_create_room', @_assemble_room()
+			flux.doAction 'prototype_stores_rooms_create', @_assemble_room()
 			@transitionTo('Rooms')
 
 		render: ->
 			<div className="container">
 				<div className="row">
-					<div className="col s10 offset-s1">
+					<div className="col s12 l10 offset-l1">
 
 						<div className="card-panel teal lighten-1">
 							<div className="card-panel">
-								{if @state.room_id
-									<a className="btn-floating btn-large waves-effect waves-light red right planner-save-btn" onClick={@click_save}><i className="mdi-content-save"></i></a>
-								else
+								{if @state.room_new
 									<a className="btn-floating btn-large waves-effect waves-light red right planner-add-btn" onClick={@click_create}><i className="mdi-content-add"></i></a>
+								else
+									<a className="btn-floating btn-large waves-effect waves-light red right planner-save-btn" onClick={@click_save}><i className="mdi-content-save"></i></a>
 								}
 
 								<div className="row">
@@ -170,7 +169,7 @@ define ['react', 'reactrouter', 'flux'
 										</div>
 										<div className="row">
 											<div className="input-field col s6">
-												<textarea id="description" className="materialize-textarea" onChange={@change_description}>{@state.room_description}</textarea>
+												<textarea id="description" className="materialize-textarea" defaultValue={@state.room_description} onChange={@change_description}></textarea>
 												<label htmlFor="description">Description</label>
 											</div>
 											<div className="col s6 center">
@@ -205,7 +204,7 @@ define ['react', 'reactrouter', 'flux'
 												{@state.room_seats} Seats
 											</div>
 											<div className="col s5">
-												<p class="range-field">
+												<p className="range-field">
 													<input type="range" id="seats" min="5" max="50" value=@state.room_seats onChange={@change_seats}/>
 												</p>
 											</div>

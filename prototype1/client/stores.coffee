@@ -1,5 +1,5 @@
-define ['flux', 'state'
-],( 	 flux,   state
+define ['flux'
+],( 	 flux
 ) ->
 
 	flux.createStore
@@ -43,22 +43,39 @@ define ['flux', 'state'
 			]
 		}
 		actionCallbacks: {
-			prototype_rooms_save_room: ( updater, room ) ->
+			prototype_stores_rooms_update: ( updater, room ) ->
 				newrooms = @.getState().rooms
 				for key, val of room
 					newrooms[ room.id ][key] = val
 				updater.set { rooms: newrooms }
 
-			prototype_rooms_create_room: ( updater, room ) ->
-				console.log room
+			prototype_stores_rooms_create: ( updater, room ) ->
 				newrooms = @.getState().rooms
 				room.id = newrooms.length
 				room.image = "/img/rooms/"+room.id+".jpg"
 				newrooms.push room
 				updater.set { rooms: newrooms }
-				console.log newrooms
 		}
 
+
+	flux.createStore
+		id: "prototype_api",
+		initialState: {
+			connected: false
+			connecting: false
+			disabled: false
+		}
+		actionCallbacks: {
+			prototype_stores_api_connect: ( updater ) ->
+				updater.set { connected: true, connecting: false, disabled: false }
+			prototype_stores_api_disconnect: ( updater ) ->
+				updater.set { connected: false, connecting: false, disabled: false }
+			prototype_stores_api_connecting: ( updater ) ->
+				updater.set { connected: false, connecting: true, disabled: false }
+			prototype_stores_api_disable: ( updater ) ->
+				updater.set { connected: false, connecting: false, disabled: true }
+			
+		}
 
 
 	false

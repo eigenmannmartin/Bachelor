@@ -17,7 +17,7 @@
       }
 
       Api.prototype.handle_message = function(msg) {
-        return console.log("got a new msg: " + msg);
+        return console.log(msg.actionType + " - " + msg.data.name);
       };
 
       return Api;
