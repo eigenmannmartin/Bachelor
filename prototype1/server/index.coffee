@@ -16,8 +16,8 @@ requirejs ['express', 'socket.io', 'http', 'api', 'state', 'sync' ],(express, io
 	manager = new sync()
 
 	# setup websockets
-	socket = io.listen(server)
-	socket.on 'connection', ( socket ) ->
+	state.socket = io.listen(server)
+	state.socket.on 'connection', ( socket ) ->
 		# each client gets a dedicated api
 		a = new api( socket )
 

@@ -9,7 +9,7 @@ define ['flux', 'io'
 
 		setup: ->
 			# setup a new websocket instance
-			socket = new io() 
+			socket = new io()
 
 
 			# emit connection state changes
@@ -30,6 +30,11 @@ define ['flux', 'io'
 			
 			#socket.on 'disconnect', () ->
 			#	flux.doAction 'prototype_stores_api_disconnect'
+
+			# also handle incomming messages
+			socket.on 'message', ( msg ) ->
+				#console.log msg
+				flux.doAction msg.actionType, msg.data
 
 			# connect to the host where we came from
 			socket.connect 'http://localhost:3000/'

@@ -18,5 +18,9 @@ require ['flux', 'app'
 
 
 
+	# flux.doAction('prototype_stores_rooms_update', {id:1, name:"asdf"})
+
+
+
 
 

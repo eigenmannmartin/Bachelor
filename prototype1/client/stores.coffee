@@ -2,6 +2,7 @@ define ['flux'
 ],( 	 flux
 ) ->
 
+	
 	flux.createStore
 		id: "materialize_colors",
 		initialState: {
@@ -34,13 +35,14 @@ define ['flux'
 	flux.createStore
 		id: "prototype_rooms",
 		initialState: {
-			rooms: [ 
+			rooms : []
+			###rooms: [ 
 				{ id: 0, ac: true, beamer: true, seats: 24, name: "Säntis", description: "", free: true, image: "/img/rooms/0.jpg"  } 
 				{ id: 1, ac: true, beamer: true, seats: 12, name: "Eiger", description: "", free: true, image: "/img/rooms/1.jpg" }
 				{ id: 2, ac: false, beamer: false, seats: 10, name: "Bodensee", description: "", free: false, image: "/img/rooms/2.jpg" }
 				{ id: 3, ac: false, beamer: true, seats: 40, name: "Grand Canyon", description: "", free: true, image: "/img/rooms/3.jpg" }
 				{ id: 4, ac: true, beamer: true, seats: 18, name: "Himalaya", description: "", free: true, image: "/img/rooms/4.jpg" }
-			]
+			]###
 		}
 		actionCallbacks: {
 			###
@@ -48,17 +50,24 @@ define ['flux'
 			# updates an existing room in the store
 			###
 			prototype_stores_rooms_update: ( updater, room ) ->
+				# get old room instance
+				newrooms = @.getState().rooms
+				for index, r of newrooms
+					if r.id is room.id
+						oldroom = r
+						oldindex = index
+
 				# preserve recent and previous values and send a new message for the api
 				recent = room
-				prev = JSON.parse(JSON.stringify( @.rooms[ room.id ] ))
+				prev = JSON.parse(JSON.stringify( r ))
 				flux.doAction 'prototype_api_rooms_update', { recent: room, prev: prev }
 
-				# get all rooms
-				newrooms = @.getState().rooms
+
 				# update given room
 				for key, val of room
-					newrooms[ room.id ][key] = val
+					newrooms[ oldindex ][key] = val
 				updater.set { rooms: newrooms }
+				updater.emit 'change', @.getState()
 
 			prototype_stores_rooms_create: ( updater, room ) ->
 				# send a new message for the api
@@ -67,13 +76,33 @@ define ['flux'
 
 				# get all rooms
 				newrooms = @.getState().rooms
-				# set new ID
-				room.id = newrooms.length
+				# set new ID 
+				# !!! caution !!! - length + 1 might be an id that is already used
+				room.id = newrooms.length + 1
 				# set default image
-				room.image = "/img/rooms/"+room.id+".jpg"
+				room.image = "/img/rooms/"+room.name+".jpg"
 				# add new room to collection
 				newrooms.push room
 				updater.set { rooms: newrooms }
+				updater.emit 'change', @.getState()
+
+			prototype_stores_rooms_update_insert: ( updater, room ) ->
+				console.log "update"
+				# get all rooms
+				index = false
+				newrooms = @.getState().rooms
+				for r in newrooms
+					if parseInt(r.id) is parseInt(room.id)
+						index = newrooms.indexOf r
+
+				if index
+					newrooms[ index ] = room
+				else
+					newrooms.push room
+
+
+				updater.set { rooms: newrooms }
+				updater.emit 'change', @.getState()
 		}
 
 

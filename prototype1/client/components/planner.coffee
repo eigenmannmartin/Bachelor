@@ -59,7 +59,8 @@ define ['react', 'reactrouter', 'flux'
 
 		getInitialState: ->
 			if @props.params.roomId isnt 'new'
-				room = flux.stores.prototype_rooms.getState().rooms[@props.params.roomId]
+				for r in flux.stores.prototype_rooms.getState().rooms
+					if r.id is parseInt @props.params.roomId then room = r
 				return {
 					room_id: room.id
 					room_name: room.name 
@@ -86,15 +87,17 @@ define ['react', 'reactrouter', 'flux'
 		componentDidMount: ->
 			me = @
 			if @props.params.roomId? isnt 'new'
-				flux.stores.prototype_rooms.on 'change:rooms', ( rooms ) ->
+				flux.stores.prototype_rooms.on 'change', ( state ) ->
+					for r in state.rooms
+						if r.id is parseInt @props.params.roomId then room = r
 					me.setState
-						room_id: rooms[@props.params.roomId].id
-						room_name: rooms[@props.params.roomId].name
-						room_description: rooms[@props.params.roomId].description
-						room_free: rooms[@props.params.roomId].free
-						room_beamer: rooms[@props.params.roomId].beamer
-						room_seats: rooms[@props.params.roomId].seats
-						room_ac: rooms[@props.params.roomId].ac
+						room_id: room.id
+						room_name: room.name
+						room_description: room.description
+						room_free: room.free
+						room_beamer: room.beamer
+						room_seats: room.seats
+						room_ac: room.ac
 
 		click_free: (event) ->
 			result = !event.target.checked
@@ -236,15 +239,20 @@ define ['react', 'reactrouter', 'flux'
 
 		componentDidMount: ->
 			me = @
-			flux.stores.materialize_colors.on 'change:rooms', ( rooms ) ->
+			flux.stores.prototype_rooms.on 'change', ( state ) ->
 				me.setState 
-					rooms: rooms
+					rooms: state.rooms
 		render: ->
+			@state.children = []
+			for room in @state.rooms
+				@state.children[room.id] = React.addons.cloneWithProps <RoomCard />, {
+					room: room
+					key: room.id
+				}
+
 			<div className="container">
 				<div className="row">
-						{@state.rooms.map (room) ->
-							return <RoomCard key={room.id} room={room} />
-						}
+					{@state.children}
 				</div>
 				<div className="fixed-action-btn">
 					<Link to="Rooms/Create" className="btn-floating btn-large red">

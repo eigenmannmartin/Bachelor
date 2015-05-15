@@ -1,6 +1,28 @@
 (function() {
-  define(['fluxify', 'flux'], function(flux, a) {
+  define(['flux', 'state'], function(flux, state) {
+
+    /*
+    	 * GENERAL / ALL API INSTANCES
+     */
     var Api;
+    flux.dispatcher.register(function(actionType, data, socket) {
+      if (actionType === 'prototype_api_private_stores_rooms_update_insert') {
+        console.log("private update");
+        return socket.emit('message', {
+          actionType: 'prototype_stores_rooms_update_insert',
+          data: data
+        });
+      }
+    });
+    flux.dispatcher.register(function(actionType, data) {
+      if (actionType === 'prototype_api_stores_rooms_update_insert') {
+        console.log("public update");
+        return state.socket.emit('message', {
+          actionType: 'prototype_stores_rooms_update_insert',
+          data: data
+        });
+      }
+    });
     Api = (function() {
       function Api(socket) {
         var api;
@@ -17,16 +39,17 @@
             recent: msg.recent
           });
         });
+        flux.doAction('prototype_sync_rooms_init', socket);
       }
 
       Api.prototype.handle_message = function(actionType, data) {
         if (actionType === "prototype_api_rooms_update") {
           console.log(actionType + " - " + data.prev.name + " to " + data.recent.name);
-          console.log("doAction: test");
-          flux.doAction('test');
+          flux.doAction('prototype_sync_rooms_update', data);
         }
         if (actionType === "prototype_api_rooms_create") {
-          return console.log(actionType + " - " + data.recent.name);
+          console.log(actionType + " - " + data.recent.name);
+          return flux.doAction('prototype_sync_rooms_create', data);
         }
       };
 

@@ -8,12 +8,12 @@
   });
 
   requirejs(['express', 'socket.io', 'http', 'api', 'state', 'sync'], function(express, io, http, api, state, sync) {
-    var app, manager, server, socket;
+    var app, manager, server;
     app = express();
     server = http.createServer(app);
     manager = new sync();
-    socket = io.listen(server);
-    socket.on('connection', function(socket) {
+    state.socket = io.listen(server);
+    state.socket.on('connection', function(socket) {
       var a;
       return a = new api(socket);
     });
