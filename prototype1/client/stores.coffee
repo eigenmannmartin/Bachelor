@@ -43,16 +43,35 @@ define ['flux'
 			]
 		}
 		actionCallbacks: {
+			###
+			# on Message.actionType 'prototype_stores_rooms_update'
+			# updates an existing room in the store
+			###
 			prototype_stores_rooms_update: ( updater, room ) ->
+				# preserve recent and previous values and send a new message for the api
+				recent = room
+				prev = JSON.parse(JSON.stringify( @.rooms[ room.id ] ))
+				flux.doAction 'prototype_api_rooms_update', { recent: room, prev: prev }
+
+				# get all rooms
 				newrooms = @.getState().rooms
+				# update given room
 				for key, val of room
 					newrooms[ room.id ][key] = val
 				updater.set { rooms: newrooms }
 
 			prototype_stores_rooms_create: ( updater, room ) ->
+				# send a new message for the api
+				recent = room
+				flux.doAction 'prototype_api_rooms_create', { recent: room, prev: false }
+
+				# get all rooms
 				newrooms = @.getState().rooms
+				# set new ID
 				room.id = newrooms.length
+				# set default image
 				room.image = "/img/rooms/"+room.id+".jpg"
+				# add new room to collection
 				newrooms.push room
 				updater.set { rooms: newrooms }
 		}

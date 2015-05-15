@@ -49,30 +49,28 @@ define ['flux', 'io'
 
 				
 
-
-			flux.dispatcher.register (actionType , data) ->
-
-				# update room
-				if actionType is "prototype_stores_rooms_update"
-					room = data
-
+			###
+			# register a dispatcher listener for the api
+			###
+			flux.dispatcher.register ( actionType, data ) ->
+	
+				# listen to prototype_api_rooms_update
+				if actionType is "prototype_api_rooms_update"
 					msg = 
-						actionType: 'prototype_api_rooms_update'
-						data: room
-
+						actionType: actionType
+						recent: data.recent
+						prev: data.prev
 					
 					socket.send msg
 
-				# create room
-				if actionType is "prototype_stores_rooms_create"
-					room = data
-
+				# listen to prototype_api_rooms_create
+				if actionType is "prototype_api_rooms_create"
 					msg = 
-						actionType: 'prototype_api_rooms_create'
-						data: room
+						actionType: actionType
+						recent: data.recent
+						prec: false
 
 					socket.send msg
-
 
 
 	Api

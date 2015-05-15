@@ -109,7 +109,6 @@ require('load-grunt-tasks')(grunt);
 
     express: {
       options: {
-        // Override defaults here
       },
       dev: {
         options: {

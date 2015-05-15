@@ -1,4 +1,4 @@
-define [],() ->
+define ['fluxify', 'flux'],( flux, a ) ->
 
 	class Api
 
@@ -8,10 +8,15 @@ define [],() ->
 
 			api = @
 			socket.on 'message', ( msg ) ->
-				api.handle_message msg
+				api.handle_message msg.actionType, { prev: msg.prev, recent: msg.recent }
 
-		handle_message: ( msg ) ->
-			console.log  msg.actionType + " - " + msg.data.name
+		handle_message: ( actionType, data ) ->
+			if actionType is "prototype_api_rooms_update"
+				console.log  actionType + " - " + data.prev.name + " to " + data.recent.name
+				console.log "doAction: test"
+				flux.doAction 'test' 
 
+			if actionType is "prototype_api_rooms_create"
+				console.log  actionType + " - " + data.recent.name
 
 	Api
