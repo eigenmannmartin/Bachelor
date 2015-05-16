@@ -11,15 +11,12 @@ define ['flux', 'state'],( flux, state ) ->
 			console.log "private update"
 			socket.emit 'message', { actionType: 'prototype_stores_rooms_update_insert', data: data }
 
-	flux.dispatcher.register ( actionType, data ) ->
-		if actionType is 'prototype_api_stores_rooms_update_insert'
-			console.log "public update"
-			state.socket.emit 'message', { actionType: 'prototype_stores_rooms_update_insert', data: data }
 
 
 	class Api
 
 		constructor: ( socket = false ) ->
+			@.socket = socket
 			if not socket
 				throw new Error "API.constructor - constructor needs a socket"
 
@@ -30,6 +27,12 @@ define ['flux', 'state'],( flux, state ) ->
 
 			# send all data to the client
 			flux.doAction 'prototype_sync_rooms_init', socket
+
+			# public send
+			flux.dispatcher.register ( actionType, data ) ->
+				if actionType is 'prototype_api_stores_rooms_update_insert'
+					console.log "public update"
+					api.socket.emit 'message', { actionType: 'prototype_stores_rooms_update_insert', data: data }
 
 
 		handle_message: ( actionType, data ) ->

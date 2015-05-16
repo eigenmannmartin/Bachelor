@@ -14,21 +14,13 @@
         });
       }
     });
-    flux.dispatcher.register(function(actionType, data) {
-      if (actionType === 'prototype_api_stores_rooms_update_insert') {
-        console.log("public update");
-        return state.socket.emit('message', {
-          actionType: 'prototype_stores_rooms_update_insert',
-          data: data
-        });
-      }
-    });
     Api = (function() {
       function Api(socket) {
         var api;
         if (socket == null) {
           socket = false;
         }
+        this.socket = socket;
         if (!socket) {
           throw new Error("API.constructor - constructor needs a socket");
         }
@@ -40,6 +32,15 @@
           });
         });
         flux.doAction('prototype_sync_rooms_init', socket);
+        flux.dispatcher.register(function(actionType, data) {
+          if (actionType === 'prototype_api_stores_rooms_update_insert') {
+            console.log("public update");
+            return api.socket.emit('message', {
+              actionType: 'prototype_stores_rooms_update_insert',
+              data: data
+            });
+          }
+        });
       }
 
       Api.prototype.handle_message = function(actionType, data) {
