@@ -20,7 +20,8 @@
     "react": "~0.13.2",
     "react-router": "~0.13.3",
     "fluxify": "~0.2.1",
-    "requirejs": "~2.1.17"
+    "requirejs": "~2.1.17",
+    "es6-promise": "~2.1.0"
   },
   "dependencies": {
     "materialize": "~0.96.1"

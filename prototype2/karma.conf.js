@@ -23,6 +23,8 @@ module.exports = function(config) {
       {pattern: 'specs/**/*Spec.coffee', included: false},
 
       {pattern: 'bower_components/fluxify/build/fluxify.min.js', included: false},
+      {pattern: 'bower_components/react-router/build/umd/ReactRouter.min.js', included: false},
+      {pattern: 'bower_components/react/react.js', included: false},
 
       'specs/test-main.js',
 
@@ -87,7 +89,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: [/*'Chrome','Firefox',*/  'PhantomJS'],
+    browsers: [/*'Chrome',*/'Firefox'/*,  'PhantomJS'*/],
 
 
     // Continuous Integration mode

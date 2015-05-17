@@ -26,6 +26,9 @@ require.config({
     server_logic: 'base/server/logic',
     server_storage: 'base/server/storage',
 
+    client_store: 'base/client/store',
+    staticPages: 'base/client/staticPages',
+
   },
 
 

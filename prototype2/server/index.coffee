@@ -6,7 +6,12 @@ requirejs.config
 
 
 
-requirejs ['express', 'socket.io', 'http', 'api', 'logic' ],(express, io, http, api, logic) ->
+requirejs ['express', 'socket.io', 'http', 'api', 'logic', 'flux' ],(express, io, http, api, logic, flux) ->
+
+
+	# debug output
+	flux.dispatcher.register (messageName, message) ->
+		console.log " ----- " + messageName + " ----- "
 
 	# start the express app
 	app = express()

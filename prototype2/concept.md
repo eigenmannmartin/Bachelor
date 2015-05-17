@@ -15,7 +15,7 @@ Messages:
 
 
 --- Presentation Layer -------------------------------
-C_PRES_STORE_update meta:{ model:[model_name] }, data:{ obj:{} }
+C_PRES_STORE_update meta:{ model:[model_name] }, data:{}
 C_PRES_STORE_delete meta:{ model:[model_name], id:[element_id] }
 
 --- API Layer ----------------------------------------

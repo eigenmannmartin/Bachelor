@@ -47,6 +47,9 @@ define ['flux'], (flux) ->
 		# @message: meta:{ model:[model_name] }, data:{ obj:{} } 
 		###
 		_create: (message) ->
+			if not  message.data.obj.image?
+				message.data.obj.image = '/img/rooms/'+message.data.obj.name+'.jpg'
+
 			model = @_DB_insert meta:{ model:message.meta.model }, data: message.data.obj
 			me = @
 			model.then (model) ->
