@@ -65,10 +65,8 @@ define ['flux'], (flux) ->
 		# @message: meta:{ model:[model_name] }, data:{ obj:{} } 
 		###
 		_delete: (message) ->
-			model = @_DB_delete meta:{ model:message.meta.model }, data: message.data.obj
-			me = @
-			model.then (model) ->
-				me._send_message 'S_API_WEB_send', { meta:{ model:message.meta.model, deleted:true }, data: model }
+			@_send_message 'S_API_WEB_send', { meta:{ model:message.meta.model }, data: { id: message.data.obj.id, deleted: 1 } }
+			@_DB_delete meta:{ model:message.meta.model }, data: message.data.obj
 
 
 		_send_message: (messageName, message) ->
@@ -93,8 +91,7 @@ define ['flux'], (flux) ->
 				el.updateAttributes( message.data )
 
 		_DB_delete: (message) ->
-			r = @Sequelize[message.meta.model].find( message.data.id )
-			r.then (el) ->
-				el.destory()
+			@Sequelize[message.meta.model].find(message.data.id).then (el) ->
+				el.destroy()
 
 	Logic
