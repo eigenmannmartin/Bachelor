@@ -1,7 +1,12 @@
 define ['flux'],(flux) ->
 
 	class API
-		constructor: ->
+		constructor: (socket=false) ->
+			if socket 
+				@Socket = socket
+			else
+				throw new Error "you need to pass a websocket instance"
+
 			flux.dispatcher.register (messageName, message) ->
 				@dispatch messageName, message
 
@@ -18,6 +23,15 @@ define ['flux'],(flux) ->
 			if messageName is 'S_API_WEB_delete'
 				@_delete message
 
+			if messageName is 'S_API_WEB_send'
+				@_send message
+
+		_send: (message) ->
+			if 'socket' of message.meta
+				if @Socket.id is message.meta.socket.id
+					message.meta.socket.emit { messageName:'C_PRES_STORE_update', message:{ meta:{ model:message.meta.model }, data:message.data } }
+			else
+				@Socket.emit { messageName:'C_PRES_STORE_update', message:{ meta:{ model:message.meta.model }, data:message.data } }
 		_get: (message) ->
 			@_send_message 'S_LOGIC_SM_get', message
 

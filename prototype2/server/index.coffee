@@ -19,6 +19,12 @@ requirejs ['express', 'socket.io', 'http' ],(express, io, http ) ->
 	# load all persistence
 	models = require __dirname + '/models/'
 
+	#a = models.Room.create({ name:"Eiger" })
+	#r = models.Room.findAll()
+	#r.then (rooms)->
+	#	for room in rooms
+	#		console.log room.name
+
 	# deliver the web-UI
 	app.use '/', express.static __dirname + '/../client/'
 	app.use '/bower_components/', express.static __dirname + '/../../bower_components/'

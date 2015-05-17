@@ -2,7 +2,10 @@ define [ 'server_api', 'flux' ], ( api, flux ) ->
 
 	describe 'Server API', ->
 		beforeEach () ->
-			@Api = new api()
+			@socket = 
+				id: "1234"
+				emit: jasmine.createSpy( "emit" )
+			@Api = new api( @socket )
 
 		afterEach () ->
 			@Api = null
@@ -14,6 +17,15 @@ define [ 'server_api', 'flux' ], ( api, flux ) ->
 
 			it 'offers a dispatch function', ->
 				expect( @Api.dispatch ).toEqual jasmine.any Function
+
+			it 'constructor takes a websocket instance', ->
+				Api = new api( @socket )
+				expect( Api.Socket ).toEqual @socket
+
+			it 'constructor throws an error if no websocket instance was passed', ->
+				func = () ->
+					new api()
+				expect( func ).toThrowError "you need to pass a websocket instance"
 
 		describe 'private API', ->
 			it 'offers _get method', ->
@@ -98,7 +110,7 @@ define [ 'server_api', 'flux' ], ( api, flux ) ->
 		describe '_delete function delivers correct message for logic layer', ->
 			it 'sends S_LOGIC_SM_create message', ->
 				@Api._send_message = jasmine.createSpy( "_send_message" ).and.callFake () -> true
-				@Api.dispatch 'S_API_WEB_delete', { meta: { model: "model" } }
+				@Api.dispatch 'S_API_WEB_delete', { meta: { model: "model" }, data:{} }
 
 				expect( @Api._send_message ).toHaveBeenCalledWith 'S_LOGIC_SM_delete', jasmine.any Object
 
@@ -107,3 +119,14 @@ define [ 'server_api', 'flux' ], ( api, flux ) ->
 				@Api.dispatch 'S_API_WEB_delete', { meta: { model: "model" } }
 
 				expect( flux.doAction ).toHaveBeenCalledWith 'S_LOGIC_SM_delete', jasmine.any Object
+
+		describe 'sending message to clients', ->
+			it 'send to one client', ->
+				@Api.dispatch 'S_API_WEB_send', { meta:{ model:"Room", socket:@socket }, data: {} }
+
+				expect( @socket.emit ).toHaveBeenCalledWith { messageName:'C_PRES_STORE_update', message:{ meta:{ model:"Room" }, data: {} } }
+
+			xit 'sends to all clients', ->
+				@Api.dispatch 'S_API_WEB_send', { meta:{ model:"Room" }, data: {} }
+
+				expect( @socket.emit ).toHaveBeenCalledWith { messageName:'C_PRES_STORE_update', message:{ meta:{ model:"Room" }, data: {} } }
