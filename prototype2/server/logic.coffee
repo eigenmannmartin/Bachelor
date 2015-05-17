@@ -17,7 +17,7 @@ define ['flux'], (flux) ->
 				@_get message
 
 			if messageName is 'S_LOGIC_SM_create'
-				@_put message
+				@_create message
 
 			if messageName is 'S_LOGIC_SM_update'
 				@_update message
@@ -49,7 +49,7 @@ define ['flux'], (flux) ->
 		_create: (message) ->
 			model = @_DB_insert meta:{ model:message.meta.model }, data: message.data.obj
 			me = @
-			model.then (models) ->
+			model.then (model) ->
 				me._send_message 'S_API_WEB_send', { meta:{ model:message.meta.model }, data: model }
 
 		###
@@ -58,8 +58,8 @@ define ['flux'], (flux) ->
 		_update: (message) ->
 			model = @_DB_update meta:{ model:message.meta.model }, data: message.data.obj
 			me = @
-			model.then (models) ->
-				me_send_message 'S_API_WEB_send', { meta:{ model:message.meta.model }, data: model }
+			model.then (model) ->
+				me._send_message 'S_API_WEB_send', { meta:{ model:message.meta.model }, data: model }
 
 		###
 		# @message: meta:{ model:[model_name] }, data:{ obj:{} } 
@@ -67,7 +67,7 @@ define ['flux'], (flux) ->
 		_delete: (message) ->
 			model = @_DB_delete meta:{ model:message.meta.model }, data: message.data.obj
 			me = @
-			model.then (models) ->
+			model.then (model) ->
 				me._send_message 'S_API_WEB_send', { meta:{ model:message.meta.model, deleted:true }, data: model }
 
 
@@ -85,14 +85,16 @@ define ['flux'], (flux) ->
 			return r
 
 		_DB_insert: (message) ->
-			@Sequelize[message.meta.model].create( message.data )
+			r = @Sequelize[message.meta.model].create( message.data )
 
 		_DB_update: (message) ->
 			r = @Sequelize[message.meta.model].find( message.data.id )
-			r.updateAttributes( message.data )
+			r.then (el) ->
+				el.updateAttributes( message.data )
 
 		_DB_delete: (message) ->
 			r = @Sequelize[message.meta.model].find( message.data.id )
-			r.destory()
+			r.then (el) ->
+				el.destory()
 
 	Logic

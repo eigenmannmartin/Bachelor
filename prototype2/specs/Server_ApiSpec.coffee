@@ -5,6 +5,7 @@ define [ 'server_api', 'flux' ], ( api, flux ) ->
 			@socket = 
 				id: "1234"
 				emit: jasmine.createSpy( "emit" )
+				on: jasmine.createSpy( "on" )
 			@Api = new api( @socket )
 
 		afterEach () ->
@@ -124,9 +125,9 @@ define [ 'server_api', 'flux' ], ( api, flux ) ->
 			it 'send to one client', ->
 				@Api.dispatch 'S_API_WEB_send', { meta:{ model:"Room", socket:@socket }, data: {} }
 
-				expect( @socket.emit ).toHaveBeenCalledWith { messageName:'C_PRES_STORE_update', message:{ meta:{ model:"Room" }, data: {} } }
+				expect( @socket.emit ).toHaveBeenCalledWith 'message', { messageName:'C_PRES_STORE_update', message:{ meta:{ model:"Room" }, data: {} } }
 
-			xit 'sends to all clients', ->
+			it 'sends to all clients', ->
 				@Api.dispatch 'S_API_WEB_send', { meta:{ model:"Room" }, data: {} }
 
-				expect( @socket.emit ).toHaveBeenCalledWith { messageName:'C_PRES_STORE_update', message:{ meta:{ model:"Room" }, data: {} } }
+				expect( @socket.emit ).toHaveBeenCalledWith 'message', { messageName:'C_PRES_STORE_update', message:{ meta:{ model:"Room" }, data: {} } }
