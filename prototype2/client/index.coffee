@@ -7,7 +7,13 @@ require.config
 
 
 
-require [],()->
+require ['io'],(io)->
+
+	window.io = io('http://localhost:3000')
+	window.io.on 'message', ( msg ) ->
+		console.log msg
+		
+	console.log window.io
 
 
 

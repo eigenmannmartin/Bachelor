@@ -7,8 +7,12 @@ define ['flux'],(flux) ->
 			else
 				throw new Error "you need to pass a websocket instance"
 
+			me = @
+			@Socket.on 'message', ( msg ) ->
+				me.dispatch msg.messageName, msg.message
+
 			flux.dispatcher.register (messageName, message) ->
-				@dispatch messageName, message
+				me.dispatch messageName, message
 
 		dispatch: (messageName, message) ->
 			if messageName is 'S_API_WEB_get'
@@ -29,10 +33,12 @@ define ['flux'],(flux) ->
 		_send: (message) ->
 			if 'socket' of message.meta
 				if @Socket.id is message.meta.socket.id
-					message.meta.socket.emit { messageName:'C_PRES_STORE_update', message:{ meta:{ model:message.meta.model }, data:message.data } }
+					message.meta.socket.emit 'message', { messageName:'C_PRES_STORE_update', message:{ meta:{ model:message.meta.model }, data:message.data } }
 			else
-				@Socket.emit { messageName:'C_PRES_STORE_update', message:{ meta:{ model:message.meta.model }, data:message.data } }
+				@Socket.emit 'message', { messageName:'C_PRES_STORE_update', message:{ meta:{ model:message.meta.model }, data:message.data } }
+		
 		_get: (message) ->
+			message.meta.socket = @Socket
 			@_send_message 'S_LOGIC_SM_get', message
 
 		_put: (message) ->

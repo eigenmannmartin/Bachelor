@@ -8,8 +8,9 @@ define ['flux'], (flux) ->
 			else
 				throw new Error "you need to pass a sequelize instance"
 
+			me = @
 			flux.dispatcher.register (messageName, message) ->
-				@dispatch messageName, message
+				me.dispatch messageName, message
 
 		dispatch: (messageName, message) ->
 			if messageName is 'S_LOGIC_SM_get'
@@ -30,34 +31,44 @@ define ['flux'], (flux) ->
 		_get: (message) ->
 			if 'socket' not of message.meta
 				throw new Error "not implemented yet!"
-
 				#@_send_message 'S_API_WEB_send', { meta:{ model:message.meta.model }, data: model }
-			
+
 			models = @_DB_select message
 
-			for model in models
-				@_send_message 'S_API_WEB_send', { meta:{ model:message.meta.model, socket:message.meta.socket }, data: model }
-					
+			me = @
+			models.then (models) ->
+				if models.constructor is Array
+					for model in models
+						me._send_message 'S_API_WEB_send', { meta:{ model:message.meta.model, socket:message.meta.socket }, data: model }
+				else
+					me._send_message 'S_API_WEB_send', { meta:{ model:message.meta.model, socket:message.meta.socket }, data: models }
+
 		###
 		# @message: meta:{ model:[model_name] }, data:{ obj:{} } 
 		###
 		_create: (message) ->
 			model = @_DB_insert meta:{ model:message.meta.model }, data: message.data.obj
-			@_send_message 'S_API_WEB_send', { meta:{ model:message.meta.model }, data: model }
+			me = @
+			model.then (models) ->
+				me._send_message 'S_API_WEB_send', { meta:{ model:message.meta.model }, data: model }
 
 		###
 		# @message: meta:{ model:[model_name] }, data:{ obj:{}, prev:{} } 
 		###
 		_update: (message) ->
 			model = @_DB_update meta:{ model:message.meta.model }, data: message.data.obj
-			@_send_message 'S_API_WEB_send', { meta:{ model:message.meta.model }, data: model }
+			me = @
+			model.then (models) ->
+				me_send_message 'S_API_WEB_send', { meta:{ model:message.meta.model }, data: model }
 
 		###
 		# @message: meta:{ model:[model_name] }, data:{ obj:{} } 
 		###
 		_delete: (message) ->
 			model = @_DB_delete meta:{ model:message.meta.model }, data: message.data.obj
-			@_send_message 'S_API_WEB_send', { meta:{ model:message.meta.model, deleted:true }, data: model }
+			me = @
+			model.then (models) ->
+				me._send_message 'S_API_WEB_send', { meta:{ model:message.meta.model, deleted:true }, data: model }
 
 
 		_send_message: (messageName, message) ->
@@ -67,7 +78,7 @@ define ['flux'], (flux) ->
 
 		_DB_select: (message) ->
 			if 'id' of message.meta
-				r = [ @Sequelize[message.meta.model].find(message.meta.id) ]
+				r = @Sequelize[message.meta.model].find(message.meta.id)
 			else
 				r = @Sequelize[message.meta.model].findAll()
 

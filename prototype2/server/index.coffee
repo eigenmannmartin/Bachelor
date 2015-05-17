@@ -6,7 +6,7 @@ requirejs.config
 
 
 
-requirejs ['express', 'socket.io', 'http' ],(express, io, http ) ->
+requirejs ['express', 'socket.io', 'http', 'api', 'logic' ],(express, io, http, api, logic) ->
 
 	# start the express app
 	app = express()
@@ -16,10 +16,16 @@ requirejs ['express', 'socket.io', 'http' ],(express, io, http ) ->
 	# setup websockets
 	socket = io.listen(server)
 
-	# load all persistence
-	models = require __dirname + '/models/'
+	socket.on 'connection', (socket) ->
+		new api( socket )
 
-	#a = models.Room.create({ name:"Eiger" })
+	# load all persistence
+	sequelize = require __dirname + '/models/'
+
+	#start logic processor
+	lp = new logic( sequelize )
+
+	#a = sequelize.Room.create({ name:"Eiger" })
 	#r = models.Room.findAll()
 	#r.then (rooms)->
 	#	for room in rooms
@@ -30,7 +36,7 @@ requirejs ['express', 'socket.io', 'http' ],(express, io, http ) ->
 	app.use '/bower_components/', express.static __dirname + '/../../bower_components/'
 
 	# connect to db
-	models.sequelize.sync().then () -> 
+	sequelize.sequelize.sync().then () -> 
 		# start the server
 		server.listen process.env.PORT || 3000 
 		console.log 'Server running at http://127.0.0.1:3000/'
