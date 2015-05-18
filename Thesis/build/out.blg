@@ -1,0 +1,74 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/dev/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: out.aux
+The style file: biblatex.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: out-blx.bib
+Database file #2: ./Citer.bib
+Warning--entry type for "dbenginesranking" isn't style-file defined
+--line 27 of file ./Citer.bib
+Warning--entry type for "ethdistribsystems" isn't style-file defined
+--line 34 of file ./Citer.bib
+Warning--entry type for "ethdistribalgo" isn't style-file defined
+--line 43 of file ./Citer.bib
+Warning--entry type for "block-chain" isn't style-file defined
+--line 87 of file ./Citer.bib
+Warning--entry type for "cw-mobiletrends" isn't style-file defined
+--line 94 of file ./Citer.bib
+Warning--entry type for "comescore-mobiletrends" isn't style-file defined
+--line 101 of file ./Citer.bib
+Biblatex version: 2.9
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+You've used 9 entries,
+            6047 wiz_defined-function locations,
+            1175 strings with 9754 characters,
+and the built_in function-call counts, 22965 in all, are:
+= -- 1051
+> -- 565
+< -- 278
++ -- 229
+- -- 146
+* -- 1173
+:= -- 1223
+add.period$ -- 0
+call.type$ -- 9
+change.case$ -- 175
+chr.to.int$ -- 34
+cite$ -- 16
+duplicate$ -- 2628
+empty$ -- 2622
+format.name$ -- 263
+if$ -- 5408
+int.to.chr$ -- 0
+int.to.str$ -- 20
+missing$ -- 0
+newline$ -- 163
+num.names$ -- 333
+pop$ -- 2581
+preamble$ -- 1
+purify$ -- 177
+quote$ -- 0
+skip$ -- 1432
+stack$ -- 0
+substring$ -- 770
+swap$ -- 855
+text.length$ -- 184
+text.prefix$ -- 8
+top$ -- 1
+type$ -- 324
+warning$ -- 0
+while$ -- 143
+width$ -- 0
+write$ -- 153
+(There were 6 warnings)

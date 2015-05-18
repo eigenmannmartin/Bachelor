@@ -1,0 +1,169 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 2.4 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\entry{SWB-327013990}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Charron-Bost}{C.-B.}%
+     {Bernadette}{B.}%
+     {}{}%
+     {}{}}%
+  }
+  \name{editor}{2}{}{%
+    {{}%
+     {Pedone}{P.}%
+     {Fernando}{F.}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Schiper}{S.}%
+     {André}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer Berlin Heidelberg}%
+  }
+  \keyw{Datenreplikation / Datenbanksystem / Aufsatzsammlung ; Datenreplikation
+  / Verteiltes System / Aufsatzsammlung ; Computer science / Data encryption
+  (Computer science) / Computer software / Information systems / Database
+  management / Computer Science}
+  \strng{namehash}{CBB1}
+  \strng{fullhash}{CBB1}
+  \field{sortinit}{C}
+  \field{isbn}{978-3-642-11294-2}
+  \field{series}{Lecture Notes in Computer Science}
+  \field{title}{Replication: Theory and Practice}
+  \list{location}{1}{%
+    {Berlin, Heidelberg}%
+  }
+  \field{year}{2010}
+\endentry
+
+\entry{dbenginesranking}{misc}{}
+  \field{sortinit}{D}
+  \field{howpublished}{\url{http://db-engines.com/de/ranking}}
+  \field{note}{[Online; accessed 19-March-2015]}
+  \field{title}{DB-Engines Ranking}
+  \field{year}{2015}
+\endentry
+
+\entry{cw-mobiletrends}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Elgan}{E.}%
+     {Mike}{M.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{EM1}
+  \strng{fullhash}{EM1}
+  \field{sortinit}{E}
+  \field{howpublished}{\url{http://www.computerworld.com/article/2489829/mobile-wireless/the-hottest-trend-in-mobile--going-offline-.html}}
+  \field{note}{[Online, accessed 13-Januar-2015]}
+  \field{title}{The hottest trend in mobile: going offline!}
+  \field{year}{2014}
+\endentry
+
+\entry{comescore-mobiletrends}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Lipsman}{L.}%
+     {Andrew}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{LA1}
+  \strng{fullhash}{LA1}
+  \field{sortinit}{L}
+  \field{howpublished}{\url{http://www.comscore.com/Insights/Blog/Major-Mobile-Milestones-in-May-Apps-Now-Drive-Half-of-All-Time-Spent-on-Digital}}
+  \field{note}{[Online, accessed 13-Januar-2015]}
+  \field{title}{Major Mobile Milestones in May: Apps Now Drive Half of All Time
+  Spent on Digital}
+  \field{year}{2014}
+\endentry
+
+\entry{rupDatenbanken}{book}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Meier}{M.}%
+     {Andreas}{A.}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Springer Berlin Heidelberg}%
+  }
+  \keyw{Relationales Datenbanksystem ; Computer science / Software engineering
+  / Database management / Economics / Management information systems / Computer
+  Science}
+  \strng{namehash}{MA1}
+  \strng{fullhash}{MA1}
+  \field{sortinit}{M}
+  \field{isbn}{978-3-642-05256-9}
+  \field{series}{eXamen.pressSpringerLink}
+  \field{title}{Relationale und postrelationale Datenbanken}
+  \field{volume}{7}
+  \list{location}{1}{%
+    {Berlin, Heidelberg}%
+  }
+  \field{year}{2010}
+\endentry
+
+\entry{block-chain}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Nakamoto}{N.}%
+     {Satoshi}{S.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{NS1}
+  \strng{fullhash}{NS1}
+  \field{sortinit}{N}
+  \field{howpublished}{\url{https://bitcoin.org/bitcoin.pdf}}
+  \field{title}{Bitcoin: A Peer-to-Peer Electronic Cash System}
+  \field{year}{2009}
+\endentry
+
+\entry{ethdistribalgo}{misc}{}
+  \list{publisher}{1}{%
+    {ETH Zürich}%
+  }
+  \field{sortinit}{V}
+  \field{howpublished}{\url{https://www.vs.inf.ethz.ch/edu/HS2014/VA/Vorl.vert.algo12-All.pdf}}
+  \field{note}{[Online, accessed 19-March-2015]}
+  \field{title}{Verteilte Algorithmen}
+  \field{year}{2014}
+\endentry
+
+\entry{ethdistribsystems}{misc}{}
+  \list{publisher}{1}{%
+    {ETH Zürich}%
+  }
+  \field{sortinit}{V}
+  \field{howpublished}{\url{https://www.vs.inf.ethz.ch/edu/HS2014/VS/slides/VS-Vorl14-all.pdf}}
+  \field{note}{[Online, accessed 19-March-2015]}
+  \field{title}{Verteilte Systeme}
+  \field{year}{2014}
+\endentry
+
+\lossort
+\endlossort
+
+\endinput

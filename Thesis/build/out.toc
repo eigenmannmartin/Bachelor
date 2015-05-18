@@ -1,0 +1,227 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {ngerman}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Abstract}{i}{chapter.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Danksagungen}{ii}{chapter.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Inhaltsverzeichnis}{iii}{chapter.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {part}{\numberline {I}Teil i}{1}{part.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Einleitung}{2}{chapter.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Motivation und Fragestellung}{2}{section.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Aufgabenstellung}{3}{section.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.3}Abgrenzung der Arbeit}{3}{section.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.4}Begr\IeC {\"u}ndung}{3}{section.4.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.5}Geschichtliche Einordnung in das Thema}{3}{section.4.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Dokumentationsstruktur und Beitrag zum Forschungsgebiet}{4}{chapter.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {part}{\numberline {II}Teil ii}{5}{part.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Recherche}{6}{chapter.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.1}Fachbegriffe}{6}{section.6.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.2}Erl\IeC {\"a}uterung der Grundlagen}{6}{section.6.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.1}Datenbanken}{6}{subsection.6.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.2}Monolithische Systeme}{7}{subsection.6.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.3}Verteilte Systeme}{7}{subsection.6.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{physisch verteilte Systeme}{7}{subsection.6.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{logisch verteilte Systeme}{7}{subsection.6.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.4}Verteilte Algorithmen}{7}{subsection.6.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.5}Verteilte Datenbanken}{8}{subsection.6.2.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.6}Replikation}{8}{subsection.6.2.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Synchrone Replikation}{8}{subsection.6.2.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Asynchrone Replikation}{8}{subsection.6.2.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Merge Replikation}{8}{subsection.6.2.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.2.7}Block-Chain}{9}{subsection.6.2.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {7}Analyse}{10}{chapter.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.1}Datenanalyse}{10}{section.7.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.1.1}Kontextbezogene Daten (Struktur)}{10}{subsection.7.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.1.2}Unabh\IeC {\"a}ngige Daten (Struktur)}{10}{subsection.7.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.1.3}Exklusive Daten (Art)}{10}{subsection.7.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.1.4}Gemeinsame Daten (Art)}{11}{subsection.7.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.1.5}Dynamische Daten (Art)}{11}{subsection.7.1.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.1.6}Statische Daten (Art)}{11}{subsection.7.1.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.1.7}Tempor\IeC {\"a}re Daten (Art)}{11}{subsection.7.1.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.2}Diskussion Synchronisationsproblem}{11}{section.7.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.3}Diskussion bekannter Verfahren}{12}{section.7.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.4}Anforderungsanalyse}{12}{section.7.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.5}Vorgehensweise}{12}{section.7.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.5.1}Use-Cases}{12}{subsection.7.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.5.2}Anforderungen}{12}{subsection.7.5.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.5.3}Akzeptanzkriterien}{12}{subsection.7.5.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.5.4}Bewertung der Anforderungen}{12}{subsection.7.5.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.6}Risiken}{12}{section.7.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {part}{\numberline {III}Teil iii}{13}{part.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {8}Konzept}{14}{chapter.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.1}Singlestate}{14}{section.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {8.1.1}Konfliktvermeidung}{14}{subsection.8.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Update Transformation}{14}{subsection.8.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Kontextbezogene Daten}{15}{figure.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Unabh\IeC {\"a}ngige Daten}{15}{figure.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Exklusive Daten}{15}{figure.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Gemeinsame Daten}{15}{figure.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Wiederholbare Transaktion}{15}{figure.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Kontextbezogene Daten}{15}{figure.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Unabh\IeC {\"a}ngige Daten}{16}{figure.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Exklusive Daten}{16}{figure.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {paragraph}{Gemeinsame Daten}{16}{figure.8.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {8.1.2}Konfliktaufl\IeC {\"o}sung}{16}{subsection.8.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Zusammenf\IeC {\"u}hrung (Merge)}{16}{subsection.8.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{normalisierte Zusammenf\IeC {\"u}hrung (Normalized Merge)}{17}{figure.8.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.2}Multistate}{17}{section.8.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {8.2.1}Gesamtkonzept}{18}{subsection.8.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {9}Design des Prototypen}{19}{chapter.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.1}Design-Ans\IeC {\"a}tze}{19}{section.9.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.1.1}Server zentrierte Architektur}{19}{subsection.9.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.1.2}Client zentrierte Architektur}{19}{subsection.9.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.1.3}Client zentrierte, Server basierte Architektur}{19}{subsection.9.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.2}Entscheid}{19}{section.9.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.3}Design}{20}{section.9.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.3.1}Backend}{20}{subsection.9.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Logik}{20}{subsection.9.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{Persistenz}{20}{subsection.9.3.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.3.2}API}{21}{subsection.9.3.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.3.3}Frontend}{21}{subsection.9.3.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.3.4}Message Flow}{21}{subsection.9.3.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {9.3.5}AMD Pattern}{22}{subsection.9.3.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.4}Beispielapplikation}{22}{section.9.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {10}Prototyp}{23}{chapter.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {10.1}Umsetzung}{23}{section.10.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {10.2}Technologie Stack}{23}{section.10.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {10.3}Entwicklungsumgebung}{24}{section.10.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {10.4}Entwicklung}{24}{section.10.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {10.5}Grafische Umsetzung Fallbeispiel}{24}{section.10.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {11}Testing}{25}{chapter.11}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {11.1}Unit-Testing}{25}{section.11.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {11.2}Integration-Testing}{25}{section.11.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {11.3}Test der Akzeptanzkriterien}{25}{section.11.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {11.4}\IeC {\"U}berpr\IeC {\"u}fung der Aufgabenstellung}{25}{section.11.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {part}{\numberline {IV}Teil iv}{26}{part.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {12}Review}{27}{chapter.12}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {12.1}Testing}{27}{section.12.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {12.1.1}Integrationstest}{27}{subsection.12.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {12.1.2}Systemtest}{27}{subsection.12.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {12.2}Validation}{27}{section.12.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {12.2.1}Test der Akzeptanzkriterien}{27}{subsection.12.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {12.2.2}\IeC {\"U}berpr\IeC {\"u}fung der Aufgabenstellung}{27}{subsection.12.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {13}Ausblick}{28}{chapter.13}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {14}Fazit und Schlusswort}{29}{chapter.14}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {A}Appendix}{30}{appendix.A}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.1}Glossar}{30}{section.A.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {A.2}Aufgabenstellung}{30}{section.A.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.2.1}Thema}{30}{subsection.A.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.2.2}Ausgangslage}{30}{subsection.A.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.2.3}Ziele der Arbeit}{30}{subsection.A.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.2.4}Aufgabenstellung}{31}{subsection.A.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {A.2.5}Erwartete Resultate}{31}{subsection.A.2.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {B}Verzeichnisse}{33}{appendix.B}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {B.1}Quellenverzeichnis}{33}{section.B.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {B.2}Tabellenverzeichnis}{33}{section.B.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {B.3}Abbildungsverzeichnis}{34}{section.B.3}
