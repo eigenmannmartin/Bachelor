@@ -26,8 +26,16 @@ require ['api', 'store', 'router', 'flux'],(api, store, router, flux)->
 
 
 
-	#window.flux.doAction( 'C_PRES_STORE_update', { meta:{model:"room"}, data:{id:"22", ac:false} } )
+	#window.flux.doAction( 'C_PRES_STORE_update', { meta:{model:"Room"}, data:{id:2, ac:false} } )
 	#window.flux.stores.prototype_rooms.getState()
+
+
+	###
+	{"name":"Test","free":false, "ac": true, "beamer":true, "seats":333, "description":"some description"} 
+
+	{"id": , "delete":true} 
+
+	###
 
 
 

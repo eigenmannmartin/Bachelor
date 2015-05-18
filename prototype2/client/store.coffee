@@ -25,8 +25,6 @@ define ['flux'], (flux) ->
 				#msg = meta:{ model:[model_name] }, data:{}
 				C_PRES_STORE_update: ( updater, msg ) ->
 					if msg.meta.model is "Room"
-						console.log "Room Store"
-						console.log msg.data
 						if msg.data.id #do not add rooms without id to the store
 							index = null
 							newrooms = @.getState().rooms  #get all rooms
@@ -43,5 +41,18 @@ define ['flux'], (flux) ->
 							updater.set { rooms: newrooms }
 							updater.emit 'change', @.getState()
 
+				C_PRES_STORE_delete: ( updater, msg ) ->
+					if msg.meta.model is "Room"
+						index = null
+						newrooms = @.getState().rooms
+						for r in newrooms
+							if r.id is msg.data.id
+								index = newrooms.indexOf r
+
+						if index isnt null
+							newrooms.splice index, 1
+						
+						updater.set { rooms: newrooms }
+						updater.emit 'change', @.getState()
 
 	new Store

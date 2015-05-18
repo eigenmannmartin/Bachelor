@@ -31,11 +31,16 @@ define ['flux'],(flux) ->
 				@_send message
 
 		_send: (message) ->
+			if message.data.deleted?
+				messageName = 'C_PRES_STORE_delete'
+			else
+				messageName = 'C_PRES_STORE_update'
+				
 			if 'socket' of message.meta
 				if @Socket.id is message.meta.socket.id
-					message.meta.socket.emit 'message', { messageName:'C_PRES_STORE_update', message:{ meta:{ model:message.meta.model }, data:message.data } }
+					message.meta.socket.emit 'message', { messageName:messageName, message:{ meta:{ model:message.meta.model }, data:message.data } }
 			else
-				@Socket.emit 'message', { messageName:'C_PRES_STORE_update', message:{ meta:{ model:message.meta.model }, data:message.data } }
+				@Socket.emit 'message', { messageName:messageName, message:{ meta:{ model:message.meta.model }, data:message.data } }
 		
 		_get: (message) ->
 			message.meta.socket = @Socket
