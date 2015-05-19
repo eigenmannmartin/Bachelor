@@ -9,9 +9,9 @@ date: 18.3.2015
 # Bachelorarbeit
 Evaluation von Synchronisations- und Konfliktlösungsverfahren im Web-Umfeld 
 
-# Fragen Kick-Off-Meeting
+# Fragen Design Review
 
-1. Ist der Auftrag für die Semesterarbeit vom Studenten korrekt erfasst?
+1. Ist der Auftrag für die Bachelorarbeit vom Studenten korrekt erfasst?
 
     **Ja**, der Auftrag der Bachelorarbeit ist korrekt erfasst.
 
@@ -29,7 +29,7 @@ Evaluation von Synchronisations- und Konfliktlösungsverfahren im Web-Umfeld
 
 5. Wurden alternative Lösungen betrachtet?
 
-    **Ja**, es wurden mehrere alternative Lösungen betrachtet.
+    **Ja**, es wurden bestehende Lösungen betrachtet.
 
 6. Entsprechen das Arbeit- und Lösungskonzept den Anforderungen an eine Bachelorarbeit?
 

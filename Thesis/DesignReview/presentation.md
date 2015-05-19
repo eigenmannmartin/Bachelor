@@ -56,11 +56,11 @@ Gewöhnung an den Zustand des "immer online seins" - was passiert wenn mal kein 
 
 # Konzepte
 
-## Single State
+## 
 
 ![](img/singlestate.jpg)
 
-## Multi State
+##
 
 ![](img/multistate.jpg)
 
@@ -75,12 +75,26 @@ Gewöhnung an den Zustand des "immer online seins" - was passiert wenn mal kein 
 - normalisierte Zusammenführung
 - gewichtete Zusammenführung
 
-## Stand
+#
+
+## Stand 1
 - Recherche [<span class="ok">ok</span>]
 - Diskussion & Analyse [<span class="ok">ok</span>]
 - Lösungsansätze suchen [<span class="ok">ok</span>]
 - Prototyp Implementieren [<span class="pending">pending</span>]
 - Dokumentation [<span class="pending">pending</span>]
+
+## Stand 2
+
+![](img/flux-diagram.png)
+
+## Stand 3
+
+![](img/tdd.png)
+
+## Stand 4
+
+![](img/coverage.png)
 
 ## persönliche Ziele
 - Ist-Zustand verstehen [<span class="ok">ok</span>]
@@ -101,7 +115,7 @@ Gewöhnung an den Zustand des "immer online seins" - was passiert wenn mal kein 
 
 # 
 
-##Aufgabenstellung
+##Aufgabenstellung 1/2
 - A/R1
     + Glossar [<span class="pending">pending</span>]
     + Bestehendes [<span class="nc">nc</span>]
@@ -112,6 +126,8 @@ Gewöhnung an den Zustand des "immer online seins" - was passiert wenn mal kein 
 - A/R3
     + Erstellen Konzept Software [<span class="fail">nok</span>]
     + Erstellen Konzept Sync [<span class="fail">nok</span>]
+
+##Aufgabenstellung 2/2
 - A/R4
     + Konzeption Prototyp [<span class="ok">ok</span>]
     + Entwickeln Prototyp [<span class="ok">ok</span>]
@@ -127,5 +143,8 @@ Gewöhnung an den Zustand des "immer online seins" - was passiert wenn mal kein 
     + Dokumentation des Konzepts zur __Synchronisation__
 
 
+## Offene Punkte
+- Experte?
 
 ## Fragen
+
