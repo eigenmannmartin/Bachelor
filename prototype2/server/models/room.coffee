@@ -1,3 +1,4 @@
+### istanbul ignore next: sequelize is not testable in the browser ###
 module.exports = (sequelize, DataTypes) ->
 	Room = sequelize.define "Room", { 
 		name: DataTypes.STRING
