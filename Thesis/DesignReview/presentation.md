@@ -84,17 +84,34 @@ Gewöhnung an den Zustand des "immer online seins" - was passiert wenn mal kein 
 - Prototyp Implementieren [<span class="pending">pending</span>]
 - Dokumentation [<span class="pending">pending</span>]
 
-## Stand 2
+## Architektur
+- nur Clients
+- Server - dumme Clients
+- Clients - Server <span class="ok"><--</span>
+
+## Architektur 
 
 ![](img/flux-diagram.png)
 
-## Stand 3
+## Stack
+- fluxifyJS
+- reactJS
+- nodeJS
+- RequireJS
+- express
+- socket.io
+- sequelize
+- karma
+- CoffeeScript
+
+## TDD
 
 ![](img/tdd.png)
 
-## Stand 4
+## TDD
 
 ![](img/coverage.png)
+
 
 ## persönliche Ziele
 - Ist-Zustand verstehen [<span class="ok">ok</span>]
@@ -112,6 +129,10 @@ Gewöhnung an den Zustand des "immer online seins" - was passiert wenn mal kein 
 ## Termine
 - Endscheid über Abschluss: 6. Juni
 - Abschluss: Ende Juni oder Mitte August
+
+## Es gibt noch Luft
+
+![](img/ok.gif)
 
 # 
 
