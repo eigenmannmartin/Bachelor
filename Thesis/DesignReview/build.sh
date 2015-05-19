@@ -1,0 +1,1 @@
+pandoc -t revealjs --standalone --section-divs  presentation.md -o p.html --css reveal.js/css/theme/moon.css

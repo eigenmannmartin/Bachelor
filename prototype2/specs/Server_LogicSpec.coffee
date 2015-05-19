@@ -97,11 +97,51 @@ define [ 'server_logic', 'flux' ], ( logic, flux ) ->
 				#expect( @Logic._send_message ).toHaveBeenCalledWith 'S_API_WEB_send', { meta:{ model:"Room", deleted:true }, data: @TestData.Return1 }
 
 
-			it '', ->
-			it '', ->
-			it '', ->
-			it '', ->
-			it '', ->			
+			it 'Sync:repeatable', ->
+				expect( @Logic.sync._repeatable ).toEqual jasmine.any Function
+				data = {}
+				db_obj = a: 5
+				new_obj = a: 3
+				prev_obj = a: 4
+				attr = 'a'
+
+				@Logic.sync._repeatable( data, db_obj, new_obj, prev_obj, attr )
+
+			it 'Sync:combining', ->
+				expect( @Logic.sync._combining ).toEqual jasmine.any Function
+
+				data = {}
+				db_obj = a: 5
+				new_obj = a: 3
+				prev_obj = a: 4
+				attr = 'a'
+
+				@Logic.sync._combining( data, db_obj, new_obj, prev_obj, attr )
+				
+
+			it 'Sync:traditional', ->
+				expect( @Logic.sync._traditional ).toEqual jasmine.any Function
+
+				data = {}
+				db_obj = a: 5
+				new_obj = a: 3
+				prev_obj = a: 4
+				attr = 'a'
+
+				@Logic.sync._traditional( data, db_obj, new_obj, prev_obj, attr )
+
+			it 'Sync:contextual', ->
+				expect( @Logic.sync._contextual ).toEqual jasmine.any Function
+
+				data = {}
+				db_obj = a: 5
+				new_obj = a: 3
+				prev_obj = a: 4
+				attr = 'a'
+
+				@Logic.sync._contextual( data, db_obj, new_obj, prev_obj, attr )
+
+		
 			it '', ->
 			it '', ->
 			it '', ->

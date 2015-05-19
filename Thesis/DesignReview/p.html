@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Martin Eigenmann" />
+  <title>Design Review</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/moon.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Design Review</h1>
+    <h2 class="author">Martin Eigenmann</h2>
+    <h3 class="date">20.Mai 2015</h3>
+</section>
+
+<section class="slide level2">
+
+<style type="text/css">
+    strong {
+        background: #FF5E99 none repeat scroll 0% 0%;
+        color: white;
+    }
+
+    img {
+        background-color: white !important;
+    }
+
+    .ok {
+        color: green;
+    }
+    .nc {
+        color: purple; 
+    }
+    .pending {
+        color: yellow;
+    }
+    .fail {
+        color: red;
+    }
+</style>
+<!--
+-Stand, wesentliche Aspekte
+-Diskussion des gewählten Konzepts
+-Offene Punkte
+-Anpassung Aufgabenstellung
+-Restplanung
+-->
+</section>
+<section><section id="section" class="titleslide slide level1"><h1></h1></section><section id="aufgabenstellung" class="slide level2">
+<h1>Aufgabenstellung</h1>
+<p><em>Mobile Applikationen (Ressourcen-Planung, Ausleihlisten, etc.) gleichen lokale Daten mit dem Server ab. Manchmal werden von mehreren Applikationen, gleichzeitig, dieselben Datensätze mutiert. Dies kann zu Konflikten führen. Welche <strong>Techniken und Lösungswege</strong> können angewendet werden, <strong>damit Konflikte</strong> gelöst werden können oder gar <strong>nicht</strong> erst <strong>auftreten</strong>?</em></p>
+<aside class="notes">
+</aside>
+</section><section id="server-not-found" class="slide level2">
+<h1>server not found!</h1>
+<figure>
+<img src="img/noinet.gif" />
+</figure>
+<aside class="notes">
+Gewöhnung an den Zustand des &quot;immer online seins&quot; - was passiert wenn mal kein Empfang?
+</aside>
+</section></section>
+<section><section id="konzepte" class="titleslide slide level1"><h1>Konzepte</h1></section><section id="single-state" class="slide level2">
+<h1>Single State</h1>
+<figure>
+<img src="img/singlestate.jpg" />
+</figure>
+</section><section id="multi-state" class="slide level2">
+<h1>Multi State</h1>
+<figure>
+<img src="img/multistate.jpg" />
+</figure>
+</section></section>
+<section><section id="sync-verfahren" class="titleslide slide level1"><h1>Sync Verfahren</h1></section><section id="konfliktvermeidung" class="slide level2">
+<h1>Konfliktvermeidung</h1>
+<ul>
+<li>Update Transformation</li>
+<li>Wiederholbare Transaktion</li>
+</ul>
+</section><section id="konfliktauflösung" class="slide level2">
+<h1>Konfliktauflösung</h1>
+<ul>
+<li>Zusammenführung</li>
+<li>normalisierte Zusammenführung</li>
+<li>gewichtete Zusammenführung</li>
+</ul>
+</section><section id="stand" class="slide level2">
+<h1>Stand</h1>
+<ul>
+<li>Recherche [<span class="ok">ok</span>]</li>
+<li>Diskussion &amp; Analyse [<span class="ok">ok</span>]</li>
+<li>Lösungsansätze suchen [<span class="ok">ok</span>]</li>
+<li>Prototyp Implementieren [<span class="pending">pending</span>]</li>
+<li>Dokumentation [<span class="pending">pending</span>]</li>
+</ul>
+</section><section id="persönliche-ziele" class="slide level2">
+<h1>persönliche Ziele</h1>
+<ul>
+<li>Ist-Zustand verstehen [<span class="ok">ok</span>]</li>
+<li>Verbesserungsmöglichkeiten aufzeigen [<span class="pending">pending</span>]</li>
+</ul>
+</section><section id="planung" class="slide level2">
+<h1>Planung</h1>
+<figure>
+<img src="img/Projektplan.png" />
+</figure>
+</section><section id="nächste-schritte" class="slide level2">
+<h1>Nächste Schritte</h1>
+<ul>
+<li>Dokumentation vervollständigen</li>
+<li>Prototyp Präsentations-fertig</li>
+</ul>
+</section><section id="termine" class="slide level2">
+<h1>Termine</h1>
+<ul>
+<li>Endscheid über Abschluss: 6. Juni</li>
+<li>Abschluss: Ende Juni oder Mitte August</li>
+</ul>
+</section></section>
+<section><section id="section-1" class="titleslide slide level1"><h1></h1></section><section id="aufgabenstellung-1" class="slide level2">
+<h1>Aufgabenstellung</h1>
+<ul>
+<li>A/R1
+<ul>
+<li>Glossar [<span class="pending">pending</span>]</li>
+<li>Bestehendes [<span class="nc">nc</span>]</li>
+</ul></li>
+<li>A/R2:
+<ul>
+<li>Sync MySQL,MonboDB [<span class="nc">nc</span>]</li>
+<li>BackboneJS, MeteorJS [<span class="nc">nc</span>]</li>
+<li>Anforderungsanalyse [<span class="nc">nc</span>]</li>
+</ul></li>
+<li>A/R3
+<ul>
+<li>Erstellen Konzept Software [<span class="fail">nok</span>]</li>
+<li>Erstellen Konzept Sync [<span class="fail">nok</span>]</li>
+</ul></li>
+<li>A/R4
+<ul>
+<li>Konzeption Prototyp [<span class="ok">ok</span>]</li>
+<li>Entwickeln Prototyp [<span class="ok">ok</span>]</li>
+</ul></li>
+<li>A/R5
+<ul>
+<li>Test des Prototypen [<span class="fail">nok</span>]</li>
+</ul></li>
+</ul>
+</section><section id="anpassungen" class="slide level2">
+<h1>Anpassungen</h1>
+<ul>
+<li><p>Ziel der Arbeit: &quot;Konzeption und <strong>beispielhafte Implementierung</strong> eines <strong>!</strong> Software-Prototypen, welcher ... &quot;</p></li>
+<li>Aufgabenstellung A3:
+<ul>
+<li>Erstellen des Konzepts zur <strong>Synchronisation</strong></li>
+</ul></li>
+<li>Erwartete Resultate R3_
+<ul>
+<li>Dokumentation des Konzepts zur <strong>Synchronisation</strong></li>
+</ul></li>
+</ul>
+</section><section id="fragen" class="slide level2">
+<h1>Fragen</h1>
+</section></section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

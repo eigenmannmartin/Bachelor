@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Martin Eigenmann" />
+  <title>Kick-Off</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/moon.css"/>
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+    <!--[if lt IE 9]>
+    <script src="reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Kick-Off</h1>
+    <h2 class="author">Martin Eigenmann</h2>
+    <h3 class="date">18.März 2015</h3>
+</section>
+
+<section class="slide level1">
+
+<style type="text/css">
+    strong {
+        background: #FF5E99 none repeat scroll 0% 0%;
+        color: white;
+    }
+
+    img {
+        background-color: white !important;
+    }
+</style>
+<section id="aufgabenstellung" class="level2">
+<h2>Aufgabenstellung</h2>
+<!-- Wichtigstes hervorheben? -->
+<p><em>Mobile Applikationen (Ressourcen-Planung, Ausleihlisten, etc.) gleichen lokale Daten mit dem Server ab. Manchmal werden von mehreren Applikationen, gleichzeitig, dieselben Datensätze mutiert. Dies kann zu Konflikten führen. Welche <strong>Techniken und Lösungswege</strong> können angewendet werden, <strong>damit Konflikte</strong> gelöst werden können oder gar <strong>nicht</strong> erst <strong>auftreten</strong>?</em></p>
+<aside class="notes">
+<p>Verstehen und Einordnen des Probleme. Finden von Lösungsansätzen etc.</p>
+Verzögerungen im Netzwerk, gleichzeitiger Zugriff etc.
+</aside>
+</section>
+<section id="aufgabenstellung-1" class="level2">
+<h2>Aufgabenstellung</h2>
+<figure>
+<img src="img/Share-of-US-Digital-Media-Time-Spent-by-Platform.png" />
+</figure>
+<aside class="notes">
+Quelle: Comescore US-Markt - Keine öffentlichen Angaben zum CH Markt.
+</aside>
+</section>
+<section id="server-not-found" class="level2">
+<h2>server not found!</h2>
+<figure>
+<img src="img/noinet.gif" />
+</figure>
+<aside class="notes">
+Gewöhnung an den Zustand des &quot;immer online seins&quot; - was passiert wenn mal kein Empfang?
+</aside>
+</section>
+<section id="trends" class="level2">
+<h2>Trends</h2>
+<p>&quot;It's clear that the mobile industry has finally given up on the fantasy that an Internet connection is available to all users at all times...&quot; [Mike Elgan]</p>
+<figure>
+<img src="img/mikeelgan.jpeg" alt="Mike Elgan" /><figcaption>Mike Elgan</figcaption>
+</figure>
+<aside class="notes">
+<p>Job: journalist, blogger, columnist and podcaster</p>
+<p>wrote for: Computerworld, Cult of Android, Cult of Mac, Forbes, Datamation, eWeek and Baseline</p>
+<p>was chief editor for the technology publication Windows Magazine</p>
+quoted by: The New York Times, Wall Street JournalBBC, CNN, FOX News, and NPR.
+</aside>
+</section>
+<section id="beispiel" class="level2">
+<h2>Beispiel</h2>
+<ul>
+<li class="fragment">Elektrozähler</li>
+<li class="fragment">Facebook</li>
+<li class="fragment">20-Min</li>
+<li class="fragment">Ressourcenverwaltung</li>
+</ul>
+<aside class="notes">
+<p>Elektrozähler: Ablesen der Stände -&gt; www</p>
+<p>Facebook: &quot;Offline posting&quot;</p>
+<p>20-Min: prefetch</p>
+Ressourcenverwaltung: Raumreservierung etc.
+</aside>
+</section>
+</section>
+<section id="erw.-resultate" class="slide level1">
+<h1>Erw. Resultate</h1>
+<ul>
+<li>Analyse Synchronisationsverfahren</li>
+<li>Analyse Konfliktlösungsverfahren</li>
+<li>Ausarbeitung zweier offline Synch.verfahren</li>
+<li>Prototyp</li>
+</ul>
+</section>
+<section id="section" class="slide level1">
+<h1></h1>
+<section id="persönliche-ziele" class="level2">
+<h2>persönliche Ziele</h2>
+<ul>
+<li>Ist-Zustand verstehen</li>
+<li>Verbesserungsmöglichkeiten aufzeigen</li>
+</ul>
+</section>
+</section>
+<section id="section-1" class="slide level1">
+<h1></h1>
+<section id="vorgehensweise" class="level2">
+<h2>Vorgehensweise</h2>
+<ul>
+<li>Recherche</li>
+<li>Diskussion &amp; Analyse</li>
+<li>Lösungsansätze suchen</li>
+<li>Prototyp implementieren</li>
+</ul>
+</section>
+<section id="grobplanung" class="level2">
+<h2>Grobplanung</h2>
+<figure>
+<img src="img/Projektplan.png" />
+</figure>
+<aside class="notes">
+<p>Nebenläufig:</p>
+<ul>
+<li><p>IPA bis Ende März</p></li>
+<li><p>Sem Mobile Netzwerke bis Ende Juni</p></li>
+<li><p>Sem XML-Datenbanken bis Ende Juni</p></li>
+<li><p>Projekt Scrum Board bis Mitte April</p></li>
+</ul>
+<p>Ferien: 1. April Woche</p>
+Unterrichtsfreie Zeit: ...
+</aside>
+</section>
+<section id="termine" class="level2">
+<h2>Termine</h2>
+<ul>
+<li>Design Review ~ Mitte April</li>
+<li>Abschluss ~ Anfangs Juni</li>
+</ul>
+</section>
+</section>
+<section id="section-2" class="slide level1">
+<h1></h1>
+<section id="fragen" class="level2">
+<h2>Fragen</h2>
+</section>
+</section>
+    </div>
+  </div>
+
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+    </body>
+</html>

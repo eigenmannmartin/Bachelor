@@ -171,6 +171,9 @@ Hätte es die grössere Abweichung, würde es nicht synchronisiert werden.
 ![Merge](./img/merge.jpg)
 
 
+### gewichtete Zusammenführung ()
+nach Menge oder Wichtigkeit der Attribute
+
 
 
 

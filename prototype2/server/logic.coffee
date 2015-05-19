@@ -12,6 +12,7 @@ define ['flux'], (flux) ->
 
 				me = @  #bind @ to me
 				promise = Logic._DB_select meta:{ model:model, id: new_obj.id }  #get current db item
+				### istanbul ignore next ###
 				promise.then ( db_objs ) ->  #return updated item
 					data = id: me.obj.id  #new object
 
@@ -29,18 +30,22 @@ define ['flux'], (flux) ->
 					data  #returning data
 
 			_repeatable: (data, db_obj, new_obj, prev_obj, attr) ->
+				### istanbul ignore else ###
 				if new_obj[attr]?
 					data[attr] = db_obj[attr] + (new_obj[attr] - prev_obj[attr])
 
 			_combining: (data, db_obj, new_obj, prev_obj, attr) ->
+				### istanbul ignore else ###
 				if new_obj[attr]?
 					data[attr] = if new_obj[attr] is prev_obj[attr] then db_obj[attr] else new_obj[attr]
 
 			_traditional: (data, db_obj, new_obj, prev_obj, attr) ->
+				### istanbul ignore else ###
 				if new_obj[attr]?
 					data[attr] = if prev_obj[attr] is db_obj[attr] then new_obj[attr] else db_obj[attr] 
 
 			_contextual: (data, db_obj, new_obj, prev_obj, attr, context) ->
+				### istanbul ignore else ###
 				if new_obj[attr]?
 					data[attr] = if prev_obj[context] is db_obj[context] then new_obj[attr] else db_obj[attr] 
 

@@ -96,3 +96,68 @@ Die Block-Chain ist eine verteilte Datenbank die ohne Zentrale Kontrolle auskomm
 [^block_chani_proof_of_work]: Das ändern vorhergehender Einträge benötigt mehr Rechenzeit, als alle anderen Teilnehmer ab diesem Zeitpunkt zusammen aufgewendet haben.
 
 [^block_chain_logic_layer]: So prüft die Bitcoin-Implementation ob eine Transaktion (Überweisung eines Betrags) bereits schon einmal ausgeführt wurde, und verweigert gegebenenfalls eine erneute Ausführung.
+
+
+## Replikationsverfahren
+
+<!-- XML-Databases might be a thing -->
+
+### MySQL
+Das Datenbanksystem MySQL unterstützt asynchrone als auch synchrone Replikation. Beide Betriebsmodi können entweder in der Master-Master[^mysql_active_active] oder in der Master-Slave Konfiguration betreiben werden. 
+
+[^mysql_active_active]: Oft wird Master-Master Replikation auch als Active-Active Replikation referenziert.
+
+Die Master-Slave Replikation unterstützt nur einen einzigen Master und daher werden Mutationen am Datenbestand nur vom Master entgegengenommen und verarbeitet. Ein Slave-Knoten kann aber im Fehlerfall des Master, selbst zum Master werden.
+
+Der Master-Master Betrieb erlaubt die Mutation des Datenbestand auf allen Replikationsteilnehmern. Dies wird mit dem 2-phase-commit (2PC) Protokoll erreicht.
+
+MySQL schliesst Konflikte beim Betrieb eines Master-Master Systems, durch die Implementation des 2PC-Protokoll aus. 
+
+<!-- [Zirkulare Replikation?] -->
+
+
+#### 2-Phase-Commit-Protocoll
+Um eine globale Transaktion erfolgreich abzuschliessen, müssen alle daran beteiligten Datenbanksysteme bekannt und in einem Zustand sein, in dem sie die Transaktion durchführen (commit) oder nicht (roll back). Die Transaktion muss auf allen Datenbanksystemen als eine einzige Atomare Aktion durchgeführt werden.
+
+1. In der ersten Phase werden alle Teilnehmer über den bevorstehenden Commit informiert und zeigen an ob sie die Transaktion erfolgreich durchführen könne.
+2. In der zweiten Phase wird der Commit durchgeführt, sofern alle Teilnehmer dazu im Stande sind.
+
+Bei einer mutierenden Operation auf dem Datenbestand, müssen sich alle beteiligten Datenbanksysteme in einem operationalen Zustand befinden und inder Lage sein, miteinander zu kommunizieren. [@mysqlhandbook]
+
+
+### MongoDB
+MongoDB unterstützt die Konfiguration eines Replica-Sets (Master-Slave) nur im asynchronen Modi. Das Transations-Log des Masters wird auf die Slaves repliziert, welche dann die Transaktionen nachführen. Ein Master-Master Betrieb ist nicht vorhergesehen.
+
+[Bi-Directional Replica-Set (rick446/mmm)?]
+
+
+## Synchronisationsverfahren
+
+### Backbone.js
+Das Web-Framework Backbone.js implementiert zur Datenhaltung und Synchronisation derer, einen REST kompatiblen Key-Value Store. Der Key-Value Store kann entweder ein einzelnes Element oder ein gesamtes Set an Elementen[^backbone_model_collection] von der REST-API lesen und ein einzelnes Element schreibend an die REST-API übermitteln. Die der REST-API zugrundeliegende Datenquelle kann beliebig gewählt werden.
+
+[^backbone_model_collection]: Backbone.js verwendet die Begriffe Model für ein einzelnes Element, wobei einem Element genau ein Key, aber mehrere Values zugeordnet werden können, und Collection für eine Menge an Elementen.
+
+Der REST-Standard verlangt dass für ein Element immer der gesamte Status übermittelt wird. So wird bei lesendem und schreibenden Zugriff immer die gesamte Repräsentation eines Elements gesendet wird, also nicht von einem Kontext ausgegangen werden kann. [@restdissertation]
+
+Backbone.js sieht keinen Mechanismus vor, der Änderungen auf dem Server automatisch auf den Client übernimmt. Es muss entweder periodisch die gesamte Collection gelesen oder periodisch auf ein Änderungs-Log zugegriffen werden, um Änderungen einer Collection zu erkennen. 
+
+Darüber hinaus entscheidet der Server alleine, ob eine konkurrierende Version des Clients übernommen wird. Backbone.js sendet beim Synchronisieren eines Elements, dessen gesamten Inhalt an den Server und übernimmt anschliessend die von der REST-API zurückgelieferten Version. Die zurückgelieferte Version, kann eine bereits auf dem Server als aktiv gesetzt Version des Elements sein. Der Server kann also frei entscheiden welche Version des Elements aktiv wird. Aktualisierung die nicht berücksichtige werden, gehen üblicherweise verloren[^backbone_restapi_log].
+
+[^backbone_restapi_log]: Auf dem Server können alle Requests aufgezeichnet werden, um Mutationen nicht zu verlieren. Dies wird vom Standard aber nicht vorausgesetzt und ist ein applikatorisches Problem des Servers.
+
+1. Im ersten Schritt wird ein neues oder mutiertes Element an den Server übermittelt.
+2. Der Server entscheidet im zweiten Schritt ob die Änderung komplett oder überhaupt nicht übernommen wird. Wird eine Änderung komplett übernommen wird dem Client dies so bestätigt.
+Wird eine Änderung abgelehnt wird der Client darüber informiert.
+3. Im Nachgang wird kann das Element vom Client erneut angefordert werden, und so die aktuellste Version zu beziehen.
+
+### Meteor.js
+Das WEB-Framework Meteor.js implementiert eine Mongo-Light-DB im Client-Teil und synchronisiert diese über das Distributed Data Protocol Protokoll mit der auf dem Server liegenden MongoDB in Echtzeit. 
+
+Meteor.js setzt auf Optimistic Concurrency. So können Mutationen auf der Client-Datenbank durchgeführt werden und diese erst zeitlich versetzt mit dem Server synchronisiert werden. Je geringer die zeitliche Verzögerung, desto geringer ist die Wahrscheinlichkeit, dass das mutierte Element auch bereits auf dem Server geändert wurde. Um eine geringe zeitliche Verzögerung zu erreichen, sind alle Clients permanent mit dem Server mittels Websockets verbunden.
+
+Der Server alleine entscheidet welche Version als aktiv übernommen wird. Somit kann nicht garantiert werden, dass eine Änderung auf dem Client erfolgreich an den Server übermittelt und übernommen wird. Da Mutationen üblicherweise zeitnah übertragen werden, treten nur in seltenen Fällen Konflikte auf.
+
+1. Im ersten Schritt wird ein neues oder die mutierten Attribute eines Elements an den Server übermittelt.
+2. Der Server entscheidet im zweiten Schritt ob die übermittelten Änderungen komplett, teilweise oder nicht angenommen werden.
+3. Im dritten Schritt wird dem Client mitgeteilt welche Änderungen angenommen wurden. Der Client aktualisiert sein lokales Element entsprechen.

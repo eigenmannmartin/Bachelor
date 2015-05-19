@@ -80,6 +80,24 @@
   \field{year}{2014}
 \endentry
 
+\entry{restdissertation}{misc}{}
+  \name{author}{1}{}{%
+    {{}%
+     {Fielding}{F.}%
+     {Roy~Thomas}{R.~T.}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{FRT1}
+  \strng{fullhash}{FRT1}
+  \field{sortinit}{F}
+  \field{howpublished}{\url{http://www.ics.uci.edu/~fielding/pubs/dissertation/fielding_dissertation.pdf}}
+  \field{note}{[Online, accessed 19-Marc-2015]}
+  \field{title}{Architectural Styles and the Design of Network-based Software
+  Architectures}
+  \field{year}{2000}
+\endentry
+
 \entry{comescore-mobiletrends}{misc}{}
   \name{author}{1}{}{%
     {{}%
@@ -123,6 +141,14 @@
     {Berlin, Heidelberg}%
   }
   \field{year}{2010}
+\endentry
+
+\entry{mysqlhandbook}{misc}{}
+  \field{sortinit}{M}
+  \field{howpublished}{\url{http://dev.mysql.com/doc/refman/5.6/en/}}
+  \field{note}{[Online, accessed 19-Marc-2015]}
+  \field{title}{MySQL 5.6 Reference Manual}
+  \field{year}{2014}
 \endentry
 
 \entry{block-chain}{misc}{}

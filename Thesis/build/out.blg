@@ -21,6 +21,10 @@ Warning--entry type for "ethdistribsystems" isn't style-file defined
 --line 34 of file ./Citer.bib
 Warning--entry type for "ethdistribalgo" isn't style-file defined
 --line 43 of file ./Citer.bib
+Warning--entry type for "mysqlhandbook" isn't style-file defined
+--line 52 of file ./Citer.bib
+Warning--entry type for "restdissertation" isn't style-file defined
+--line 66 of file ./Citer.bib
 Warning--entry type for "block-chain" isn't style-file defined
 --line 87 of file ./Citer.bib
 Warning--entry type for "cw-mobiletrends" isn't style-file defined
@@ -30,45 +34,45 @@ Warning--entry type for "comescore-mobiletrends" isn't style-file defined
 Biblatex version: 2.9
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
-You've used 9 entries,
+You've used 11 entries,
             6047 wiz_defined-function locations,
-            1175 strings with 9754 characters,
-and the built_in function-call counts, 22965 in all, are:
-= -- 1051
-> -- 565
-< -- 278
-+ -- 229
-- -- 146
-* -- 1173
-:= -- 1223
+            1184 strings with 10065 characters,
+and the built_in function-call counts, 27016 in all, are:
+= -- 1173
+> -- 643
+< -- 317
++ -- 245
+- -- 170
+* -- 1397
+:= -- 1387
 add.period$ -- 0
-call.type$ -- 9
-change.case$ -- 175
+call.type$ -- 11
+change.case$ -- 189
 chr.to.int$ -- 34
-cite$ -- 16
-duplicate$ -- 2628
-empty$ -- 2622
-format.name$ -- 263
-if$ -- 5408
+cite$ -- 20
+duplicate$ -- 3149
+empty$ -- 3170
+format.name$ -- 311
+if$ -- 6362
 int.to.chr$ -- 0
-int.to.str$ -- 20
+int.to.str$ -- 23
 missing$ -- 0
-newline$ -- 163
-num.names$ -- 333
-pop$ -- 2581
+newline$ -- 188
+num.names$ -- 374
+pop$ -- 3217
 preamble$ -- 1
-purify$ -- 177
+purify$ -- 191
 quote$ -- 0
-skip$ -- 1432
+skip$ -- 1665
 stack$ -- 0
-substring$ -- 770
-swap$ -- 855
-text.length$ -- 184
-text.prefix$ -- 8
+substring$ -- 792
+swap$ -- 1019
+text.length$ -- 222
+text.prefix$ -- 10
 top$ -- 1
-type$ -- 324
+type$ -- 398
 warning$ -- 0
-while$ -- 143
+while$ -- 161
 width$ -- 0
-write$ -- 153
-(There were 6 warnings)
+write$ -- 176
+(There were 8 warnings)
