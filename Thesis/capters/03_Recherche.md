@@ -8,7 +8,6 @@
 
 Dieses Kapitel erklärt die wichtigsten Grundbegriffe und wiedergibt die während der Recherche gesammelten Informationen.
 
-
 ## Fachbegriffe
 Eine Aufführung und Erlährung der Fachbegriffe befindet sinch im Appendix unter "[Glossar]"
 

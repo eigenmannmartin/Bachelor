@@ -5,6 +5,8 @@
 
 <!-- redo -->
 Im Rahmen dieser Bachelorarbeit werden zwei grundsätzliche Umgangsmethodiken mit Synchronisationen bzw. Synchronisationskonflikten betrachtet.
+
+
 Synchronisationen können so gestaltet werden, dass keine Synchronisationskonflikte auftreten, oder es können auftretende Konflikte gelöst werden.
 <!-- 
 Verhinderung: beschneidung Funktionsumfang
@@ -12,23 +14,42 @@ Verhinderung: beschneidung Funktionsumfang
 Auflösung: möglicher Datenverlust
 -->
 
-\newpage
+## Synchronisation (allgemein)
+Das grundlegende Idee bei der Synchronisation liegt darin, den Zustand der Servers und des Clients, bezüglich der Daten, identisch zu halten. 
+Der Zustand der Daten können dabei als Status betrachtet werden. So repräsentiert der Zustand der gesamten Datensammlung zu einem bestimmten Zeitpunkt, einen Status. Aber auch der Zustand eines darin enthaltenen Objekts (z.B. ein Kontakt) wird als eigenständiger Status betrachtet.
 
-## Singlestate
-Ein Single-State System lässt zu jedem Zeitpunkt $t$ nur einen einzigen gültigen Zustand zu. 
-Eingehende Nachrichten $N$ enthalten sowohl die Änderungsfunktion als auch eine Referenz auf welchen Status $S$ diese Mutation angewendet werden soll.
+Der Begriff der Synchronisation wird also im folgenden als Vorgang betrachtet, welcher Mutationen des Status des Clients, auch am Status des Servers durchführt.
+
+Eine Status-Mutation kann dabei auf dem Server nur auf den selben Status angewendet werden, auf welchen sie auch auf dem Client angewendet wurde. Eine Mutation bezieht sich also immer auf einen bereits existierenden Status.
+
+Zur Durchführung einer Syncrhonisation muss sowohl die Mutations-Funktion, sowie der Status auf welchen sie angewendet wird, gekannt sein. Beide Informationen zusammen werden als eine Einheit betrachtet und als __Nachricht__ bezeichnet.
+
+## Datenhaltung
+
+
+### Singlestate
+Ein Single-State System erlaubt, nach dem Vorbild traditioneller Datenhaltungssystem, zu jedem Zeitpunkt nur einen einzigen gültigen Zustand. 
+
+
+Eingehende Nachrichten $N$ enthalten sowohl die Änderungsfunktion als auch eine Referenz auf welchen Status $S_x$, diese Mutation angewendet werden soll. Resultiert aus der Anwendung einer Nachricht, ein ungültiger Status, wird diese nicht übernommen. Nachrichten, welche nicht übernommen wurden, müssen im Rahmen der Konfliktauflösung separat behandelt werden.
 
 In Abbildung {@fig:singlestate} sind die nacheinander eingehenden Nachrichten $N_1$ bis $N_4$ dargestellt. Nachricht $N_2$ sowie $N_3$ referenzieren auf den Status $S_2$. Die Anwendung der Änderungsfunktion von $N_2$ auf $S_2$ resultiert im gültigen Status $S_3$.
-Die Anwenung der später eingegangene Nachricht $N_3$ auf $S_2$ führt zum ungültigen Status $S_3'$.
+Die Anwenung der später eingegangene Nachricht $N_3$ auf $S_2$ führt zum ungültigen Status $S_3'$ und löst damit einen Synchronisationskonflikt aus.
 
 ![Singlestate](img/singlestate.jpg) {#fig:singlestate}
 
-Sobald eine Nachricht vom Server verarbeitet wurde die Transaktion abgeschlossen. Entweder ergab sich daraus ein neuer gültiger, oder aber ein ungültiger Status. In diesem Fall konnten die Mutationen nicht übernommen werden und wurden abgelehnt.
+
+### Multistate
+Ein Multi-State System erlaubt zu jedem Zeitpunkt beliebig viele gültige Zustände. Zu jedem Zeitpunkt ist jedoch immer nur ein Zustand gültig.
+
+Dieses Verhalten wird dadurch erreicht, dass Zustände rückwirkend eingefügt werden können. Wenn zum Zeitpunkt $t_1$ und $t_2$ der gültige Zustand des Systems zum Zeitpunkt $t_0$ erfragt wird, muss nicht notwendigerweise der identische Zustand zurückgegeben werden. 
+
+In der Abbildung {@fig:multistate} sind die nacheinander eingehenden Nachrichten $N_1$ bis $N_5$ dargestellt. Nachricht $N_2$ sowie $N_4$ referenzieren auf den Status $S_2$.
+
+![Multistate](img/mulstistate.jpg) {#fig:multistate}
 
 
-\newpage
-
-## Multistate
+<!--
 Der Zustand des Systems wird durch eine Message-Queue repräsentiert.
 
 1. Message gets sent
@@ -59,7 +80,7 @@ Zum Zeitpunkt $t_5$ existieren also der Status $S_6$ mit allen Mutationen ausser
 
 Entweder wird nun ein Teilbaum abgeschnitten oder wie gezeigt eine manuelle Zusammenführung $M_1$ durchgeführt.
 
-![Multistate](img/mulstistate.jpg) {#fig:multistate}
+
 
 
 
@@ -85,10 +106,7 @@ Statt das wahrscheinlichsten oder des erste eingehenden Attribut zu verwenden wi
 
 sehr greedy. Wir dürfen alles annehmen, und kümmern uns erst später um auftretende Fehler.
 
-
-
-
-\newpage
+-->
 
 ## Konfliktvermeidung
 Das Konzept der Konfliktvermeidung verhindert das Auftreten von möglichen Konflikten durch die Definition von Einschränkungen im Funktionsumfang der Datenbanktransaktionen. So sind Objekt aktualisierende Operationen nicht möglich und werden stattdessen, Client seitig, über hinzufügende Operationen ersetzt.
@@ -183,6 +201,7 @@ nach Menge oder Wichtigkeit der Attribute
 ## Gesamtkonzept
 
 Das Gesamtkonzept besteht in einer Zusammenführung aller bereits erwähnter Konzepte. Je nach zu synchronisierendem Datenbestand müssend entsprechend Passende Lösungsverfahren angewendet werden.
+
 
 
 # Design des Prototypen
