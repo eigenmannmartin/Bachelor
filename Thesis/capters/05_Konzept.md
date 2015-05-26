@@ -25,18 +25,20 @@ Eine Status-Mutation kann dabei auf dem Server nur auf den selben Status angewen
 Zur Durchführung einer Syncrhonisation muss sowohl die Mutations-Funktion, sowie der Status auf welchen sie angewendet wird, gekannt sein. Beide Informationen zusammen werden als eine Einheit betrachtet und als __Nachricht__ bezeichnet.
 
 ## Datenhaltung
+Die Datenhaltung beschäftigt sich mit der Frage, wie Daten verwaltet und wann und wie Mutationen darauf angewendet werden. Die beiden erarbeiteten Konzepte Singlestate und Multistate werden im Folgenden genauer erläutert.
 
 
 ### Singlestate
 Ein Single-State System erlaubt, nach dem Vorbild traditioneller Datenhaltungssystem, zu jedem Zeitpunkt nur einen einzigen gültigen Zustand. 
 
+Eingehende Nachrichten $N$ enthalten sowohl die Mutations-funktion als auch eine Referenz auf welchen Status $S_x$, diese Mutation angewendet werden soll. Resultiert aus der Anwendung einer Nachricht, ein ungültiger Status, wird diese nicht übernommen. Nachrichten, welche nicht übernommen wurden, müssen im Rahmen der Konfliktauflösung separat behandelt werden.
 
-Eingehende Nachrichten $N$ enthalten sowohl die Änderungsfunktion als auch eine Referenz auf welchen Status $S_x$, diese Mutation angewendet werden soll. Resultiert aus der Anwendung einer Nachricht, ein ungültiger Status, wird diese nicht übernommen. Nachrichten, welche nicht übernommen wurden, müssen im Rahmen der Konfliktauflösung separat behandelt werden.
-
-In Abbildung {@fig:singlestate} sind die nacheinander eingehenden Nachrichten $N_1$ bis $N_4$ dargestellt. Nachricht $N_2$ sowie $N_3$ referenzieren auf den Status $S_2$. Die Anwendung der Änderungsfunktion von $N_2$ auf $S_2$ resultiert im gültigen Status $S_3$.
+In Abbildung {@fig:singlestate} sind die nacheinander eingehenden Nachrichten $N_1$ bis $N_4$ dargestellt. Nachricht $N_2$ sowie $N_3$ referenzieren auf den Status $S_2$. Die Anwendung der Mutations-Funktion von $N_2$ auf $S_2$ resultiert im gültigen Status $S_3$.
 Die Anwenung der später eingegangene Nachricht $N_3$ auf $S_2$ führt zum ungültigen Status $S_3'$ und löst damit einen Synchronisationskonflikt aus.
 
 ![Singlestate](img/singlestate.jpg) {#fig:singlestate}
+
+Die Konlfiktauflösung hat direkt bei der Anwendung der Mutations-Funktion zu erfolgen und kann nicht korrigiert werden. Die Konfliktauflösung muss also garantieren, dass immer die richtige Entscheidung getroffen wird.
 
 
 ### Multistate
@@ -44,57 +46,25 @@ Ein Multi-State System erlaubt zu jedem Zeitpunkt beliebig viele gültige Zustä
 
 Dieses Verhalten wird dadurch erreicht, dass Zustände rückwirkend eingefügt werden können. Wenn zum Zeitpunkt $t_1$ und $t_2$ der gültige Zustand des Systems zum Zeitpunkt $t_0$ erfragt wird, muss nicht notwendigerweise der identische Zustand zurückgegeben werden. 
 
-In der Abbildung {@fig:multistate} sind die nacheinander eingehenden Nachrichten $N_1$ bis $N_5$ dargestellt. Nachricht $N_2$ sowie $N_4$ referenzieren auf den Status $S_2$.
+In der Abbildung {@fig:multistate} sind die nacheinander eingehenden Nachrichten $N_1$ bis $N_5$ dargestellt. Nachricht $N_2$ sowie $N_4$ referenzieren auf den Status $S_2$. Die Anwendung der Mutations-Funktion von $N_2$ auf $S_2$ resultiert im gültigen Status $S_{3.0}$. 
+Die Anwendung der Nachricht $N_3$ ergibt folglich den für den Zeitpunkt $t_5$ gültigen Status $S_{3.1}$.
 
 ![Multistate](img/mulstistate.jpg) {#fig:multistate}
 
+Der Zeitpunkt an welchem die Nachricht $N_4$ verarbeitet ist, wird mit hier $t_A$ bezeichnet. Die Anwendung der Nachricht $N_4$ resultiert im neuen, für den Zeitpunkt $t_3$, gültigen Status $S_4$.
+Vor dem Zeitpunkt $t_A$ ist für den Zeitpunkt $t_3$ der Status $S_{3.0}$ gültig. Danach ist der Status $S_4$ gültig.
+
+Die Mutations-Funktion der Nachricht $N_3$ ist in keinem Konflikt mit der Nachricht $N_4$ oder $N_2$ und wird folglich auf den Status $S_4$ und $S_{3.0}$ angewendet. $N_5$ steht ebenfalls weder im Konflikt mit $N_2$ noch mit $N_4$ und kann desshalb auf $S_5$ und $S_{3.1} angewendet werden.
+
+Die beiden zum Zeitpunkt $t_5$ gültigen Stati beinhalten das Maximum an Information. Der Status $S_6$ beinhaltet alle Informationen ausser der Nachricht $N_2$ und Status $S_{3.2}$ alle Informationen ausser der Nachricht $N_4$.
+
+Zu einem späteren Zeitpunkt $t_6$ wird eine Zusammenführung $M_1$ durchgeführt und somit der Konflikt aufgelöst.
+
+Welcher der Zweige bei einer Vergabelung als gültig zu definiert ist, wird über eine Vergabelungs-Funktion beurteilt. Diese gehört zur Konfliktauflösung und ist abhängig von der Datenbeschaffenheit und Struktur der Daten (Kapitel [Datenanalyse]).
+
+Die Konfliktauflösung kann direkt bei der Anwendung der Mutations-Funktion, oder zu einem beliebigen späteren Zeitpunkt durchgeführt werden. Die Konfliktauflösung darf sehr greedy entscheiden, da Fehlentscheide korrigiert werden können.
 
 <!--
-Der Zustand des Systems wird durch eine Message-Queue repräsentiert.
-
-1. Message gets sent
-2. Message gets enqueued
-3. If message conflicts with an other message -> next else -> end
-4. message gets moved bevore conflicts
-5. Fork is generated
-6. It is decided with fork is the main fork (master)
-
-
-Zu jedem Zeitpunkt sind beliebig viele gültige Stati erlaubt.
-Es gibt zu jedem echten Zeitpunkt nur einen einzigen gültigen Status (main fork), bei Konflikten kann aber ein anderer Zweig nachträglich als Master definiert werden.
-
-In Abbildung {@fig:multistate} sind die nacheinander erstellten Nachrichten $N_1$ bis $N_5$ und ihre Interaktion mit den Stati $S_1$ bis $S_7$ aufgeführt.
-Die Nachrichten sind entsprechend ihrem Eingang beim Server geordnet.
-
-Die echte Kausalität verhält sich jedoch wie folgt: $N_1 < N_2 < N_4 < N_5 < N_3$
-Die Nachricht $N_2$ löst einen Konflikt mit der Nachricht $N_4$ aus. Alle übrigen Nachrichten sind konfliktfrei.
-
-Mit $M_1$ wird das manuelle Zusammenführen zweier Stati bezeichnet.
-
-Nach dem Eingang der Nachricht $N_2$ wird vom System der Status $S_{3.0}$ als aktuell gültiger Status für den Zeitpunkt $t_3$ geführt.
-Sobald die Nachricht $N_4$ verarbeitet wurde, wird für den Zeitpunkt $t_3$ jedoch der Status $S_4$ als gültig gesetzt.
-
-Zwischen $t_3$ und $t_5$ gehen die Nachrichten 3 und 5 ein. Beide Nachrichten werden auf den Status $S_3$ sowie auf die entsprechenden Stati $S_4$ und $S_5$ angewendet.
-
-Zum Zeitpunkt $t_5$ existieren also der Status $S_6$ mit allen Mutationen ausser denen von $N_2$ und der Status $S_{3.1}$ mit allen Mutationen, ausser denen von $N_4$.
-
-Entweder wird nun ein Teilbaum abgeschnitten oder wie gezeigt eine manuelle Zusammenführung $M_1$ durchgeführt.
-
-
-
-
-
-
-
-Jedem Benutzer/Session werden gegebenenfalls eigene Zweige zugewiesen. Das integrieren der Zweite in den Master-Zweig muss manuell vorgenommen werden.
-
-Weiter werden alle neu eingehende Nachrichten für alle Zweige verarbeitet, ausser es entstünden dadurch weitere Konflikte.
-
-Es können also immer alle Änderungen synchronisiert werden. Keine Mutationen gehen verloren. 
-Die Konfliktauflösung kann nachträglich durchgeführt werden.
-
-Wenn Nachrichten eingespielt werden, die Konflikte auflösen, kann ein anderer Zweig als Master markiert werden, dadurch können nachträglich andere Konflikte ausgelöst werden etc.
-
 Z.B. das Resultat der Abfrage des Status gestern um 10:00 muss nicht dem Resultat der Abfrage von heute, wie der Status gestern um 10:00 war.
 
 Jeder Status ist also Rückwirkend veränderbar. Entsprechende Systeme müssen dafür ausgelegt sein.
@@ -157,7 +127,7 @@ Im Falle von Text-Daten kann diese Art der Synchronisation nur für den tatsäch
 
 
 
-\newpage
+
 
 ## Konfliktauflösung
 Das Konzept der Konfliktauflösung beschäftigt sich mit der Auflösung von Konflikten, die im Rahmen der Synchronisation aufgetreten sind. 
@@ -189,8 +159,35 @@ Hätte es die grössere Abweichung, würde es nicht synchronisiert werden.
 ![Merge](./img/merge.jpg)
 
 
-### gewichtete Zusammenführung ()
-nach Menge oder Wichtigkeit der Attribute
+### Vergabelungs-Funktion
+Bei der Entscheidung welcher Teilbaum aktiv wird können unterschiedliche Vorgehensweisen angewendet werden. Die verwendete Lösung muss auf die Datenbeschaffenheit und Struktur angepasst werden.
+Nachfolgende sind fünf Ansätze ausgeführt.
+
+#### Wichtigste Information
+Die Attribute eines Objekts können in aufsteigenden Wichtigkeits-Klassen gruppiert werden. Die Wichtigkeit einer Nachricht entspricht der höchsten Wichtigkeits-Klasse die mutiert wird.
+Die Nachricht mit der grössten Wichtigkeit markiert den aktiven Teilbaum.
+
+#### Maximale Information
+Den Attributen eines Objekts werden nummerische Informationsgehalts-Indikator zugewiesen. Der Informationsgehalt einer Nachricht entspricht der Summe aller Informationsgehalts-Indikatoren der mutierten Attribute.
+Die Nachricht mit dem höheren Informationsgehalt markiert den aktiven Teilbaum.
+
+#### Geringste Kindsbäume
+Für jeden Teilbaum werden die der darin vorkommenden Vergabelungen gezählt. Die Nachricht, die den Teilbaum mit den wenigsten darin vorkommenden Vergabelungen markiert den aktiven Teilbaum.
+
+#### Online-First
+Zusätzlich zur Mutations-Funktion und der Status-Referenz wird einer Nachricht die Information mitgegeben, ob der Client diese online sendet.
+Die Nachrichten, welche online gesendet wurden, werden immer den offline synchronisierten Nachrichten vorgezogen.
+
+#### Echte Kausalität
+Zusätzlich wird der Nachricht auch die Generierungszeit auf dem Client beigefügt.
+
+
+
+#### Früheste Nachricht
+
+
+
+
 
 
 
