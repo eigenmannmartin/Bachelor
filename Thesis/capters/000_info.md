@@ -30,4 +30,4 @@ Thanks Dad.
 \pagenumbering{arabic}
 
 
-\part[Teil i]{Einleitung und Abgrenzung}
+\part[Präambel]{Einleitung und Abgrenzung}

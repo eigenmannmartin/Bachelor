@@ -53,3 +53,24 @@ I: Design-Review mind. 40-60 Seiten (Konzept ~ 30 Seiten)
 
 
 
+# Design Review 20.5.2015
+
+Q: 
+
+
+
+
+
+## Infos Knaak
+
+Konkretes Beispiel - eingangs bereits
+Architekur ist unabhängig - egal ob Server-und-Clinet oder nur Server
+
+Konfliktvermeidung im offline Teil
+Konfliktauflösung in der Zentralen autorität
+
+Zentrale entscheidung: Architektur S/C und Konzepte
+
+Besseres Beispiel mit Philip finden
+
+Begründung - Why? - Motivation

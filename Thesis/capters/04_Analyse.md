@@ -1,6 +1,28 @@
 
 
 # Analyse
+Dieses Kapitel setzt sich mit der Klassifikation und Typisierung von Daten auseinander. 
+
+## Datensynchronisations-Problem
+Die Analyse der Problemstellung wird anhand der folgenden drei exemplarischen Aufgabenstellungen durchgeführt.
+
+### Synchronisation von Kontakten
+1. Szenario: Hinzufügen einer Neuen Tel-Nummer (Firmenkontakt oder Geschäftshandy etc.)
+2. Szenario: Ändern der Primären Telefon-nummer
+3. Szenario: Ändern des Namens/Adresse
+4. Szenario: Zusatzinformationen anpassen/hinzufügen
+
+### Syncrhonisation eines Service Desks
+1. Szenario: Erfassen eines Support-Falls
+2. Szenario: Followup (Antwort auf einen Supportfall) / Anpassen der Dringklichkeit/Priorität
+3. Szenario: Zuweisen zu einem Techniker/Technikergruppe
+4. Szenario: Erfassen einer Lösung/FAQ Eintrags
+
+### Syncrhonisation von Stücklisten und Fertigungsaufträgen 
+1. Szenario: Austauschen eines Bauteils -> Anpassung aller Stücklisten
+2. Szenario: Anpassen der Fertigungsart (z.B. Menge des Lötzinns/Klebers)
+3. Szenario: Priorisierung von Aufträgen (!!! nicht möglich - da Produktion läuft !!!)
+4. Szenario: Lagerbestände/Lagerorte anpassen/ändern
 
 ## Datenanalyse
 <!-- 
@@ -17,11 +39,11 @@ Beschaffenheit von Daten
 - logisch abhängige Daten (Alter eines Posts (seit Publizierung)) (Logisch abhängige Daten)
 -->
 
-Daten können bezüglich ihrer Beschaffenheit, Geltungsbereich und Gültigkeitsdauer unterschieden werden. Dabei spricht man von der Klassifikation. Es werden nur die in den Daten enthaltenen Informationen dafür herangezogen. Die Form der Daten, also der Datentyp selbst ist für die Klassifikation unerheblich.
+Um eine klares Verständnis der Daten zu erhalten, wird analysiert, bezüglich welcher Eigenschaften, Daten unterschieden werden können. 
 
+Daten können bezüglich ihrer Beschaffenheit, Geltungsbereich und Gültigkeitsdauer unterschieden werden. Dabei spricht man von der Klassifikation. 
 Die Datentypisierung unterscheidet zwischen numerischen (num), binären (bin), logischen (bool) und textuellen (text) Daten.
-
-Eine Attributsgruppe, also eine logische Aufteilung der Informationen in mehrere Attribute ist eine zusammenhängende Informationseinheit.
+Zu beachten gilt dass eine Attributsgruppe, also eine logische Aufteilung der Informationen in mehrere einzelne Attribute, eine zusammenhängende Informationseinheit ist.
 
 <!-- 
 Begriff der Klassifikation einführen
@@ -32,39 +54,44 @@ Klassifikation... aber nicht nötigerweise Datentyp (num, bin, text, logical)
 Diskussion Auftreten von Daten
  -->
 
+### Klassifikation
+Zur Klassifikation werden nur die in den Daten enthaltenen Informationen herangezogen. Die Form der Daten, also der Datentyp selbst ist für die Klassifikation unerheblich.
+Weiter kann die Klassifikation zwischen Struktur und Art der Daten unterscheiden.
 
-### Kontextbezogene Daten (Struktur)
-Daten die nur in einem bestimmten Kontext einen signifikanten Informationsgehalt aufweisen, der ohne Kontext nicht greifbar ist, werden als kontextbezogene Daten bezeichnet.
-(Kommentar auf einen Artikel)
-<!-- Korrektur der Prüfung -->
 
-### Unabhängige Daten (Struktur)
-Mit dem Begriff der unabhängigen Daten werden all jene Datensätze bezeichnet die in sich abgeschlossene Informationen beinhalten.
-(Artikel)
 
-### Exklusive Daten (Art)
-Exklusive Daten sind Daten und Datensätze die nur von einem Aktor bearbeitet werden dürfen.
-(Wecker-Einstellungen)
+#### Art
+Die Art der Daten wird entweder explizit durch die Art der Implementation (temp, static, dynamic) oder implizit durch die Zugriffsstruktur (excl, publ) definiert. Es ist keine Kenntnis über die Daten nötig, eine Statische Analyse der Zugriffe auf die Daten reicht aus, um die Daten-Art zu bestimmen.
+<!-- !!!!!!!!!!!!! Statische Analyse -->
 
-### Gemeinsame Daten (Art)
-Daten die von mehreren Aktoren gleichzeitig gelesen und bearbeitet werden dürfen, werden als gemeinsame Daten bezeichnet.
-(Firmen-Todo-Liste)
+##### Exklusive Daten
+können nur von einem Benutzer bearbeitet, aber von diesem oder vielen Benutzern gelesen werden.
 
-### Dynamische Daten (Art)
-Automatisch generierte oder sich sehr schnell verändernde Daten werden dynamische Daten genannt. 
-(Inhalt im Kühlschrank)
+##### Gemeinsame Daten
+können von vielen Benutzern gleichzeitig gelesen und bearbeitet werden.
 
-Dynamische Daten werden vom Benutzer nicht verändert, und müssen desshalb auch nicht synchronisiert werden.
+##### Dynamische Daten
+werden automatisch von System generiert. Benutzer greifen nur lesend darauf zu.
 
-### Statische Daten (Art)
-Daten die über einen grossen Zeitraum hinweg nicht an Gültigkeit verlieren werden statische Daten genannt.
-(Koch-Rezept)
+##### Statische Daten
+bleiben über einen grossen Zeitraum hinweg unverändert. Viele Benutzer können diese Daten verändern und lesen.
 
-Statische Daten werden vom Benutzer nicht verändert und müssen desshalb auch nicht synchronisiert werden.
+##### Temporäre Daten
+werden von System oder Benutzer generiert und sind nur sehr kurz gültig. Nur der Autor der Daten kann diese lesen.
 
-### Temporäre Daten (Art)
-Als Temporäre Daten können all jene Daten bezeichnet werden, die nur für einen sehr begrenzten Zeitraum gültig sind. Diese Daten sind auch immer exclusive Daten.
-(Transaktions Logs)
+
+#### Struktur
+Bei der Unterscheidung der Daten nach ihrer Struktur, kann zwischen Kontextbezogenen und unabhängigen Daten differenziert werden. Die Entscheidung welcher Strukturklasse die Daten angehören ist abhängig vom Verständnis der Daten uns liegt somit im Entscheidungsbereich des Datendesigners. 
+
+##### Kontextbezogene Daten
+weisen nur bezüglich eines bestimmten Kontext einen signifikanten Informationsgehalt auf.
+
+<!-- Ref. Beispiel -->
+
+##### Unabhängige Daten 
+sind selbst beinhaltend und gewinnen durch andere Daten selbst nicht mehr an Informationsgehalt.
+
+<!-- Ref. Beispiel -->
 
 
 ## Diskussion Synchronisationsproblem
@@ -74,64 +101,3 @@ Als Temporäre Daten können all jene Daten bezeichnet werden, die nur für eine
 
 ## Diskussion bekannter Verfahren
 <!-- (und Erklährung) in Bezug auf Ergebnisse der Datenanalyse -->
-
-
-## Anforderungsanalyse
-
-## Vorgehensweise
-
-### Use-Cases
-UC1: Lesen eines Elements (online) 
-UC2: Einfügen eines neuen Elements (online) 
-UC3: Ändern eines Elements (online) 
-UC4: Löschen eines Elements (online) 
-UC5: Lesen eines Elements (offline) 
-UC6: Einfügen eines neuen Elements (offline) 
-UC7: Ändern eines Elements (offline) 
-UC8: Löschen eines Elements (offline) 
-
-
-### Anforderungen
-<!-- FREQ01.01 Abfragen eines Elementverzeichnis -->
-<!-- FREQ01.02 Abfragen eines bekannten Elements vom Server -->
-
-<!-- FREQ02.01 Senden eines neuen Elements -->
-<!-- FREQ02.02 Abfragen eines neu hinzugefügten Elements -->
-
-<!-- FREQ03.01 Senden eines Element-Updates -->
-
-<!-- FREQ04.01 Senden eines Löschauftrags -->
-
-<!-- FREQ05.01 Lokale Kopie gelesener Elemente -->
-
-<!-- FREQ06.01 Lokale Datenbankstruktur -->
-<!-- FREQ06.02 Aufzeichnung der Einfügeoperationen -->
-<!-- FREQ06.03 Synchronisation der aufgezeichneten Einfügeoperationen -->
-
-<!-- FREQ07.01 Aufzeichnung der Mutationen von Elementen -->
-<!-- FREQ07.02 Synchronisation der aufgezeichneten Mutationen -->
-
-<!-- FREQ08.01 Aufzeichnen der Löschaufträge -->
-<!-- FREQ08.02 Synchronisation der aufgezeichneten Löschaufträge -->
-
-
-<!-- NFREQ01 Mutationen die nicht vom Server wegen fehlender Berechtigungen abgelehnt werden, gehen nicht verloren -->
-<!-- NFREQ02 Mutationen können nach einer beliebigen Zeit mit dem Server synchronisiert werden -->
-
-<!-- NFREQ03 Fehler werden aufgezeichnet -->
-
-
-### Akzeptanzkriterien
-<!-- AC01 Initiale Synchronisation -->
-<!-- AC02 Einfügen/Ändern/Löschen Lokal -->
-<!-- AC03 Einfügen/Ändern/Löschen Synchronisieren -->
-<!-- AC04 Synchronisieren von beidseits geänderten Elementen -->
-<!-- AC05  -->
-<!-- AC06  -->
-<!-- AC07  -->
-<!-- AC08  -->
-
-### Bewertung der Anforderungen
-<!-- Zuordnung AC->(REQ,UC,Aufgabenstellung) -->
-
-## Risiken

@@ -1,7 +1,7 @@
 <!-- Fachbegriffe, techn. Grundlagen -->
 
 
-\part[Teil ii]{Technische Grundlagen und Architekturen}
+\part[Grundlagen]{Technische Grundlagen und Architekturen}
 
 
 # Recherche

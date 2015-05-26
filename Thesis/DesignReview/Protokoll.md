@@ -1,7 +1,7 @@
 ---
 title:  Design Review Protokoll 
 author: Martin Eigenmann
-date: 18.3.2015
+date: 20.5.2015
 ---
 
 
@@ -50,9 +50,4 @@ Evaluation von Synchronisations- und Konfliktlösungsverfahren im Web-Umfeld
 # Beschlüsse
 Folgender Beschluss wurde festgehalten:
 
-- Beim Design-Review wird das Abgabedatum festgelegt.
-
-# Weiteres
-
-- Die Struktur der Arbeit soll der Struktur der Aufgabenstellung entsprechen.
-- Damit die Arbeit noch rechtzeitig zum Abschluss des Studiums im Sommer bewertet werden kann, muss die Arbeit bis spätestens 30. Juni 2015 abgeschlossen werden.
+- Am 6. Juni wird entscheiden ob der 30. Juni als Abgabedatum definiert wird.

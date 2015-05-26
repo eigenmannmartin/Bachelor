@@ -1,5 +1,5 @@
 
-\part[Teil iii]{Konzept und Implementierung}
+\part[Konzeption]{Konzeption}
 
 # Konzept
 

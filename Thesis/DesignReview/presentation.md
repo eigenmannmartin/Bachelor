@@ -81,8 +81,8 @@ Gewöhnung an den Zustand des "immer online seins" - was passiert wenn mal kein 
 - Recherche [<span class="ok">ok</span>]
 - Diskussion & Analyse [<span class="ok">ok</span>]
 - Lösungsansätze suchen [<span class="ok">ok</span>]
-- Prototyp Implementieren [<span class="pending">pending</span>]
-- Dokumentation [<span class="pending">pending</span>]
+- Prototyp Implementieren [<span class="nc">nc</span>]
+- Dokumentation [<span class="nc">nc</span>]
 
 ## Architektur
 - nur Clients
@@ -139,10 +139,10 @@ Gewöhnung an den Zustand des "immer online seins" - was passiert wenn mal kein 
 ##Aufgabenstellung 1/2
 - A/R1
     + Glossar [<span class="pending">pending</span>]
-    + Bestehendes [<span class="nc">nc</span>]
+    + Bestehendes [<span class="ok">ok</span>]
 - A/R2: 
-    + Sync MySQL,MonboDB [<span class="nc">nc</span>]
-    + BackboneJS, MeteorJS [<span class="nc">nc</span>]
+    + Sync MySQL,MonboDB [<span class="ok">ok</span>]
+    + BackboneJS, MeteorJS [<span class="ok">ok</span>]
     + Anforderungsanalyse [<span class="nc">nc</span>]
 - A/R3
     + Erstellen Konzept Software [<span class="fail">nok</span>]
@@ -160,7 +160,7 @@ Gewöhnung an den Zustand des "immer online seins" - was passiert wenn mal kein 
 
 - Aufgabenstellung A3:
     + Erstellen des Konzepts zur __Synchronisation__
-- Erwartete Resultate R3_
+- Erwartete Resultate R3:
     + Dokumentation des Konzepts zur __Synchronisation__
 
 
