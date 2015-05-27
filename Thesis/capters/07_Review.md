@@ -15,20 +15,13 @@ Auseinandersetzung mit der eigenen Arbeit statt. Typische Fragen sind:
 -->
 
 
-## Testing
-
-### Integrationstest
-
-### Systemtest
-
-
 ## Validation
 
 ### Test der Akzeptanzkriterien
 
 ### Überprüfung der Aufgabenstellung
 
-# Ausblick
+## Ausblick
 
 
 # Fazit und Schlusswort

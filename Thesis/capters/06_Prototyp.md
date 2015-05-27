@@ -4,70 +4,120 @@
 In diesem Kapitel werden die aus dem Kapitel [Konzept] gewonnenen Erkenntnisse umgesetzt.
 
 ## Design-Ansätze
-Zur Lösung der Aufgabenstellung wurden drei Design-Ansätze erarbeitet. Diese werden folgend kurz erläutert.
 
-### Server zentrierte Architektur
-Der Server führt alle Berechnungen o.ä. durch. Nur mit einer aktiven Verbindung zum Server können Manipulationen am Datenbestand durchgeführt werden.
+!!!! Verwendung von Singlestate
+!!!! Anforderungsanalyse
 
-### Client zentrierte Architektur
-Der Client trifft Entscheidungen und führt die Berechtigungsprüfung durch. Die Resultate werden dann dem Server übermittelt.
+### Nachrichtenbasierte Architektur
+Versenden einzelner Nachrichten -> Direkte Anwendung für Konzept
 
-### Client zentrierte, Server basierte Architektur
-Der Client simuliert alle Manipulationen. Der Server entscheidet über das Resultat.
+### Modellbasierte Architektur
+Versenden der daraus resultierenden Stati -> Indirekte Anwendung für Konzept
 
 ## Entscheid
-Anforderung UC 5-8 => {Client zentrierte, Server basierte Architektur, Message Oriented}
+Nachrichtenbasiert -> weniger verbreitet, komplexer in der Implementation -> einfachere Transition.
+
+
 
 
 ## Design
 Der Prototyp besteht aus 3 Bausteinen; Server, API und Client.
-
-![Bausteinübersicht](img/design_components.jpg) {#fig:bausteinübersicht}
+![Bausteinübersicht](img/design_components.jpg)
 
 Die Bausteine werden in den folgenden Kapitel erläutert.
 
+### Nachrichten
+Alle im System versendeten Nachrichten sind nach dem selben Schema strukturiert, um so unnötige Konvertierungen zu vermeiden.
+
+Eine Nachricht wir entsprechend ihrem Ziel und Funktion benannt.
+
+[Target] _ [Layer] _ [Modul] _ [Funktion]
+
+-------------------------------------------------------------------------------
+__Teil__                    __Beschreibung__
+--------------------------- --------------------------------------------------
+__Target__                  _S_ für Server und _C_ für Client
+
+__Layer__                   Layername
+
+__Modul__                   Modulname
+
+__Funktion__                Funktionsname
+
+-------------------------------------------------------------------------------
+
+Der Payload besteht aus dem Meta-Teil, welcher die Collection angibt, sowie dem Data Teil, welcher das neue Objekt und das alte Objekt, falls vorhanden, beinhaltet.
+
+Somit ist implizit eine Mutationsfunktion, und die Referenz auf den Status definiert.
+
+
 ### Backend
-Alle Daten müssen zur Aufbereitung in das Backend transferiert werden.
-Im Backend wird zwischen Persistenz- und Logik-Schicht unterschieden.
+Jede über die API eingehende Nachricht wird an den Logik-Layer weitergeleitet.
+Der Logik-Layer übernimmt die Verarbeitung, also die Konfliktauflösung und die Verwaltung der Datenhaltung.
+
 
 #### Logik
-Die Logik-Schicht nimmt alle Nachrichten entgegen und führt, sofern aufgetreten Konfliktauflösungen vor.
-Die Kommunikation mit der API findet nur über Nachrichten statt.
-Die Kommunikation mit der darunter liegenden Persistenz-Schicht findet über eine Asynchrone API statt.
+Der Logik-Layer führt die Konfliktauflösung sowie die Verwaltung des Status durch. Es werden vier Nachrichten akzeptiert, welche dem SQL Jargon nachempfunden sind.
 
-S_LOGIC_SM_get
-S_LOGIC_SM_create
-S_LOGIC_SM_update
-S_LOGIC_SM_delete
+-------------------------------------------------------------------------------
+__Nachrichtname__           __Beschreibung__
+--------------------------- --------------------------------------------------
+S_LOGIC_SM_select           Die Abfrage-Nachricht gibt eine oder mehrere
+                            Objekte zurück.
+
+S_LOGIC_SM_create           Die Einfügenachricht erstellt ein neues Objekt
+                            und gibt dieses zurück.
+
+S_LOGIC_SM_update           Die Mutationsnachricht aktualisiert ein
+                            vorhandenes Objekt.
+
+S_LOGIC_SM_delete           Die Löschnachricht löscht ein vorhandenes Objekt.
+
+-------------------------------------------------------------------------------
+
+Die Resultate werden nach vollständiger Bearbeitung dem Sender der ursprünglichen Nachrichten über eine neue Nachricht mitgeteilt.
 
 #### Persistenz
-Die Persistenz soll Modell-Basiert sein.
+Das Verhalten des Singlestate Konzepts ist mit einer Datenbank abbildbar.
 
 
 ### API
-Message Queuing & Message Passing - nothing else
+Die API besteht sowohl aus einem serverseitigem als auch clientseitigem Modul. Nachrichten werden zwischen beiden Modulen ausgetauscht. Im Falle eines Verbindungsunterbruchs werden die Nachrichten zwischengespeichert und bei einer Wiederverbindung zugestellt.
 
-Umsetzung mit REST-Like Verhalten (get,put,update,delete)
+Die Benennung der Nachrichten ist den bekannten Funktionen des HTTP Standards nachempfunden.
 
-__Client-Side__
-S_API_WEB_get
-S_API_WEB_put
-S_API_WEB_update
-S_API_WEB_delete
+-------------------------------------------------------------------------------
+__Nachrichtname__           __Beschreibung__
+--------------------------- --------------------------------------------------
+S_API_WEB_get               Die Get-Nachricht gibt eines oder alle Objekte
+                            einer Collection zurück.
 
-__Server-Side__
-S_API_WEB_send
+S_API_WEB_put               Ein neues Objekt wird mit der Put-Nachricht
+                            erstellt.
+
+S_API_WEB_update            Mit der Update-Nachricht können bestehende Objekte 
+                            aktualisiert werden.   
+
+S_API_WEB_delete            Bestehende Objekte können mit der Delete-Nachricht 
+                            gelöscht werden.
+
+-------------------------------------------------------------------------------
+
 
 ### Frontend
-Der Client bietet keine Persistenz über einen Neustart hinweg.
+Das Frontend ist der Flux-Architektur nachempfunden. Die beiden Nachrichten können von den Views versendet werden, aktualisieren somit den Store und werden dem Backend übermittelt.
 
-![Flux Diagramm](img/flux-diagram.png)
+-------------------------------------------------------------------------------
+__Nachrichtname__           __Beschreibung__
+--------------------------- --------------------------------------------------
+C_PRES_STORE_update         Fügt ein Objekt hinzu oder aktualisiert ein
+                            bestehendes.
 
-C_PRES_STORE_update
-C_PRES_STORE_delete
+C_PRES_STORE_delete         Löscht ein bestehendes Objekt.
 
-### Message Flow
+-------------------------------------------------------------------------------
 
+### Datenfluss
 Frontend    <->  API    <->     Backend
 
 Frontend: ActionCreator -> Dispatcher -> Store -> API -> ActionCreator
@@ -76,6 +126,10 @@ API: Queue -> Transporter
 
 Backend: API -> Logiclayer -> API 
 
+
+### Flux Architektur
+Das Flux Paradigma...
+![Flux Diagramm](img/flux-diagram.png)
 
 ### AMD Pattern
 Asyncronous module definition (AMD) ist eine JavaScript API um Module zu definieren und diese zur Laufzeit zu laden. Dadurch können Javascript-lastige Webseiten beschleunigt werden, da Module erst geladen werden, wenn sie gebraucht werden. Weiter werden durch den Loader die Module gleichzeitig geladen, dadurch kann die Bandbreite voll ausgenutzt werden. 
@@ -113,23 +167,30 @@ __Grunt__
                     Grunt ermöglicht es dem Benutzer vordefinierte Tasks von der Kommandozeile aus durchzuführen. So sind Build- und Test-Prozesse für alle Benutzer ohne detaillierte Kenntnisse durchführbar.
                     Da Grunt eine sehr grosse Community besitzt und viele Plugins sowie hervorragende Dokumentationen verfügbar, wurde Grunt eingesetzt.
 
-__Karma__
+__Karma__           
+                    Karma ist ein Testrunner, der Tests direkt im Browser ausführt. Weiter können automatisch Coverage-Auswertungen durchgeführt werden.
 
 __CoffeeScript__
+                    CoffeeScript ist ein einfach zu schreibende Sprache die zu JavaScript compiliert. Das generierte JavaScript ist optimiert und ist meist schneller als selbst geschriebenes JavaScript.
 
 __RequireJS__       
                     RequireJS ermöglicht die Implementierung des AMD Pattern.Dadurch können auch in JavaScript Code-Abhängigkeiten definiert werden. Zusammen mit r.js kann dies bereits zur Compilierzeit geprüft werden.
                     Da weder Backbone noch Django über eine Depencency-Control für JavaScript verfügen, setze ich RequireJS ein.
 
-__ReactJS__
+__ReactJS__         
+                    ReactJS ist eine Frontend Library die eine starke Modularisierung fordert. Das Paradigma des "Source of Trouth" verhindert darüber hinaus, dass "komische" Anzeigefehler auftreten.
 
-__FluxifyJS__
+__FluxifyJS__       
+                    FluxifyJS ist eine leichtgewichtige Implementierung des Flux Paradigmas. Sie bietet sowohl Stores als auch einen Dispatcher.
 
-__SequelizeJS__
+__SequelizeJS__     
+                    SequelizeJS ist eine sehr bekannte und weit verbreitete ORM Implementation für Node und Express.
 
-__Express__
+__Express__         
+                    Express ist ein WebFrameowrk für Node. Die weite Verbreitung und ausführliche Dokumentation machen Express zur idealen Grundlage einer Node Applikation.
 
 __Socket.io__
+                    Socket.io ist eine Implementation des Websocket Standards und erlaubt eine Asynchrone Kommunikation zwischen Client und Server.
 
 -------------------------------------------------------------
 
@@ -137,7 +198,6 @@ __Socket.io__
 Grunt + Karma = All you need
 
 ## Entwicklung
-Verwendung vom Socket io (Namespaces etc)
 Tricks mit API & Message Routing, binding to io.on 'message' -> flux.doAction
 
 Express Server: 
