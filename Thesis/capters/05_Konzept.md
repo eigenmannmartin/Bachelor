@@ -152,12 +152,59 @@ Der Zeitstempel der Generierung wird der Nachricht beigefügt. Die Nachricht, we
 
 # Konzept
 
+## Allgemein
+Die drei verschiedenen Teilkonzepte für Datenhaltung, Konfliktvermeidung und Konfliktauflösung können nicht in jeder Konfiguration miteinander kombiniert werden.
+
 {Bild: Datenhaltung + Konfliktvermeidung + Konfliktauflösung}
 
+Die folgenden Kapitel befassen sich mit den möglichen Ausprägungen sowie deren Bewertungen.
 
 
 
+## Datenhaltung
 
+Die beiden Konzeptansätze zur Datenhaltung, Single- und Multi-State, sind nicht gemeinsam Implementierbar. Beide decken einen überlappenden Funktionsbereich ab, bieten aber spezifische Vor. und Nachteile. Eine Gegenüberstellung und Bewertung der beiden Ansätze ist im folgenden Kapitel aufgeführt.
+
+
+### Gegenüberstellung
+
+
+-------------------------------------------------------------------------------
+__Eigenschaft__             __Beschreibung__                __S__   __M__
+--------------------------- ------------------------------- ------- -----------
+__Implementation__          besthende Implemenationen       einfach komplex
+
+__Konsistente Abfragen__    Resultate bleiben gleich        ja      nein
+
+__Konfliktauflösung__       Zeitpunkt der Auflösung         fix     bel.
+
+__Performance__                                             gut     aufwändig 
+-------------------------------------------------------------------------------
+
+
+Single:
+
+
+Multi:
+Eine wiederholte Abfrage muss nicht das selbe Resultat liefern. Und ein Status kann sich in der Vergangenheit ändern. Der Status wird zwar über die Zeit richtiger - aber auf den "falschen" Daten basierte Entscheidungen sind bereits getroffen.
+Die Konfliktauflösung kann 
+
+
+### Auswahl
+
+
+## Konfliktvermeidung
+non-exklusiv
+
+### Bewertung
+### Auswahl
+
+
+## Konfliktauflösung
+non-exklusiv
+
+### Bewertung
+### Auswahl
 
 
 
