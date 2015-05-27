@@ -1,7 +1,7 @@
 
 \part[Konzeption]{Konzeption}
 
-# Konzept
+# Konzeptansätze
 
 <!-- redo -->
 Im Rahmen dieser Bachelorarbeit werden zwei grundsätzliche Umgangsmethodiken mit Synchronisationen bzw. Synchronisationskonflikten betrachtet.
@@ -83,48 +83,16 @@ Das Konzept der Konfliktvermeidung verhindert das Auftreten von möglichen Konfl
 
 ### Update Transformation
 <!-- Überfürung von Update in Insert -->
-Damit Mutationen für eines oder mehrere Attribute konfliktfrei synchronisiert werden können, wird die Änderung als neues Objekt der Datensammlung hinzugefügt.
+Damit Mutationen für eines oder mehrere Attribute gleichzeitig konfliktfrei synchronisiert werden können, wird für jedes einzelne Attribut eine Mutations-Funktion erstellt. Die einzelnen Funktionen können in einer Nachricht zusammengefasst werden.
 
-Änderungen eines Attributes $Ex$ werden als neues Attribut in einem neuen Objekt $Ix(Ex)$ erfasst. (Abbildung {@fig:updatetransform})
+Wie die Abbildung {@fig:updatetransform} zeigt, muss nicht das gesamte Objekt aktualisiert werden und es wird so ermöglicht die Konfliktauflösung granularer durch zu führen.
 
 ![Update Transformation](img/update-transformation.jpg)  {#fig:updatetransform}
 
-Solange die Einfüge-Funktion $Ix(Ex)$ eine Numerische Operation (+ oder -) ist, spielt es meist! Rolle in welcher Kausalität die Funktionen auf dem Server angewendet werden.
-
-#### Kontextbezogene Daten
-Kontextbezogene Daten können nur aktualisiert werden, wenn der Kontext sich nicht geändert hat.
-
-#### Unabhängige Daten
-Unabhängige Daten können ohne Abhängigkeit des Zustandes anderer Daten aktualisiert werden.
-Zu beachten ist, dass nur numerische, boolsche und binäre Werte und nur die beiden Grundoperationen + und - immer funktionieren.
-
-#### Exklusive Daten
-Für den Fall dass von 2 Geräten ein Update ausgeführt wird, müssen beide Versionen gespeichert werden, und der User muss entscheiden welche Version verwendet werden soll
-
-#### Gemeinsame Daten
-Im Falle von Text-Daten kann diese Art der Synchronisation nur für den tatsächlichen Add verwendet werden. 
-
-
 ### Wiederholbare Transaktion
-<!--  -->
-Statt nur einer Überführung einer Einzelnen Mutation in ein Insert wird die gesamte Transaktion so gemacht.
-Falls nun eine Leseaktion auf eine bereits mutiertes Objekt geschieht, welches noch nicht synchronisiert wurde, und aufgrund dieser Lesekation eine andere Mutation passiert, darf die zweite Mutation nur synchronisiert werden, falls die erste Mutation auch erfolgreich war.
-
-Es werden applikatorische Inkonsistenzen vermieden. Zusätzlich müssen auf dem Client alle Lese- und Schreib-Operationen "ge-trackt" werden.
-
-#### Kontextbezogene Daten
-können in einer Transaktion, nur aktualisiert werden, wenn der Kontext sich nicht geändert hat.
-
-#### Unabhängige Daten
-können ohne Abhängigkeit des Zustandes anderer Daten aktualisiert werden.
-Zu beachten ist, dass nur numerische, boolsche und binäre Werte und nur die beiden Grundoperationen + und - immer funktionieren.
-
-#### Exklusive Daten
-Für den Fall dass von 2 Geräten ein Update ausgeführt wird, müssen beide Versionen gespeichert werden, und der User muss entscheiden welche Version verwendet werden soll
-
-#### Gemeinsame Daten
-Im Falle von Text-Daten kann diese Art der Synchronisation nur für den tatsächlichen Add verwendet werden. 
-
+Leseoperationen auf Stati des Clients, welche noch nicht mit dem Server synchronisiert sind, liefern möglicherweise falsche Resultate.
+Alle Schreiboperationen, welche Resultate der Leseoperationen mit falschem Resultat, verwenden, dürfen ebenfalls nicht synchronisiert werden, oder müssen mit der korrekten Datenbasis erneut durchgeführt werden.
+Dies führt zur Vermeidung von logischen Synchronisationskonflikten.
 
 
 
@@ -179,25 +147,19 @@ Zusätzlich zur Mutations-Funktion und der Status-Referenz wird einer Nachricht 
 Die Nachrichten, welche online gesendet wurden, werden immer den offline synchronisierten Nachrichten vorgezogen.
 
 #### Echte Kausalität
-Zusätzlich wird der Nachricht auch die Generierungszeit auf dem Client beigefügt.
+Der Zeitstempel der Generierung wird der Nachricht beigefügt. Die Nachricht, welche echt zu erst erstellt wurde, markiert den aktiven Teilbaum.
 
 
+# Konzept
 
-#### Früheste Nachricht
-
-
-
-
-
+{Bild: Datenhaltung + Konfliktvermeidung + Konfliktauflösung}
 
 
 
 
-\newpage
 
-## Gesamtkonzept
 
-Das Gesamtkonzept besteht in einer Zusammenführung aller bereits erwähnter Konzepte. Je nach zu synchronisierendem Datenbestand müssend entsprechend Passende Lösungsverfahren angewendet werden.
+
 
 
 
