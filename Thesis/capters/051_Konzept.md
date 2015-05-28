@@ -1,6 +1,6 @@
 
 
-# Konzept
+# Konzept Untersuchung
 
 
 In diesem Kapitel werden die Konzeptansätze konkretisiert und auf Anwendbarkeit hin untersucht.
@@ -9,31 +9,37 @@ In diesem Kapitel werden die Konzeptansätze konkretisiert und auf Anwendbarkeit
 
 
 ## Datenhaltung
-Nachrichtenbasiert -> Message-Queue
+Die trivialste Form der Datenhaltung ist eine Messagequeue. Der aktuelle Staus ist die Anwendung aller Nachrichten auf einen initialen Status erreichbar.
+Der wahlfreie Zugriff auf den Staus zu jedem beliebigen Zeitpunkt zeichnet dieses einfache Design aus. 
+
+Nachfolgend findet sich eine genauere Implementations-Analyse bezüglich Single- und Multistate.
 
 ### Singlestate
-Message-Queue und Ausgangs-Status
+Um eine Singlestate Datenhaltung zu implementieren, sind zwingend eine Message-queue, sowie ein initialer Zustand nötig. Zur effizienteren Implementierung wird darüber hinaus ein Cache-Status benötigt, der den letzten gültigen Status enthält.
 
-Anwendung aller Elemente in der MQ auf den AStatus -> aktuell gültiger Status.
-Konfliktauflösung gemäss Konzepten
+Beim Eingehen einer neuen Nachricht sind folgende Schritte abzuarbeiten.
 
-1. Nachricht entgegennehmen -> in die MQ
-2. ist referenzierter Status = aktueller Status? ja:6, nein:3
-3. temp. Anwendung auf referenzierten Staus, Konflikt? ja:4, nein:6 
-4. Konfliktauflösung möglich? ja:5, nein:4
-5. Konflikt auflösen
-6. Anwendung auf aktiven Status
-7. Nachricht abschlissen
+1. Nachricht in die Messagequeue einfügen
+2. _Prüfen_: ist referenzierter Status der aktueller Status? ja: 7 | nein: 3
+3. _Prüfen_: löst die Anwendung der Nachricht einen Konflikt aus? ja: 4 | nein: 7 
+4. _Prüfen_: ist eine automatische Konfliktauflösung möglich? ja: 6 | nein: 4
+5. Abbruch des Vorgangs
+6. Konflikt auflösen
+7. Anwendung der Nachricht
+8. Cache-Staus aktualisieren
+
+Zur Überprüfung ob ein Konflikt vorliegt, wird sowohl der aktuelle Staus, also auch der referenzierte Staus benötigt.
 
 #### Verbesserung 1
-- Cache aller Lese-Resultete
-- ein Schreibzugriff lehrt den Cache
+Da jede schreibende Operation zuerst den referenzierten Staus auslesen muss, und dies sehr Rechenintensiv ist, wird jeder errechneter Zustand zwischengespeichert. So ist existiert für jede Nachricht bereits ein gecachter Status. Somit werden Operationen beschleunigt.
 
 #### Verbesserung 2
-- 2 MQs (verarbeitet/zu verarbeiten) -> cache wird zum aktuelle status und immer aktualisiert.
-- -> Zugriff auf aktueller Status schnell, auf bestimmte Stati langsam 
+Es wird eine maximale Länge der MessageQueue festgelegt werden. Ältere Nachrichten werden in eine zweite MessageQueue verschoben. Es werden nur Referenzstati akzeptiert, welche von der ersten MessageQueue abgedeckt sind.
 
-#### Anwendungsbeispiel Synchronisation von Kontakten
+Dadurch wird, vor allem bei grossen Mengen an Nachrichten die Last reduziert.
+
+<!-- #### Anwendungsbeispiel Synchronisation von Kontakten
+Anhand des Beispiels "[Synchronisation von Kontakten]" 
 
 ##### Szenario 1
 Hinzufügen -> Konfliktfrei
@@ -45,7 +51,7 @@ Anpassen der primären Tel-NR -> Konflit, falls bereits geändert seit referenz 
 Ändern des Namens -> Konflikt, falls bereits geändert
 
 ##### Szenario 4
-Hinzufügen pers. Info -> immer überschreiben, Eigenverantwortung
+Hinzufügen pers. Info -> immer überschreiben, Eigenverantwortung -->
 
 
 
@@ -59,29 +65,25 @@ Probleme:
 
 
 ### Multistate
-Message-Queue, Shadow-Queue und Ausgangs-Status
+Zur Implementation einer Multistate-Persistenz ist zwingend eine Messagequeue, ein Initialstatus sowie eine Shadow-Queue nötig. Zur effizienteren Implementierung wird auch hier der aktuell gültige Staus gecached.
 
-Message-Queue ist nach Eingangsreihenfolge geordnet
-Shadow-Queue ist logisch nach Zeitpunkten geordnent => nach Stati
+In der Shadow-Queue werden die eingehenden Nachrichten entsprechend der referenzierten Stati geordnet und nicht mehr nach Eingangsreihenfolge.
+Der Zustandsbaum wird dann entlang der Shadow-Queue aufgebaut.
 
-Anwendung aller Elemente in der MQ auf den AStatus -> aktuell gültige Stati.
-Konfliktauflösung gemäss Konzepten
+Beim Eingehen einer neuen Nachricht sind folgende Schritte zu befolgen.
 
-1. Nachricht entgegennehmen -> in die MQ
-2. Nachricht entsprechend des Referenz-Staus in der SQ einordnen
-3. Baum ab der neuen Nachricht erneut aufbauen. (Vergabelungsfunktion)
+1. Nachricht in die Message- und Shadowqueue einsortieren
+3. Zustandsbaum erneut aufbauen
 4. Konflikte Auflösen
 
 #### Verbesserung 1
-- Cache aller Lese-Resultate
-- ein Schreibzugriff lehrt den Cache
+Falls eine Nachricht auf einen aktuellen Zustand referenziert, muss der Baum nicht erneut aufgebaut werden.
 
 #### Verbesserung 2
-- ein Schreibzugriff lehrt nur den Cache des betroffenen Teilbaums
-- Jeder Ursprungsstatus einer Vergabelung wird in den Cashe geschrieben
+Jede schreibende Operation löst die erneute Generierung des gesamten Zustandsbaums aus. Um diese rechenintensive Operation zu vereinfachen, wird bei jeder Verzweigung der Zustand gespeichert. Eine Schreibende Aktion, muss so nur noch den betroffenen Teilbaum aktualisieren.
 
 
-#### Anwendungsbeispiel Synchronisation von Kontakten
+<!-- #### Anwendungsbeispiel Synchronisation von Kontakten
 
 ##### Szenario 1
 Hinzufügen -> Konfliktfrei
@@ -93,7 +95,7 @@ Anpassen der primären Tel-NR -> Konflit => eigener Zweig. Möglicherweise aktiv
 Ändern des Namens -> Konflikt => eigener Zweig. Möglicherweise aktiver Zweig
 
 ##### Szenario 4
-Hinzufügen pers. Info -> immer überschreiben, Eigenverantwortung
+Hinzufügen pers. Info -> immer überschreiben, Eigenverantwortung -->
 
 
 
@@ -102,7 +104,7 @@ Lösungen:
 - jede Nachricht kann verarbeitet werden - Konfliktlösung in der Zukunft
 
 Probleme:
-- Ikonsistenter Status
+- Inkonsistenter Status
 
 
 
@@ -110,21 +112,8 @@ Probleme:
 ## Konfliktvermeidung
 
 ### Update Transformation
-Mutations-Funktion wird immer auf den aktuellsten Status angewendet.
-
-#### Anwendungsbeispiel Synchronisation von Kontakten
-
-##### Szenario 1
-Hinzufügen -> Konfliktfrei
-
-##### Szenario 2
-Anpassen der primären Tel-NR -> nicht möglich
-
-##### Szenario 3
-Ändern des Namens -> nicht möglich
-
-##### Szenario 4
-Hinzufügen pers. Info -> nicht möglich
+Die einfachste Implementation einer Update-Transformation besteht darin, sowohl das mutierte Objekt, also auch das Ausgangsobjekt zu übertragen. Implizit wird so eine Mutationsfunktion übermittelt.
+<!-- Übermittlung von ausführbarem Code ist nicht sinnvoll -->
 
 
 #### Probleme/Lösungen
@@ -136,11 +125,10 @@ Probleme:
 
 
 ### Wiederholbare Transaktion
+Eine sehr triviale Implementation besteht darin, sobald eine Nachricht abgelehnt wird, alle nachfolgenden Nachrichten einer Synchronisation auch abzulehnen und den Client neu zu initialisieren.
 
-All or nothing Sync - wenn etwas abgelehnt wird, wird nichts späteres synchronisiert.
-
-#### Anwendungsbeispiel Synchronisation von Kontakten
-Es werden keine spezifischen Konflikte gelöst. Es wird nur verhindert dass es zu Logischen Fehlern auf höheren Schichten kommt, da keine Mutation Synchronisiert wird, die auf nicht akzeptierten Daten fusst.
+<!-- #### Anwendungsbeispiel Synchronisation von Kontakten
+Es werden keine spezifischen Konflikte gelöst. Es wird nur verhindert dass es zu Logischen Fehlern auf höheren Schichten kommt, da keine Mutation Synchronisiert wird, die auf nicht akzeptierten Daten fusst. -->
 
 #### Probleme/Lösungen
 Lösungen:
@@ -154,9 +142,10 @@ Probleme:
 ## Konfliktauflösung
 
 ### Zusammenführung
-gesamtes Objekt in der Mutations-Funktion - aber nicht jedes Attribut mutiert
+Die einfachste Implementation besteht darin, nur geänderte Attribute zu übertragen. So werden Konflikte nur behandelt, wenn das entsprechende Attribut mutiert wurde.
 
-#### Anwendungsbeispiel Synchronisation von Kontakten
+
+<!-- #### Anwendungsbeispiel Synchronisation von Kontakten
 Attribute werden einzeln in eine Mutationsfunktion gepackt
 
 Exkluxive Daten -> direkt überschreiben
@@ -179,7 +168,7 @@ Anpassen der primären Tel-NR -> Kontext ist Name, Gemeinsame Daten, keine allge
 Ändern des Namens -> Falls noch nicht geändert kein Konflikt
 
 ##### Szenario 4
-Hinzufügen pers. Info -> immer überschreiben, Eigenverantwortung da temp.
+Hinzufügen pers. Info -> immer überschreiben, Eigenverantwortung da temp. -->
 
 #### Probleme/Lösungen
 Lösungen:
@@ -190,9 +179,16 @@ Probleme:
 
 
 ### normalisierte Zusammenführung
-Ein Attribut wird in zwei Mutationsfunktionen aktualisiert. Der Konflikt wird aufgelöst, indem die Nachricht genommen wird, die näher am Durchschnitt ist.
+Um eine normalisierte Zusammenführung um zu setzten, ist zwingend ein wahlfreier Zugriff auf jeden Status, sowie jede Mutationsfunktion notwendig.
 
-##### Szenario 1
+Ein Konflikt bei einem Attribut wird in folgenden Schritten aufgelöst:
+
+1. Resultate aller auf den Status angewendeten Mutationen berechnen
+2. Resultat, welches am nächsten bei der Durchschnittsfunktion liegt, anwenden
+
+
+
+<!-- ##### Szenario 1
 Hinzufügen -> Konfliktfrei
 
 ##### Szenario 2
@@ -203,7 +199,7 @@ Anpassen der primären Tel-NR -> Grösse bezüglich "Richtigkeit" im Adressbuch
 Ändern des Namens -> nicht möglich
 
 ##### Szenario 4
-Hinzufügen pers. Info -> nicht möglich
+Hinzufügen pers. Info -> nicht möglich -->
 
 #### Probleme/Lösungen
 Lösungen:
@@ -214,8 +210,7 @@ Probleme:
 
 
 ### manuelle Zusammenführung
-
-von Hand - bei Singlestate blockierend
+Eine manuelle Zusammenführung muss in Form eines GUI implementiert werden, womit ein Benutzer diese durchführen kann.
 
 #### Probleme/Lösungen
 Lösungen:
