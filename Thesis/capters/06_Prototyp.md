@@ -118,6 +118,7 @@ C_PRES_STORE_delete         Löscht ein bestehendes Objekt.
 -------------------------------------------------------------------------------
 
 ### Datenfluss
+![Datenflussdiagramm](img/dataflow.png)
 Frontend    <->  API    <->     Backend
 
 Frontend: ActionCreator -> Dispatcher -> Store -> API -> ActionCreator
@@ -128,8 +129,11 @@ Backend: API -> Logiclayer -> API
 
 
 ### Flux Architektur
-Das Flux Paradigma...
+Das Flux Paradigma[@facebook-flux] ist eine Applikationsarchitektur entwickelt von Facebook für React, welche einen unidirektionalen Datenfluss vorgibt.
+Daten können nur über eine Aktionen manipuliert werden. Die Views als auch die API können Aktionen auslösen, und so den Datenbestand mutieren.
 ![Flux Diagramm](img/flux-diagram.png)
+
+Die Verwendung des Dispatchers ermöglicht es, Abhängigkeiten zwischen verschiedenen Stores zentral zu verwalten, da jeder Mutation zwangsweise zuerst von ihm bearbeitet wird.
 
 ### AMD Pattern
 Asyncronous module definition (AMD) ist eine JavaScript API um Module zu definieren und diese zur Laufzeit zu laden. Dadurch können Javascript-lastige Webseiten beschleunigt werden, da Module erst geladen werden, wenn sie gebraucht werden. Weiter werden durch den Loader die Module gleichzeitig geladen, dadurch kann die Bandbreite voll ausgenutzt werden. 
