@@ -8,6 +8,8 @@
 
 ## Glossar
 
+ORM
+Node
 
 ## Aufgabenstellung {#appendix_aufgabenstellung}
 
@@ -94,47 +96,251 @@ Das Ziel der Bachelorthesis besteht in der in der Konzeption und der Entwicklung
 
 # Anforderungsanalyse
 <!-- gehört in den Anhang -->
+
+<!-- Definition Offline und Online Modus -->
 ## Vorgehensweise
+Um eine möglichst allgemein gültige Anforderungsanalyse zu erhalten, werden nur die Anforderungen an den Synchronisationsprozess gestellt, welche für alle drei Fallbeispiele gültig sind.
 
 ### Use-Cases
-UC1: Lesen eines Elements (online) 
-UC2: Einfügen eines neuen Elements (online) 
-UC3: Ändern eines Elements (online) 
-UC4: Löschen eines Elements (online) 
-UC5: Lesen eines Elements (offline) 
-UC6: Einfügen eines neuen Elements (offline) 
-UC7: Ändern eines Elements (offline) 
-UC8: Löschen eines Elements (offline) 
+Im Nachfolgenden werden alle UseCases aufgelistet die im Rahmen dieser Thesis gefunden wurden.
+
+
+#### UC-01 Lesen eines Elements
+
+-------------------------------------------------------------------------------
+__UseCase__
+--------------------------- --------------------------------------------------
+__Ziel__                    Ein existierendes Objekt wird gelesen. 
+
+__Beschreibung__            
+                            Der Benutzer kann jedes Objekt anfordern. Das System liefert das angeforderte Objekt zurück.
+
+__Akteure__                 Benutzer, System
+
+__Vorbedingung__            
+                            Der Benutzer ist im Online-Modus oder Offline-Modus.
+
+__Ergebnis__                Der Benutzer hat das angeforderte Objekt gelesen.
+
+__Hauptszenario__           Der Benutzer möchte eine Objekt lesen.
+
+__Alternativszenario__      -
+-------------------------------------------------------------------------------
+
+#### UC-02 Einfügen eines neuen Elements 
+
+-------------------------------------------------------------------------------
+__UseCase__
+--------------------------- --------------------------------------------------
+__Ziel__                    Ein neues Objekt wird hinzugefügt. 
+
+__Beschreibung__            
+                            Der Benutzer kann neue Objekte hinzufügen. Das System liefert das hinzugefügte Objekt zurück.
+
+__Akteure__                 Benutzer, System
+
+__Vorbedingung__            
+                            Der Benutzer ist im Online-Modus oder Offline-Modus.
+
+__Ergebnis__                Der Benutzer hat ein neues Objekt erfasst.
+
+__Hauptszenario__           Der Benutzer möchte eine Objekt hinzufügen.
+
+__Alternativszenario__      -
+-------------------------------------------------------------------------------
+
+#### UC-03 Ändern eines Elements
+
+-------------------------------------------------------------------------------
+__UseCase__
+--------------------------- --------------------------------------------------
+__Ziel__                    Ein bestehendes Objekt wird mutiert. 
+
+__Beschreibung__            
+                            Der Benutzer kann bestehendes Objekte mutieren. Das System liefert das mutierte Objekt zurück.
+
+__Akteure__                 Benutzer, System
+
+__Vorbedingung__            
+                            Der Benutzer ist im Online-Modus oder Offline-Modus.
+
+__Ergebnis__                Der Benutzer hat ein bestehendes Objekt mutiert.
+
+__Hauptszenario__           Der Benutzer möchte eine Objekt mutieren.
+
+__Alternativszenario__      -
+-------------------------------------------------------------------------------
+
+#### UC-04 Löschen eines Elements
+
+-------------------------------------------------------------------------------
+__UseCase__
+--------------------------- --------------------------------------------------
+__Ziel__                    Ein bestehendes Objekt wird gelöscht. 
+
+__Beschreibung__            
+                            Der Benutzer kann bestehendes Objekte löschen.
+
+__Akteure__                 Benutzer, System
+
+__Vorbedingung__            
+                            Der Benutzer ist im Online-Modus oder Offline-Modus.
+
+__Ergebnis__                Der Benutzer hat ein bestehendes Objekt löschen.
+
+__Hauptszenario__           Der Benutzer möchte eine Objekt löschen.
+
+__Alternativszenario__      -
+-------------------------------------------------------------------------------
 
 
 ### Anforderungen
+In diesem Kapitel sind alle funktionalen und nicht-funktionalen Anforderungen die aus den UseCases resultieren ausgeführt.
+
 <!-- FREQ01.01 Abfragen eines Elementverzeichnis -->
+#### FREQ01.01 Abfragen eines Objektverzeichnis
+
+-------------------------------------------------------------------------------
+__Anforderung__
+--------------------------- --------------------------------------------------
+__UC-Referenz__             UC-01
+
+__Beschreibung__            
+                            Ein Verzeichnis aller Elemente kann abgefragt werden.
+-------------------------------------------------------------------------------
+
+
+
 <!-- FREQ01.02 Abfragen eines bekannten Elements vom Server -->
+#### FREQ01.02 Abfragen eines bekannten Objekt vom Server
+
+-------------------------------------------------------------------------------
+__Anforderung__
+--------------------------- --------------------------------------------------
+__UC-Referenz__             UC-01
+
+__Beschreibung__            
+                            Ein einzelnes Objekt kann von Server abgerufen werden.
+-------------------------------------------------------------------------------
 
 <!-- FREQ02.01 Senden eines neuen Elements -->
+#### FREQ02.01 Senden eines neuen Objekt
+
+-------------------------------------------------------------------------------
+__Anforderung__
+--------------------------- --------------------------------------------------
+__UC-Referenz__             UC-02
+
+__Beschreibung__            
+                            Ein einzelnes neues Element kann dem Server zur Anlage zugesendet werden.
+-------------------------------------------------------------------------------
 <!-- FREQ02.02 Abfragen eines neu hinzugefügten Elements -->
+#### FREQ02.02 Abfragen eines neu hinzugefügten Objekt
+
+-------------------------------------------------------------------------------
+__Anforderung__
+--------------------------- --------------------------------------------------
+__UC-Referenz__             UC-02
+
+__Beschreibung__            
+                            Das neue angelegte Element wird dem Client automatisch zurückgesendet.
+-------------------------------------------------------------------------------
 
 <!-- FREQ03.01 Senden eines Element-Updates -->
+#### FREQ03.01 Senden einer Objektmutation
+
+-------------------------------------------------------------------------------
+__Anforderung__
+--------------------------- --------------------------------------------------
+__UC-Referenz__             UC-03
+
+__Beschreibung__            
+                            Ein Attribut eines existierendes Objekt kann mutiert werden.
+-------------------------------------------------------------------------------
+
+#### FREQ03.02 Senden einer Objektmutation
+
+-------------------------------------------------------------------------------
+__Anforderung__
+--------------------------- --------------------------------------------------
+__UC-Referenz__             UC-03
+
+__Beschreibung__            
+                            Ein mehrere Attribute eines existierendes Objekt kann mutiert werden.
+-------------------------------------------------------------------------------
 
 <!-- FREQ04.01 Senden eines Löschauftrags -->
+#### FREQ04.01 Löschen eines Objekts
+
+-------------------------------------------------------------------------------
+__Anforderung__
+--------------------------- --------------------------------------------------
+__UC-Referenz__             UC-04
+
+__Beschreibung__            
+                            Eine existierendes Objekt kann gelöscht werden.
+-------------------------------------------------------------------------------
 
 <!-- FREQ05.01 Lokale Kopie gelesener Elemente -->
+#### FREQ04.01  Lokale Kopie gelesener Objekte
+
+-------------------------------------------------------------------------------
+__Anforderung__
+--------------------------- --------------------------------------------------
+__UC-Referenz__             UC-01
+
+__Beschreibung__            
+                            Ein bereits gelesenes Objekt, wird lokal auf dem Client gespeichert.
+-------------------------------------------------------------------------------
 
 <!-- FREQ06.01 Lokale Datenbankstruktur -->
 <!-- FREQ06.02 Aufzeichnung der Einfügeoperationen -->
+#### FREQ05.01 Aufzeichnen der Mutationen
+
+-------------------------------------------------------------------------------
+__Anforderung__
+--------------------------- --------------------------------------------------
+__UC-Referenz__             UC-01, UC-02, UC-03, UC-04
+
+__Beschreibung__            
+                            Mutationen werden aufgezeichnet.
+-------------------------------------------------------------------------------
 <!-- FREQ06.03 Synchronisation der aufgezeichneten Einfügeoperationen -->
+#### FREQ05.02 Übermitteln der Mutationen
 
-<!-- FREQ07.01 Aufzeichnung der Mutationen von Elementen -->
-<!-- FREQ07.02 Synchronisation der aufgezeichneten Mutationen -->
+-------------------------------------------------------------------------------
+__Anforderung__
+--------------------------- --------------------------------------------------
+__UC-Referenz__             UC-01, UC-02, UC-03, UC-04
 
-<!-- FREQ08.01 Aufzeichnen der Löschaufträge -->
-<!-- FREQ08.02 Synchronisation der aufgezeichneten Löschaufträge -->
-
+__Beschreibung__            
+                            Sobald eine Verbindung mit dem Server hergestellt ist, werden die aufgezeichneten Mutationen dem Server übermittelt.
+-------------------------------------------------------------------------------
 
 <!-- NFREQ01 Mutationen die nicht vom Server wegen fehlender Berechtigungen abgelehnt werden, gehen nicht verloren -->
 <!-- NFREQ02 Mutationen können nach einer beliebigen Zeit mit dem Server synchronisiert werden -->
+#### NFREQ01 Übermittlung der Mutationen
+
+-------------------------------------------------------------------------------
+__Anforderung__
+--------------------------- --------------------------------------------------
+__UC-Referenz__             UC-01, UC-02, UC-03, UC-04
+
+__Beschreibung__            
+                            Die Übermittlung der Mutationen zum Server darf eine beliebig lange Zeit in Anspruch nehmen.
+-------------------------------------------------------------------------------
 
 <!-- NFREQ03 Fehler werden aufgezeichnet -->
+#### NFREQ02 Abgelehnte Mutationen
+
+-------------------------------------------------------------------------------
+__Anforderung__
+--------------------------- --------------------------------------------------
+__UC-Referenz__             UC-01, UC-02, UC-03, UC-04
+
+__Beschreibung__            
+                            Wenn eine Mutation vom Server abgelehnt wird, wird dem Client die aktuell gültige Version des entsprechenden Objekts übermittelt.
+-------------------------------------------------------------------------------
 
 
 ### Akzeptanzkriterien

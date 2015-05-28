@@ -1,7 +1,7 @@
 
 
 # Design des Prototypen
-In diesem Kapitel werden die aus dem Kapitel [Konzept] gewonnenen Erkenntnisse umgesetzt.
+In diesem Kapitel werden die aus dem Kapitel [Konzept] gewonnenen Erkenntnisse so umgesetzt dass sie den Anforderungen aus dem Kapitel [Anforderungsanalyse] genügen.
 
 ## Design-Ansätze
 
@@ -220,7 +220,3 @@ Models in the Backend
 ## Unit-Testing
 
 ## Integration-Testing
-
-## Test der Akzeptanzkriterien
-
-## Überprüfung der Aufgabenstellung

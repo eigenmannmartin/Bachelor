@@ -48,13 +48,28 @@ Die von der Leitung des Studiengangs Informatik freigegebene Aufgabenstellung is
 ## Abgrenzung der Arbeit
 Grosse Anbieter von Web-Software wie Google und Facebook arbeiten intensiv an der spezifischen Lösungen für ihre Produkte. Zwar werden in Talks Techniken und Lösungsansätze erläutert (Facebook stellt Flux und Message-Driven Architecture vor[^fb-flux]), wissenschaftliche Arbeiten darüber, sind jedoch nicht vorhanden.
 
-Ich möchte in dieser Arbeit einen allgemeinen Ansatz erarbeiten und die Grenzen dessen ausloten, um so zu zeigen, wo die Grenzen der Synchronisation liegen.
-<!-- Gibt es andere Arbeiten? Was macht Google/Facebook? Bis wohin gehe ich? -->
-
 [^fb-flux]:https://www.youtube.com/watch?v=KtmjkCuV-EU
 
+Ich möchte in dieser Arbeit einen allgemeinen Ansatz erarbeiten und die Grenzen dessen ausloten, um so zu zeigen, wo die Grenzen der Synchronisation liegen.
 
-# Dokumentationsstruktur und Beitrag zum Forschungsgebiet
+
+Die Arbeit eröffnet mit ihrer Fragestellung ein riesiges Gebiet und wirft neue Fragestellungen auf. Die ursprüngliche Fragestellung wird vertieft behandelt, ohne auf Neue in gleichem Masse einzugehen.
+Die zu synchronisierenden "Real World" Fälle sind sehr unterschiedlich und nicht generalisierbar. Es wurde drei Anwendungsfälle erarbeitet, auf welchen die Untersuchungen durchgeführt wurde.
+
+Zusätzlich wird die Arbeit durch folgende Punkte klar abgegrenzt:
+
+- Die Informationsbeschaffung findet ausschliesslich in öffentlich zugänglichen Bereichen statt. (Internet/Bibliothek)
+- Grundsätzliches Wissen zu Prozessen und Frameworks wird vorausgesetzt und nur an Schlüsselstellen näher erklärt.
+
+
+## Sprache
+
+## Richtlinien
+
+
+
+
+# Aufbau der Arbeit
 <!-- Anpassen des Titels -->
 
 <!-- Zusammenfassung der Teile - Zuteilung zur Fragestellung. -->
