@@ -40,7 +40,7 @@ Das Ziel der Bachelorthesis besteht in der in der Konzeption und der Entwicklung
 
 **A3 Konzept:**
 
-- Erstellen eines Konzepts der Software
+- Erstellen eines Konzepts der Synchronisation
 - Erstellen eines Konzepts der Implementierung zweier ausgewählten Synchronisations-Verfahren
 
 **A4 Prototyp:**
@@ -69,7 +69,7 @@ Das Ziel der Bachelorthesis besteht in der in der Konzeption und der Entwicklung
 
 **R3 Konzept:**
 
-- Dokumentation des Konzepts der Software
+- Dokumentation des Konzepts der Synchronisation
 - Dokumentation der Umsetzung der ausgewählten Synchronisations-Verfahren
 
 **R4 Prototyp:**
@@ -85,17 +85,93 @@ Das Ziel der Bachelorthesis besteht in der in der Konzeption und der Entwicklung
 
 
 
+# Detailanalyse der Aufgabenstellung
+Die Detailanalyse der Aufgabenstellung...
+
+## Aufgabenstellung und erwartete Resultate
+**Recherche:**
+Es sollen die technischen Grundlagen zur Bearbeitung dieser Thesis zusammengetragen werden. Für das Verständnis wichtige Sachverhalte erläutert und Fachbegriffe erklärt werden.
+
+Erwartet wird ein Glossar, sowie eine Zusammenfassung der bekannten Synchronisations und Konfliktlösungsverfahren, sowie deren Einsatzgebiet.
+
+**Analyse:**
+Eine genauere Betrachtung der ausgewählten Systeme (MySQL, MongoDB, Backbone.js und Meteor.js) zeigt auf, wo die aktuelle Systeme an ihre Grenzen stossen.
+Weiter muss eine Anforderungsanalyse für eine Beispielapplikation durchgeführt werden.
+
+Erwartet wird Sowohl die Dokumentation der Synchronisationsverfahren als auch das Ergebnis der Anforderungsanalyse.
+
+**Konzept:**
+Die Erarbeitung und Überprüfung der Umsetzbarkeit neuer Synchronisationskonzepte wird in der Konzeptionsphase gefordert.
+
+Sowohl eine Darstellung der erarbeitete Konzepte, als auch eine Umsetzungsplanung derer ist gefordert.
+
+**Prototyp:**
+Der Prototyp soll anhand eines Beispiels aufzeigen, wo die Stärken und Schwächen eines der Konzepte liegt.
+
+Erwartet wird ein Prototyp der zwei Synchronisations- und Konfliktauflösungsverfahren implementiert.
+
+**Review:**
+Das Review soll eine Retrospektive auf die Erarbeiteten Resultate werfen und kritisch hinterfragen.
+
+Erwartet wird ein Protokoll der durchgeführten Tests.
 
 
+## Aufwandschätzung
+
+Die aus der Projektplanung hervorgehenden Arbeitsschritte müssen geschätzt werden, um eine realistische Terminplanung durchzuführen.
+
+-------------------------------------------------------------------------------
+__Arbeitsschritt__           Aufwand in Stunden
+--------------------------- ---------------------------------------------------
+Initialisierung             10
+Recherche                   45
+Analyse                     20
+Konzeption                  80
+Prototyp                    60
+Dokumentation               135
+Abgabe                      20
+
+__Total__                   __370__
+-------------------------------------------------------------------------------
+
+# Projektmanagement
+
+## Projektplanung
+
+Der vollständige Projektplan ist in der Grafik {@fig:projektplan} dargestellt.
+
+![Projektplan](img/Projektplan.png) {#fig:projektplan}
+
+<!-- zu erwähnen
+-beschlüsse auf Kock-Off und Designreview
+-Ferien etc.
+ -->
+
+## Termine
+
+-------------------------------------------------------------------------------
+__Termin__                  __Datum__      __Bemerkungen__
+--------------------------- ------------- -------------------------------------
+Kick-Off                    18.03.2015    
+
+Design Review               20.05.2015
+
+Abgabe-Entscheid            06.06.2015
+
+Abgabe Bachelorthesis       ???
+
+Abschlusspräsentation       ??
+-------------------------------------------------------------------------------
 
 
+## Dokumentation
+Da die Nachvollziehbarkeit von Änderungen in MS Word sehr umständlich ist, habe ich in Betracht gezogen, die Arbeit mit \LaTeX zu schreiben.
+Da ich jedoch dieses Format sehr unübersichtlich finde habe ich mich stattdessen für Markdown entschieden. Markdown kann mit dem Tool pandoc in ein PDF Dokument konvertiert werden. Darüber hinaus versteht pandoc die Latex-Syntax.
 
-
-
-
+## Versionsverwaltung
+Damit einerseits die Daten gesichert und andererseits die Nachvollziehbarkeit von Änderungen gewährleistet ist, verwende ich git.
 
 # Anforderungsanalyse
-<!-- gehört in den Anhang -->
 
 <!-- Definition Offline und Online Modus -->
 ## Vorgehensweise

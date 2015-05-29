@@ -17,9 +17,15 @@ Auseinandersetzung mit der eigenen Arbeit statt. Typische Fragen sind:
 
 ## Validation
 
-### Test der Akzeptanzkriterien
+In der nachfolgenden Tabelle sind alle gestellten Ziele gemäss Aufgabenstellung aufgelistet.
 
-### Überprüfung der Aufgabenstellung
+
+-------------------------------------------------------------------------------
+__Ziel__
+-----------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+
 
 ## Ausblick
 

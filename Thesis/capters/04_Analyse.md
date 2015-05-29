@@ -1,24 +1,23 @@
 
 
 # Analyse
-Dieses Kapitel setzt sich mit der Klassifikation und Typisierung von Daten auseinander. 
+Dieses Kapitel setzt sich mit der Klassifikation und Typisierung von Daten auseinander. Es wird eine Klassifikation erarbeitet und anhand von Beispielen gezeigt, dass diese auch anwendbar ist.
 
 ## Synchronisationsproblem
-Die Analyse der Problemstellung wird anhand der folgenden drei exemplarischen Aufgabenstellungen durchgeführt.
+Die Überprüfung der Klassifikation wird anhand der folgenden zwei Problemstellungen durchgeführt.
+Beide Problemstellungen sind so gewählt, dass sie zusammen einen möglichst allgemeinen Fall abdecken und so die Überprüfung aussagekräftig bleibt.
 
 ### Synchronisation von Kontakten
-In vielen Anwendungsszenarien müssen Kontaktdaten abgeglichen werden. Dieses Beispiel beleuchtet die Synchronisation einer fiktiven Firmen-Kontaktdatenbank mit mobilen Clients der Mitarbeiter.
+In vielen Anwendungsszenarien müssen Kontaktdaten abgeglichen werden. Dieses Beispiel beleuchtet die Synchronisation einer Firmen-Kontaktdatenbank mit mobilen Clients der Mitarbeiter. 
+Verkaufsmitarbeiter müssen jederzeit Kontaktdaten abfragen, neu erfassen und anpassen können, ohne dafür mit dem zentralen Server verbunden zu sein. Gerade in wenig entwickelten oder repressiven Ländern ist eine ständige Verbindung nicht immer gegeben.
 
-Ein Kontakt selbst umfasst die in der Tabelle "Daten-Attribute Firmen-Kontakt" beschriebenen Attribute.
+Ein Kontakt selbst umfasst die in der Tabelle "Attribute Firmen-Kontakt" beschriebenen Attribute.
 
 -------------------------------------------------------------------------------
 __Attribut__                __Beschreibung__
 --------------------------- --------------------------------------------------
 __Name__                    Der gesamte Name (Vor-, Nach,- und Mittelname)
                             der (Kontakt-)Person.
-
-__Firma__                   Der eingetragene Firmenname oder falls 
-                            Privatperson lehr.
 
 __Adresse__                 Die vollständige Postadresse der Firma oder Person.
 
@@ -29,19 +28,10 @@ __Email__                   Alle aktiven und inaktiven Email-Adressen des
 __Telefon__                 Alle aktiven und inaktiven Telefonnummern des
                             Kontakts. Jeweils nur eine Telefonnummer ist die primäre Nummer.
 
-__VIP-Stufe__               Wichtigkeit-Stufe des Kontakts.
-
 __pNotes__                  Persönliche Bemerkungen zum Kontakt. Nur der Autor 
-                            einer Notiz, kann diese bearbeiten.
-
-__Aktiver Auftrag__         Aktive und mit dem Kontakt verknüpfte Aufträge.
-
-__Erfassungsdatum__         Datum der ersten Erfassung des Kontakts.
-
-__Änderungsdatum__          Datum der letzten Änderung des Kontakts.
+                            einer Notiz, kann diese bearbeiten oder lesen.
 -------------------------------------------------------------------------------
-Table: Attribute Daten-Attribute Firmen-Kontakt 
-
+Table: Attribute Firmen-Kontakt 
 
 Im Folgenden sind vier typische Szenarien beschrieben.
 
@@ -59,16 +49,54 @@ Hinzufügen/Ändern der (persönlichen) Zusatzinformationen eines bestehenden Ko
 
 
 ### Syncrhonisation eines Service Desks
-1. Szenario: Erfassen eines Support-Falls
-2. Szenario: Followup (Antwort auf einen Supportfall) / Anpassen der Dringklichkeit/Priorität
-3. Szenario: Zuweisen zu einem Techniker/Technikergruppe
-4. Szenario: Erfassen einer Lösung/FAQ Eintrags
+In vielen IT-Organisationen kommt ein Service-Deskt zum Einsatzt. Das Bearbeiten der Support-Fälle und erfassen von Arbeitszeiten muss online, direkt im System erfolgen. Dies kann vor allem fürs Arbeiten ausser Haus, zum Beispiel auf Reisen oder direkt beim Kunden, eine grosse Einschränkung sein.
 
+Ein Support-Fall selbst umfasst die in der Tabelle "Attribute Support-Fall" beschriebenen Attribute. Es sind nur die für die aufgeführten Szenarien nötigen Attribute erfasst.
+
+-------------------------------------------------------------------------------
+__Attribut__                __Beschreibung__
+--------------------------- --------------------------------------------------
+__Titel__                   Titel des Support-Falls.
+
+__Beschreibung__            Fehler/Problembeschreibung des Tickets.
+
+__Anmerkungen__             Alle Antworten von Technikern und Kunden. Eine
+                            Antwort des Technikers kann als FAQ-Eintrag markiert werden.
+
+__Arbeitszeit__             Alle erfassten und aufgewendeten Stunden für den
+                            Support-Fall.
+
+__tArbeitszeit__            Das Total der erfassten Arbeitszeit.
+
+__pNotes__                  Persönliche Bemerkungen zum Support-Fall. Nur der 
+                            Autor einer Notiz, kann diese bearbeiten oder lesen.
+-------------------------------------------------------------------------------
+Table: Attribute Support-Fall
+
+
+Die vier typischsten Aufgabenszenarien sind hier aufgeführt.
+
+__1. Szenario__
+Erfassen eines neuen Support-Falls.
+
+__2. Szenario__
+Einem Support-Fall eine neuen Anmerkung hinzufügen.
+
+__3. Szenario__
+Erfassen von Arbeitszeit auf ein Ticket.
+
+__4. Szenario__
+Zu einem Supportfall eine Lösung (FAQ-Eintrag) erfassen.
+
+<!-- 
 ### Syncrhonisation von Stücklisten und Fertigungsaufträgen 
 1. Szenario: Austauschen eines Bauteils -> Anpassung aller Stücklisten
 2. Szenario: Anpassen der Fertigungsart (z.B. Menge des Lötzinns/Klebers)
 3. Szenario: Priorisierung von Aufträgen (!!! nicht möglich - da Produktion läuft !!!)
 4. Szenario: Lagerbestände/Lagerorte anpassen/ändern
+-->
+
+
 
 ## Datenanalyse
 <!-- 
@@ -130,50 +158,121 @@ Die Unterscheidung der Daten nach Datentyp differenziert zwischen __numerischen_
 
 
 ## Datenanalyse der Synchronisationsprobleme
-Nachfolgend sind die Attribute eines Kontakts aus dem ersten Beispiel "Synchronisation von Kontakten" entsprechend der erarbeiteten Klassifikation und Typisierung zugeteilt.
+Nachfolgend sind die Attribute eines Kontakts aus dem ersten Beispiel "Synchronisation von Kontakten" sowie "Synchronisation eines Service Desks" entsprechend der erarbeiteten Klassifikation und Typisierung aufgeführt.
 
 __Synchronisation von Kontakten__
-- Name:         Unabhängig,         gemeinsam,      textuell
-- Firma:        Unabhängig,         gemeinsam,      textuell
-- Adresse:      Abhängig (Name),    gemeinsam,      textuell
-- Email:        Abhängig (Name),    gemeinsam,      textuell
-- Telefon:      Abhängig (Name),    gemeinsam,      textuell
-- VIP-Stufe:    Unabhängig,         gemeinsam,      numerisch
-- pNotes:       Unabhängig,         exklusiv,       textuell
-- Erfdat:       Unabhängig,         statisch,       numerisch
-- Änddat:       Unabhängig,         dynamisch,      numerisch
-- Akt Auf:      Unabhängig,         temp,           numerisch
+Die Attribute Adresse, Email und Telefon sind abhängig vom Namensattribut. Dies kommt deshalb, weil der Name der primäre Identifikator ist. Adresse, Email und Telefon sind also Kontextuell abhängig vom Identifikator.
+Das Attribut pNotes hingegen ist völlig unabhängig, da es nur vom Verfasser gelesen und geschrieben werden kann und liegt daher in der Verantwortung des Dessen.
+
+-------------------------------------------------------------------------------
+__Attribut__    __Struktur__          __Art__         __Typ__
+--------------- ------------------- --------------- ---------------------------
+Name            Unabhängig          gemeinsam       textuell
+Adresse         Abhängig (Name)     gemeinsam       textuell
+Email           Abhängig (Name)     gemeinsam       textuell
+Telefon         Abhängig (Name)     gemeinsam       textuell
+pNotes          Unabhängig          exklusiv        textuell
+-------------------------------------------------------------------------------
+Table: Klassifikation Attribute Kontakt
 
 
-## Datenanalyse von Facebook
+__Synchronisation eines Service Desks__
+Die beiden Attribute Titel und Beschreibung können nur beim Erfassen eines Support-Falls gesetzt werden. Danach bilden sie zusammen den Identifikator.
+Anmerkungen können von allen Mitarbeitern erfasst und geändert werden.
+Die Totale Arbeitszeit (tArbeitszeit) wird vom System errechnet und kann nicht geändert werden.
+
+-------------------------------------------------------------------------------
+__Attribut__    __Struktur__          __Art__         __Typ__
+--------------- ------------------- --------------- ---------------------------
+Titel           Unabhängig          statisch        textuell
+Beschreibung    Abhängig (Titel)    statisch        textuell
+Anmerkungen     Abhängig (Titel)    gemeinsam       textuell
+Arbeitszeit     Unabhängig          exklusiv        numerisch
+tArbeitszeit    Unabhängig          dynamisch       numerisch
+pNotes          Unabhängig          exklusiv        textuell
+-------------------------------------------------------------------------------
+Table: Klassifikation Attribute Kontakt
+
+
+## Datenanalyse von "echten" Fällen
+
+__Facebook__
 
 __Benutzer Daten__
-- Name:         Unabhängig,         exklusiv,       textuell
-- Geburtsdatum: Unabhängig,         exklusiv,       textuell
+
+-------------------------------------------------------------------------------
+__Attribut__    __Struktur__          __Art__         __Typ__
+--------------- ------------------- --------------- ---------------------------
+Name            Unabhängig          gemeinsam       textuell
+Email           Abhängig (Name)     gemeinsam       textuell
+Geburtsdatum    Unabhängig          exklusiv        textuell
+-------------------------------------------------------------------------------
+Table: Klassifikation Attribute Facebook Benutzerdaten
 
 __Post__
-- Text:         Unabhängig,         exklusiv,       textuell
-- ang. Bild:    Abhängig (Text),    exklusiv,       binär
-- mark, Pers.:  Abhängig (Bild),    exklusiv,       binär
-- Aktion/Gefühl:Abhängig (Text),    exklusiv,       textuell
-- Standort:     Abhängig (Text),    exklusiv,       binär
+
+-------------------------------------------------------------------------------
+__Attribut__    __Struktur__          __Art__         __Typ__
+--------------- ------------------- --------------- ---------------------------
+Text            Unabhängig          exklusiv        textuell
+Bild            Abhängig (Text)     exklusiv        binär
+Personen        Abhängig (Bild)     exklusiv        binär
+Aktion/Gefühl   Abhängig (Text)     exklusiv        textuell
+Standort        Abhängig (Text)     exklusiv        binär
+Likes           Abhängig (Text)     dynamisch       numerisch
+-------------------------------------------------------------------------------
+Table: Klassifikation Attribute Facebook Post
 
 __Kommentar__
-- Text:         Abhängig (Post),    exklusiv,       textuell
-- ang. Bild:    Abhängig (Text),    exklusiv,       textuell
+
+-------------------------------------------------------------------------------
+__Attribut__    __Struktur__          __Art__         __Typ__
+--------------- ------------------- --------------- ---------------------------
+Text            Abhängig (Post)     exklusiv        textuell
+Bild            Abhängig (Text)     exklusiv        textuell
+-------------------------------------------------------------------------------
+Table: Klassifikation Attribute Facebook Kommentar
+
 (Ob ein Kommentar angezeigt wird, entscheidet der Autor des dazugehörenden Posts)
 
 Alle Daten werden nur von einer Person bearbeitet. -> Synchronisationsprobleme können entstehen, jede Person ist selbst verantwortlich dass Änderungen nicht überschrieben werden. (real newest Entry wins) 
 
-## Datenanalyse von GoogleCalendar
+__Google Kalender__
 
 __Termin__
-- Titel:        Unabhängig,         exklusiv,       textuell
-- Datum:        Unabhängig,         exklusiv,       binär
-- Zeit:         Unabhängig,         exklusiv,       binär
-- Gäste:        Unabhängig,         exklusiv,       binär
+
+------------------------------------------------------------------------------
+__Attribut__    __Struktur__          __Art__         __Typ__
+--------------- ------------------- --------------- ---------------------------
+Titel           Unabhängig          exklusiv        textuell
+Datum           Unabhängig          exklusiv        binär
+Zeit            Unabhängig          exklusiv        binär
+Gäste           Unabhängig          exklusiv        binär
+-------------------------------------------------------------------------------
+Table: Klassifikation Attribute Google Kalendereintrag
 
 Es können mehrere Termine zur selben Zeit stattfinden. Der Benutzer wird dann entsprechend gewarnt. -> Synchronisationsprobleme können entstehen, jede Person ist selbst verantwortlich dass Änderungen nicht überschrieben werden. (real newest Entry wins) 
+
+
+
+
+## Überprüfung der Klassifikation
+Beide Klassen, unabhängig und abhängig werden verwendet
+
+Es wird hauptsächlich der Typ exklusiv, und gemeinsam verwendet
+
+
+==> Der Typ ist meist irrelevant und nur für die Konfliktauflösung Relevant. Dies ist aber so wie so Datenspezifisch und im Einfelfall zu begutachten.
+
+Sinnvoll sind also noch:
+
+Struktur: unabhängig und abhängig
+Art: exklusiv, gemeinsam und dynamisch. (statisch (wil sie trotzdem geändert werden können => gemeinsam) und temp. (weil persönlich => exklusiv) sind irrelevant)
+
+
+
+
+
 
 <!--## Diskussion bekannter Verfahren
  (und Erklährung) in Bezug auf Ergebnisse der Datenanalyse -->
