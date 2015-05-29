@@ -42,6 +42,7 @@ resolveConflict(Message): ->
         return true
     else
         return false
+
 ``` 
 <!-- 
 ```
@@ -73,12 +74,16 @@ Hinzufügen pers. Info -> immer überschreiben, Eigenverantwortung -->
 
 
 #### Pro/Contra
+Das Konzept des Singlestate ist sehr konservativ und ist in ähnlicher Form weit verbreitet. MongoDB und MySQL bieten beide das Konzept eines einzigen gültigen und unveränderbaren Status. Auch eine Versionierung und somit ein wahlfreier Zugriff auf alle Stati ist implementierbar.
 
+Das grösste Manko liegt jedoch im Umstand, einen Konflikt direkt beim Auftreten auflösen zu müssen. Konflikte die nicht aufgelöst werden können blockieren den gesamten Vorgang oder müssen abgebrochen werden.
+
+<!-- 
 Lösungen:
 - Konsistenter Status
 
 Probleme:
-- nicht auflösbare Konflikte blokieren das System
+- nicht auflösbare Konflikte blokieren das System -->
 
 
 
@@ -113,7 +118,6 @@ reciveMessage (Message): ->
     for State in @stateTree
         State.tryToResolvConflict
 
-
 ``` 
 <!-- 
 ```
@@ -146,11 +150,16 @@ Hinzufügen pers. Info -> immer überschreiben, Eigenverantwortung -->
 
 
 #### Pro/Contra
-Lösungen:
+Der grösste Gewinn beim Multistate Konzept liegt in der zeitlichen Entkoppelung zwischen Synchronisation und Konfliktauflösung. 
+Die Richtigkeit, also die Qualität der Information, eines Status wird über die Zeit nur grösser.
+Und genau darin besteht auch das grösste Problem, denn dadurch ist nicht garantiert dass Abfragen wiederholbare Ergebnisse liefern.
+
+
+<!-- Lösungen:
 - jede Nachricht kann verarbeitet werden - Konfliktlösung in der Zukunft
 
 Probleme:
-- Inkonsistenter Status
+- Inkonsistenter Status -->
 
 
 
@@ -176,6 +185,9 @@ composeMessage (old, new): ->
             Message.Mutation[AttrName] = Attribut
 
     Message.State = old
+
+    return Message
+
 ``` 
 <!-- 
 ```
@@ -185,25 +197,34 @@ Es wird der gesamte "alte" Status aber nur die geänderte Attribute des neuen St
 
 
 #### Pro/Contra
+Mutationen können Konfliktfrei eingespielt werden, da die Operation automatisiert mit dem neueren Status wiederholt werden kann.
+Ein sehr grosses Hindernis besteht aber darin, dass viele Benutzereingaben nur mit einer Zuweisung abgebildet werden können und deshalb die ursprüngliche Daten gar nicht miteinbezogen werden. 
+
+<!--
 Lösungen:
 - Nachricht kann Konfliktfrei eingespielt werden, da erneute Berechnung auf Server
 
 Probleme:
 - Nur wenige auf Operationen anwendbar 
-
+-->
 
 ### Wiederholbare Transaktion
-Eine sehr triviale Implementation besteht darin, sobald eine Nachricht abgelehnt wird, alle nachfolgenden Nachrichten einer Synchronisation auch abzulehnen und den Client neu zu initialisieren.
+Eine sehr triviale Implementation besteht darin, sobald eine Nachricht abgelehnt wird, alle nachfolgenden Nachrichten einer Synchronisation auch abzulehnen und den Client neu zu initialisieren. 
+Ein ähnliches Konzept ist im Gebiet der Datenbanken auch als Transaktion bekannt. Nur wird hier kein Rollback durchgeführt.
 
 <!-- #### Anwendungsbeispiel Synchronisation von Kontakten
 Es werden keine spezifischen Konflikte gelöst. Es wird nur verhindert dass es zu Logischen Fehlern auf höheren Schichten kommt, da keine Mutation Synchronisiert wird, die auf nicht akzeptierten Daten fusst. -->
 
 #### Probleme/Lösungen
+Da bei einem nicht auflösbaren Konflikt alle Mutationen gelöscht werden, ist garantiert dass keine auf falschen Daten basierten Mutationen synchronisiert werden.
+Aber gerade wegen diesem aggressivem Vorgehen, geht unter Umständen viel an Arbeit verloren.
+
+<!--
 Lösungen:
 - Informationen sind sicher auf korrekten Daten basierend
 
 Probleme:
-- eventuell muss viel "Arbeit" weggeschmissen werden
+- eventuell muss viel "Arbeit" weggeschmissen werden-->
 
 
 
@@ -232,6 +253,7 @@ resolvConflict (valid, ref, update): ->
             break
 
     return NewState
+
 ``` 
 <!-- 
 ```
@@ -301,6 +323,7 @@ resolvConflict (valid, ref, updates, average): ->
     NewState[bestUpdate.AttrName] = bestUpdate.Attribut
 
     return NewState
+
 ``` 
 <!-- 
 ```
@@ -399,3 +422,7 @@ non-exklusiv
 
 
 -->
+
+
+
+## Zusammenfassung
