@@ -3,9 +3,7 @@
 # Konzept Untersuchung
 
 
-In diesem Kapitel werden die Konzeptansätze konkretisiert und auf Anwendbarkeit hin untersucht.
-
-"konkreter Ablauf"
+In diesem Kapitel werden die Konzeptansätze konkretisiert und auf ihre Anwendbarkeit hin untersucht.
 
 
 ## Datenhaltung
@@ -19,14 +17,27 @@ Um eine Singlestate Datenhaltung zu implementieren, sind zwingend eine Message-q
 
 Beim Eingehen einer neuen Nachricht sind folgende Schritte abzuarbeiten.
 
-1. Nachricht in die Messagequeue einfügen
-2. _Prüfen_: ist referenzierter Status der aktueller Status? ja: 7 | nein: 3
-3. _Prüfen_: löst die Anwendung der Nachricht einen Konflikt aus? ja: 4 | nein: 7 
-4. _Prüfen_: ist eine automatische Konfliktauflösung möglich? ja: 6 | nein: 4
-5. Abbruch des Vorgangs
-6. Konflikt auflösen
-7. Anwendung der Nachricht
-8. Cache-Staus aktualisieren
+``` {.coffee}
+reciveMsg (Message): ->
+    if Message.State is @State
+        @applyMsg Message
+    else
+        if @resolveConflict Message
+            @State.apply Message.Mutation
+            @MessageQueue.insert Message
+        else
+            break
+
+resolveConflict(Message): ->
+    if !@State.conflictsWith Message or @State.canResolvConfict Message
+        return true
+    else
+        return false
+
+    
+
+
+```
 
 Zur Überprüfung ob ein Konflikt vorliegt, wird sowohl der aktuelle Staus, also auch der referenzierte Staus benötigt.
 
