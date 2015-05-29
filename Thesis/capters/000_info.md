@@ -34,6 +34,30 @@ Personen die Korrekturgelesen haben!!!!
 
 \newpage
 
+
+# Personalienblatt
+
+\begin{tabular}{ll}
+Name, Vorname & Eigenmann, Martin \\
+Adresse & Harfenbergstrasse 5 \\
+Wohnort & 9000 St.Gallen \\
+& \\
+Geboren & 4. Juli 1990 \\
+Heimatord & Waldkirch \\
+\end{tabular}
+
+
+
+# Bestätigung
+Hiermit versichere ich, die vorliegende Bachelorthesis eigenständig und ausschliesslich unter Verwendung der angegebenen Hilfsmittel angefertigt zu haben.
+Alle öffentlichen Quellen sind als solche kenntlich gemacht. Die vorliegende Arbeit ist in dieser oder anderer Form zuvor nicht als Semesterarbeit zur Begutachtung vorgelegt worden.
+
+St.Gallen 1.05.2015
+
+Martin Eigenmann
+
+
+\newpage
 \pagenumbering{arabic}
 
 
