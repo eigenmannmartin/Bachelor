@@ -113,6 +113,8 @@ Der (automatisierte) Merge kann nur durchgeführt werden, wenn nur eine einzige 
 
 Darüber hinaus versieht der Server jede Attribut-Version mit einer Versions-Nummer. So kann verhindert werden, dass ein Attribut mit einer niederen Versions-Nummer über ein neueres Attribut synchronisiert wird.
 
+### Kontext bezogene Zusammenführung
+
 ### normalisierte Zusammenführung (Normalized Merge)
 <!-- Maschineller Merge (wahrscheinlichste Lösung) -->
 Wenn bei einer Synchronisierung mit zwei Objekten die selben Attribute mutiert wurden, kann im Falle von numerischen Attributen, das Objekt mit den geringsten Abweichungen vom Meridian über alle verfügbaren Datensätze verwendet werden. Es wird also das normalisierteste Attribut verwendet.

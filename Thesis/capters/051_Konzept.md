@@ -197,7 +197,7 @@ Es wird der gesamte "alte" Status aber nur die geänderte Attribute des neuen St
 
 
 #### Pro/Contra
-Mutationen können Konfliktfrei eingespielt werden, da die Operation automatisiert mit dem neueren Status wiederholt werden kann.
+Mutationen können konfliktfrei eingespielt werden, da die Operation automatisiert mit dem neueren Status wiederholt werden kann.
 Ein sehr grosses Hindernis besteht aber darin, dass viele Benutzereingaben nur mit einer Zuweisung abgebildet werden können und deshalb die ursprüngliche Daten gar nicht miteinbezogen werden. 
 
 <!--
@@ -285,11 +285,11 @@ Anpassen der primären Tel-NR -> Kontext ist Name, Gemeinsame Daten, keine allge
 Hinzufügen pers. Info -> immer überschreiben, Eigenverantwortung da temp. -->
 
 #### Probleme/Lösungen
-Lösungen:
-- Granularere Aufteilung des Problems
+Die wesentlich Idee ist, einzelne Attribute also vollwertige Objekte zu behandeln. So können mehr Informationen übernommen werden.
 
-Probleme:
-- keine
+
+### Kontextbezogene Zusammenführung
+
 
 
 ### normalisierte Zusammenführung
@@ -297,9 +297,7 @@ Um eine normalisierte Zusammenführung um zu setzten, ist zwingend ein wahlfreie
 
 Ein Konflikt bei einem Attribut wird in folgenden Schritten aufgelöst:
 
-1. Resultate aller auf den Status angewendeten Mutationen berechnen
-2. Resultat, welches am nächsten bei der Durchschnittsfunktion liegt, anwenden
-
+/// Eventuell auch Neuronales Netz?
 
 ``` {.coffee}
 /* Zusammenstellung einer Nachricht
@@ -344,22 +342,16 @@ Anpassen der primären Tel-NR -> Grösse bezüglich "Richtigkeit" im Adressbuch
 Hinzufügen pers. Info -> nicht möglich -->
 
 #### Probleme/Lösungen
-Lösungen:
-- Sofern Daten dafür ausreichen / guter Kompormiss
-
-Probleme:
-- eventuell "falsche Daten"
+Entstandene Konflikte können aufgelöst werden, ohne dass manuell eingegriffen werden muss.
+Die Unsicherheit liegt jedoch darin, dass entweder Ausreisser so nicht akzeptiert werden oder für die vorliegenden Daten (z.B. Telefonnummern, Adressen, ...) gar nicht erst eine Distanzfunktion erstellt werden kann.
 
 
 ### manuelle Zusammenführung
 Eine manuelle Zusammenführung muss in Form eines GUI implementiert werden, womit ein Benutzer diese durchführen kann.
 
 #### Probleme/Lösungen
-Lösungen:
-- sicher korrekte Daten
-
-Probleme:
-- manueller Aufwand nötig
+Durch die händische Validation der Daten ist sichergestellt, dass der Konflikt richtig aufgelöst wurde.
+Gerade bei grossen Datenbeständen gestaltet sich die Organisation einer Validierung sehr aufwändig.
 
 
 
@@ -426,3 +418,41 @@ non-exklusiv
 
 
 ## Zusammenfassung
+
+Sowohl die Implementation als auch der Betrieb einer Multistate-Datenhaltung ist aufwändig. Multistate bietet neben den vielen Nachteilen, nur den Vorteil, dass Konflikte nicht sofort aufgelöst werden müssen.
+
+-------------------------------------------------------------------------------
+__Datenhaltung__             __Betrieb__    __Implementation__
+--------------------------- --------------- -----------------------------------
+Singlestate                 einfach         einfach  
+
+Multistate                  schwierig       schwierig
+
+-------------------------------------------------------------------------------
+Table: Konzept Vergleich Multistate - Singlestate
+
+
+
+Sowohl die Wiederholbare Transaktion, als auch die Normalisierte Zusammenführung lösen ansonsten nicht auflösbare Konflikte. Da das Konfliktauflösung jedoch nicht notwendigerweise korrekt sein muss und die Implementation sehr aufwändig ist, ist die Einsetzbarkeit nicht gegeben.
+
+-------------------------------------------------------------------------------
+__Konzept__                  __Betrieb__    __Implementation__
+--------------------------- --------------- -----------------------------------
+Update Transformation       einfach         schwierig
+
+Wiederholbare Transaktion   einfach         sehr schwierig
+
+Zusammenführung             einfach         einfach
+
+Kontext b. Zusamm.          einfach         einfach
+
+Normalisierte Zusamm.       einfach         sehr schwierig
+
+Manuelle Zusamm.            sehr schwierig  einfach
+
+-------------------------------------------------------------------------------
+Table: Konzept Vergleich Konfliktverhinderung - Konfliktauflösung
+
+
+
+Eingesetzt werden also Singlestate, Update Transformation, Zusammenführung, und Kontextbezogene Zusammenführung.
