@@ -162,11 +162,11 @@ Die Unterscheidung der Daten nach Datentyp differenziert zwischen __numerischen_
 
 
 ## Datenanalyse der Synchronisationsprobleme
-Nachfolgend sind die Attribute eines Kontakts aus dem ersten Beispiel "Synchronisation von Kontakten" sowie "Synchronisation eines Service Desks" entsprechend der erarbeiteten Klassifikation und Typisierung aufgeführt.
+Nachfolgend sind die Attribute der beiden Beispiele "Synchronisation von Kontakten" sowie "Synchronisation eines Service Desks" entsprechend der erarbeiteten Klassifikation und Typisierung zugeordnet.
 
 __Synchronisation von Kontakten__
 Die Attribute Adresse, Email und Telefon sind abhängig vom Namensattribut. Dies kommt deshalb, weil der Name der primäre Identifikator ist. Adresse, Email und Telefon sind also Kontextuell abhängig vom Identifikator.
-Das Attribut pNotes hingegen ist völlig unabhängig, da es nur vom Verfasser gelesen und geschrieben werden kann und liegt daher in der Verantwortung des Dessen.
+Das Attribut pNotes hingegen ist völlig unabhängig, da es nur vom Verfasser gelesen und geschrieben werden kann.
 
 -------------------------------------------------------------------------------
 __Attribut__    __Struktur__          __Art__         __Typ__
