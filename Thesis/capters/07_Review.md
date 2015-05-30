@@ -1,5 +1,5 @@
 
-\part[Teil iv]{Abschluss und Ausblick}
+\part[Ausklang]{Abschluss und Ausblick}
 
 
 

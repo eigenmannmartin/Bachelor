@@ -1,15 +1,19 @@
 
 
 # Analyse
-Dieses Kapitel setzt sich mit der Klassifikation und Typisierung von Daten auseinander. Es wird eine Klassifikation erarbeitet und anhand von Beispielen gezeigt, dass diese auch anwendbar ist.
+<!--Dieses Kapitel setzt sich mit der Klassifikation und Typisierung von Daten auseinander. Es wird eine Klassifikation erarbeitet und anhand von Beispielen gezeigt, dass diese auch anwendbar ist.-->
 
 ## Synchronisationsproblem
-Die Überprüfung der Klassifikation wird anhand der folgenden zwei Problemstellungen durchgeführt.
-Beide Problemstellungen sind so gewählt, dass sie zusammen einen möglichst allgemeinen Fall abdecken und so die Überprüfung aussagekräftig bleibt.
+Generell liegt ein Synchronisationsproblem vor, sobald Daten über einen Kommunikationskanal übertragen werden müssen und für die Zeit der Übertragung kein "Lock" gesetzt werden kann.
+
+Die Datenanalyse wird mit Bezug auf die zwei im Folgenden aufgeführten Problemstellungen durchgeführt. Beide Problemstellungen sind so gewählt, dass sie zusammen einen möglichst allgemeinen Fall abdecken und so die Überprüfung aussagekräftig bleibt.
 
 ### Synchronisation von Kontakten
-In vielen Anwendungsszenarien müssen Kontaktdaten abgeglichen werden. Dieses Beispiel beleuchtet die Synchronisation einer Firmen-Kontaktdatenbank mit mobilen Clients der Mitarbeiter. 
-Verkaufsmitarbeiter müssen jederzeit Kontaktdaten abfragen, neu erfassen und anpassen können, ohne dafür mit dem zentralen Server verbunden zu sein. Gerade in wenig entwickelten oder repressiven Ländern ist eine ständige Verbindung nicht immer gegeben.
+In vielen Anwendungsszenarien müssen Kontaktdaten abgeglichen werden. 
+
+Eine Firma X betreibt eine zentrale Kontaktdatenbank an ihrem Hauptsitz. 
+Verkaufsmitarbeiter müssen jederzeit Kontaktdaten abfragen, neu erfassen und anpassen können, ohne dafür mit dem zentralen Server verbunden zu sein. Gerade in wenig entwickelten oder repressiven Ländern ist eine ständige Verbindung nicht immer gegeben und somit ein Off-Line Modus notwendig.
+Die Anpassungen können zu einem späteren Zeitpunkt abgeglichen werden.
 
 Ein Kontakt selbst umfasst die in der Tabelle "Attribute Firmen-Kontakt" beschriebenen Attribute.
 
@@ -42,7 +46,7 @@ __2. Szenario__
 Ändern der primären Telefonnummer eines bestehenden Kontakts.
 
 __3. Szenario__
-Ändern des Namens einer Kontaktperson eines bestehenden Kontakts.
+Ändern des Namens eines bestehenden Kontakts.
 
 __4. Szenario__
 Hinzufügen/Ändern der (persönlichen) Zusatzinformationen eines bestehenden Kontakts.

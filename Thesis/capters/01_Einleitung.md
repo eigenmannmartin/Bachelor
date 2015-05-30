@@ -36,25 +36,25 @@ Facebook Offline App (IOS) <- https://developers.facebook.com/docs/facebook-logi
 
 Während der Bearbeitung meiner Semesterarbeit hatte ich mich bereits mit der Synchronisation von Daten zwischen Backend und Frontend beschäftigt, wobei aber der Fokus klar auf der Logik des Backends lag. Die erarbeitet Lösung setzte eine ständige Verbindung zwischen Client und Server voraus, was bei der praktischen Umsetzung zu erheblichen Einschränkungen für die Benutzer führte.
 
-Mein starkes persönliches Interesse zur Analyse und Verbesserung dieses Systems treibt mich an, diese Arbeit zu starten.
+Mein starkes persönliches Interesse zur Analyse und Verbesserung dieser Prozesse treibt mich an, diese Arbeit durch zu führen.
 
 
 <!-- Fragestellungen formulieren? - eventuell auch durch Aufgabenstellung erläutert - eventuell auch aufbröseln der Aufgabenstellung erwünscht? möglicherweise auch Titel "Motivation und Fragestellung" anpassen - Zuordnung zu den Punkten der Aufgabenstellung -->
 
 ## Aufgabenstellung
 
-Die von der Leitung des Studiengangs Informatik freigegebene Aufgabenstellung ist im Appendix unter "[Aufgabenstellung](#appendix_aufgabenstellung)" aufgeführt.
+Die von der Studiengangsleitung für Informatik freigegebene Aufgabenstellung ist im Appendix unter "[Aufgabenstellung](#appendix_aufgabenstellung)" aufgeführt.
 
 ## Abgrenzung der Arbeit
-Grosse Anbieter von Web-Software wie Google und Facebook arbeiten intensiv an der spezifischen Lösungen für ihre Produkte. Zwar werden in Talks Techniken und Lösungsansätze erläutert (Facebook stellt Flux und Message-Driven Architecture vor[^fb-flux]), wissenschaftliche Arbeiten darüber, sind jedoch nicht vorhanden.
+Grosse Anbieter von Web-Software wie Google und Facebook arbeiten intensiv an spezifischen Lösungen für ihre Produkte. Zwar werden in Talks Techniken und Lösungsansätze erläutert (Facebook stellt Flux und Message-Driven Architecture vor[^fb-flux]), wissenschaftliche Arbeiten darüber, sind jedoch nicht publiziert.
 
 [^fb-flux]:https://www.youtube.com/watch?v=KtmjkCuV-EU
 
-Ich möchte in dieser Arbeit einen allgemeinen Ansatz erarbeiten und die Grenzen dessen ausloten, um so zu zeigen, wo die Grenzen der Synchronisation liegen.
+Ich möchte in dieser Arbeit einen allgemeinen Ansatz erarbeiten und die Grenzen ausloten, um so zu zeigen, wo die Limitationen der Synchronisation liegen.
 
 
 Die Arbeit eröffnet mit ihrer Fragestellung ein riesiges Gebiet und wirft neue Fragestellungen auf. Die ursprüngliche Fragestellung wird vertieft behandelt, ohne auf Neue in gleichem Masse einzugehen.
-Die zu synchronisierenden "Real World" Fälle sind sehr unterschiedlich und nicht generalisierbar. Es wurde drei Anwendungsfälle erarbeitet, auf welchen die Untersuchungen durchgeführt wurde.
+Die zu synchronisierenden "Real World" Fälle sind sehr unterschiedlich und nicht generalisierbar. Es sind zwei exemplarische Anwendungsfälle erarbeitet, auf welchen die Untersuchungen durchgeführt werden.
 
 Zusätzlich wird die Arbeit durch folgende Punkte klar abgegrenzt:
 
