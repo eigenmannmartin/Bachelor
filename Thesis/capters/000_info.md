@@ -60,5 +60,3 @@ Martin Eigenmann
 \newpage
 \pagenumbering{arabic}
 
-
-\part[Präambel]{Einleitung und Abgrenzung}

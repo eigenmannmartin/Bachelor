@@ -11,6 +11,9 @@ Implementation möglich
 
 
 -->
+\part[Präambel]{Einleitung und Abgrenzung}
+
+
 
 # Einleitung
 
@@ -70,23 +73,20 @@ Zusätzlich wird die Arbeit durch folgende Punkte klar abgegrenzt:
 
 
 # Aufbau der Arbeit
-<!-- Anpassen des Titels -->
 
-<!-- Zusammenfassung der Teile - Zuteilung zur Fragestellung. -->
-_Teil i - Einleitung und Abgrenzung_
+_Teil i - __Präambel__ - Einleitung und Abgrenzung_
 
-_Teil ii - Technische Grundlagen und Architekturen_
+_Teil ii - __Grundlagen__ - Technische Grundlagen und Architekturen_
+Das Kapitel [Recherche] setzt sich mit den Grundlagen, Fachbegriffen und bekannten Verfahren zur Synchronisation und Replikation auseinander.
+Im Kapitel [Analyse] werden die Grundlagen geschaffen um darauf Konzepte zu erstellen. Es wird eine Analyse der zu synchronisierenden Daten erstellt und überprüft ob eine sinnvolle Klassifikation durchführbar ist.
 
-Erarbeitung bekannter Verfahren, etc.
+_Teil iii - __Konzept__ - Konzeption und Konzeptüberprüfung_
+In diesem Teil der Thesis...
+Ich überprüfe die erarbeiten Konzepte auch auf deren Wirksamkeit...
 
-_Konzeption - Konzept_
+_Teil iv - __Implementation__ - Implementierung und Testing_
+Dieser Teil beschäftigt sich mit der Entwicklung des Prototypen. Obwohl Testing und Implementation immer zusammen umgesetzt werden, ist in dieser Arbeit eine Aufteilung in die beiden Kapitel [Prototyp] und [Testing] gewählt, um dem Leser...
 
-Analyse der Daten
-Erarbeitung des Konzepts
-
-_Implementation - Implementierung und Testing_
-
-Erstellen des Prototypen etc.
-
-_Teil iv - Abschluss und Ausblick_
+_Teil v - __Ausklang__ - Abschluss und Ausblick_
+In diesem Teil wird evaluiert, ob die erarbeiten und implementierten Konzepte der Aufgabenstellung genügen...
 

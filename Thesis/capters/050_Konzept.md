@@ -1,5 +1,5 @@
 
-\part[Konzeption]{Konzeption}
+\part[Konzept]{Konzeption und Konzeptüberprüfung}
 
 # Konzeptansätze
 
@@ -12,7 +12,7 @@ Verhinderung: beschneidung Funktionsumfang
 Auflösung: möglicher Datenverlust
 -->
 
-## Synchronisation (allgemein)
+## Synchronisation
 Das grundlegende Idee bei der Synchronisation liegt darin, den Zustand der Servers und des Clients, bezüglich der Daten, identisch zu halten. 
 Der Zustand der Daten können dabei als Status betrachtet werden. So repräsentiert der Zustand der gesamten Datensammlung zu einem bestimmten Zeitpunkt, einen Status. Aber auch der Zustand eines darin enthaltenen Objekts (z.B. eines Kontakts) wird als eigenständiger Status betrachtet.
 
@@ -100,7 +100,7 @@ Das Konzept der Konfliktauflösung beschäftigt sich mit der Auflösung von Konf
 Da die Beschaffenheit und Struktur der Daten, bei dieser Problemstellung eine entscheidende Rolle einnehmen, ist im folgendn für jede Klassifikations-Gruppe ein geeigneter Konfliktauflösungs-Algorithmus aufgeführt.
 
 
-### Zusammenführung (Merge)
+### Zusammenführung
 <!-- Manueller Merge -->
 Einzelne Attribute oder Attributsgruppen innerhalb eines Objekts werden als eigenständige Objekte betrachtet. So kann ein Konflikt, der auftritt wenn zwei Objekte mit Mutationen in unterschiedlichen Attributsgruppen synchronisiert werden , aufgelöst werden, indem nur die jeweils mutierten Attributgrupen als synchronisationswürdig betrachtet werden.
 
@@ -113,11 +113,11 @@ Der (automatisierte) Merge kann nur durchgeführt werden, wenn nur eine einzige 
 
 Darüber hinaus versieht der Server jede Attribut-Version mit einer Versions-Nummer. So kann verhindert werden, dass ein Attribut mit einer niederen Versions-Nummer über ein neueres Attribut synchronisiert wird.
 
-### Kontext bezogene Zusammenführung
+Weiter kann die Sturktur der Daten mit einbezogen werden. Hat sich der Kontext geändert, dürfen die davon abhängigen Attribute nicht mehr angewendet werden.
 
-### normalisierte Zusammenführung (Normalized Merge)
+### geschätze Zusammenführung
 <!-- Maschineller Merge (wahrscheinlichste Lösung) -->
-Wenn bei einer Synchronisierung mit zwei Objekten die selben Attribute mutiert wurden, kann im Falle von numerischen Attributen, das Objekt mit den geringsten Abweichungen vom Meridian über alle verfügbaren Datensätze verwendet werden. Es wird also das normalisierteste Attribut verwendet.
+Wenn bei einer Synchronisierung mit zwei Objekten die selben Attribute mutiert wurden, kann im Falle von numerischen Attributen, das Objekt mit den geringsten Abweichungen vom Mittelwert über alle verfügbaren Datensätze verwendet werden. Es wird also das normalisierteste Attribut verwendet.
 Bei Attributsgruppen wird die Gruppe mit der insgesamt geringsten Abweichung verwendet.
 Es muss eine Abstandsfunktion für jedes Attribut oder jede Attributgruppe erstellt werden.
 

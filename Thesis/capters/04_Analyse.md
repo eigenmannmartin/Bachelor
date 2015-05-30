@@ -4,8 +4,9 @@
 <!--Dieses Kapitel setzt sich mit der Klassifikation und Typisierung von Daten auseinander. Es wird eine Klassifikation erarbeitet und anhand von Beispielen gezeigt, dass diese auch anwendbar ist.-->
 
 ## Synchronisationsproblem
-Generell liegt ein Synchronisationsproblem vor, sobald Daten über einen Kommunikationskanal übertragen werden müssen und für die Zeit der Übertragung kein "Lock" gesetzt werden kann.
+Generell liegt ein Synchronisationskonflikt vor, sobald Daten über einen Kommunikationskanal übertragen werden müssen und für die Zeit der Übertragung kein "Lock" gesetzt werden kann. Also immer dann, wenn sich Daten während einer Transaktion ändern können.
 
+Um ein Konzept zur Verhinderung und Lösung Synchronisationskonflikten  zu erarbeiten, muss zuerst eine Analyse der zu synchronisierenden Daten erstellt werden.
 Die Datenanalyse wird mit Bezug auf die zwei im Folgenden aufgeführten Problemstellungen durchgeführt. Beide Problemstellungen sind so gewählt, dass sie zusammen einen möglichst allgemeinen Fall abdecken und so die Überprüfung aussagekräftig bleibt.
 
 ### Synchronisation von Kontakten
@@ -38,7 +39,7 @@ __pNotes__                  Persönliche Bemerkungen zum Kontakt. Nur der Autor
 Table: Attribute Firmen-Kontakt 
 
 Im Folgenden sind vier typische Szenarien beschrieben.
-
+<!-- Eventuell ausführlichere Szenarien -->
 __1. Szenario__
 Erfassen einer neuen Telefonnummer zu einem bestehenden Kontakt.
 
@@ -103,41 +104,14 @@ Zu einem Supportfall eine Lösung (FAQ-Eintrag) erfassen.
 
 
 ## Datenanalyse
-<!-- 
-Typen von Daten:
-- Numerische (int, float)
-- Binäre (binary)
-- Textuelle (char, string)
-- Logische (boolean)
 
-Beschaffenheit von Daten
-- eigene Daten (eigener Post eines Blogs) (exclusive Daten)
-- geteilte Daten (geteilter Post eines Blogs (mehrere Autoren)) (gemeinsame Daten)
-- kontextuell abhängige Daten (Kommentar eines Posts) (Kontextbezogene Daten)
-- logisch abhängige Daten (Alter eines Posts (seit Publizierung)) (Logisch abhängige Daten)
--->
+Daten können bezüglich ihrer Beschaffenheit, Geltungsbereich und Gültigkeitsdauer unterschieden werden. Im Weiteren wird dies als die Klassifikation beschrieben. Die Datentypisierung hingegen, unterscheidet nach dem äusseren Erscheinungsbild der Daten.
 
-Um eine klares Verständnis der Daten zu erhalten, wird analysiert, bezüglich welcher Eigenschaften, Daten unterschieden werden können. 
-
-Daten können bezüglich ihrer Beschaffenheit, Geltungsbereich und Gültigkeitsdauer unterschieden werden. Dabei spricht man von der Klassifikation. 
-Die Datentypisierung hingegen, unterscheidet nach dem äusseren Erscheinungsbild der Daten.
-Zu beachten gilt dass eine Attributsgruppe, also eine logische Aufteilung der Informationen in mehrere einzelne Attribute, eine zusammenhängende Informationseinheit ist.
-
-<!-- 
-Begriff der Klassifikation einführen
-Begriff der Attribute und Attributgruppen, Bildung von Gruppen durch Dateningenieur
-
-Klassifikation... aber nicht nötigerweise Datentyp (num, bin, text, logical)
-
-Diskussion Auftreten von Daten
- -->
-
-Zur Klassifikation werden nur die in den Daten enthaltenen Informationen herangezogen. Die Form der Daten, also der Datentyp selbst ist für die Klassifikation unerheblich.
+Zur Klassifikation werden nur die in den Daten enthaltenen Informationen herangezogen. Der Datentyp selbst ist dabei unerheblich.
 Weiter kann die Klassifikation zwischen Struktur und Art der Daten unterscheiden.
 
 ### Klassifikation nach Art
-Die Art der Daten wird entweder explizit durch die Art der Implementation (temp, static, dynamic) oder implizit durch die Zugriffsstruktur (excl, publ) definiert. Es ist keine Kenntnis über die Daten nötig, eine Statische Analyse der Zugriffe auf die Daten reicht aus, um die Daten-Art zu bestimmen.
-<!-- !!!!!!!!!!!!! Statische Analyse -->
+Um Daten nach ihrer Art zu Klassifizieren reicht es zu untersuchen wie die Lese- und Schreibrechte sowie deren Gültigkeitsdauer aussehen.
 
 __Exklusive Daten__ können nur von einem Benutzer bearbeitet, aber von diesem oder vielen Benutzern gelesen werden.
 
@@ -151,11 +125,11 @@ __Temporäre Daten__ werden von System oder Benutzer generiert und sind nur sehr
 
 
 ### Klassifikation nach Struktur
-Bei der Unterscheidung der Daten nach ihrer Struktur, kann zwischen Kontextbezogenen und unabhängigen Daten differenziert werden. Die Entscheidung welcher Strukturklasse die Daten angehören ist abhängig vom Verständnis der Daten uns liegt somit im Entscheidungsbereich des Datendesigners. 
+Bei der Unterscheidung der Daten nach ihrer Struktur, kann zwischen Kontextbezogenen und Kontextunabhängigen Daten differenziert werden. Die Entscheidung welcher Strukturklasse die Daten angehören ist abhängig vom Verständnis der Daten uns liegt somit im Entscheidungsbereich des Datendesigners. 
 
 __Kontextbezogene Daten__ weisen nur bezüglich eines bestimmten Kontext einen signifikanten Informationsgehalt auf.
 
-__Unabhängige Daten__ sind selbst beinhaltend und gewinnen durch andere Daten selbst nicht mehr an Informationsgehalt.
+__Kontextunabhängige Daten__ gewinnen selbst durch andere Daten nicht mehr an Informationsgehalt.
 
 ### Datentypisierung
 Die Unterscheidung der Daten nach Datentyp differenziert zwischen __numerischen__, __binären__, __logischen__ und __textuellen__ Daten. Zur Typisierung wird immer die für den Benutzer sichtbare Darstellung verwendet, also jene Darstellung, in welcher die Daten erfasst wurden.
@@ -165,7 +139,8 @@ Die Unterscheidung der Daten nach Datentyp differenziert zwischen __numerischen_
 Nachfolgend sind die Attribute der beiden Beispiele "Synchronisation von Kontakten" sowie "Synchronisation eines Service Desks" entsprechend der erarbeiteten Klassifikation und Typisierung zugeordnet.
 
 __Synchronisation von Kontakten__
-Die Attribute Adresse, Email und Telefon sind abhängig vom Namensattribut. Dies kommt deshalb, weil der Name der primäre Identifikator ist. Adresse, Email und Telefon sind also Kontextuell abhängig vom Identifikator.
+Der Name eines Kontakts ist der primäre Identifikator eines Kontakts. Ändert sich dieser, ist es sehr wahrscheinlich, dass sich auch andere Attribute ändern.
+Die Attribute Adresse, Email und Telefon sind deshalb abhängig vom Namensattribut. Diese Attribute sind also Kontextuell abhängig vom Identifikator.
 Das Attribut pNotes hingegen ist völlig unabhängig, da es nur vom Verfasser gelesen und geschrieben werden kann.
 
 -------------------------------------------------------------------------------
@@ -179,11 +154,12 @@ pNotes          Unabhängig          exklusiv        textuell
 -------------------------------------------------------------------------------
 Table: Klassifikation Attribute Kontakt
 
+<!-- might need some more explanation -->
+
 
 __Synchronisation eines Service Desks__
-Die beiden Attribute Titel und Beschreibung können nur beim Erfassen eines Support-Falls gesetzt werden. Danach bilden sie zusammen den Identifikator.
-Anmerkungen können von allen Mitarbeitern erfasst und geändert werden.
-Die Totale Arbeitszeit (tArbeitszeit) wird vom System errechnet und kann nicht geändert werden.
+Die beiden Attribute Titel und Beschreibung können nur beim Erfassen eines Support-Falls gesetzt werden. Danach bilden sie zusammen den eindeutigen Identifikator. Anmerkungen werden spezifisch für einen Support-Fall erfasst, und sind deshalb nur im Kontext desselben bedeutungsvoll.
+Die Totale Arbeitszeit (tArbeitszeit) wird in Abhängigkeit vom Attribut Arbeitszeit vom System errechnet und kann nicht geändert werden.
 
 -------------------------------------------------------------------------------
 __Attribut__    __Struktur__          __Art__         __Typ__
@@ -199,7 +175,7 @@ Table: Klassifikation Attribute Kontakt
 
 
 ## Datenanalyse von "echten" Fällen
-
+<!-- not so sure if I really want these cases -->
 __Facebook__
 
 __Benutzer Daten__
@@ -261,19 +237,15 @@ Es können mehrere Termine zur selben Zeit stattfinden. Der Benutzer wird dann e
 
 
 ## Überprüfung der Klassifikation
-Beide Klassen, unabhängig und abhängig werden verwendet
+Die Klassifikation der Daten nach Struktur zeigt sich in allen Beispielen als nachvollziehbar. Auch kann klar zwischen der Typisierung exklusiv, gemeinsam und dynamisch unterschieden werden.
 
-Es wird hauptsächlich der Typ exklusiv, und gemeinsam verwendet
+Die weiteren gefundenen Typen statisch und temporär sind wenig sinnvoll, da beide durch exklusiv oder gemeinsam ersetzt werden könne.
+Temporäre Daten sind exklusiv, während statische Daten auch als gemeinsam klassifiziert werden können.
 
-
-==> Der Typ ist meist irrelevant und nur für die Konfliktauflösung Relevant. Dies ist aber so wie so Datenspezifisch und im Einfelfall zu begutachten.
-
-Sinnvoll sind also noch:
-
-Struktur: unabhängig und abhängig
-Art: exklusiv, gemeinsam und dynamisch. (statisch (wil sie trotzdem geändert werden können => gemeinsam) und temp. (weil persönlich => exklusiv) sind irrelevant)
+Es kann auch festgestellt werden, dass Daten meist vom Typ text oder binär sind.
 
 
+<!-- what is the main point in doing this? -->
 
 
 
