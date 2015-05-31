@@ -4,9 +4,7 @@
 In diesem Kapitel werden die aus dem Kapitel [Konzept] gewonnenen Erkenntnisse so umgesetzt dass sie den Anforderungen aus dem Kapitel [Anforderungsanalyse] genügen.
 
 ## Design-Ansätze
-
-!!!! Verwendung von Singlestate
-!!!! Anforderungsanalyse
+Zur Implementation des Singlestate
 
 ### Nachrichtenbasierte Architektur
 Versenden einzelner Nachrichten -> Direkte Anwendung für Konzept

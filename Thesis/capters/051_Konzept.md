@@ -161,15 +161,6 @@ composeMessage(reference, current): ->
 
     return Message
 
-!!!!!!!!!!!!!
-tryToResolvConflict(State, Message): ->
-    for AttrName, Attribut in current
-        if Attribut isnt reference[AttrName]
-            Message.Mutation[AttrName] = Attribut
-
-
-    return State
-
 ``` 
 <!-- 
 ```
@@ -242,32 +233,19 @@ Anpassen der primären Tel-NR -> Kontext ist Name, Gemeinsame Daten, keine allge
 Hinzufügen pers. Info -> immer überschreiben, Eigenverantwortung da temp. -->
 
 #### Probleme/Lösungen
-Die wesentlich Idee ist, einzelne Attribute also vollwertige Objekte zu behandeln. So können mehr Informationen übernommen werden.
+Die wesentlich Idee ist, einzelne Attribute als vollwertige Objekte zu behandeln. So können mehr Informationen übernommen werden.
 
 
-### normalisierte Zusammenführung
-Um eine normalisierte Zusammenführung um zu setzten, ist zwingend ein wahlfreier Zugriff auf jeden Status, sowie jede Mutationsfunktion notwendig.
-
-Ein Konflikt bei einem Attribut wird in folgenden Schritten aufgelöst:
-
-/// Eventuell auch Neuronales Netz?
+### geschätzte Zusammenführung
+Um eine normalisierte Zusammenführung um zu setzten, ist zwingend ein wahlfreier Zugriff auf jeden vorherigen Stati notwendig.
 
 ``` {.coffee}
-/* Zusammenstellung einer Nachricht
- *
- * @valid               aktueller Status
- * @ref                 referenzierter Status
- * @updates             alle angewendeten Nachrichten
- * @average             durchschnittlicher Wert des Attributs 
- * @return              bool
- */
-
-resolvConflict (valid, ref, updates, average): ->
+resolvConflict (valid, reference, average): ->
 
     NewState = new State
     Distances = new DistanceArray( average )
 
-    for update in updates
+    for update in reference
         Distances.add update
 
     bestUpdate = Distances.smallest
@@ -297,6 +275,7 @@ Hinzufügen pers. Info -> nicht möglich -->
 #### Probleme/Lösungen
 Entstandene Konflikte können aufgelöst werden, ohne dass manuell eingegriffen werden muss.
 Die Unsicherheit liegt jedoch darin, dass entweder Ausreisser so nicht akzeptiert werden oder für die vorliegenden Daten (z.B. Telefonnummern, Adressen, ...) gar nicht erst eine Distanzfunktion erstellt werden kann.
+Eine zentrale Einschränkung, liegt jedoch darin, dass diese Art der Zusammenführung nur mit Multistate funktioniert.
 
 
 ### manuelle Zusammenführung
@@ -372,21 +351,14 @@ non-exklusiv
 
 ## Zusammenfassung
 
-Sowohl die Implementation als auch der Betrieb einer Multistate-Datenhaltung ist aufwändig. Multistate bietet neben den vielen Nachteilen, nur den Vorteil, dass Konflikte nicht sofort aufgelöst werden müssen.
-
--------------------------------------------------------------------------------
-__Datenhaltung__             __Betrieb__    __Implementation__
---------------------------- --------------- -----------------------------------
-Singlestate                 einfach         einfach  
-
-Multistate                  schwierig       schwierig
-
--------------------------------------------------------------------------------
-Table: Konzept Vergleich Multistate - Singlestate
+### Datenhaltung
+Obwohl die Idee, Konfliktauflösungen zeitlich entkoppelt von Synchronisationsvorgang zu betreiben, sehr verlockend klingt, überwiegen die Nachteile. Keine garantierte Isolation, keine garantierte Atomarität, und keine garantierten Ergebnisse bei wiederholten Abfragen. Alle Eigenschaften die in Datenbanksystemen als wichtig eingestuft werden, sind hier eingeschränkt oder ausgehebelt.
 
 
-
+### Konfliktauflösung/Konfliktverhinderung
 Sowohl die Wiederholbare Transaktion, als auch die Normalisierte Zusammenführung lösen ansonsten nicht auflösbare Konflikte. Da das Konfliktauflösung jedoch nicht notwendigerweise korrekt sein muss und die Implementation sehr aufwändig ist, ist die Einsetzbarkeit nicht gegeben.
+
+Die übrigen Verfahren wie Update Transformation, Zusammenführung sowie die Kontextbezogene Zusammenführung zeigten sich als einsetzbar.
 
 -------------------------------------------------------------------------------
 __Konzept__                  __Betrieb__    __Implementation__
@@ -405,7 +377,3 @@ Manuelle Zusamm.            sehr schwierig  einfach
 
 -------------------------------------------------------------------------------
 Table: Konzept Vergleich Konfliktverhinderung - Konfliktauflösung
-
-
-
-Eingesetzt werden also Singlestate, Update Transformation, Zusammenführung, und Kontextbezogene Zusammenführung.
