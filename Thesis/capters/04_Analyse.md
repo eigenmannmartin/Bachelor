@@ -1,9 +1,15 @@
 
 
-# Analyse
-<!--Dieses Kapitel setzt sich mit der Klassifikation und Typisierung von Daten auseinander. Es wird eine Klassifikation erarbeitet und anhand von Beispielen gezeigt, dass diese auch anwendbar ist.-->
+Analyse
+=======
 
-## Synchronisationsproblem
+Bekannte Synchronisationsverfahren betrachten Daten als eine homogene Masse und unterscheide nicht. Konfliktlösungen werden erst auf der Applikationsebene vorgenommen und dann spezifisch auf die Applikationsdaten angewandt. 
+Es soll begutachtet werden, ob eine generelle Unterteilung der Daten möglich ist, und ob dies einen Nutzen mit sich bringt.
+
+
+Synchronisationsproblem
+-----------------------
+
 Generell liegt ein Synchronisationskonflikt vor, sobald Daten über einen Kommunikationskanal übertragen werden müssen und für die Zeit der Übertragung kein "Lock" gesetzt werden kann. Also immer dann, wenn sich Daten während einer Transaktion ändern können.
 
 Um ein Konzept zur Verhinderung und Lösung Synchronisationskonflikten  zu erarbeiten, muss zuerst eine Analyse der zu synchronisierenden Daten erstellt werden.
@@ -38,20 +44,6 @@ __pNotes__                  Persönliche Bemerkungen zum Kontakt. Nur der Autor
 -------------------------------------------------------------------------------
 Table: Attribute Firmen-Kontakt 
 
-Im Folgenden sind vier typische Szenarien beschrieben.
-<!-- Eventuell ausführlichere Szenarien -->
-__1. Szenario__
-Erfassen einer neuen Telefonnummer zu einem bestehenden Kontakt.
-
-__2. Szenario__
-Ändern der primären Telefonnummer eines bestehenden Kontakts.
-
-__3. Szenario__
-Ändern des Namens eines bestehenden Kontakts.
-
-__4. Szenario__
-Hinzufügen/Ändern der (persönlichen) Zusatzinformationen eines bestehenden Kontakts.
-
 
 ### Syncrhonisation eines Service Desks
 In vielen IT-Organisationen kommt ein Service-Deskt zum Einsatzt. Das Bearbeiten der Support-Fälle und erfassen von Arbeitszeiten muss online, direkt im System erfolgen. Dies kann vor allem fürs Arbeiten ausser Haus, zum Beispiel auf Reisen oder direkt beim Kunden, eine grosse Einschränkung sein.
@@ -79,31 +71,8 @@ __pNotes__                  Persönliche Bemerkungen zum Support-Fall. Nur der
 Table: Attribute Support-Fall
 
 
-Die vier typischsten Aufgabenszenarien sind hier aufgeführt.
-
-__1. Szenario__
-Erfassen eines neuen Support-Falls.
-
-__2. Szenario__
-Einem Support-Fall eine neuen Anmerkung hinzufügen.
-
-__3. Szenario__
-Erfassen von Arbeitszeit auf ein Ticket.
-
-__4. Szenario__
-Zu einem Supportfall eine Lösung (FAQ-Eintrag) erfassen.
-
-<!-- 
-### Syncrhonisation von Stücklisten und Fertigungsaufträgen 
-1. Szenario: Austauschen eines Bauteils -> Anpassung aller Stücklisten
-2. Szenario: Anpassen der Fertigungsart (z.B. Menge des Lötzinns/Klebers)
-3. Szenario: Priorisierung von Aufträgen (!!! nicht möglich - da Produktion läuft !!!)
-4. Szenario: Lagerbestände/Lagerorte anpassen/ändern
--->
-
-
-
-## Datenanalyse
+Datenanalyse
+------------
 
 Daten können bezüglich ihrer Beschaffenheit, Geltungsbereich und Gültigkeitsdauer unterschieden werden. Im Weiteren wird dies als die Klassifikation beschrieben. Die Datentypisierung hingegen, unterscheidet nach dem äusseren Erscheinungsbild der Daten.
 
@@ -125,11 +94,14 @@ __Temporäre Daten__ werden von System oder Benutzer generiert und sind nur sehr
 
 
 ### Klassifikation nach Struktur
-Bei der Unterscheidung der Daten nach ihrer Struktur, kann zwischen Kontextbezogenen und Kontextunabhängigen Daten differenziert werden. Die Entscheidung welcher Strukturklasse die Daten angehören ist abhängig vom Verständnis der Daten uns liegt somit im Entscheidungsbereich des Datendesigners. 
+Bei der Unterscheidung der Daten nach ihrer Struktur, kann zwischen Kontextbezogenen und Kontextunabhängigen Daten differenziert werden. Die Entscheidung welcher Strukturklasse die Daten angehören ist abhängig vom Verständnis der Daten uns liegt somit im Entscheidungsbereich des Datendesigners.
 
-__Kontextbezogene Daten__ weisen nur bezüglich eines bestimmten Kontext einen signifikanten Informationsgehalt auf.
+__Kontextunabhängige Daten__ gewinnen selbst durch andere Daten nicht mehr an Informationsgehalt. Gemeint ist damit, dass durch das zusätzliche Betrachten anderer Informationen nicht mehr Wissen bezüglich des einen Attributs entsteht.
 
-__Kontextunabhängige Daten__ gewinnen selbst durch andere Daten nicht mehr an Informationsgehalt.
+__Kontextbezogene Daten__ weisen nur bezüglich eines bestimmten Kontext einen signifikanten Informationsgehalt auf. 
+
+Die Adresse eines Kontakts spezifiziert üblicherweise den Ort und das Haus. Zusammen mit dem Namen wird auch die Wohnung eindeutig identifiziert. Die Adresse besitzt also zusammen mit dem Name einen grösseren Informationsgehalt.
+Wohingegen die Adresse den Namen nicht weiter spezifiziert.
 
 ### Datentypisierung
 Die Unterscheidung der Daten nach Datentyp differenziert zwischen __numerischen__, __binären__, __logischen__ und __textuellen__ Daten. Zur Typisierung wird immer die für den Benutzer sichtbare Darstellung verwendet, also jene Darstellung, in welcher die Daten erfasst wurden.
@@ -174,81 +146,9 @@ pNotes          Unabhängig          exklusiv        textuell
 Table: Klassifikation Attribute Kontakt
 
 
-## Datenanalyse von "echten" Fällen
-<!-- not so sure if I really want these cases -->
-__Facebook__
-
-__Benutzer Daten__
-
--------------------------------------------------------------------------------
-__Attribut__    __Struktur__          __Art__         __Typ__
---------------- ------------------- --------------- ---------------------------
-Name            Unabhängig          gemeinsam       textuell
-Email           Abhängig (Name)     gemeinsam       textuell
-Geburtsdatum    Unabhängig          exklusiv        textuell
--------------------------------------------------------------------------------
-Table: Klassifikation Attribute Facebook Benutzerdaten
-
-__Post__
-
--------------------------------------------------------------------------------
-__Attribut__    __Struktur__          __Art__         __Typ__
---------------- ------------------- --------------- ---------------------------
-Text            Unabhängig          exklusiv        textuell
-Bild            Abhängig (Text)     exklusiv        binär
-Personen        Abhängig (Bild)     exklusiv        binär
-Aktion/Gefühl   Abhängig (Text)     exklusiv        textuell
-Standort        Abhängig (Text)     exklusiv        binär
-Likes           Abhängig (Text)     dynamisch       numerisch
--------------------------------------------------------------------------------
-Table: Klassifikation Attribute Facebook Post
-
-__Kommentar__
-
--------------------------------------------------------------------------------
-__Attribut__    __Struktur__          __Art__         __Typ__
---------------- ------------------- --------------- ---------------------------
-Text            Abhängig (Post)     exklusiv        textuell
-Bild            Abhängig (Text)     exklusiv        textuell
--------------------------------------------------------------------------------
-Table: Klassifikation Attribute Facebook Kommentar
-
-(Ob ein Kommentar angezeigt wird, entscheidet der Autor des dazugehörenden Posts)
-
-Alle Daten werden nur von einer Person bearbeitet. -> Synchronisationsprobleme können entstehen, jede Person ist selbst verantwortlich dass Änderungen nicht überschrieben werden. (real newest Entry wins) 
-
-__Google Kalender__
-
-__Termin__
-
-------------------------------------------------------------------------------
-__Attribut__    __Struktur__          __Art__         __Typ__
---------------- ------------------- --------------- ---------------------------
-Titel           Unabhängig          exklusiv        textuell
-Datum           Unabhängig          exklusiv        binär
-Zeit            Unabhängig          exklusiv        binär
-Gäste           Unabhängig          exklusiv        binär
--------------------------------------------------------------------------------
-Table: Klassifikation Attribute Google Kalendereintrag
-
-Es können mehrere Termine zur selben Zeit stattfinden. Der Benutzer wird dann entsprechend gewarnt. -> Synchronisationsprobleme können entstehen, jede Person ist selbst verantwortlich dass Änderungen nicht überschrieben werden. (real newest Entry wins) 
-
-
-
-
 ## Überprüfung der Klassifikation
-Die Klassifikation der Daten nach Struktur zeigt sich in allen Beispielen als nachvollziehbar. Auch kann klar zwischen der Typisierung exklusiv, gemeinsam und dynamisch unterschieden werden.
+Aus der Überprüfung kann die Erkenntnis gewonnen werden, dass die Struktur sowie der Typ der Daten allgemeingültig und nachvollziehbar ist.
+Es kann klar zwischen der Typisierung exklusiv, gemeinsam und dynamisch unterschieden werden. Auch sind die beiden Struktur-Klassen kontextbezogen und kontextunabhängig allgemeingültig und ermöglichen eine Abhängigkeitserkennung zwischen den Attributen.
 
-Die weiteren gefundenen Typen statisch und temporär sind wenig sinnvoll, da beide durch exklusiv oder gemeinsam ersetzt werden könne.
-Temporäre Daten sind exklusiv, während statische Daten auch als gemeinsam klassifiziert werden können.
+Die weiteren gefundenen Typen statisch und temporär sind wenig sinnvoll, da der Typ "temporär" immer auch exklusiv und "statisch" durch gemeinsam ersetzt werden kann.
 
-Es kann auch festgestellt werden, dass Daten meist vom Typ text oder binär sind.
-
-
-<!-- what is the main point in doing this? -->
-
-
-
-
-<!--## Diskussion bekannter Verfahren
- (und Erklährung) in Bezug auf Ergebnisse der Datenanalyse -->

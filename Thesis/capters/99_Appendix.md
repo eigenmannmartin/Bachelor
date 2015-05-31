@@ -3,15 +3,18 @@
 \appendix
 
 
-# Appendix {#appendixA}
+Anhang {#appendixA}
+===================
 
-
-## Glossar
-
+Glossar
+-------
 ORM
 Node
 
-## Aufgabenstellung {#appendix_aufgabenstellung}
+
+
+Aufgabenstellung {#appendix_aufgabenstellung}
+---------------------------------------------
 
 ### Thema
 
@@ -85,10 +88,12 @@ Das Ziel der Bachelorthesis besteht in der in der Konzeption und der Entwicklung
 
 
 
-# Detailanalyse der Aufgabenstellung
+Detailanalyse der Aufgabenstellung
+----------------------------------
+
 Die Detailanalyse der Aufgabenstellung...
 
-## Aufgabenstellung und erwartete Resultate
+### Aufgabenstellung und erwartete Resultate
 **Recherche:**
 Es sollen die technischen Grundlagen zur Bearbeitung dieser Thesis zusammengetragen werden. Für das Verständnis wichtige Sachverhalte erläutert und Fachbegriffe erklärt werden.
 
@@ -116,7 +121,7 @@ Das Review soll eine Retrospektive auf die Erarbeiteten Resultate werfen und kri
 Erwartet wird ein Protokoll der durchgeführten Tests.
 
 
-## Aufwandschätzung
+### Aufwandschätzung
 
 Die aus der Projektplanung hervorgehenden Arbeitsschritte müssen geschätzt werden, um eine realistische Terminplanung durchzuführen.
 
@@ -134,9 +139,12 @@ Abgabe                      20
 __Total__                   __370__
 -------------------------------------------------------------------------------
 
-# Projektmanagement
+Projektmanagement
+=================
 
-## Projektplanung
+Projektplanung
+--------------
+
 
 Der vollständige Projektplan ist in der Grafik {@fig:projektplan} dargestellt.
 
@@ -147,7 +155,8 @@ Der vollständige Projektplan ist in der Grafik {@fig:projektplan} dargestellt.
 -Ferien etc.
  -->
 
-## Termine
+Termine
+-------
 
 -------------------------------------------------------------------------------
 __Termin__                  __Datum__      __Bemerkungen__
@@ -164,18 +173,25 @@ Abschlusspräsentation       ??
 -------------------------------------------------------------------------------
 
 
-## Dokumentation
+Dokumentation
+-------------
+
 Da die Nachvollziehbarkeit von Änderungen in MS Word sehr umständlich ist, habe ich in Betracht gezogen, die Arbeit mit \LaTeX zu schreiben.
 Da ich jedoch dieses Format sehr unübersichtlich finde habe ich mich stattdessen für Markdown entschieden. Markdown kann mit dem Tool pandoc in ein PDF Dokument konvertiert werden. Darüber hinaus versteht pandoc die Latex-Syntax.
 
-## Versionsverwaltung
+
+Versionsverwaltung
+------------------
+
 Damit einerseits die Daten gesichert und andererseits die Nachvollziehbarkeit von Änderungen gewährleistet ist, verwende ich git.
+
+
 
 # Anforderungsanalyse
 
 <!-- Definition Offline und Online Modus -->
 ## Vorgehensweise
-Um eine möglichst allgemein gültige Anforderungsanalyse zu erhalten, werden nur die Anforderungen an den Synchronisationsprozess gestellt, welche für alle drei Fallbeispiele gültig sind.
+Um eine möglichst allgemein gültige Anforderungsanalyse zu erhalten, werden nur die Anforderungen an den Synchronisationsprozess gestellt, welche für alle beide Fallbeispiele gültig sind.
 
 ### Use-Cases
 Im Nachfolgenden werden alle UseCases aufgelistet die im Rahmen dieser Thesis gefunden wurden.

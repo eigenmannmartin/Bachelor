@@ -12,7 +12,7 @@ Dieses Kapitel erklärt die wichtigsten Grundbegriffe und wiedergibt die währen
 Eine Aufführung und dazugehörende Ernährung der für das Verständnis der Arbeit notwendigen Fachbegriffe befindet sich im Anhang unter dem Kapitel "[Glossar]".
 
 ## Erläuterung der Grundlagen
-<!-- Ausführliche Einführung in die wichtigesten Themengebiete -->
+In diesem Kapitel werden Funktionsweisen und Grundlage ausgeführt, die als für die Bearbeitung dieser Bachlorthesis herangezogen wurden.
 
 ### Datenbanken
 Eine Datenbank [^Datenbanken_DBS] ist ein System zur Verwaltung und Speicherung von strukturierten Daten. Erst durch den Kontext des Datenbankschemas wird aus den Daten Informationen, die zur weiteren Verarbeitung genutzt werden können. Ein Datenbanksystem umfasst die beiden Komponenten Datenbankmanagementsystem (DBMS) sowie die zu veraltenden Daten selbst.
@@ -57,10 +57,6 @@ Falls innerhalb eines Rechenknoten echte Nebenläufigkeit[^log_dist_system_neben
 Verteilte Algorithmen sind Prozesse welche miteinander über Nachrichten (synchron oder asynchron) kommunizieren und so idealerweise ohne Zentrale Kontrolle eine Kooperation erreichen. [@ethdistribalgo]
 Performance-Gewinn, bessere Skalierbarkeit und eine bessere Unterstützung von verschiedenen Hardware-Architekturen kann durch den Einsatz von verteilten Algorithmen erreicht werden.
 
-
-### Verteilte Datenbanken
-<!--[Präsenzbibliothek ZHAW] -->
-
 ### Replikation
 Replikation vervielfacht ein sich möglicherweise mutierendes Objekt (Datei, Dateisystem, Datenbank usw.), um hohe Verfügbarkeit, hohe Performance, hohe Integrität oder eine beliebige Kombination davon zu erreichen. [@SWB-327013990 p. 19]
 
@@ -99,8 +95,6 @@ Die Block-Chain ist eine verteilte Datenbank die ohne Zentrale Autorität auskom
 
 ## Replikationsverfahren
 
-<!-- XML-Databases might be a thing -->
-
 ### MySQL
 Das Datenbanksystem MySQL unterstützt asynchrone als auch synchrone Replikation. Beide Betriebsmodi können entweder in der Master-Master[^mysql_active_active] oder in der Master-Slave Konfiguration betreiben werden. 
 
@@ -109,8 +103,6 @@ Das Datenbanksystem MySQL unterstützt asynchrone als auch synchrone Replikation
 Die Master-Slave Replikation unterstützt nur einen einzigen Master und daher werden Mutationen am Datenbestand nur vom Master entgegengenommen und verarbeitet. Ein Slave-Knoten kann aber im Fehlerfall des Masters, sich selbst zum Master befördern.
 
 Der Master-Master Betrieb erlaubt die Mutation des Datenbestand auf allen Replikationsteilnehmern. Dies wird mit dem 2-Phase-Commit (2PC) Protokoll erreicht. Somit sind Konflikte beim Betrieb eines Master-Master Systems ausgeschlossen.
-
-<!-- [Zirkulare Replikation?] -->
 
 
 #### 2-Phase-Commit Protokoll
@@ -139,6 +131,8 @@ Darüber hinaus entscheidet der Server alleine, ob eine konkurrierende Version d
 
 [^backbone_restapi_log]: Auf dem Server können alle Requests aufgezeichnet werden, um Mutationen nicht zu verlieren. Dies wird vom Standard aber nicht vorausgesetzt und ist ein applikatorisches Problem.
 
+Das Senden einer Aktualisierung an den Server wird mit drei Schritten erledigt.
+
 1. Im ersten Schritt wird ein neues oder mutiertes Objekt an den Server übermittelt.
 2. Der Server entscheidet im zweiten Schritt ob die Änderung komplett oder überhaupt nicht übernommen wird. Wird eine Änderung komplett übernommen wird dem Client dies so bestätigt.
 Wird eine Änderung abgelehnt wird der Client darüber informiert.
@@ -150,6 +144,8 @@ Das WEB-Framework Meteor.js implementiert eine Mongo-Light-DB im Client-Teil und
 Meteor.js setzt auf Optimistic Concurrency. So können Mutationen auf der Client-Datenbank durchgeführt werden und diese erst zeitlich versetzt mit dem Server synchronisiert werden. Je geringer die zeitliche Verzögerung, desto geringer ist die Wahrscheinlichkeit, dass das mutierte Objekt auch bereits auf dem Server geändert wurde. Um eine geringe zeitliche Verzögerung zu erreichen, sind alle Clients permanent mit dem Server mittels Websockets verbunden.
 
 Der Server alleine entscheidet welche Version als aktiv übernommen wird. Somit kann nicht garantiert werden, dass alle vorgenommenen Änderungen auf dem Client erfolgreich an den Server übermittelt und übernommen werden. Da Mutationen üblicherweise zeitnah übertragen werden, treten aber nur in seltenen Fällen Konflikte auf.
+
+Die Synchronisation einer Anpassung eines Objekts benötigt drei Schritte.
 
 1. Im ersten Schritt wird ein neues oder die mutierten Attribute eines Objekts an den Server übermittelt.
 2. Der Server entscheidet im zweiten Schritt ob die übermittelten Änderungen komplett, teilweise oder nicht angenommen werden.

@@ -1,18 +1,14 @@
 
 \part[Konzept]{Konzeption und Konzeptüberprüfung}
 
-# Konzeptansätze
+Konzeptansätze
+==============
 
-<!-- redo -->
 
-<!-- Synchronisationen können so gestaltet werden, dass keine Synchronisationskonflikte auftreten, oder es können auftretende Konflikte gelöst werden. -->
-<!-- 
-Verhinderung: beschneidung Funktionsumfang
 
-Auflösung: möglicher Datenverlust
--->
+Synchronisation
+---------------
 
-## Synchronisation
 Das grundlegende Idee bei der Synchronisation liegt darin, den Zustand der Servers und des Clients, bezüglich der Daten, identisch zu halten. 
 Der Zustand der Daten können dabei als Status betrachtet werden. So repräsentiert der Zustand der gesamten Datensammlung zu einem bestimmten Zeitpunkt, einen Status. Aber auch der Zustand eines darin enthaltenen Objekts (z.B. eines Kontakts) wird als eigenständiger Status betrachtet.
 
@@ -22,7 +18,11 @@ Eine Status-Mutation kann dabei auf dem Server nur auf den selben Status angewen
 
 Zur Durchführung einer Syncrhonisation muss sowohl die Mutations-Funktion, sowie der Status auf welchen sie angewendet wird, gekannt sein. Beide Informationen zusammen werden als eine Einheit betrachtet und als __Nachricht__ bezeichnet.
 
-## Datenhaltung
+
+
+Datenhaltung
+------------
+
 Die Datenhaltung beschäftigt sich mit der Frage, wie Daten verwaltet und wann und wie Mutationen darauf angewendet werden. Die beiden erarbeiteten Konzepte Singlestate und Multistate werden im Folgenden genauer erläutert.
 
 
@@ -62,25 +62,13 @@ Welcher der Zweige bei einer Vergabelung als gültig zu definiert ist, wird übe
 
 Die Konfliktauflösung kann direkt bei der Anwendung der Mutations-Funktion, oder zu einem beliebigen späteren Zeitpunkt durchgeführt werden. Die Konfliktauflösung darf sehr greedy entscheiden, da Fehlentscheide korrigiert werden können.
 
-<!--
-Z.B. das Resultat der Abfrage des Status gestern um 10:00 muss nicht dem Resultat der Abfrage von heute, wie der Status gestern um 10:00 war.
 
-Jeder Status ist also Rückwirkend veränderbar. Entsprechende Systeme müssen dafür ausgelegt sein.
+Konfliktvermeidung
+------------------
 
-Die Konfliktauflösung funktioniert genau gleich wie bei den Singlestate Systemen. Wir dürfen jedoch sehr fiel mehr "greedy" sein.
-
-Statt das wahrscheinlichsten oder des erste eingehenden Attribut zu verwenden wird die Kausalität sichergestellt. So wird für jede Mutation ein "quasi" Timestamp generiert (auch auf den mobilen Endgeräten) um so den Zeitpunkt der Synchronisierung zu egalisieren. Mutationen die echt zu erst durchgeführt wurden, gelten.
-
-
-sehr greedy. Wir dürfen alles annehmen, und kümmern uns erst später um auftretende Fehler.
-
--->
-
-## Konfliktvermeidung
 Das Konzept der Konfliktvermeidung verhindert das Auftreten von möglichen Konflikten durch die Definition von Einschränkungen im Funktionsumfang der Datenbanktransaktionen. So sind Objekt aktualisierende Operationen nicht möglich und werden stattdessen, Client seitig, über hinzufügende Operationen ersetzt.
 
 ### Update Transformation
-<!-- Überfürung von Update in Insert -->
 Damit Mutationen für eines oder mehrere Attribute gleichzeitig konfliktfrei synchronisiert werden können, wird für jedes einzelne Attribut eine Mutations-Funktion erstellt. Die einzelnen Funktionen können in einer Nachricht zusammengefasst werden.
 
 Wie die Abbildung {@fig:updatetransform} zeigt, muss nicht das gesamte Objekt aktualisiert werden und es wird so ermöglicht die Konfliktauflösung granularer durch zu führen.
@@ -94,46 +82,27 @@ Dies führt zur Vermeidung von logischen Synchronisationskonflikten.
 
 
 
+Konfliktauflösun
+----------------
 
-## Konfliktauflösung
 Das Konzept der Konfliktauflösung beschäftigt sich mit der Auflösung von Konflikten, die im Rahmen der Synchronisation aufgetreten sind. 
 Da die Beschaffenheit und Struktur der Daten, bei dieser Problemstellung eine entscheidende Rolle einnehmen, ist im folgendn für jede Klassifikations-Gruppe ein geeigneter Konfliktauflösungs-Algorithmus aufgeführt.
 
 
 ### Zusammenführung
-<!-- Manueller Merge -->
-Einzelne Attribute oder Attributsgruppen innerhalb eines Objekts werden als eigenständige Objekte betrachtet. So kann ein Konflikt, der auftritt wenn zwei Objekte mit Mutationen in unterschiedlichen Attributsgruppen synchronisiert werden , aufgelöst werden, indem nur die jeweils mutierten Attributgrupen als synchronisationswürdig betrachtet werden.
-
-Kontextbezogene Attribute sind in der selben Attributgruppe wie der Kontext.
-
+Die Attribute eines Objekts werden einzeln behandelt und auftretende Konflikte separat aufgelöst. So wird nur überprüft ob sich das entsprechende Attribut oder dessen Kontext, falls vorhanden, zwischen dem referenzierten und dem aktuellen Status verändert hat. Falls dies nicht der Fall ist, kann die Mutation konfliktfrei angewendet werden.
 ![Merge](./img/merge.jpg)
-
-Diese Operation ist unabhängig von Datentyp, Struktur und Art.
-Der (automatisierte) Merge kann nur durchgeführt werden, wenn nur eine einzige Version eines Attributs existiert. -> nie konkurrierende Versionen entstehen.
-
-Darüber hinaus versieht der Server jede Attribut-Version mit einer Versions-Nummer. So kann verhindert werden, dass ein Attribut mit einer niederen Versions-Nummer über ein neueres Attribut synchronisiert wird.
-
-Weiter kann die Sturktur der Daten mit einbezogen werden. Hat sich der Kontext geändert, dürfen die davon abhängigen Attribute nicht mehr angewendet werden.
 
 ### geschätze Zusammenführung
-<!-- Maschineller Merge (wahrscheinlichste Lösung) -->
-Wenn bei einer Synchronisierung mit zwei Objekten die selben Attribute mutiert wurden, kann im Falle von numerischen Attributen, das Objekt mit den geringsten Abweichungen vom Mittelwert über alle verfügbaren Datensätze verwendet werden. Es wird also das normalisierteste Attribut verwendet.
-Bei Attributsgruppen wird die Gruppe mit der insgesamt geringsten Abweichung verwendet.
-Es muss eine Abstandsfunktion für jedes Attribut oder jede Attributgruppe erstellt werden.
-
-Es kann so die warscheinlichste Version verwendet werden. Wenn zu $t_1$ $A_1$ und zu $t_2$ $A_2$, also das selbe Attribut synchronisiert wird, wird es beide male angenommen. Beide Versionen basieren auf der gleichen Ursprungsversion. $A_2$ besitzt aber die kleinere Abweichung und gewinnt deshalb. 
-Hätte es die grössere Abweichung, würde es nicht synchronisiert werden.
-
-![Merge](./img/merge.jpg)
-
+Die geschätzte Zusammenführung verwendet einen Algorithmus, welcher das beste Resultat schätzt. Dabei werden alle auf den Status angewendeten Nachrichten analysiert, und das vermutlich beste Resultat verwendet.
+Diese Schätzung kann über zum Beispiel mit neuronalen Netzen umgesetzt werden
 
 ### manuelle Zusammenführung
-Wenn keine Auflösung des Konflikts möglich ist, muss dieser manuell aufgelöst werden.
-
+Wenn keine Auflösung des Konflikts möglich ist, muss dieser manuell aufgelöst werden. Dabei muss das System angehalten werden, oder die Nachricht zurückgehalten werden.
 
 ### Vergabelungs-Funktion
 Bei der Entscheidung welcher Teilbaum aktiv wird können unterschiedliche Vorgehensweisen angewendet werden. Die verwendete Lösung muss auf die Datenbeschaffenheit und Struktur angepasst werden.
-Nachfolgende sind sechs Ansätze ausgeführt.
+Nachfolgende sind fünf Ansätze ausgeführt.
 
 #### Wichtigste Information
 Die Attribute eines Objekts können in aufsteigenden Wichtigkeits-Klassen gruppiert werden. Die Wichtigkeit einer Nachricht entspricht der höchsten Wichtigkeits-Klasse die mutiert wird.
@@ -149,9 +118,6 @@ Für jeden Teilbaum werden die der darin vorkommenden Vergabelungen gezählt. Di
 #### Online-First
 Zusätzlich zur Mutations-Funktion und der Status-Referenz wird einer Nachricht die Information mitgegeben, ob der Client diese online sendet.
 Die Nachrichten, welche online gesendet wurden, werden immer den offline synchronisierten Nachrichten vorgezogen.
-
-#### Echte Kausalität
-Der Zeitstempel der Generierung wird der Nachricht beigefügt. Die Nachricht, welche echt zu erst erstellt wurde, markiert den aktiven Teilbaum.
 
 #### Timeboxing
 Periodisch wird ein Status manuell validiert und als "Grenze" gesetzt. Nachrichten, welche auf ältere Stati, oder auf Stati in anderen Zweigen referenzieren, markieren nie einen aktiven Teilbaum.
