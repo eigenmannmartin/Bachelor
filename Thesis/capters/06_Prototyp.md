@@ -1,19 +1,19 @@
 
 
 # Design des Prototypen
-In diesem Kapitel werden die aus dem Kapitel [Konzept] gewonnenen Erkenntnisse so umgesetzt dass sie den Anforderungen aus dem Kapitel [Anforderungsanalyse] genügen.
+In diesem Kapitel wird ein Prototyp entworfen, der die Erkenntnisse aus dem Kapitel [Konzept Untersuchung] so umgesetzt dass sie auch den Anforderungen aus dem Kapitel [Anforderungsanalyse] genügen.
 
 ## Design-Ansätze
-Zur Implementation des Singlestate
+Zur Lösung der Aufgabestellung wurden zwei Desing-Ansätzte erarbeitet. Diese in den nachfolgenden Kapiteln kurz erläutert.
 
-### Nachrichtenbasierte Architektur
-Versenden einzelner Nachrichten -> Direkte Anwendung für Konzept
+### Nachrichten-basierte Architektur
+Der Prototyp verwendet eine Messagequeue zur Datenhaltung. Es wird somit keine konventionelle Datenbank verwendet. Ein wahlfreier Zugriff auf jeden Status ist möglich.
 
 ### Modellbasierte Architektur
-Versenden der daraus resultierenden Stati -> Indirekte Anwendung für Konzept
+Der Prototyp emuliert das verhalten einer Messagequeue. Ein wahlfreier zugriff auf jeden Status ist nicht möglich, jedoch kann eine konventionelle Datenbank verwendet werden. Es wird sichergestellt dass versendete Nachrichten eine komplette Kopie der referenzierten Status enthalten.
 
 ## Entscheid
-Nachrichtenbasiert -> weniger verbreitet, komplexer in der Implementation -> einfachere Transition.
+Die Modellbasierte Architektur biete, zumindest im Rahmen des Prototyps die den selben Funktionsumfang wie die Nachrichten-basierte Architektur, ist jedoch sehr viel einfacher zu implementieren.
 
 
 
@@ -22,14 +22,14 @@ Nachrichtenbasiert -> weniger verbreitet, komplexer in der Implementation -> ein
 Der Prototyp besteht aus 3 Bausteinen; Server, API und Client.
 ![Bausteinübersicht](img/design_components.jpg)
 
-Die Bausteine werden in den folgenden Kapitel erläutert.
+Die Bausteine, sowie deren Kommunikation miteinander, werden in den folgenden Kapitel erläutert.
 
 ### Nachrichten
 Alle im System versendeten Nachrichten sind nach dem selben Schema strukturiert, um so unnötige Konvertierungen zu vermeiden.
 
 Eine Nachricht wir entsprechend ihrem Ziel und Funktion benannt.
 
-[Target] _ [Layer] _ [Modul] _ [Funktion]
+[Target]_ [Layer]_ [Modul]_ [Funktion]
 
 -------------------------------------------------------------------------------
 __Teil__                    __Beschreibung__
@@ -46,8 +46,25 @@ __Funktion__                Funktionsname
 
 Der Payload besteht aus dem Meta-Teil, welcher die Collection angibt, sowie dem Data Teil, welcher das neue Objekt und das alte Objekt, falls vorhanden, beinhaltet.
 
-Somit ist implizit eine Mutationsfunktion, und die Referenz auf den Status definiert.
+Somit ist implizit eine Mutationsfunktion, und die Referenz auf den Status definiert. Konkret soll dafür die Nachricht das Model referenzieren, damit ist der Name des Datenbankobjekts gemeint, und sowohl das neue Objekt (obj) als auch das referenzierte Objekt (prev) werden mitgesendet.
 
+``` {.coffee}
+Message = {
+    messageName: ""
+    meta: {
+        model: ""
+    }
+    data: {
+        obj: {}
+        prev: {}
+    }
+
+}
+
+``` 
+<!-- 
+```
+ -->
 
 ### Backend
 Jede über die API eingehende Nachricht wird an den Logik-Layer weitergeleitet.
@@ -116,14 +133,17 @@ C_PRES_STORE_delete         Löscht ein bestehendes Objekt.
 -------------------------------------------------------------------------------
 
 ### Datenfluss
-![Datenflussdiagramm](img/dataflow.png)
-Frontend    <->  API    <->     Backend
+Der Datenfluss des Prototypen funktioniert wie in Abbildung {@fig:dataflow} dargestellt. Zu beachten gilt, dass die gesamte Interkomponenten-Kommunikation asynchron durchgeführt wird.
+
+![Datenflussdiagramm](img/dataflow.png) {#fig:dataflow}
+
+<!--Frontend    <->  API    <->     Backend
 
 Frontend: ActionCreator -> Dispatcher -> Store -> API -> ActionCreator
 
 API: Queue -> Transporter
 
-Backend: API -> Logiclayer -> API 
+Backend: API -> Logiclayer -> API -->
 
 
 ### Flux Architektur
