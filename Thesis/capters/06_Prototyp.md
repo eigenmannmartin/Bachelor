@@ -229,24 +229,84 @@ Die Entwicklungsumgebung ist so portabel wie möglich gestaltet. Alle benötigte
 
 
 ## Entwicklung
-Tricks mit API & Message Routing, binding to io.on 'message' -> flux.doAction
+<!--Tricks mit API & Message Routing, binding to io.on 'message' -> flux.doAction -->
+
+Sowohl über die API eingehende Nachrichten, als auch interne Nachrichten des Servers werden gleichwertig behandelt.
+
+server/api.coffee
+``` {.coffee}
+me = @
+@Socket.on 'message', ( msg ) ->
+    me.dispatch msg.messageName, msg.message
+
+flux.dispatcher.register (messageName, message) ->
+    me.dispatch messageName, message
+
+``` 
+<!-- 
+```
+-->
+
+
 
 Express Server: 
 Statisches Daten -> Frontend /
 Socket.io -> /socket.io
-Message-Bus -> Fluxify also in the backend
+
+<!-- Message-Bus -> Fluxify also in the backend -->
+Auch das Backend verwendet Fluxify als zentralen MessageBus. Eine Einheitliche Code-Struktur sowie ein besseres Verständnis ist dadurch begünstigt.
 
 
-RequireJS Modules testable in the Browser :-D
+<!--RequireJS Modules testable in the Browser :-D -->
+Durch den Einsatz von RequireJS Modulen sind diese auch mit Karma direkt im Browser Testbar. So sind statische Analysen über das gesamte Projekt in nur einem Schritt durchführbar.
+
+
+
 
 Stores in the Frontend
+client/store.coffee
+``` {.coffee}
+flux.createStore
+     id: "prototype_rooms",
+    initialState: 
+        rooms : []
+            
+    actionCallbacks:
+        C_PRES_STORE_update: ( updater, msg ) ->
+            ...
+``` 
+<!-- 
+```
+-->
+
+
 Models in the Backend
 
+server/models/*
+``` {.coffee}
+module.exports = (sequelize, DataTypes) ->
+    Room = sequelize.define "Room", { 
+        name: DataTypes.STRING
+        description: DataTypes.TEXT
 
-## Grafische Umsetzung Fallbeispiel
+        free: DataTypes.BOOLEAN
+        beamer: DataTypes.BOOLEAN
+        ac: DataTypes.BOOLEAN
+        seats: DataTypes.INTEGER
+
+        image: DataTypes.STRING
+    }, {}
+``` 
+<!-- 
+```
+-->
 
 
-# Testing
+
+Testing
+=======
+
+Die Testrunner Suite Karma erlaubt es Programmcode direkt im Browser zu testen und statische Analyse darüber anzufertigen.
 
 ![Karma Testrunner](img/tdd.png)
 

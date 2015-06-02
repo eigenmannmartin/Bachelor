@@ -3,6 +3,13 @@
 Konzept Untersuchung
 ====================
 
+Synchronsation
+--------------
+
+Delta Orientiert
+
+Update Orientiert
+
 
 Datenhaltung
 ------------
@@ -58,7 +65,6 @@ Das grösste Manko liegt jedoch im Umstand, einen Konflikt direkt beim Auftreten
 Beim Eingehen einer neuen Nachricht wird ebenfalls die Funktion addMessage() aufgerufen.
 Die Funktion @StateTree($t$) gitb den Status zum Zeitpunkt $t$ zurück. Neu wird jedoch die MessageQueue separat geführt, da der Statusbaum bei jeder schreibenden Operation neu aufgebaut werden muss.
 
-
 ``` {.coffee}
 getState(t): ->
     return @StateTree(t)
@@ -94,7 +100,10 @@ Der grösste Gewinn beim Multistate Konzept liegt in der zeitlichen Entkoppelung
 Die Richtigkeit, also die Qualität der Information, eines Status wird über die Zeit nur grösser.
 Und genau darin besteht auch das grösste Problem, denn dadurch ist nicht garantiert dass Abfragen wiederholbare Ergebnisse liefern.
 
-
+### Semi Multistate
+Annahme aller Nachrichten
+im Prinzip Multistate
+Benutzer kann aber alle Mutationen und gewünschte Mutationen einsehen und ev. wechseln
 
 Konfliktvermeidung
 ------------------
