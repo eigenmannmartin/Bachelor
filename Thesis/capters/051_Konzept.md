@@ -224,3 +224,22 @@ Manuelle Zusamm.            sehr schwierig  einfach
 
 -------------------------------------------------------------------------------
 Table: Konzept Vergleich Konfliktverhinderung - Konfliktauflösung
+
+
+
+
+# Leitfaden
+sync wird immer gemacht, wenn lokal daten gecached werden
+
+## Busines-Logic muss Sync/Konflikte vorsehen
+Konfliktauflösung mit Benutzerinformation
+
+## Verwenden von persönlichen Daten
+Daten sind nur von einer Person editierbar
+
+## verwenden von Insert statt Update
+
+## verwenden von altmodischem Lock?
+First locked winns - but all can try
+
+## Deaktivieren von Features wenn offline

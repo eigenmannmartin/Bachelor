@@ -217,7 +217,16 @@ __Socket.io__
 -------------------------------------------------------------
 
 ## Entwicklungsumgebung
-Grunt + Karma = All you need
+Die Entwicklungsumgebung ist so portabel wie möglich gestaltet. Alle benötigten Abhängigkeiten sind automatisiert installierbar. Die dazu nötigen Befehle sind nachfolgend aufgeführt.
+
+``` {.bash}
+> bower install
+> npm install
+``` 
+<!-- 
+```
+-->
+
 
 ## Entwicklung
 Tricks mit API & Message Routing, binding to io.on 'message' -> flux.doAction
@@ -239,6 +248,5 @@ Models in the Backend
 
 # Testing
 
-## Unit-Testing
+![Karma Testrunner](img/tdd.png)
 
-## Integration-Testing
