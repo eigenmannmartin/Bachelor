@@ -235,7 +235,7 @@ Manuelle Zusamm.            sehr schwierig  einfach
 Table: Konzept Vergleich Konfliktverhinderung - Konfliktauflösung
 
 
-
+<!-- eventuell können wir auch direkt überschreiben, wenn wir dem Client vertrauen -> Eigene Daten -> Echter Zeitstempel-->
 
 # Leitfaden
 sync wird immer gemacht, wenn lokal daten gecached werden
