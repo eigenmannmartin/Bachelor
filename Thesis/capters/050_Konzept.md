@@ -12,18 +12,14 @@ Synchronisation
 Das grundlegende Idee bei der Synchronisation liegt darin, den Zustand der Servers und des Clients, bezüglich der Daten, identisch zu halten. 
 Der Zustand der Daten können dabei als Status betrachtet werden. So repräsentiert der Zustand der gesamten Datensammlung zu einem bestimmten Zeitpunkt, einen Status. Aber auch der Zustand eines darin enthaltenen Objekts (z.B. eines Kontakts) wird als eigenständiger Status betrachtet.
 
-Der Begriff der Synchronisation wird also im folgenden als Vorgang betrachtet, welcher Mutationen des Status des Clients, auch am Status des Servers durchführt.
+Der Begriff der Synchronisation wird also im folgenden als Vorgang betrachtet, welcher Mutationen des Status des Clients, auch am Status des Servers durchführt. Dabei kann zwischen den beiden Vorgehensweisen Nachrichten basiert und Objekt basiert unterschieden werden.
 
-Eine Status-Mutation kann dabei auf dem Server nur auf den selben Status angewendet werden, auf welchen sie auch auf dem Client angewendet wurde. Eine Mutation bezieht sich also immer auf einen bereits existierenden Status.
-
+### Nachrichten basiert
 Zur Durchführung einer Syncrhonisation muss sowohl die Mutations-Funktion, sowie der Status auf welchen sie angewendet wird, gekannt sein. Beide Informationen zusammen werden als eine Einheit betrachtet und als __Nachricht__ bezeichnet.
+Eine Status-Mutation wird auf dem Server nur auf den selben Status angewendet werden, auf welchen sie auch auf dem Client angewendet wurde. Eine Mutation bezieht sich also immer auf einen bereits existierenden Status. Jede einzelne Änderung am Datenbestand wird durch eine einzige Nachricht repräsentiert. Die Nachricht wird direkt bei der Änderung generiert und Server übermittelt, sobald eine Verbindung hergestellt werden konnte.
 
-
-### Nachrichten Basiert
-Übertragen jeder einzelnen Änderung, Delta
-
-### Objektbasiert
-Übertragen des aktuellsten gesamten Objekts.
+### Objekt basiert
+Der Abgleich der Datenbestände wird durchgeführt sobald eine Verbindung mit dem Server besteht. Dann werden alle Objekte, die geändert und noch nicht synchronisiert wurde, vollständig dem Server übermittelt.
 
 
 
@@ -101,8 +97,7 @@ Die Attribute eines Objekts werden einzeln behandelt und auftretende Konflikte s
 ![Merge](./img/merge.jpg)
 
 ### geschätze Zusammenführung
-Die geschätzte Zusammenführung verwendet einen Algorithmus, welcher das beste Resultat schätzt. Dabei werden alle auf den Status angewendeten Nachrichten analysiert, und das vermutlich beste Resultat verwendet.
-Diese Schätzung kann über zum Beispiel mit neuronalen Netzen umgesetzt werden
+Wenn zwei oder mehr Mutationen auf einen Status angewendet werden sollen, wird die wahrscheinlich beste Mutation verwendet. Dazu wird die Richtigkeit jeder einzelnen Mutation geschätzt. Diese Schätzungen kann entweder mit statischen Analyse oder mit neuronalen Netzen umgesetzt werden.
 
 ### kontextbezogene Zusammenführung
 Attribute, welche kontextbezogen sind, werden nur übernommen, wenn der Kontext nicht sowie das zu mutierende Attribut nicht geändert wurde.
