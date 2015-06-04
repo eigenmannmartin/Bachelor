@@ -113,7 +113,7 @@ Die einfachste Implementation einer Update-Transformation besteht darin, sowohl 
 
 ``` {.coffee}
 composeMessage(reference, current): ->
-    
+
     for AttrName, Attribut in current
         if Attribut isnt reference[AttrName]
             Message.Mutation[AttrName] = Attribut
@@ -153,7 +153,6 @@ resolvConflict (valid, reference, current): ->
     
     for AttrName, Attribut in current
         if reference[AttrName] is valid[AttrName]
-        or not context
             NewState[AttrName] = Attribut
         else
             break
@@ -173,6 +172,7 @@ Um eine normalisierte Zusammenführung um zu setzten, ist zwingend ein wahlfreie
 
 ``` {.coffee}
 resolvConflict (valid, reference, average): ->
+
     NewState = new State
     Distances = new DistanceArray( average )
 
@@ -194,6 +194,26 @@ Entstandene Konflikte können aufgelöst werden, ohne dass manuell eingegriffen 
 Die Unsicherheit liegt jedoch darin, dass entweder Ausreisser so nicht akzeptiert werden oder für die vorliegenden Daten (z.B. Telefonnummern, Adressen, ...) gar nicht erst eine Distanzfunktion erstellt werden kann.
 Eine zentrale Einschränkung, liegt jedoch darin, dass diese Art der Zusammenführung nur mit Multistate funktioniert.
 
+### kontextbezogene Zusammenführung
+
+``` {.coffee}
+resolvConflict (valid, reference, current): ->
+
+    NewState = new State
+    
+    for AttrName, Attribut in current
+        if reference[AttrName] is valid[AttrName]
+        or not contextDidChange
+            NewState[AttrName] = Attribut
+        else
+            break
+
+    return NewState
+
+``` 
+<!-- 
+```
+ -->
 
 ### manuelle Zusammenführung
 Eine manuelle Zusammenführung muss in Form eines GUI implementiert werden, womit ein Benutzer diese durchführen kann.

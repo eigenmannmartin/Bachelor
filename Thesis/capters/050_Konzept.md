@@ -19,6 +19,13 @@ Eine Status-Mutation kann dabei auf dem Server nur auf den selben Status angewen
 Zur Durchführung einer Syncrhonisation muss sowohl die Mutations-Funktion, sowie der Status auf welchen sie angewendet wird, gekannt sein. Beide Informationen zusammen werden als eine Einheit betrachtet und als __Nachricht__ bezeichnet.
 
 
+### Nachrichten Basiert
+Übertragen jeder einzelnen Änderung, Delta
+
+### Objektbasiert
+Übertragen des aktuellsten gesamten Objekts.
+
+
 
 Datenhaltung
 ------------
@@ -96,6 +103,9 @@ Die Attribute eines Objekts werden einzeln behandelt und auftretende Konflikte s
 ### geschätze Zusammenführung
 Die geschätzte Zusammenführung verwendet einen Algorithmus, welcher das beste Resultat schätzt. Dabei werden alle auf den Status angewendeten Nachrichten analysiert, und das vermutlich beste Resultat verwendet.
 Diese Schätzung kann über zum Beispiel mit neuronalen Netzen umgesetzt werden
+
+### kontextbezogene Zusammenführung
+Attribute, welche kontextbezogen sind, werden nur übernommen, wenn der Kontext nicht sowie das zu mutierende Attribut nicht geändert wurde.
 
 ### manuelle Zusammenführung
 Wenn keine Auflösung des Konflikts möglich ist, muss dieser manuell aufgelöst werden. Dabei muss das System angehalten werden, oder die Nachricht zurückgehalten werden.

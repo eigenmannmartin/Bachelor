@@ -72,7 +72,7 @@ Der Logik-Layer übernimmt die Verarbeitung, also die Konfliktauflösung und die
 
 
 #### Logik
-Der Logik-Layer führt die Konfliktauflösung sowie die Verwaltung des Status durch. Es werden vier Nachrichten akzeptiert, welche dem SQL Jargon nachempfunden sind.
+Der Logik-Layer führt die Konfliktauflösung sowie die Verwaltung des Status durch. Es werden vier Nachrichten akzeptiert, welche dem SQL Jargon nachempfunden sind. Die Resultate werden nach vollständiger Bearbeitung dem Sender der ursprünglichen Nachrichten über eine neue Nachricht mitgeteilt.
 
 -------------------------------------------------------------------------------
 __Nachrichtname__           __Beschreibung__
@@ -89,8 +89,8 @@ S_LOGIC_SM_update           Die Mutationsnachricht aktualisiert ein
 S_LOGIC_SM_delete           Die Löschnachricht löscht ein vorhandenes Objekt.
 
 -------------------------------------------------------------------------------
+Table: Nachrichten Logik Layer
 
-Die Resultate werden nach vollständiger Bearbeitung dem Sender der ursprünglichen Nachrichten über eine neue Nachricht mitgeteilt.
 
 #### Persistenz
 Das Verhalten des Singlestate Konzepts ist mit einer Datenbank abbildbar.
@@ -260,6 +260,38 @@ Auch das Backend verwendet Fluxify als zentralen MessageBus. Eine Einheitliche C
 <!--RequireJS Modules testable in the Browser :-D -->
 Durch den Einsatz von RequireJS Modulen sind diese auch mit Karma direkt im Browser Testbar. So sind statische Analysen über das gesamte Projekt in nur einem Schritt durchführbar.
 
+
+
+
+<!-- Implementierung Konfliktauflösung -->
+Die Implementation des Konfliktverhinderungsverfahren "Wiederholbare Transaktion" sowie der Konfliktauflösungsverfahren "Zusammenführung", "kontextbezogene Zusammenführung" sowie die traditionelle Synchronisation
+
+
+``` {.coffee}
+_repeatable: (data, db_obj, new_obj, prev_obj, attr) ->
+    if new_obj[attr]?
+        data[attr] = db_obj[attr] + (new_obj[attr] - prev_obj[attr])
+
+_combining: (data, db_obj, new_obj, prev_obj, attr) ->
+    if new_obj[attr]?
+        data[attr] = if new_obj[attr] is prev_obj[attr] 
+        then db_obj[attr] else new_obj[attr]
+
+_traditional: (data, db_obj, new_obj, prev_obj, attr) ->
+    if new_obj[attr]?
+        data[attr] = if prev_obj[attr] is db_obj[attr] 
+        then new_obj[attr] else db_obj[attr] 
+
+_contextual: (data, db_obj, new_obj, prev_obj, attr, context) ->
+    if new_obj[attr]?
+        data[attr] = if prev_obj[context] is db_obj[context] 
+        then new_obj[attr] else db_obj[attr] 
+
+
+``` 
+<!-- 
+```
+ -->
 
 
 
