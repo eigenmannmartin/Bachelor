@@ -14,12 +14,12 @@ Der Zustand der Daten können dabei als Status betrachtet werden. So repräsenti
 
 Der Begriff der Synchronisation wird also im folgenden als Vorgang betrachtet, welcher Mutationen des Status des Clients, auch am Status des Servers durchführt. Dabei kann zwischen den beiden Vorgehensweisen Nachrichten basiert und Objekt basiert unterschieden werden.
 
-### Nachrichten basiert
-Zur Durchführung einer Syncrhonisation muss sowohl die Mutations-Funktion, sowie der Status auf welchen sie angewendet wird, gekannt sein. Beide Informationen zusammen werden als eine Einheit betrachtet und als __Nachricht__ bezeichnet.
+### Unterschieds basiert
+Zur Durchführung einer Unterschieds basierten Synchronisation muss sowohl die Mutations-Funktion als auch der Status, auf welchen sie angewendet wird, bekannt sein. Beide Informationen zusammen werden als eine Einheit betrachtet und als Nachricht bezeichnet.
 Eine Status-Mutation wird auf dem Server nur auf den selben Status angewendet werden, auf welchen sie auch auf dem Client angewendet wurde. Eine Mutation bezieht sich also immer auf einen bereits existierenden Status. Jede einzelne Änderung am Datenbestand wird durch eine einzige Nachricht repräsentiert. Die Nachricht wird direkt bei der Änderung generiert und Server übermittelt, sobald eine Verbindung hergestellt werden konnte.
 
 ### Objekt basiert
-Der Abgleich der Datenbestände wird durchgeführt sobald eine Verbindung mit dem Server besteht. Dann werden alle Objekte, die geändert und noch nicht synchronisiert wurde, vollständig dem Server übermittelt.
+Der Abgleich der Datenbestände wird durchgeführt sobald eine Verbindung mit dem Server besteht. Dann werden alle Objekte, die geändert und noch nicht synchronisiert wurde, vollständig dem Server übermittelt. Jedes Objekt wird in einer Nachricht zusammen mit der Referenz, des zuletzt vom Server erhaltenen Objekts, übermittelt.
 
 
 
@@ -96,14 +96,13 @@ Da die Beschaffenheit und Struktur der Daten, bei dieser Problemstellung eine en
 Die Attribute eines Objekts werden einzeln behandelt und auftretende Konflikte separat aufgelöst. So wird nur überprüft ob sich das entsprechende Attribut oder dessen Kontext, falls vorhanden, zwischen dem referenzierten und dem aktuellen Status verändert hat. Falls dies nicht der Fall ist, kann die Mutation konfliktfrei angewendet werden.
 ![Merge](./img/merge.jpg)
 
-### geschätze Zusammenführung
+### geschätzte Zusammenführung
 Wenn zwei oder mehr Mutationen auf einen Status angewendet werden sollen, wird die wahrscheinlich beste Mutation verwendet. Dazu wird die Richtigkeit jeder einzelnen Mutation geschätzt. Diese Schätzungen kann entweder mit statischen Analyse oder mit neuronalen Netzen umgesetzt werden.
 
 ### kontextbezogene Zusammenführung
 Attribute, welche kontextbezogen sind, werden nur übernommen, wenn der Kontext nicht sowie das zu mutierende Attribut nicht geändert wurde.
 
-### manuelle Zusammenführung
-Wenn keine Auflösung des Konflikts möglich ist, muss dieser manuell aufgelöst werden. Dabei muss das System angehalten werden, oder die Nachricht zurückgehalten werden.
+
 
 ### Vergabelungs-Funktion
 Bei der Entscheidung welcher Teilbaum aktiv wird können unterschiedliche Vorgehensweisen angewendet werden. Die verwendete Lösung muss auf die Datenbeschaffenheit und Struktur angepasst werden.

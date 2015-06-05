@@ -6,10 +6,45 @@ Konzept Untersuchung
 Synchronsation
 --------------
 
-Delta Orientiert
+Zur Übermittlung von Informationen über Mutationen am Datenbestand, wird eine Form der Marierung benötigt. Die mutierten Daten müssen markiert werden, damit sie, sobald die Synchronisierung durchgeführt werden soll, übermittelt werden können. 
 
-Update Orientiert
+### Unterschieds basiert
+Die Unterschieds basierte Synchronisation zeichnet direkt bei der Mutation eines Objekts die an den Server zu sendende Nachricht auf und speichert diese in einer Messagequeue zur späteren Synchronisation ab. Sobald also die Synchronisation ausgelöst wird, werden alle aufgezeichneten Nachrichten, in der gleichen Reihenfolge wie bei der Aufzeichnung, dem Server zugestellt. 
 
+
+``` {.coffee}
+synchronize(): ->
+    for Message in @MessageQueue
+        sendToServer(Message)
+
+mutateObject(Mutation, referenceObject): ->
+    @Messagequeue.add(Mutation, referenceObject)
+
+``` 
+<!-- 
+```
+ -->
+
+### Objekt basiert
+Bei der Objekt basierten Synchronisation wird direkt bei der Mutation eines Objekts, dessen _dirty_ Flag gesetzt. Bei der Auslösung der Synchronisation werden alle Objekte, welche dieses Flag gesetzt haben, dem Server übermittelt und das _dirty_ Flag wieder entfernt.
+
+<!-- Object ist ein reserviertes Key-Word -> Element -->
+``` {.coffee}
+synchronize(): ->
+    for Element in @Store.getAll()
+        if Element.dirty
+            sendToServer(Element)
+            Element.dirty = false
+
+mutateObject(Element): ->
+    obj = @Store.get(Element)
+    obj.attrs = Element.attrs
+    obj.dirty = true
+
+``` 
+<!-- 
+```
+ -->
 
 Datenhaltung
 ------------
@@ -53,7 +88,7 @@ Der Zugriff auf einen beliebigen Status ist von der Laufzeitkomplexität $O(n)$ 
 #### Verbesserung
 Da jede schreibende Operation zuerst den referenzierten Staus auslesen muss, und dies sehr Rechenintensiv ist, wird jeder errechneter Zustand zwischengespeichert. So existiert für jede Nachricht bereits ein zwischengespeicherter Status und muss daher nicht für jede Operation erneut generiert werden.
 
-#### Pro/Contra
+#### Probleme/Lösungen
 Das Konzept des Singlestate ist sehr konservativ und ist in ähnlicher Form weit verbreitet. MongoDB und MySQL bieten beide das Konzept eines einzigen gültigen und unveränderbaren Status. Auch eine Versionierung und somit ein wahlfreier Zugriff auf alle Stati ist implementierbar.
 
 Das grösste Manko liegt jedoch im Umstand, einen Konflikt direkt beim Auftreten auflösen zu müssen. Konflikte die nicht aufgelöst werden können blockieren den gesamten Vorgang oder müssen abgebrochen werden.
@@ -95,15 +130,11 @@ Falls eine Nachricht auf einen aktuell gültigen Zustand referenziert, muss der 
 #### Verbesserung 2
 Jede schreibende Operation löst die erneute Generierung des gesamten Statusbaums aus. Um diese rechenintensive Operation zu vereinfachen, wird bei jeder Verzweigung der Zustand gespeichert. Eine Schreibende Aktion, muss so nur noch den betroffenen Teilbaum aktualisieren.
 
-#### Pro/Contra
+#### Probleme/Lösungen
 Der grösste Gewinn beim Multistate Konzept liegt in der zeitlichen Entkoppelung zwischen Synchronisation und Konfliktauflösung. 
 Die Richtigkeit, also die Qualität der Information, eines Status wird über die Zeit nur grösser.
 Und genau darin besteht auch das grösste Problem, denn dadurch ist nicht garantiert dass Abfragen wiederholbare Ergebnisse liefern.
 
-### Semi Multistate
-Annahme aller Nachrichten
-im Prinzip Multistate
-Benutzer kann aber alle Mutationen und gewünschte Mutationen einsehen und ev. wechseln
 
 Konfliktvermeidung
 ------------------
@@ -127,7 +158,7 @@ composeMessage(reference, current): ->
 ```
  -->
 
-#### Pro/Contra
+#### Probleme/Lösungen
 Mutationen können konfliktfrei eingespielt werden, da die Operation automatisiert mit dem neueren Status wiederholt werden kann.
 Ein sehr grosses Hindernis besteht aber darin, dass viele Benutzereingaben nur mit einer Zuweisung abgebildet werden können und deshalb die ursprüngliche Daten gar nicht in die Mutationsfunktion miteinbezogen werden. 
 
@@ -223,7 +254,7 @@ Durch die händische Validation der Daten ist sichergestellt, dass der Konflikt 
 Gerade bei grossen Datenbeständen gestaltet sich die Organisation einer Validierung sehr aufwändig.
 
 
-
+<!-- Big Question - what are we going to do here? -->
 Zusammenfassung
 --------------
 
