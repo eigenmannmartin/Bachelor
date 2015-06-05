@@ -3,8 +3,8 @@
 Analyse
 =======
 
-Bekannte Synchronisationsverfahren betrachten Daten als eine homogene Masse und unterscheiden nicht bezüglich ihrer beschaffenheit. Konfliktlösungen werden erst auf der Applikationsebene vorgenommen und dann spezifisch auf die Applikationsdaten angewandt. 
-Es soll beurteilt werden, ob eine generelle Unterteilung der Daten möglich ist, und ob dies einen Nutzen mit sich bringt.
+Bekannte Synchronisationsverfahren betrachten Daten als eine homogene Masse und unterscheiden nicht bezüglich ihrer Beschaffenheit. Konfliktlösungen werden erst auf der Applikationsebene vorgenommen und dann spezifisch auf die Applikationsdaten angewandt. Dieses Kapitel klärt ob eine generelle Unterteilung der Daten möglich ist, und ob dies einen Nutzen mit sich bringt. 
+Die Analyse ist auf einer abstrahierten Stufe durchgeführt und blendet bewusst alle technischen Aspekte aus. Daten sind nur aus der Sicht eines Benutzers betrachtet. Alle für den Benutzer nicht sichtbaren Daten werden nicht zu Analyse herangezogen.
 
 
 Synchronisationsproblem
@@ -110,15 +110,19 @@ Die Unterscheidung der Daten nach Datentyp differenziert zwischen __numerischen_
 
 
 ## Datenanalyse der Synchronisationsprobleme
-Nachfolgend sind die Attribute der beiden Beispiele "Synchronisation von Kontakten" sowie "Synchronisation eines Service Desks" entsprechend der erarbeiteten Klassifikation und Typisierung zugeordnet.
+Nachfolgend sind die Attribute der beiden Beispiele "Synchronisation von Kontakten" sowie "Synchronisation eines Service-Desks" entsprechend der erarbeiteten Klassifikation und Typisierung zugeordnet.
 
-__Synchronisation von Kontakten__
-Der Name eines Kontakts ist der primäre Identifikator eines Kontakts. Ändert sich dieser, ist es sehr wahrscheinlich, dass sich auch andere Attribute ändern.
-Die Attribute Adresse, Email und Telefon sind deshalb abhängig vom Namensattribut. Diese Attribute sind also Kontextuell abhängig vom Identifikator.
-Das Attribut pNotes hingegen ist völlig unabhängig, da es nur vom Verfasser gelesen und geschrieben werden kann.
+### Synchronisation von Kontakten
+Der Name eines Kontakts ist der primäre Identifikator eines Kontakts. Er alleine zeigt dem Benutzer an, um welchen Kontakt es sich handelt. Der Name ändert sich nur in Extremfällen und gibt somit den Kontext des Kontaktes an.
+Die Attribute Adresse, Email und Telefon sind deshalb allesamt abhängig vom Namensattribut. Diese Attribute sind also kontextuell abhängig vom Identifikator. Nur solange der Name nicht geändert wurde, ist die Übernahme von Anpassungen an den Attributen Adresse, Email und Telefon sinnvoll.
+Das Attribut pNotes hingegen ist völlig unabhängig, da es nur vom Verfasser gelesen und geschrieben werden kann. Ob die darin enthaltenen Informationen also zum Kontext passen, liegt alleine in der Verantwortung des Autors und muss vom System nicht weiter beachtet werden.
+Die Attribute Name, Adresse, Email und Telefon können von allen Benutzern des Systems jederzeit verändert werden. Jeder Benutzer ist gleichberechtigt, niemand wird bevorzugt. Aus diesem Grund sind diese Attribute als gemeinsame Daten klassifiziert. Das Attribut pNotes hingegen ist für jeden Benutzer exklusiv editierbar und einsehbar. Jeder Benutzer sieht und bearbeitet also nur seine eigene Version des Attributs.
+Obwohl alle Attribute ein sehr unterschiedliches Erscheinungsbild aufweisen, sind sie Textfelder. Zwar können diesen Textfeldern Formate wie Telefonnummer oder Adresse hinterlegt werden, sie sind aber auf der Ebene der Daten trotzdem nur Text-Felder. 
+
+Alle im Fallbeispiel gezeigten Attribute lassen sich klassifizieren und einem Datentyp zuordnen. Die Klassifikation repräsentiert die Struktur sowie die Art des Zugriffs auf die Daten auf einem hohen Abstraktionslevel. Es gibt keine nicht klar klassifizierbaren Attribute.
 
 -------------------------------------------------------------------------------
-__Attribut__    __Struktur__          __Art__         __Typ__
+__Attribut__    __Struktur__        __Art__         __Typ__
 --------------- ------------------- --------------- ---------------------------
 Name            Unabhängig          gemeinsam       textuell
 Adresse         Abhängig (Name)     gemeinsam       textuell
@@ -128,10 +132,9 @@ pNotes          Unabhängig          exklusiv        textuell
 -------------------------------------------------------------------------------
 Table: Klassifikation Attribute Kontakt
 
-<!-- might need some more explanation -->
 
-
-__Synchronisation eines Service Desks__
+### Synchronisation eines Service-Desks
+<!-- Erweitern -->
 Die beiden Attribute Titel und Beschreibung können nur beim Erfassen eines Support-Falls gesetzt werden. Danach bilden sie zusammen den eindeutigen Identifikator. Anmerkungen werden spezifisch für einen Support-Fall erfasst, und sind deshalb nur im Kontext desselben bedeutungsvoll.
 Die Totale Arbeitszeit (tArbeitszeit) wird in Abhängigkeit vom Attribut Arbeitszeit vom System errechnet und kann nicht geändert werden.
 
@@ -149,8 +152,9 @@ Table: Klassifikation Attribute Kontakt
 
 
 ## Überprüfung der Klassifikation
-Aus der Überprüfung kann die Erkenntnis gewonnen werden, dass die Struktur sowie der Typ der Daten allgemeingültig und nachvollziehbar ist.
-Es kann klar zwischen der Typisierung exklusiv, gemeinsam und dynamisch unterschieden werden. Auch sind die beiden Struktur-Klassen kontextbezogen und kontextunabhängig allgemeingültig und ermöglichen eine Abhängigkeitserkennung zwischen den Attributen.
+Die durchgeführte [Datenanalyse der Synchronisationsprobleme] der beiden Fallbeispiele zeigt, dass sowohl die Klassifikation nach Struktur, als auch die Klassifikation nach Art durchführbar und repräsentativ ist. Es kann klar zwischen der Klassifikation exklusiv, gemeinsam und dynamisch unterschieden werden. Auch sind die beiden Struktur-Klassen kontextbezogen und kontextunabhängig sind allgemeingültig und ermöglichen eine Repräsentation der Abhängigkeiten zwischen den verschiedenen Attributen. 
 
-Die weiteren gefundenen Typen statisch und temporär sind wenig sinnvoll, da der Typ "temporär" immer auch exklusiv und "statisch" durch gemeinsam ersetzt werden kann.
+Die beiden weiteren vorgeschlagenen Arten-Klassen, statisch und temporär, sind nicht eindeutig genug, um eingesetzt werden zu können. Daten die mit der Art temporär klassifiziert werden könnten, können auch durch die Klasse exklusiv klassifiziert werden. Die Klasse exklusiv ist sogar noch genereller und eine Unterscheidung der Klassen nach der Gültigkeitsdauer der klassifizierten Daten bieten keinen Mehrwert. Die zweite Arten-Klasse statisch ist ebenso repräsentativer durch der Klasse gemeinsam abgedeckt.
+
+Die gefundenen Klassen können also auf Daten angewendet werden und repräsentieren diese auch auf dem gewünschten Abstraktionslevel.
 
