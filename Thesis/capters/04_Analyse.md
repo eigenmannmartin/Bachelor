@@ -3,38 +3,38 @@
 Analyse
 =======
 
-Bekannte Synchronisationsverfahren betrachten Daten als eine homogene Masse und unterscheide nicht. Konfliktlösungen werden erst auf der Applikationsebene vorgenommen und dann spezifisch auf die Applikationsdaten angewandt. 
-Es soll begutachtet werden, ob eine generelle Unterteilung der Daten möglich ist, und ob dies einen Nutzen mit sich bringt.
+Bekannte Synchronisationsverfahren betrachten Daten als eine homogene Masse und unterscheiden nicht bezüglich ihrer beschaffenheit. Konfliktlösungen werden erst auf der Applikationsebene vorgenommen und dann spezifisch auf die Applikationsdaten angewandt. 
+Es soll beurteilt werden, ob eine generelle Unterteilung der Daten möglich ist, und ob dies einen Nutzen mit sich bringt.
 
 
 Synchronisationsproblem
 -----------------------
 
-Generell liegt ein Synchronisationskonflikt vor, sobald Daten über einen Kommunikationskanal übertragen werden müssen und für die Zeit der Übertragung kein "Lock" gesetzt werden kann. Also immer dann, wenn sich Daten während einer Transaktion ändern können.
+Generell liegt ein Synchronisationskonflikt vor, sobald Daten über einen Kommunikationskanal übertragen werden müssen und für die Zeit der Übertragung kein "Lock" gesetzt werden kann. Also immer dann, wenn sich Daten während einer Transaktion, durch eine andere parallel laufende Transaktion, ändern können.
 
-Um ein Konzept zur Verhinderung und Lösung Synchronisationskonflikten  zu erarbeiten, muss zuerst eine Analyse der zu synchronisierenden Daten erstellt werden.
-Die Datenanalyse wird mit Bezug auf die zwei im Folgenden aufgeführten Problemstellungen durchgeführt. Beide Problemstellungen sind so gewählt, dass sie zusammen einen möglichst allgemeinen Fall abdecken und so die Überprüfung aussagekräftig bleibt.
+Um ein Konzept zur Verhinderung und Lösung Synchronisationskonflikten zu erarbeiten, muss zuerst eine Analyse der zu synchronisierenden Daten durchgeführt werden.
+Die Datenanalyse wird mit Bezug auf die zwei im Folgenden aufgeführten Problemstellungen durchgeführt. Beide Problemstellungen sind so gewählt, dass sie kombiniert einen möglichst allgemeinen Fall abdecken können und so die Überprüfung aussagekräftig wird.
 
 ### Synchronisation von Kontakten
-In vielen Anwendungsszenarien müssen Kontaktdaten abgeglichen werden. 
+In vielen Anwendungsszenarien müssen Kontaktdaten zwischen verschiedenen Systemen und Plattformen synchronisiert werden. In diesem Beispiel wird ein verallgemeinerte Verwendungszweck in einer Unternehmung beleuchtet.
 
-Eine Firma X betreibt eine zentrale Kontaktdatenbank an ihrem Hauptsitz. 
-Verkaufsmitarbeiter müssen jederzeit Kontaktdaten abfragen, neu erfassen und anpassen können, ohne dafür mit dem zentralen Server verbunden zu sein. Gerade in wenig entwickelten oder repressiven Ländern ist eine ständige Verbindung nicht immer gegeben und somit ein Off-Line Modus notwendig.
-Die Anpassungen können zu einem späteren Zeitpunkt abgeglichen werden.
+Eine Firma "VIP Customer Care" betreibt eine zentrale Kontaktdatenbank an ihrem Hauptsitz. Darin sind alle Kunden mit Namen, Adresse, Telefonnummern und Email-Adressen erfasst. Zusätzlich ist es für jeden Anwender möglich persönliche Notizen zu einem Kontakt zu erfassen.
+Die Anwender müssen jederzeit Kontaktdaten abfragen, anpassen oder neu erfassen können, ohne dafür mit dem zentralen Kontaktdatenbank verbunden zu sein. Gerade in wenig entwickelten oder repressiven Ländern ist eine Verbindung nicht immer voraussetzbar und somit eine Off-Line Funktionalität notwendig.
+Die Anpassungen werden dann zu einem späteren Zeitpunkt abgeglichen und somit in die zentrale Kontaktdatenbank synchronisiert.
 
-Ein Kontakt selbst umfasst die in der Tabelle "Attribute Firmen-Kontakt" beschriebenen Attribute.
+Ein Kontakt selbst umfasst die in der Tabelle "Attribute Firmen-Kontakt" aufgeführten Attribute.
 
 -------------------------------------------------------------------------------
 __Attribut__                __Beschreibung__
 --------------------------- --------------------------------------------------
-__Name__                    Der gesamte Name (Vor-, Nach,- und Mittelname)
-                            der (Kontakt-)Person.
+__Name__                    Der gesamte Name (Vor-, Nach,- ,Mittelname und Titel)
+                            der Kontakt-Person.
 
 __Adresse__                 Die vollständige Postadresse der Firma oder Person.
 
 __Email__                   Alle aktiven und inaktiven Email-Adressen des
-                            Kontakts. Jeweils nur eine Email ist die primäre
-                            Email-Adresse.
+                            Kontakts. Jeweils nur eine Email kann als primäre
+                            Email-Adresse definiert sein.
 
 __Telefon__                 Alle aktiven und inaktiven Telefonnummern des
                             Kontakts. Jeweils nur eine Telefonnummer ist die primäre Nummer.
@@ -46,7 +46,9 @@ Table: Attribute Firmen-Kontakt
 
 
 ### Syncrhonisation eines Service Desks
-In vielen IT-Organisationen kommt ein Service-Deskt zum Einsatzt. Das Bearbeiten der Support-Fälle und erfassen von Arbeitszeiten muss online, direkt im System erfolgen. Dies kann vor allem fürs Arbeiten ausser Haus, zum Beispiel auf Reisen oder direkt beim Kunden, eine grosse Einschränkung sein.
+Ein anderes Anwendungsszenario bezieht sich auf die Synchronisation von Ablaufdaten in einem definierten Umfeld. So werden in vielen  Fällen auch Daten von Abläufen und Vorgängen synchronisiert. Abhängigkeiten (zeitlich sowie inhaltlich) zwischen den Daten sind stark ausgeprägt und müssen von der Business-Logik überprüft werden.
+
+In vielen IT-Organisationen kommt irgend eine Form eines Service-Desks zum Einsatz. Typischerweise werden Arbeitszeiten, Aufwendungen und Tätigkeiten direkt auf einen Support-Fall gebucht. Auch die Kommunikation mit dem Kunden wird hauptsächlich über den Service-Desk geführt. Das Erfassen dieser Einträge soll jederzeit möglich sein, auch ohne Verbindung zum Service-Desk. 
 
 Ein Support-Fall selbst umfasst die in der Tabelle "Attribute Support-Fall" beschriebenen Attribute. Es sind nur die für die aufgeführten Szenarien nötigen Attribute erfasst.
 
