@@ -54,7 +54,7 @@ Table: Nachrichten Server-API
 
 
 #### Logik
-Der Logik-Layer führt die Konfliktauflösung sowie die Verwaltung des Status durch. Es werden vier Nachrichten akzeptiert, welche dem SQL Jargon nachempfunden sind. Die Resultate werden nach vollständiger Bearbeitung dem Sender der ursprünglichen Nachrichten über eine neue Nachricht mitgeteilt.
+Der Logik-Layer führt die Konfliktauflösung sowie die Verwaltung des Status durch. Es werden vier Nachrichten akzeptiert, welche dem SQL Jargon nachempfunden sind, sowie eine execute Nachricht. Die Resultate werden nach vollständiger Bearbeitung dem Sender der ursprünglichen Nachrichten über eine neue Nachricht mitgeteilt.
 
 -------------------------------------------------------------------------------
 __Nachrichtname__           __Beschreibung__
@@ -121,7 +121,9 @@ Message = {
 
 
 ### Datenfluss
-Der Datenfluss des Prototypen funktioniert wie in Abbildung {@fig:dataflow} dargestellt. Zu beachten gilt, dass die gesamte Interkomponenten-Kommunikation asynchron durchgeführt wird.
+Der Datenfluss des Prototypen funktioniert wie in der Abbildung {@fig:dataflow} dargestellt. Der gesamte Datenfluss findet nur über Nachrichten
+
+Zu beachten gilt, dass die gesamte Interkomponenten-Kommunikation asynchron durchgeführt wird.
 
 ![Datenflussdiagramm](img/dataflow.png) {#fig:dataflow}
 
@@ -149,14 +151,14 @@ Da in jedem Modul die Abhängigkeiten definiert werden müssen, kann während de
 
 
 ## Beispielapplikation
-Gem. Aufgabenstellung soll der Prototyp anhand eines passenden Fallbeispiel die Funktionsfähigkeit Zeigen.
+Gem. Aufgabenstellung soll der Prototyp anhand eines passenden Fallbeispiel die Funktionsfähigkeit und Praxistauglichkeit zeigen Dazu wird das erste Fallbeispiel "Synchronisation von Kontakten" umgesetzt.
 
 Die Beispielapplikation soll eine Ressourcenplan-Software sein. Folgendes soll möglich sein:
 
-1. einen neuen Raum erfassen (Name, Grösse, Anzahl Sitze)
-2. einen bestehenden Raum anpassen/löschen
-3. einen Termin auf einem Raum Buchen (Name, Zeit&Datum, Kurzbeschreibung, Besucherliste, persönliche Notizen)
-4. einen Bestehenden Termin anpassen/absagen
+1. einen neuen Kontakt erfassen oder einen Bestehenden ändern
+2. einen bestehenden Kontakt löschen
+3. neue Email-Adresse oder Telefonnummer erfassen oder bestehende anpassen
+4. persönliche Notizen zu einem Kontakt hinterlegen
 
 
 
