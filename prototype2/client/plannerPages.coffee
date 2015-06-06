@@ -21,7 +21,6 @@ define ['react', 'reactrouter', 'flux'
 				</div>
 			</div>
 
-
 	Rooms = React.createClass
 		getInitialState: ->
 			rooms: flux.stores.prototype_rooms.getState().rooms
@@ -74,4 +73,50 @@ define ['react', 'reactrouter', 'flux'
 			</div>
 
 
-	[ Rooms, PlannerRoomSettings, PlannerRoomDates ]
+
+
+	Contacts = React.createClass
+		getInitialState: ->
+			contacts: flux.stores.prototype_contacts.getState().contacts
+
+		componentDidMount: ->
+			me = @
+			flux.stores.prototype_contacts.on 'change', ( state ) ->
+				me.setState
+					contacts: state.contacts
+
+		get_contact: (id) ->
+			for contact in @state.contacts
+				if contact.id is id
+					return contact
+
+		manual_command: (event) ->
+			if event.key is 'Enter'
+				event.preventDefault()
+				object = JSON.parse event.target.value
+				prev = if object.id? then JSON.parse JSON.stringify @get_contact object.id else {} #real copy
+				if object.delete?
+					flux.doAction( 'C_PRES_STORE_delete', { meta:{model:"Contact"}, data:object } )
+				else
+					flux.doAction( 'C_PRES_STORE_update', { meta:{model:"Contact"}, data:object, prev:prev } )
+
+
+		render: ->
+			<div className="container">
+				<div className="row">
+					<p>
+						<textarea onKeyDown={@manual_command}
+						defaultValue='{"id": 1, "last_name":"Eigenmann"}'></textarea>
+					</p>
+					{@state.contacts.map (contact) ->
+							<p>id: {contact.id}
+							| {contact.title} {contact.first_name} {contact.last_name}
+							tel: {contact.phone} mail: {contact.email}
+							address: {contact.street}, {contact.city}, {contact.state}
+							</p>
+					}
+				</div>
+			</div>
+
+
+	[ Rooms, PlannerRoomSettings, PlannerRoomDates, Contacts ]

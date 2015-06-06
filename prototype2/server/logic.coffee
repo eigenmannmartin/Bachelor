@@ -29,6 +29,38 @@ define ['flux'], (flux) ->
 
 					data  #returning data
 
+			Contact: (Logic, new_obj, prev_obj) ->
+				model = "Contact"
+				@obj = new_obj
+				@prev = prev_obj
+
+				me = @  #bind @ to me
+				promise = Logic._DB_select meta:{ model:model, id: new_obj.id }  #get current db item
+				### istanbul ignore next ###
+				promise.then ( db_objs ) ->  #return updated item
+					data = id: me.obj.id  #new object
+
+					#traditional transaction
+					me._traditional data, db_objs, me.obj, me.prev, 'first_name'
+					me._traditional data, db_objs, me.obj, me.prev, 'last_name'
+					me._traditional data, db_objs, me.obj, me.prev, 'middle_name'
+
+					#combining
+					me._combining data, db_objs, me.obj, me.prev, 'title'
+
+
+					#contextual 
+					me._contextual data, db_objs, me.obj, me.prev, 'street', 'last_name'
+					me._contextual data, db_objs, me.obj, me.prev, 'country', 'last_name'
+					me._contextual data, db_objs, me.obj, me.prev, 'state', 'last_name'
+					me._contextual data, db_objs, me.obj, me.prev, 'email', 'last_name'
+					me._contextual data, db_objs, me.obj, me.prev, 'phone', 'last_name'
+
+
+
+					data  #returning data
+
+
 			_repeatable: (data, db_obj, new_obj, prev_obj, attr) ->
 				### istanbul ignore else ###
 				if new_obj[attr]?
@@ -95,9 +127,6 @@ define ['flux'], (flux) ->
 		# @message: meta:{ model:[model_name] }, data:{ obj:{} } 
 		###
 		_create: (message) ->
-			if not  message.data.obj.image?
-				message.data.obj.image = '/img/rooms/'+message.data.obj.name+'.jpg'
-
 			model = @_DB_insert meta:{ model:message.meta.model }, data: message.data.obj
 			me = @
 			model.then (model) ->

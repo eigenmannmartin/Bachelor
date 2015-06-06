@@ -36,6 +36,7 @@ define ['react', 'reactrouter', 'flux'
 						<ul id="nav-mobile" className="right hide-on-med-and-down">
 							<li><Link to="Home">Home</Link></li>
 							<li><Link to="Rooms">Planner</Link></li>
+							<li><Link to="Contacts">Contacts</Link></li>
 							<li><Link to="About">About</Link></li>
 						</ul>
 					</div>

@@ -11,13 +11,14 @@ define ['react', 'reactrouter', 'flux', 'staticPages', 'plannerPages'
 			Link = router.Link
 
 			[ App, NotFound, Nav, Home, About ] = staticPages
-			[ Rooms, PlannerRoomSettings, PlannerRoomDates ] = planner
+			[ Rooms, PlannerRoomSettings, PlannerRoomDates, Contact ] = planner
 
 
 			routes = (
 				<Route handler={App} path="/">
 					<DefaultRoute name="Home" handler={Home} />
 					<Route name="About" handler={About} />
+					<Route name="Contacts" path="Contacts" handler={Contact} />
 					<Route name="Rooms" path="Rooms" handler={Rooms} />
 					<Route name="Rooms/Edit" path="/Rooms/edit/:roomId" handler={PlannerRoomSettings} />
 					<Route name="Rooms/Create" path="/Rooms/edit/new" handler={PlannerRoomSettings} />

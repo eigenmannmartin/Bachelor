@@ -83,6 +83,9 @@ Leseoperationen auf Stati des Clients, welche noch nicht mit dem Server synchron
 Alle Schreiboperationen, welche Resultate der Leseoperationen mit falschem Resultat, verwenden, dürfen ebenfalls nicht synchronisiert werden, oder müssen mit der korrekten Datenbasis erneut durchgeführt werden.
 Dies führt zur Vermeidung von logischen Synchronisationskonflikten.
 
+### Serverfunktionen
+Funktionen werden nur auf dem Server ausgeführt. Diese Funktionen sind auf dem Client nicht verfügbar und können desshalb nur ausgeführt werden, sobald eine Verbindung zum Server besteht. Dieses Konzept wird im Bereich der RPC verwendet.
+
 
 
 Konfliktauflösun
@@ -99,8 +102,7 @@ Die Attribute eines Objekts werden einzeln behandelt und auftretende Konflikte s
 ### geschätzte Zusammenführung
 Wenn zwei oder mehr Mutationen auf einen Status angewendet werden sollen, wird die wahrscheinlich beste Mutation verwendet. Dazu wird die Richtigkeit jeder einzelnen Mutation geschätzt. Diese Schätzungen kann entweder mit statischen Analyse oder mit neuronalen Netzen umgesetzt werden.
 
-### kontextbezogene Zusammenführung
-Attribute, welche kontextbezogen sind, werden nur übernommen, wenn der Kontext nicht sowie das zu mutierende Attribut nicht geändert wurde.
+
 
 
 

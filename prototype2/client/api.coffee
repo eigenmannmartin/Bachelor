@@ -25,7 +25,7 @@ define ['flux', 'io'], (flux, io) ->
 				messageName: 'S_API_WEB_get'
 				message:
 					meta:
-						model:"Room"
+						model:"Contact"
 
 
 		dispatch: (messageName, message) ->
