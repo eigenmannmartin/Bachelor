@@ -1,74 +1,56 @@
 
 
-# Design des Prototypen
-In diesem Kapitel wird ein Prototyp entworfen, der die Erkenntnisse aus dem Kapitel [Konzept Untersuchung] so umgesetzt dass sie auch den Anforderungen aus dem Kapitel [Anforderungsanalyse] genügen.
+Design des Prototypen
+=====================
+In diesem Kapitel wird ein Prototyp entworfen, der die Erkenntnisse aus dem Kapitel [Konzept Untersuchung] so umgesetzt dass sie auch den Richtlinien aus dem Kapitel [Leitfaden] genügen.
 
-## Design-Ansätze
-Zur Lösung der Aufgabestellung wurden zwei Desing-Ansätzte erarbeitet. Diese in den nachfolgenden Kapiteln kurz erläutert.
 
-### Nachrichten-basierte Architektur
-Der Prototyp verwendet eine Messagequeue zur Datenhaltung. Es wird somit keine konventionelle Datenbank verwendet. Ein wahlfreier Zugriff auf jeden Status ist möglich.
-
-### Modellbasierte Architektur
-Der Prototyp emuliert das verhalten einer Messagequeue. Ein wahlfreier zugriff auf jeden Status ist nicht möglich, jedoch kann eine konventionelle Datenbank verwendet werden. Es wird sichergestellt dass versendete Nachrichten eine komplette Kopie der referenzierten Status enthalten.
-
-## Entscheid
-Die Modellbasierte Architektur biete, zumindest im Rahmen des Prototyps die den selben Funktionsumfang wie die Nachrichten-basierte Architektur, ist jedoch sehr viel einfacher zu implementieren.
+Konzeptbestandteile
+-------------------
+Die Konventionen und Richtlinien des Kapitels [Leitfaden] berücksichtigend müssen nicht alle im Konzept erarbeiteten Ansätze umgesetzt werden.
+Die Datenübermittlung wird Unterschieds basiert durchgeführt und serverseitig mit einem auf dem Konzept des Singlestate basierenden Datenspeichers komplettiert. Zur Konfliktvermeidung wird sowohl die Update Transformation, wiederholbare Transaktionen als auch Serverfunktionen verwendet. Bezüglich der Konfliktauflösung wird nur die Zusammenführung umgesetzt, da Konflikte explizit erlaubt sind.
 
 
 
-
-## Design
+Design
+------
 Der Prototyp besteht aus 3 Bausteinen; Server, API und Client.
 ![Bausteinübersicht](img/design_components.jpg)
+Die API-Komponente steht für sich alleine, obschon sie von Server und Client direkt angesprochen wird und implementatiorisch in eine Server und eine Client Part geteilt ist. Weiter übernimmt die API-Komponente den Nachrichtenaustausch zwischen Server und Client. 
+Die Bausteine, sowie deren Interaktion miteinander, wird in den folgenden Kapitel genauer erläutert.
 
-Die Bausteine, sowie deren Kommunikation miteinander, werden in den folgenden Kapitel erläutert.
-
-### Nachrichten
-Alle im System versendeten Nachrichten sind nach dem selben Schema strukturiert, um so unnötige Konvertierungen zu vermeiden.
-
-Eine Nachricht wir entsprechend ihrem Ziel und Funktion benannt.
-
-[Target]_ [Layer]_ [Modul]_ [Funktion]
-
--------------------------------------------------------------------------------
-__Teil__                    __Beschreibung__
---------------------------- --------------------------------------------------
-__Target__                  _S_ für Server und _C_ für Client
-
-__Layer__                   Layername
-
-__Modul__                   Modulname
-
-__Funktion__                Funktionsname
-
--------------------------------------------------------------------------------
-
-Der Payload besteht aus dem Meta-Teil, welcher die Collection angibt, sowie dem Data Teil, welcher das neue Objekt und das alte Objekt, falls vorhanden, beinhaltet.
-
-Somit ist implizit eine Mutationsfunktion, und die Referenz auf den Status definiert. Konkret soll dafür die Nachricht das Model referenzieren, damit ist der Name des Datenbankobjekts gemeint, und sowohl das neue Objekt (obj) als auch das referenzierte Objekt (prev) werden mitgesendet.
-
-``` {.coffee}
-Message = {
-    messageName: ""
-    meta: {
-        model: ""
-    }
-    data: {
-        obj: {}
-        prev: {}
-    }
-
-}
-
-``` 
-<!-- 
-```
- -->
 
 ### Backend
+Das Backend ist in drei Schichten unterteilt (Api, Logik und Persistenz), um so eine möglichst grosse Separation of Concerns (SoC) zu erreichen. Die Kommunikation zwischen diesen Schichten findet nur über Nachrichten statt.
+
 Jede über die API eingehende Nachricht wird an den Logik-Layer weitergeleitet.
-Der Logik-Layer übernimmt die Verarbeitung, also die Konfliktauflösung und die Verwaltung der Datenhaltung.
+Der Logik-Layer übernimmt dann die Verarbeitung und leitet dann die Resultate der Persistenz-Schicht weiter.
+
+### API
+Die API stellt wenn immer möglich einen ständigen Kommunikationskanal zwischen Server und Client her. Der serverseitige Part der API kann sowohl broadcast Nachrichten als auch an nur einen Client gerichtet Nachrichten verwenden. Die API verfügt jedoch über keine MessageQueue und Nachrichten die nicht beim ersten Versucht zugestellt werden können, gehen verloren.
+
+Die Benennung der Nachrichten ist den bekannten Funktionen des HTTP Standards nachempfunden.
+
+-------------------------------------------------------------------------------
+__Nachrichtname__           __Beschreibung__
+--------------------------- --------------------------------------------------
+S_API_WEB_get               Die Get-Nachricht gibt eines oder alle Objekte
+                            einer Collection zurück.
+
+S_API_WEB_put               Ein neues Objekt wird mit der Put-Nachricht
+                            erstellt.
+
+S_API_WEB_update            Mit der Update-Nachricht können bestehende Objekte 
+                            aktualisiert werden.   
+
+S_API_WEB_delete            Bestehende Objekte können mit der Delete-Nachricht 
+                            gelöscht werden.
+
+S_API_WEB_execute           Die Execute-Nachricht führt eine Serverfunktion 
+                            aus.
+
+-------------------------------------------------------------------------------
+Table: Nachrichten Server-API
 
 
 #### Logik
@@ -88,39 +70,18 @@ S_LOGIC_SM_update           Die Mutationsnachricht aktualisiert ein
 
 S_LOGIC_SM_delete           Die Löschnachricht löscht ein vorhandenes Objekt.
 
+S_LOGIC_SM_execute          Die Ausführnachricht löst die Ausführung einer
+                            Serverfunktion aus.
+
 -------------------------------------------------------------------------------
-Table: Nachrichten Logik Layer
+Table: Nachrichten Server-Logik
 
 
 #### Persistenz
-Das Verhalten des Singlestate Konzepts ist mit einer Datenbank abbildbar.
-
-
-### API
-Die API besteht sowohl aus einem serverseitigem als auch clientseitigem Modul. Nachrichten werden zwischen beiden Modulen ausgetauscht. Im Falle eines Verbindungsunterbruchs werden die Nachrichten zwischengespeichert und bei einer Wiederverbindung zugestellt.
-
-Die Benennung der Nachrichten ist den bekannten Funktionen des HTTP Standards nachempfunden.
-
--------------------------------------------------------------------------------
-__Nachrichtname__           __Beschreibung__
---------------------------- --------------------------------------------------
-S_API_WEB_get               Die Get-Nachricht gibt eines oder alle Objekte
-                            einer Collection zurück.
-
-S_API_WEB_put               Ein neues Objekt wird mit der Put-Nachricht
-                            erstellt.
-
-S_API_WEB_update            Mit der Update-Nachricht können bestehende Objekte 
-                            aktualisiert werden.   
-
-S_API_WEB_delete            Bestehende Objekte können mit der Delete-Nachricht 
-                            gelöscht werden.
-
--------------------------------------------------------------------------------
-
+Die Persistenz muss nur einen einzigen Status verwalten. Das Verhalten des Singlestate Konzepts ist mit einer Datenbank abbildbar. Der referenzierte Status wird jeweils in der Nachricht vom Client mitgeliefert. Ein wahlfreier Zugriff auf vergangene Stati ist deshalb nicht notwendig.
 
 ### Frontend
-Das Frontend ist der Flux-Architektur nachempfunden. Die beiden Nachrichten können von den Views versendet werden, aktualisieren somit den Store und werden dem Backend übermittelt.
+Das Frontend ist auf der Flux-Architektur aufbauen. Die beiden Nachrichten können von den Views versendet werden, aktualisieren den Store und werden vom Client-API Teil verarbeitet.
 
 -------------------------------------------------------------------------------
 __Nachrichtname__           __Beschreibung__
@@ -131,6 +92,33 @@ C_PRES_STORE_update         Fügt ein Objekt hinzu oder aktualisiert ein
 C_PRES_STORE_delete         Löscht ein bestehendes Objekt.
 
 -------------------------------------------------------------------------------
+Table: Nachrichten Client
+
+### Nachrichten
+Nachrichten können entweder eine Serverfunktion aufrufen oder eine Mutation durchführen. Der Payload besteht aus dem Meta-Teil, welcher den Objektnamen oder die Serverfunktion bezeichnet, sowie dem Data-Teil, welcher die Mutationsfunktion oder die Argumente der Serverfunktion beinhaltet.
+
+Die Mutationsfunktion wird implizit durch die Übermittlung vom neuen Status (obj) und dem vorhergehenden Status (prev) umgesetzt.
+
+``` {.coffee}
+Message = {
+    messageName: ""
+    meta: {
+        model: ""
+        function: ""
+    }
+    data: {
+        obj: {}
+        prev: {}
+        args: {}
+    }
+
+}
+
+``` 
+<!-- 
+```
+-->
+
 
 ### Datenfluss
 Der Datenfluss des Prototypen funktioniert wie in Abbildung {@fig:dataflow} dargestellt. Zu beachten gilt, dass die gesamte Interkomponenten-Kommunikation asynchron durchgeführt wird.
@@ -144,6 +132,7 @@ Frontend: ActionCreator -> Dispatcher -> Store -> API -> ActionCreator
 API: Queue -> Transporter
 
 Backend: API -> Logiclayer -> API -->
+
 
 
 ### Flux Architektur

@@ -1,5 +1,4 @@
 
-\part[Konzept]{Konzeption und Konzeptüberprüfung}
 
 Konzeptansätze
 ==============

@@ -29,6 +29,7 @@ define ['flux', 'io'], (flux, io) ->
 
 
 		dispatch: (messageName, message) ->
+			console.log
 			if message.meta.updated then return false  #ignore messages with updated flag
 
 			if messageName is 'C_PRES_STORE_update'

@@ -256,48 +256,27 @@ we want to discuss problems and solutions provided by the conepts
 some more work is needed!
 
 -->
-Zusammenfassung
----------------
-
-### Synchronsation
-Unterschieds basierte Synchronisation ist sehr granular.
-
-Objektbasierte Synchronisation ist weniger komplex.
+Resümee
+-------
+In diesem Kapitel sind die einzelnen Teile des Konzeptes kondensiert zusammengefasst und hinsichtlich der Praxistauglichkeit bewertet.
 
 
-### Datenhaltung
-Obwohl die Idee, Konfliktauflösungen zeitlich entkoppelt von Synchronisationsvorgang zu betreiben, sehr verlockend klingt, überwiegen die Nachteile. Keine garantierte Isolation, keine garantierte Atomarität, und keine garantierten Ergebnisse bei wiederholten Abfragen. Alle Eigenschaften die in Datenbanksystemen als wichtig eingestuft werden, sind hier eingeschränkt oder ausgehebelt.
+<!-- Synchronsation -->
+Die Unterschieds basierte Synchronisation ist sehr granular und flexibel einsetzbar. Die Logik des Synchronisierens ist vollständig von der Datenhaltung entkoppelt und ermöglicht einen sehr flexiblen Einsatz auch in bereits bestehenden Projekten. Dahingegen benötigt die Objekt basierte Synchronisation eine Anpassung an der clientseitigen Datenhaltung.
+
+<!-- Datenhaltung -->
+Die Multistate Datenhaltung erlaubt zwar die zeitliche Entkoppelung von Synchronisation und Konfliktauflösung, garantiert jedoch keine Isolation, keine Atomarität und auch keine Konsistenz. Vor allem die Tatsache, dass wiederholte Abfragen, nicht das selbe Resultat zurückliefern, birgt grosse Risiken im Betrieb.
 
 
-### Konfliktauflösung/Konfliktverhinderung
-Sowohl die Wiederholbare Transaktion, als auch die Normalisierte Zusammenführung lösen ansonsten nicht auflösbare Konflikte. Da das Konfliktauflösung jedoch nicht notwendigerweise korrekt sein muss und die Implementation sehr aufwändig ist, ist die Einsetzbarkeit nicht gegeben.
+<!-- Konfliktauflösung/Konfliktverhinderung -->
+Sowohl die wiederholbare Transaktion, als auch die geschätzte Zusammenführung lösen schwierige Konflikte. Da das Konfliktauflösung jedoch nicht notwendigerweise korrekt sein muss und die Implementation sehr aufwändig ist, ist die Einsetzbarkeit nicht gegeben.
 
-Die übrigen Verfahren wie Update Transformation, Zusammenführung sowie die Kontextbezogene Zusammenführung zeigten sich als einsetzbar.
+Die übrigen Verfahren wie Update Transformation, Zusammenführung sowie die kontextbezogene Zusammenführung sind gut einsetzbar und schwächen das Synchronisationsproblem deutlich ab.
 
--------------------------------------------------------------------------------
-__Konzept__                  __Betrieb__    __Implementation__
---------------------------- --------------- -----------------------------------
-Update Transformation       einfach         schwierig
-
-Wiederholbare Transaktion   einfach         sehr schwierig
-
-Zusammenführung             einfach         einfach
-
-Kontext b. Zusamm.          einfach         einfach
-
-Normalisierte Zusamm.       einfach         sehr schwierig
-
-Manuelle Zusamm.            sehr schwierig  einfach
-
--------------------------------------------------------------------------------
-Table: Konzept Vergleich Konfliktverhinderung - Konfliktauflösung
-
-
-<!-- eventuell können wir auch direkt überschreiben, wenn wir dem Client vertrauen -> Eigene Daten -> Echter Zeitstempel-->
 
 Leitfaden
 =========
-Dies ist ein Set von Konventionen und Regeln für die Synchronisation von Daten im Web-Umfeld basierend auf den Ergebnissen aus der Analyse und Auswertung der Beispieldaten.
+Dies ist ein Set von Konventionen und Richtlinien für die Synchronisation von Daten im Web-Umfeld basierend auf den Ergebnissen aus der Analyse und Auswertung der Beispieldaten.
 Der Wert von Software ist direkt gekoppelt an die Qualität ihrer Codebasis. Nicht nur die Fehleranfälligkeit, sondern auch die Wartbarkeit steigt mit der Verwendung von nicht durchdachten Designs.
 Diese Regeln helfen Probleme bei der Synchronisation zu reduzieren und gleichzeitig die Wartbarkeit zu erhöhen.
 
