@@ -4,30 +4,8 @@ define ['flux'], (flux) ->
 
 
 		sync:
-			Room: (Logic, new_obj, prev_obj) ->
-				model = "Room"
-				@obj = new_obj
-				@prev = prev_obj
-
-
-				me = @  #bind @ to me
-				promise = Logic._DB_select meta:{ model:model, id: new_obj.id }  #get current db item
-				### istanbul ignore next ###
-				promise.then ( db_objs ) ->  #return updated item
-					data = id: me.obj.id  #new object
-
-					#repeatable transaction
-					me._repeatable data, db_objs, me.obj, me.prev, 'seats'
-					#combining
-					me._combining data, db_objs, me.obj, me.prev, 'free'
-					me._combining data, db_objs, me.obj, me.prev, 'ac'
-					me._combining data, db_objs, me.obj, me.prev, 'beamer'
-					#traditional /first is winning
-					me._traditional data, db_objs, me.obj, me.prev, 'name'
-					#contextual (description -> name) /last is winning
-					me._contextual data, db_objs, me.obj, me.prev, 'description', 'name'
-
-					data  #returning data
+			Function_init: (args) ->
+				console.log "yea!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 
 			Contact: (Logic, new_obj, prev_obj) ->
 				model = "Contact"
@@ -104,6 +82,16 @@ define ['flux'], (flux) ->
 
 			if messageName is 'S_LOGIC_SM_delete'
 				@_delete message
+
+			if messageName is 'S_LOGIC_SM_execute'
+				@_execute message
+
+			
+		_execute: (message) ->
+			if 'socket' not of message.meta
+				throw new Error "not implemented yet!"
+
+			@sync["Function_"+message.meta.function](message.data.args)
 
 		###
 		# @message: meta:{ model:[model_name], socket:[socket], [id:[element_id]] } 

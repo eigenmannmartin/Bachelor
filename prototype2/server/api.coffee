@@ -27,8 +27,15 @@ define ['flux'],(flux) ->
 			if messageName is 'S_API_WEB_delete'
 				@_delete message
 
+			if messageName is 'S_API_WEB_execute'
+				@_execute message
+
 			if messageName is 'S_API_WEB_send'
 				@_send message
+
+		_execute: (message) ->
+			message.meta.socket = @Socket
+			@_send_message 'S_LOGIC_SM_execute', message
 
 		_send: (message) ->
 			if message.data.deleted?

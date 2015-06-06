@@ -30,6 +30,15 @@ define ['flux', 'io'], (flux, io) ->
 
 		dispatch: (messageName, message) ->
 			console.log
+			if message.meta.function?
+					@.io.emit 'message',
+						messageName:"S_API_WEB_execute"
+						message:
+							meta:
+								function:message.meta.function
+							data:
+								args:message.args
+
 			if message.meta.updated then return false  #ignore messages with updated flag
 
 			if messageName is 'C_PRES_STORE_update'
@@ -50,6 +59,7 @@ define ['flux', 'io'], (flux, io) ->
 								model:message.meta.model
 							data:
 								obj:message.data
+
 
 			if messageName is 'C_PRES_STORE_delete'
 				@.io.emit 'message',

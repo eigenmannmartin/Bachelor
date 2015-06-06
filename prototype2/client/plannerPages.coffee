@@ -90,6 +90,9 @@ define ['react', 'reactrouter', 'flux'
 				if contact.id is id
 					return contact
 
+		exec_init: () ->
+			flux.doAction( 'C_PRES_STORE_update', { meta:{function:"init"}, args:"asdf" } )
+
 		manual_command: (event) ->
 			if event.key is 'Enter'
 				event.preventDefault()
@@ -105,8 +108,8 @@ define ['react', 'reactrouter', 'flux'
 			<div className="container">
 				<div className="row">
 					<p>
-						<textarea onKeyDown={@manual_command}
-						defaultValue='{"id": 1, "last_name":"Eigenmann"}'></textarea>
+						<textarea onKeyDown={@exec_init}
+						defaultValue='{"Name":{"last_name":"Eigenmann"}}'></textarea>
 					</p>
 					{@state.contacts.map (contact) ->
 							<p>id: {contact.id}
