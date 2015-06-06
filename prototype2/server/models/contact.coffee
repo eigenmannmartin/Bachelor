@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) ->
 		street: DataTypes.STRING
 		country: DataTypes.STRING
 		state: DataTypes.STRING
+		city: DataTypes.STRING
 
 		email: DataTypes.STRING
 

@@ -108,16 +108,29 @@ define ['react', 'reactrouter', 'flux'
 			<div className="container">
 				<div className="row">
 					<p>
-						<textarea onKeyDown={@exec_init}
-						defaultValue='{"Name":{"last_name":"Eigenmann"}}'></textarea>
+						<textarea onKeyDown={@manual_command}
+						defaultValue='{"id":1,"last_name":"Eigenmann"}'></textarea>
 					</p>
-					{@state.contacts.map (contact) ->
-							<p>id: {contact.id}
-							| {contact.title} {contact.first_name} {contact.last_name}
-							tel: {contact.phone} mail: {contact.email}
-							address: {contact.street}, {contact.city}, {contact.state}
-							</p>
-					}
+					<table className="hoverable">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Phone</th>
+								<th>Email</th>
+								<th>Country</th>
+							</tr>
+						</thead>
+						<tbody>
+						{@state.contacts.map (contact) ->
+							<tr>
+								<td>{contact.title} {contact.first_name} {contact.last_name}</td>
+								<td>{contact.phone}</td> 
+								<td>{contact.email}</td>
+								<td>{contact.country}</td>
+							</tr>
+						}
+						</tbody>
+					</table>
 				</div>
 			</div>
 

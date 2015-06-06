@@ -4,8 +4,27 @@ define ['flux'], (flux) ->
 
 
 		sync:
-			Function_init: (args) ->
-				console.log "yea!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+			Function_init: (Logic, args) ->
+				contacts = [
+					{"first_name": "Riley", "last_name": "Burt", "middle_name": "J.", "street": "Ap #478-849 Accumsan St.", "country": "Bouvet Island", "city": "Badajoz", "state": "Extremadura", "email": "nibh@vitaealiquetnec.edu", "phone": "(033220) 937671"},
+					{"first_name": "Tanya", "last_name": "Reynolds", "middle_name": "N.", "street": "536-3821 Erat Street", "country": "Togo", "city": "New Haven", "state": "Connecticut", "email": "tempus.risus@telluseuaugue.co.uk", "phone": "(03805) 9925691"},
+					{"first_name": "Sylvester", "last_name": "Mendez", "middle_name": "V.", "street": "996-5460 Sed Rd.", "country": "Panama", "city": "Évreux", "state": "Haute-Normandie", "email": "ipsum@Sedeu.edu", "phone": "(02068) 5325262"},
+					{"first_name": "Lillian", "last_name": "Cooley", "middle_name": "K.", "street": "Ap #580-3670 Vivamus Rd.", "country": "El Salvador", "city": "Belfast", "state": "Ulster", "email": "Nulla.tincidunt@penatibuset.ca", "phone": "(0169) 97042500"},
+					{"first_name": "Alika", "last_name": "Calhoun", "middle_name": "W.", "street": "P.O. Box 379, 1680 Tortor. St.", "country": "Virgin Islands, British", "city": "San José de Alajuela", "state": "Alajuela", "email": "metus@Integer.edu", "phone": "(0243) 11894722"},
+					{"first_name": "Yoko", "last_name": "Richmond", "middle_name": "J.", "street": "858-8271 Egestas. Street", "country": "Singapore", "city": "Nazilli", "state": "Aydın", "email": "urna@malesuadaaugueut.net", "phone": "(0034) 12467098"},
+					{"first_name": "Arden", "last_name": "Barrera", "middle_name": "C.", "street": "8540 Vitae St.", "country": "Korea, North", "city": "Gliwice", "state": "SL", "email": "Duis@massaVestibulum.org", "phone": "(038860) 212005"},
+					{"first_name": "Hannah", "last_name": "Hanson", "middle_name": "P.", "street": "6601 Malesuada Rd.", "country": "Colombia", "city": "Milwaukee", "state": "WI", "email": "nec.orci@ametrisusDonec.ca", "phone": "(0268) 15945673"},
+					{"first_name": "Colby", "last_name": "Daniel", "middle_name": "Y.", "street": "9441 Sit Road", "country": "Saint Kitts and Nevis", "city": "Funtua", "state": "KT", "email": "cursus@CrasinterdumNunc.com", "phone": "(0931) 26317437"},
+					{"first_name": "Alden", "last_name": "Hines", "middle_name": "T.", "street": "1031 Rutrum Rd.", "country": "Vanuatu", "city": "Thorembais-les-B�guines", "state": "WB", "email": "metus@luctusut.ca", "phone": "(0366) 11659405"},
+					{"first_name": "Macaulay", "last_name": "Fisher", "middle_name": "W.", "street": "P.O. Box 546, 4904 Cubilia St.", "country": "Armenia", "city": "Cartagena", "state": "Murcia", "email": "lacinia.mattis@netusetmalesuada.ca", "phone": "(032794) 138499"},
+					{"first_name": "Knox", "last_name": "Webb", "middle_name": "K.", "street": "272-2978 Vulputate, St.", "country": "Guatemala", "city": "Berlin", "state": "Berlin", "email": "elit.sed.consequat@temporloremeget.edu", "phone": "(033872) 966374"},
+					{"first_name": "Tyrone", "last_name": "Carney", "middle_name": "G.", "street": "P.O. Box 570, 6414 Tristique Road", "country": "Iran", "city": "Katsina", "state": "Katsina", "email": "lobortis.quis@In.org", "phone": "(02744) 6422698"},
+					{"first_name": "Jillian", "last_name": "Mcbride", "middle_name": "M.", "street": "P.O. Box 959, 4823 Mauris Av.", "country": "Albania", "city": "Lincoln", "state": "NE", "email": "aliquet@dignissimlacusAliquam.com", "phone": "(047) 72805611"},
+				]
+
+				for contact in contacts
+					Logic._DB_insert { meta:{model: "Contact"}, data: contact }
+
 
 			Contact: (Logic, new_obj, prev_obj) ->
 				model = "Contact"
@@ -91,7 +110,7 @@ define ['flux'], (flux) ->
 			if 'socket' not of message.meta
 				throw new Error "not implemented yet!"
 
-			@sync["Function_"+message.meta.function](message.data.args)
+			@sync["Function_"+message.meta.function](@, message.data.args)
 
 		###
 		# @message: meta:{ model:[model_name], socket:[socket], [id:[element_id]] } 
