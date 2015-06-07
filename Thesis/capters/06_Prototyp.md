@@ -172,6 +172,7 @@ Dieses Kapitel adressiert die Implementation des Prototypen gemäss den Anroderu
 ## Umsetzung
 <!-- Konkrete Implementations-Streategie/Algorythmen --> 
 
+<!-- Begründung Technologiestack -->
 ## Technologie Stack
 
 -------------------------------------------------------------
