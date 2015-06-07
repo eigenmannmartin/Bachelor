@@ -1,5 +1,8 @@
 \part[Konzept]{Konzeption und Konzeptüberprüfung}
 
+<!-- Erklährung warum Aufteilung -->
+
+
 Analyse
 =======
 

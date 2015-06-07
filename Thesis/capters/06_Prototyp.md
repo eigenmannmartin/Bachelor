@@ -136,7 +136,7 @@ API: Queue -> Transporter
 Backend: API -> Logiclayer -> API -->
 
 
-
+<!-- Nachrichtenbasiert, desshalb Flux -->
 ### Flux Architektur
 Das Flux Paradigma[@facebook-flux] ist eine Applikationsarchitektur entwickelt von Facebook für React, welche einen unidirektionalen Datenfluss vorgibt.
 Daten können nur über eine Aktionen manipuliert werden. Die Views als auch die API können Aktionen auslösen, und so den Datenbestand mutieren.
@@ -144,6 +144,7 @@ Daten können nur über eine Aktionen manipuliert werden. Die Views als auch die
 
 Die Verwendung des Dispatchers ermöglicht es, Abhängigkeiten zwischen verschiedenen Stores zentral zu verwalten, da jeder Mutation zwangsweise zuerst von ihm bearbeitet wird.
 
+<!-- Testing und Modularität, desshalb AMD -->
 ### AMD Pattern
 Asyncronous module definition (AMD) ist eine JavaScript API um Module zu definieren und diese zur Laufzeit zu laden. Dadurch können Javascript-lastige Webseiten beschleunigt werden, da Module erst geladen werden, wenn sie gebraucht werden. Weiter werden durch den Loader die Module gleichzeitig geladen, dadurch kann die Bandbreite voll ausgenutzt werden. 
 Da die Module durch die Vorgabe des Patterns in einzelnen Dateien abgelegt sind, wird eine Kapselung ähnlich wie bei Java erreicht. Das erleichtert die Fehlersuche und erhöht die Verständlichkeit des Programmes drastisch. Auch die Wiederverwendbarkeit der Module wird dadurch erhöht.
@@ -323,6 +324,14 @@ module.exports = (sequelize, DataTypes) ->
 <!-- 
 ```
 -->
+
+
+Graphische Umsetzung
+--------------------
+
+![Edit](img/umsetzung-Contacts.png)
+
+![Edit](img/umsetzung-Contacts-edit.png)
 
 
 

@@ -256,6 +256,9 @@ we want to discuss problems and solutions provided by the conepts
 some more work is needed!
 
 -->
+
+
+<!-- Zusammenführung der Aufteilung -->
 Resümee
 -------
 In diesem Kapitel sind die einzelnen Teile des Konzeptes kondensiert zusammengefasst und hinsichtlich der Praxistauglichkeit bewertet.
