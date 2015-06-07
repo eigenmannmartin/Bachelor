@@ -32,10 +32,9 @@ define ['react', 'reactrouter', 'flux'
 		render: ->
 			<div className="navbar-fixed-2 ">
 				<nav>
-					<div className="nav-wrapper">
+					<div className="nav-wrapper indigo">
 						<ul id="nav-mobile" className="right hide-on-med-and-down">
 							<li><Link to="Home">Home</Link></li>
-							<li><Link to="Rooms">Planner</Link></li>
 							<li><Link to="Contacts">Contacts</Link></li>
 							<li><Link to="About">About</Link></li>
 						</ul>
@@ -55,11 +54,8 @@ define ['react', 'reactrouter', 'flux'
 
 		componentWillUnmount: ->
 
-		changeColor: ->
-			flux.doAction 'materialize_pick_color'
-
-		partyColor: ->
-			flux.doAction 'materialize_party_color'
+		exec_init: () ->
+			flux.doAction( 'C_PRES_STORE_update', { meta:{function:"init"}, args:"" } )
 
 		render: ->
 			<div className="container">
@@ -68,6 +64,9 @@ define ['react', 'reactrouter', 'flux'
 						<h1>About <small>this prototype</small></h1>
 						<p> Find Github Repo <br />
 							<a className="waves-effect waves-light btn" href="https://github.com/eigenmannmartin/Bachelor"> github.com </a> 
+						</p>
+						<p> Setup Contacts DB <br />
+							<a className="waves-effect waves-light btn" onClick={@exec_init}>Init</a> 
 						</p>
 					</div>
 				</div>

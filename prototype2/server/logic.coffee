@@ -5,6 +5,8 @@ define ['flux'], (flux) ->
 
 		sync:
 			Function_init: (Logic, args) ->
+				Logic._DB_clear "Contact"
+
 				contacts = [
 					{"first_name": "Riley", "last_name": "Burt", "middle_name": "J.", "street": "Ap #478-849 Accumsan St.", "country": "Bouvet Island", "city": "Badajoz", "state": "Extremadura", "email": "nibh@vitaealiquetnec.edu", "phone": "(033220) 937671"},
 					{"first_name": "Tanya", "last_name": "Reynolds", "middle_name": "N.", "street": "536-3821 Erat Street", "country": "Togo", "city": "New Haven", "state": "Connecticut", "email": "tempus.risus@telluseuaugue.co.uk", "phone": "(03805) 9925691"},
@@ -23,7 +25,10 @@ define ['flux'], (flux) ->
 				]
 
 				for contact in contacts
-					Logic._DB_insert { meta:{model: "Contact"}, data: contact }
+					model = Logic._DB_insert { meta:{model: "Contact"}, data: contact }
+					model.then (model) ->
+						Logic._send_message 'S_API_WEB_send', { meta:{ model:"Contact" }, data: model }
+
 
 
 			Contact: (Logic, new_obj, prev_obj) ->
@@ -185,5 +190,13 @@ define ['flux'], (flux) ->
 		_DB_delete: (message) ->
 			@Sequelize[message.meta.model].find(message.data.id).then (el) ->
 				el.destroy()
+
+		_DB_clear: (model) ->
+			me = @
+			@Sequelize[model].findAll().then (els) ->
+				for el in els
+					me._send_message 'S_API_WEB_send', { meta:{ model:model }, data: { id: el.id, deleted: 1 } }
+					el.destroy()
+
 
 	Logic

@@ -7,73 +7,6 @@ define ['react', 'reactrouter', 'flux'
 	@NotFoundRoute = Router.NotFoundRoute
 	@Link = Router.Link
 
-	PlannerRoomSettings = React.createClass
-		render: ->
-			<div className="container">
-			</div>
-
-
-	PlannerRoomDates = React.createClass
-		render: ->
-			<div className="container">
-				<div className="row">
-						Dates
-				</div>
-			</div>
-
-	Rooms = React.createClass
-		getInitialState: ->
-			rooms: flux.stores.prototype_rooms.getState().rooms
-
-		componentDidMount: ->
-			me = @
-			flux.stores.prototype_rooms.on 'change', ( state ) ->
-				me.setState
-					rooms: state.rooms
-
-		get_room: (id) ->
-			for room in @state.rooms
-				if room.id is id
-					return room
-
-		manual_command: (event) ->
-			if event.key is 'Enter'
-				event.preventDefault()
-				object = JSON.parse event.target.value
-				prev = if object.id? then JSON.parse JSON.stringify @get_room object.id else {} #real copy
-				if object.delete?
-					flux.doAction( 'C_PRES_STORE_delete', { meta:{model:"Room"}, data:object } )
-				else
-					flux.doAction( 'C_PRES_STORE_update', { meta:{model:"Room"}, data:object, prev:prev } )
-
-
-		render: ->
-			<div className="container">
-				<div className="row">
-					<p>
-						<textarea onKeyDown={@manual_command}
-						defaultValue='{"id": 1, "name":"Eiger","free":false, "ac": true, "beamer":true, "seats":12, "description":"some description"} '></textarea>
-					</p>
-					{@state.rooms.map (room) ->
-							<p>id: {room.id}
-							| name: {room.name} 
-							| free: {if room.free then "yes" else "no"}
-							| ac: {if room.ac then "yes" else "no"}
-							| beamer: {if room.beamer then "yes" else "no"}
-							| seats: {room.seats}
-							| desc: {room.description}
-							</p>
-					}
-				</div>
-				<div className="fixed-action-btn">
-					<Link to="Rooms/Create" className="btn-floating btn-large red">
-						<i className="large mdi-content-add"></i>
-					</Link>
-				</div>
-			</div>
-
-
-
 
 	Contacts = React.createClass
 		getInitialState: ->
@@ -90,8 +23,6 @@ define ['react', 'reactrouter', 'flux'
 				if contact.id is id
 					return contact
 
-		exec_init: () ->
-			flux.doAction( 'C_PRES_STORE_update', { meta:{function:"init"}, args:"asdf" } )
 
 		manual_command: (event) ->
 			if event.key is 'Enter'
@@ -107,7 +38,7 @@ define ['react', 'reactrouter', 'flux'
 		render: ->
 			<div className="container">
 				<div className="row">
-					<p>
+					<p className="hidden">
 						<textarea onKeyDown={@manual_command}
 						defaultValue='{"id":1,"last_name":"Eigenmann"}'></textarea>
 					</p>
@@ -215,6 +146,12 @@ define ['react', 'reactrouter', 'flux'
 			@setState
 				contact: contact
 
+		change_pnotes: (event) ->
+			contact = @state.contact
+			contact.pnotes = event.target.value
+			@setState
+				contact: contact
+
 		click_save: (event) ->
 			object = JSON.parse JSON.stringify @state.contact
 			prev = @getContact object.id
@@ -229,7 +166,7 @@ define ['react', 'reactrouter', 'flux'
 					<div className="row">
 						<div className="col s12 l10 offset-l1">
 
-							<div className="card-panel teal lighten-1">
+							<div className="card-panel green lighten-1">
 								<div className="card-panel">
 									<a className="btn-floating btn-large waves-effect waves-light red right planner-save-btn" onClick={@click_save}><i className="mdi-content-save"></i></a>
 									<div className="row">
@@ -286,6 +223,13 @@ define ['react', 'reactrouter', 'flux'
 												</div>
 											</div>
 
+											<div className="row">
+												<div className="input-field col s12">
+													<textarea id="pnotes" className="materialize-textarea" onChange={@change_pnotes}></textarea>
+													<label for="pnotes">Notes</label>
+												</div>
+											</div>
+
 										</form>
 
 									</div>
@@ -301,4 +245,4 @@ define ['react', 'reactrouter', 'flux'
 				</div>	
 
 
-	[ Rooms, PlannerRoomSettings, PlannerRoomDates, Contacts, ContactEdit ]
+	[ Contacts, ContactEdit ]

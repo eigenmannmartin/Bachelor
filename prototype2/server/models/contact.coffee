@@ -14,6 +14,8 @@ module.exports = (sequelize, DataTypes) ->
 		email: DataTypes.STRING
 
 		phone: DataTypes.STRING
+
+		pnotes: DataTypes.TEXT
 	}, {}
 
 

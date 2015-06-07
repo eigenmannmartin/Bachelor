@@ -11,7 +11,7 @@ define ['react', 'reactrouter', 'flux', 'staticPages', 'plannerPages'
 			Link = router.Link
 
 			[ App, NotFound, Nav, Home, About ] = staticPages
-			[ Rooms, PlannerRoomSettings, PlannerRoomDates, Contact, ContactEdit ] = planner
+			[ Contact, ContactEdit ] = planner
 
 
 			routes = (
@@ -20,10 +20,6 @@ define ['react', 'reactrouter', 'flux', 'staticPages', 'plannerPages'
 					<Route name="About" handler={About} />
 					<Route name="Contacts" path="Contacts" handler={Contact} />
 					<Route name="Contact/Edit" path="Contacts/edit/:Id" handler={ContactEdit} />
-					<Route name="Rooms" path="Rooms" handler={Rooms} />
-					<Route name="Rooms/Edit" path="/Rooms/edit/:roomId" handler={PlannerRoomSettings} />
-					<Route name="Rooms/Create" path="/Rooms/edit/new" handler={PlannerRoomSettings} />
-					<Route name="Rooms/Dates" path="/Rooms/:roomId/Dates" handler={PlannerRoomDates} />
 					<NotFoundRoute handler={NotFound} />
 				</Route>
 			);
