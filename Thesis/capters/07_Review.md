@@ -17,18 +17,45 @@ Auseinandersetzung mit der eigenen Arbeit statt. Typische Fragen sind:
 
 ## Validation
 
-In der nachfolgenden Tabelle sind alle gestellten Ziele gemäss Aufgabenstellung aufgelistet.
+In der nachfolgenden Tabelle ist die Erfüllung der gestellten Ziele gemäss Aufgabenstellung aufgelistet.
 
 
 -------------------------------------------------------------------------------
-__Ziel__
------------------------------------------------------------------------------
-__R1__
-__R2__
-__R3__
-__R4__
-__R5__
+__Ziel__    __Beschreibung__                            __Erfüllung / Kapitel__
+----------- ------------------------------------------- -----------------------
+__R1__      Definition der Fachbegriffe                 OK [Recherche]
+            
+            Erarbeitung technischer Grundlagen          OK [Recherche]
+
+__R2__      Analyse des Umgangs mit Konflikten          OK [Recherche]
+            
+            Analyse der Synchronisationsverfahren       OK [Recherche]
+             in Web-Anwendungen
+            
+            Durchführung einer Anforderungsanalyse      OK [Anforderungsanalyse]
+
+__R3__      Erstellen eines Konzepts der                OK [Analyse],
+             Synchronisation                            OK [Konzeptansätze]
+            
+            Erstellen eines                             OK [Konzept Untersuchung]
+             Implementationskonzepts
+
+__R4__      Konzeption des Prototypen                   OK [Design des Prototypen]
+            
+            Entwickeln des Prototypen                   OK [Prototyp]
+            
+            Implementation zweier ausgewählter          OK [Prototyp]
+             Synchronisation und 
+             Konfliktlösungsverfahren    
+
+__R5__      Test des Prototyps                          OK [Testing]
+
 -------------------------------------------------------------------------------
+Table: Überprüfung der Aufgabenstellung
+
+
+## Offene Fragestellungen
+
 
 
 ## Ausblick
@@ -38,6 +65,18 @@ __R5__
 <!-- Die Synthese aus Gesamtergebnis und den bisherigen Schlussfolgerungen rundet einen technischen Bericht ab. Dazu gehören auch offen gebliebene oder sich neu ergebende Fragen. Alle Ergebnisse in der Schlussfolgerung stützen sich auf die Ergebnisse des Hauptteils. Die Schlussfolgerungen sollten auch ohne Lektüre des Hauptteils verständlich sein.
 
 -->
+
+Im Verlaufe dieser Bachelorarbeit durfte ich mich intensiv mit Web-Technologien und Synchronisationsverfahren auseinandersetzen und so einen tiefen Einblick in die Techniken und Standards gewinnen. Neben dem persönlichen Interesse daran, konnten Guidelines erarbeitet werden, die das sehr schwere Problem der Synchronisation von Daten, erleichtert.
+
+Ich konnte im Verlaufe des PRojekts alle gesetzen Ziele erreichen. Eine Analyse der möglichen Synchronisationsverfahren, eine Überprüfung derer, auf die Umsetzbarkeit wurde durchgeführt und die ausgewählten Konzepte umgesetzt.
+
+Die breite thematische Abstützung, sowie die Terminplanung dieser Arbeit war durchaus gewagt, ...
+
+
+Ich habe mich bei der Anforderungsanalyse an das Vorgehensmuster aus dem Buch _"Basiswissen Requirements Engineering"_ gehalten. Rückblickend ist für die Implementation eines Prototypen, anhand welchem die Umsetzbarkeit eines Konzepts gezeigt werden soll, eine solch aufwändige Planung zu zeitintensiv. Eine Beschränkung auf die Erhebung der Use-Cases wäre durchaus genügend gewesen.
+
+....
+
 
 
 

@@ -1,4 +1,6 @@
 
+<!-- !!!!!!!!!!!!!!!!!!!!Auswahl der Konzepte -->
+
 
 Design des Prototypen
 =====================
@@ -354,6 +356,7 @@ Die Testrunner-Suite Karma erlaubt es Programmcode fortlaufend zu testen. Dabei 
 ### Coverage Analyse
 Karma erlaubt weiter bei jedem Durchlauf der Tests auch die Durchführung einer Coverage-Analyse. Dafür wir die Coverage-Suite Istanbul verwendet. Neben der Anzahl, in den Tests durchlaufenen Befehle und Zeilen und aufgerufenen Funktionen wird auch angezeigt wie fiele Verzweigungen durchlaufen wurden.
 
+<!-- Besseres Bild -->
 ![Istanbul Coverage](img/coverage.png)
 
 
@@ -367,3 +370,8 @@ Im nachfolgenden sind die Tests basierend auf den Anforderungen an den Prototype
 Test                Beschreibung
 ------------------- ------------------------------------------------
 Bearbeiten          
+
+--------------------------------------------------------------------
+Table: Manuelle Tests
+
+
