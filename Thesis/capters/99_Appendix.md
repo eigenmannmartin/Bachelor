@@ -12,6 +12,9 @@ ORM
 Node
 RPC
 
+jasmine
+karma
+
 
 
 Aufgabenstellung {#appendix_aufgabenstellung}

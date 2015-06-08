@@ -121,7 +121,7 @@ Message = {
 
 
 ### Datenfluss
-Der Datenfluss des Prototypen funktioniert wie in der Abbildung {@fig:dataflow} dargestellt. Der gesamte Datenfluss findet nur über Nachrichten
+Der Datenfluss des Prototypen funktioniert wie in der Abbildung {@fig:dataflow} dargestellt. Der gesamte Datenfluss findet nur über Nachrichten statt.
 
 Zu beachten gilt, dass die gesamte Interkomponenten-Kommunikation asynchron durchgeführt wird.
 
@@ -138,8 +138,8 @@ Backend: API -> Logiclayer -> API -->
 
 <!-- Nachrichtenbasiert, desshalb Flux -->
 ### Flux Architektur
-Das Flux Paradigma[@facebook-flux] ist eine Applikationsarchitektur entwickelt von Facebook für React, welche einen unidirektionalen Datenfluss vorgibt.
-Daten können nur über eine Aktionen manipuliert werden. Die Views als auch die API können Aktionen auslösen, und so den Datenbestand mutieren.
+Das Flux Paradigma[@facebook-flux] ist eine Applikationsarchitektur welche sehr stark auf das Konzept der nachrichtenbasierten Kommunikation verfolgt und somit auch einen unidirektionalen Datenfluss vorgibt.
+Daten können nur über das versenden einer Nachricht manipuliert werden. Sowohl Views als auch die API können Aktionen auslösen, und so den Datenbestand mutieren.
 ![Flux Diagramm](img/flux-diagram.png)
 
 Die Verwendung des Dispatchers ermöglicht es, Abhängigkeiten zwischen verschiedenen Stores zentral zu verwalten, da jeder Mutation zwangsweise zuerst von ihm bearbeitet wird.
@@ -175,7 +175,7 @@ Dieses Kapitel adressiert die Implementation des Prototypen gemäss den Anroderu
 <!-- Begründung Technologiestack -->
 ## Technologie Stack
 
--------------------------------------------------------------
+--------------------------------------------------------------------
 Software            Beschreibung/Auswahlgrund
 ------------------- ------------------------------------------------
 __Grunt__           
@@ -330,16 +330,40 @@ module.exports = (sequelize, DataTypes) ->
 Graphische Umsetzung
 --------------------
 
-![Edit](img/umsetzung-Contacts.png)
+### Kontaktübersicht
+Alle im System erfasste Kontakte werden beim Aufrufen der Web-Applikation dem Benutzer angezeigt. Die wichtigsten Attribute wie Name, Telefonnummer und Email-Adresse werden übersichtlich aufgelistet.
 
-![Edit](img/umsetzung-Contacts-edit.png)
+![Kontaktübersicht](img/umsetzung-Contacts.png)
+
+### Kontakt Detailansicht
+Die Detailansicht des Kontakts zeigt alle Attribute des Kontakts, gruppiert nach Zusammengehörigkeit an. So sind die Attribute Nachname, Vorname, akademischer Grad sowie der Mittelname auf einer Zeile zusammengefasst. Die Adresse mit den Attributen Land, Kanton, Stadt und Strasse sind darunter auf zwei Zeilen verteilt. Die Email-Adresse sowie Telefonnummer ist zuunterst aufgeführt.
+
+![Kontakt Detailansicht](img/umsetzung-Contacts-edit.png)
 
 
 
 Testing
 =======
+Da während der Entwicklung des Prototypen viel Wert auf eine stabile Implementation gelegt wird, wir die gesamte Codebasis sowohl automatisch und manuell getestet sowie automatisiert analysiert. In den nachfolgenden Kapiteln, werden die beiden Methoden kurz ausgeführt.
 
-Die Testrunner Suite Karma erlaubt es Programmcode direkt im Browser zu testen und statische Analyse darüber anzufertigen.
+### Unit-Testing
+Die Testrunner-Suite Karma erlaubt es Programmcode fortlaufend zu testen. Dabei wird automatisch bei einer Änderung des Codes, die gesamten Tests erneut durchgeführt und das Ergebnis ansprechend dargestellt angezeigt. Die Tests selbst werden mit der Test-Suite Jasmine durchgeführt.
 
 ![Karma Testrunner](img/tdd.png)
 
+### Coverage Analyse
+Karma erlaubt weiter bei jedem Durchlauf der Tests auch die Durchführung einer Coverage-Analyse. Dafür wir die Coverage-Suite Istanbul verwendet. Neben der Anzahl, in den Tests durchlaufenen Befehle und Zeilen und aufgerufenen Funktionen wird auch angezeigt wie fiele Verzweigungen durchlaufen wurden.
+
+![Istanbul Coverage](img/coverage.png)
+
+
+### Manuelles Testen
+Die durchgeführten Tests und Analysen testen nahezu die gesamte Codebasis. Durch den Einsatz der nachrichtenbasierten Architektur sind die Schnittstellen zwischen den einzelnen Bausteinen und Layers bereits sehr gut mit Unit-Testing überprüfbar.
+Integrationstests werden deshalb manuell durchgeführt, damit die vorhandene Entwicklungsumgebung nicht durch den Einsatzt von Selenium aufgebläht wird.
+
+Im nachfolgenden sind die Tests basierend auf den Anforderungen an den Prototypen aufgeführt.
+
+--------------------------------------------------------------------
+Test                Beschreibung
+------------------- ------------------------------------------------
+Bearbeiten          
