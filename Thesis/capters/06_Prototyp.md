@@ -5,6 +5,16 @@
 <!--
 Create Contact -> Server Funktion
 
+
+Wo kann Multistate eingesetzt werden?
+-> wenn nur Schreibend zugegriffen wird. (z.B. git? -> Tests, welche alle Versionen validieren (lauffähig))
+
+Wo und wann kann die geschätzte Zusammenführung angewendet werden?
+-> Statische Analysen, gut analysierbare daten.
+
+Gibt es bessere Synch Verfahre?
+-> klar - aber immer an ein Problem angepasst
+
 -->
 
 
