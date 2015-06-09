@@ -61,7 +61,7 @@ Table: Überprüfung der Aufgabenstellung
 ## Ausblick
 
 
-# Fazit und Schlusswort
+# Das Wort zum Schluss
 <!-- Die Synthese aus Gesamtergebnis und den bisherigen Schlussfolgerungen rundet einen technischen Bericht ab. Dazu gehören auch offen gebliebene oder sich neu ergebende Fragen. Alle Ergebnisse in der Schlussfolgerung stützen sich auf die Ergebnisse des Hauptteils. Die Schlussfolgerungen sollten auch ohne Lektüre des Hauptteils verständlich sein.
 
 -->
@@ -70,12 +70,11 @@ Im Verlaufe dieser Bachelorarbeit durfte ich mich intensiv mit Web-Technologien 
 
 Ich konnte im Verlaufe des PRojekts alle gesetzen Ziele erreichen. Eine Analyse der möglichen Synchronisationsverfahren, eine Überprüfung derer, auf die Umsetzbarkeit wurde durchgeführt und die ausgewählten Konzepte umgesetzt.
 
-Die breite thematische Abstützung, sowie die Terminplanung dieser Arbeit war durchaus gewagt, ...
-
+Die breite Abstützung des gewählten Themas, sowie die Terminplanung dieser Arbeit war durchaus gewagt, gerade aber diese Freiheit bezüglich des Themas erlaubte es mir, tief in das Themengebiet vorzudringen. Der straffe Zeitplan verhinderte dabei zu stark abzudriften.
 
 Ich habe mich bei der Anforderungsanalyse an das Vorgehensmuster aus dem Buch _"Basiswissen Requirements Engineering"_ gehalten. Rückblickend ist für die Implementation eines Prototypen, anhand welchem die Umsetzbarkeit eines Konzepts gezeigt werden soll, eine solch aufwändige Planung zu zeitintensiv. Eine Beschränkung auf die Erhebung der Use-Cases wäre durchaus genügend gewesen.
 
-....
+Ich bin mit den Resultaten meiner Arbeit sehr zufrieden. Nicht nur konnte ich selbst viel neues Lernen sondern auch erfahren dass gewisse Lösungsansätze nicht funktionieren. Es hat mir viel Spass bereitet neue Technologien und Lösungsansätze zu erkunden.
 
 
 

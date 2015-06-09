@@ -2,6 +2,12 @@
 <!-- !!!!!!!!!!!!!!!!!!!!Auswahl der Konzepte -->
 
 
+<!--
+Create Contact -> Server Funktion
+
+-->
+
+
 Design des Prototypen
 =====================
 In diesem Kapitel wird ein Prototyp entworfen, der die Erkenntnisse aus dem Kapitel [Konzept Untersuchung] so umgesetzt dass sie auch den Richtlinien aus dem Kapitel [Leitfaden] genügen.
@@ -328,9 +334,13 @@ module.exports = (sequelize, DataTypes) ->
 ```
 -->
 
+\newpage
 
 Graphische Umsetzung
 --------------------
+Bei der Umsetzung des GUI sind die Richtleinen _"Material Design"_ angewendet worden.
+<!-- Link zum Material Design -->
+
 
 ### Kontaktübersicht
 Alle im System erfasste Kontakte werden beim Aufrufen der Web-Applikation dem Benutzer angezeigt. Die wichtigsten Attribute wie Name, Telefonnummer und Email-Adresse werden übersichtlich aufgelistet.
@@ -362,14 +372,25 @@ Karma erlaubt weiter bei jedem Durchlauf der Tests auch die Durchführung einer 
 
 ### Manuelles Testen
 Die durchgeführten Tests und Analysen testen nahezu die gesamte Codebasis. Durch den Einsatz der nachrichtenbasierten Architektur sind die Schnittstellen zwischen den einzelnen Bausteinen und Layers bereits sehr gut mit Unit-Testing überprüfbar.
-Integrationstests werden deshalb manuell durchgeführt, damit die vorhandene Entwicklungsumgebung nicht durch den Einsatzt von Selenium aufgebläht wird.
+Integrationstests werden deshalb nur manuell durchgeführt, damit die vorhandene Entwicklungsumgebung nicht durch den Einsatzt von Selenium aufgebläht wird.
 
 Im nachfolgenden sind die Tests basierend auf den Anforderungen an den Prototypen aufgeführt.
 
---------------------------------------------------------------------
-Test                Beschreibung
-------------------- ------------------------------------------------
-Bearbeiten          
+-------------------------------------------------------------------------------
+__Test__            __Beschreibung__                            __Status__
+------------------- ------------------------------------------- ---------------
+Kontakt erstellen   
+
+Kontakt ändern
+
+Kontakt löschen
+
+Datenbank
+ initialisieren
+
+Synchronisation mit
+ mobilem Endgeräten
+
 
 --------------------------------------------------------------------
 Table: Manuelle Tests
