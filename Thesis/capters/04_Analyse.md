@@ -1,7 +1,7 @@
 \part[Konzept]{Konzeption und Konzeptüberprüfung}
 
 
-Um die Komplexität des zu analysierenden und zu lösenden Problems zu reduzieren, wird eine Aufteilung dessen durchgeführt. Zu Beginn wird das Problem selbst sowie die zu übertragenden Daten anhand eines Beispiels beleuchtet und analysiert. In einem zweiten Schritt werden verschiedene Konzeptansätze zu den Teilbereichen Synchronisation, Datenhaltung, Konfliktvermeidung und Konfliktauflösung erarbeite und anschliessen auf ihre Anwendbarkeit hin untersucht. Die Ergebnisse dieser Untersuchung ist im vorletzten Kapitel "[Leitfaden]" auf die wichtigsten Findings reduziert. Auf diesen Hinweisen aufbauen wird ein Design für den Prototypen erarbeitet.
+Um die Komplexität des zu analysierenden und zu lösenden Problems zu reduzieren, wird eine Aufteilung dessen durchgeführt. Zu Beginn wird das Problem selbst sowie die zu übertragenden Daten anhand zweier Beispiele beleuchtet und analysiert. In einem zweiten Schritt werden verschiedene Konzeptansätze zu den Teilbereichen [Synchronisation], [Datenhaltung], [Konfliktvermeidung] und [Konfliktauflösung] erarbeitet und anschliessen auf ihre Anwendbarkeit hin untersucht. Die Ergebnisse dieser Untersuchung sind im "[Leitfaden]" auf die wichtigsten Findings hin reduziert. Auf diesen Hinweisen aufbauen wird ein Design für den Prototypen erarbeitet.
 
 
 

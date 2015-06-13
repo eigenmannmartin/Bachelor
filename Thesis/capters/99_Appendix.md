@@ -8,13 +8,27 @@ Anhang {#appendixA}
 
 Glossar
 -------
-ORM
-Node
+__ORM__
+ORM steht für object-relational mapping und ist eine Technik mit der Objekte einer Anwendung in einem relationalen Datenbanksystem abgelegt werden kann.
+
+
+__Node__
+Node oder Node.js ist eine Plattform welche es erlaubt JavaScript serverseitig auszuführen.
+[https://nodejs.org/](https://nodejs.org/)
+
 RPC
 
 jasmine
 karma
 
+
+__Mocks__
+Mocks sind Code-Atrappen, die es ermöglichen, noch nicht vorhandene oder nicht verfügbare, Funktionalitäten und Objekte zu simulieren.
+[http://de.wikipedia.org/wiki/Mock-Objekt](http://de.wikipedia.org/wiki/Mock-Objekt)
+
+__Github__
+Github ist ein Cloud basierter SourceCode Verwaltungsdienst für Git.
+[https://github.com](https://github.com)
 
 
 Aufgabenstellung {#appendix_aufgabenstellung}
@@ -34,58 +48,58 @@ Das Ziel der Bachelorthesis besteht in der in der Konzeption und der Entwicklung
 
 ### Aufgabenstellung
 
-**A1 Recherche:**
+_A1 Recherche:_
 
 - Definition der Fachbegriffe
 - Erarbeitung der technischen Grundlagen zur Synchronisation von Datenbanken und Datenspeichern
 
-**A2 Analyse:**
+_A2 Analyse:_
 
 - Analyse der Synchronisationsverfahren und deren Umgang mit Konflikten
 - Analyse der Synchronisationsverfahren im Bereich der Web-Anwendungen
 - Durchführen einer Anforderungsanalyse an die Software
 
-**A3 Konzept:**
+_A3 Konzept:_
 
 - Erstellen eines Konzepts der Synchronisation
 - Erstellen eines Konzepts der Implementierung zweier ausgewählten Synchronisations-Verfahren
 
-**A4 Prototyp:**
+_A4 Prototyp:_
 
 - Konzeption des Prototypen der die gestellten Anforderungen erfüllt
 - Entwickeln des Software-Prototyps
 - Implementation zweier ausgewählter Synchronisations- und Konfliktlösungsverfahren
 
-**A5 Review:**
+_A5 Review:_
 
 - Test des Prototyps und Protokollierung der Ergebnisse
 
 
 ### Erwartete Resultate
 
-**R1 Recherche:**
+_R1 Recherche:_
 
 - Glossar mit Fachbegriffen
 - Erläuterung der bereits bekannten Synchronisation- und Konfliktlösungs-Verfahren, sowie deren mögliches Einsatzgebiet
 
-**R2 Analyse:**
+_R2 Analyse:_
 
 - Dokumentation der Verfahren und deren Umgang mit Synchronisation-Konflikten (Betrachtet werden nur MySQL, MongoDB)
 - Dokumentation der Verfahren zur Synchronisation im Bereich von Web-Anwendungen (Betrachtet werden nur die Frameworks Backbone.js und Meteor.js)
 - Anforderungsanalyse der Software
 
-**R3 Konzept:**
+_R3 Konzept:_
 
 - Dokumentation des Konzepts der Synchronisation
 - Dokumentation der Umsetzung der ausgewählten Synchronisations-Verfahren
 
-**R4 Prototyp:**
+_R4 Prototyp:_
 
 - Dokumentation des Prototypen
 - Implementation des Prototypen gemäss Konzept und Anforderungsanalyse
 - Implementation zweier ausgewählter Synchronisations- und Konfliktlösungsverfahren
 
-**R5 Review:**
+_R5 Review:_
 
 - Protokoll der Tests des Software Prototypen
 
@@ -98,31 +112,42 @@ Detailanalyse der Aufgabenstellung
 Die Detailanalyse der Aufgabenstellung...
 
 ### Aufgabenstellung und erwartete Resultate
-**Recherche:**
+#### Recherche
 Es sollen die technischen Grundlagen zur Bearbeitung dieser Thesis zusammengetragen werden. Für das Verständnis wichtige Sachverhalte erläutert und Fachbegriffe erklärt werden.
 
 Erwartet wird ein Glossar, sowie eine Zusammenfassung der bekannten Synchronisations und Konfliktlösungsverfahren, sowie deren Einsatzgebiet.
 
-**Analyse:**
+#### Analyse
 Eine genauere Betrachtung der ausgewählten Systeme (MySQL, MongoDB, Backbone.js und Meteor.js) zeigt auf, wo die aktuelle Systeme an ihre Grenzen stossen.
 Weiter muss eine Anforderungsanalyse für eine Beispielapplikation durchgeführt werden.
 
 Erwartet wird Sowohl die Dokumentation der Synchronisationsverfahren als auch das Ergebnis der Anforderungsanalyse.
 
-**Konzept:**
+#### Konzept
 Die Erarbeitung und Überprüfung der Umsetzbarkeit neuer Synchronisationskonzepte wird in der Konzeptionsphase gefordert.
 
 Sowohl eine Darstellung der erarbeitete Konzepte, als auch eine Umsetzungsplanung derer ist gefordert.
 
-**Prototyp:**
+#### Prototyp
 Der Prototyp soll anhand eines Beispiels aufzeigen, wo die Stärken und Schwächen eines der Konzepte liegt.
 
 Erwartet wird ein Prototyp der zwei Synchronisations- und Konfliktauflösungsverfahren implementiert.
 
-**Review:**
+#### Review
 Das Review soll eine Retrospektive auf die Erarbeiteten Resultate werfen und kritisch hinterfragen.
 
 Erwartet wird ein Protokoll der durchgeführten Tests.
+
+Projektmanagement
+=================
+
+Projektplanung
+--------------
+
+Der Projektplan ({@fig:projektplan}) illustriert die Strukturierung des Projekts über die gut 6 Monate lange Projektzeit.
+
+
+![Projektplan](img/Projektplan.png) {#fig:projektplan}
 
 
 ### Aufwandschätzung
@@ -143,39 +168,46 @@ Abgabe                      20
 __Total__                   __370__
 -------------------------------------------------------------------------------
 
-Projektmanagement
-=================
 
-Projektplanung
---------------
+Rahmenbedingungen
+-----------------
+Der offizielle Projektstart ist der 18. März 2015. Das Projekt muss bis spätestens 11.08.2015 abgegeben werden.
 
-
-Der vollständige Projektplan ist in der Grafik {@fig:projektplan} dargestellt.
-
-![Projektplan](img/Projektplan.png) {#fig:projektplan}
-
-<!-- zu erwähnen
--beschlüsse auf Kock-Off und Designreview
--Ferien etc.
- -->
-
-Termine
--------
+Während der Kalenderwochen 14, 19, 20, 21, und 22 hat der Student Urlaub und kann deshalb während dieser Zeit intensiv der Bearbeitung der Thesis widmen.
 
 -------------------------------------------------------------------------------
-__Termin__                  __Datum__      __Bemerkungen__
+__Termin__                  __Datum__     __Bemerkungen__
 --------------------------- ------------- -------------------------------------
-Kick-Off                    18.03.2015    
+Kick-Off                    18.03.2015    -
 
-Design Review               20.05.2015
+Design Review               20.05.2015    Der Entscheid über das Abgabedatum
+                                          muss am 06.06.2015 gefällt werden.
 
-Abgabe-Entscheid            06.06.2015
+Abgabe-Entscheid            06.06.2015    Die Thesis wird am 30.06.2015
+                                          abgegeben.
 
-Abgabe Bachelorthesis       ???
+Abgabe Bachelorthesis       30.06.2015    -
 
-Abschlusspräsentation       ??
+Abschlusspräsentation       02.06.2015    -
 -------------------------------------------------------------------------------
 
+Soll/Ist Analyse
+----------------
+
+-------------------------------------------------------------------------------
+__Arbeitsschritt__           __Soll__            __Ist__
+--------------------------- -------------------- ------------------------------
+Initialisierung             10                   5
+Recherche                   45                   47
+Analyse                     20                   41
+Konzeption                  80                   78
+Prototyp                    60                   65
+Dokumentation               135                  ??
+Abgabe                      20                   ??
+
+__Total__                   __370__              __??__
+-------------------------------------------------------------------------------
+Der Mehraufwand von ~10% beruht vornehmlich darauf, dass das Sammeln und Verstehen von Informationen über bestehende Synchronisationsverfahren (Analyse) sich als deutlich zeitintensiver als geplant herausgestellt hat.
 
 Dokumentation
 -------------
@@ -187,15 +219,23 @@ Da ich jedoch dieses Format sehr unübersichtlich finde habe ich mich stattdesse
 Versionsverwaltung
 ------------------
 
-Damit einerseits die Daten gesichert und andererseits die Nachvollziehbarkeit von Änderungen gewährleistet ist, verwende ich git.
+Damit einerseits die Daten gesichert und andererseits die Nachvollziehbarkeit von Änderungen gewährleistet ist, verwende ich git. Das Repository [^repo] ist für den Betreuer und Experten jederzeit einsehbar.
+
+[^repo]:[https://github.com/eigenmannmartin/Bachelor](https://github.com/eigenmannmartin/Bachelor)
 
 
+Anforderungsanalyse
+===================
 
-# Anforderungsanalyse
 
-<!-- Definition Offline und Online Modus -->
-## Vorgehensweise
+Vorgehensweise
+--------------
+
 Um eine möglichst allgemein gültige Anforderungsanalyse zu erhalten, werden nur die Anforderungen an den Synchronisationsprozess gestellt, welche für alle beide Fallbeispiele gültig sind.
+
+Die Schlüsselwörter „muss“, „muss nicht“, „erforderlich“, „empfohlen“, „sollte“, „sollte nicht“, „kann“ und „optional“ in allen folgenden Abschnitten sind gemäss RFC 2119 zu interpretieren. [@rfc2119]
+
+
 
 ### Use-Cases
 Im Nachfolgenden werden alle UseCases aufgelistet die im Rahmen dieser Thesis gefunden wurden.
@@ -291,7 +331,7 @@ __Alternativszenario__      -
 
 
 ### Anforderungen
-In diesem Kapitel sind alle funktionalen und nicht-funktionalen Anforderungen die aus den UseCases resultieren ausgeführt.
+In diesem Kapitel sind alle funktionalen und nicht-funktionalen Anforderungen aufgeführt die aus den UseCases resultieren. Der entsprechende UseCase ist dabei jeweils referenziert.
 
 <!-- FREQ01.01 Abfragen eines Elementverzeichnis -->
 #### FREQ01.01 Abfragen eines Objektverzeichnis
@@ -354,17 +394,6 @@ __Beschreibung__
                             Ein Attribut eines existierendes Objekt kann mutiert werden.
 -------------------------------------------------------------------------------
 
-#### FREQ03.02 Senden einer Objektmutation
-
--------------------------------------------------------------------------------
-__Anforderung__
---------------------------- --------------------------------------------------
-__UC-Referenz__             UC-03
-
-__Beschreibung__            
-                            Ein mehrere Attribute eines existierendes Objekt kann mutiert werden.
--------------------------------------------------------------------------------
-
 <!-- FREQ04.01 Senden eines Löschauftrags -->
 #### FREQ04.01 Löschen eines Objekts
 
@@ -378,7 +407,7 @@ __Beschreibung__
 -------------------------------------------------------------------------------
 
 <!-- FREQ05.01 Lokale Kopie gelesener Elemente -->
-#### FREQ04.01  Lokale Kopie gelesener Objekte
+#### FREQ04.02  Lokale Kopie gelesener Objekte
 
 -------------------------------------------------------------------------------
 __Anforderung__
@@ -440,28 +469,70 @@ __Beschreibung__
 
 
 ### Akzeptanzkriterien
+In den nachfolgenden Tabellen findet sich eine Aufführung der Akzeptanzkriterien, basierend auf den bereits erarbeitete Anforderungen.
+
 <!-- AC01 Initiale Synchronisation -->
+#### AC01 Initiale Synchronisation
+
+-------------------------------------------------------------------------------
+__Akzeptanzkriterium__
+--------------------------- --------------------------------------------------
+__REQ-Referenz__            FREQ01.01, FREQ01.02, FREQ04.02
+
+__Vorbedingung__            Der Client hat eine Verbindung zum Server
+                            aufgebaut.
+
+__Kriterium__               Beim Starten des Clients wird der gesamte
+                            Datenbestand des Servers an den Client übermittelt.
+-------------------------------------------------------------------------------
+
 <!-- AC02 Einfügen/Ändern/Löschen Lokal -->
+#### AC02 Lokale Mutationen
+
+-------------------------------------------------------------------------------
+__Akzeptanzkriterium__
+--------------------------- --------------------------------------------------
+__REQ-Referenz__            FREQ04.01, FREQ04.02
+
+__Vorbedingung__            Der Client hat bereits eine initiale 
+                            Synchronisation durchgeführt.
+
+__Kriterium__               Jedes Element des lokalen Datenbestand des Clients 
+                            kann gelesen, mutiert, gelöscht werden. Neue Elementen können dem Datenbestand hinzugefügt werden. 
+-------------------------------------------------------------------------------
+
+
 <!-- AC03 Einfügen/Ändern/Löschen Synchronisieren -->
+#### AC03 Synchronisation
+
+-------------------------------------------------------------------------------
+__Akzeptanzkriterium__
+--------------------------- --------------------------------------------------
+__REQ-Referenz__            FREQ02.01, FREQ02.02, FREQ03.01, FREQ05.01, 
+                            FREQ05.02, NFREQ01, NFREQ02
+
+__Vorbedingung__            Der lokale Datenbestand des Clients wurde mutiert
+                            und noch nicht synchronisiert. Der Client hat eine Verbindung zum Server aufgebaut.
+
+__Kriterium__               Jede auf dem Client durchgeführte Mutation wurde
+                            aufgezeichnet und wird dem Server in der aufgezeichneten Reihenfolge übermittelt.
+-------------------------------------------------------------------------------
+
+
 <!-- AC04 Synchronisieren von beidseits geänderten Elementen -->
-<!-- AC05  -->
-<!-- AC06  -->
-<!-- AC07  -->
-<!-- AC08  -->
+#### AC04 Konfliktbehandlung
 
-### Bewertung der Anforderungen
-<!-- Zuordnung AC->(REQ,UC,Aufgabenstellung) -->
+-------------------------------------------------------------------------------
+__Akzeptanzkriterium__
+--------------------------- --------------------------------------------------
+__REQ-Referenz__            NFREQ02
 
-## Risiken
+__Vorbedingung__            Der Client hat eine Verbindung zum Server
+                            aufgebaut. Eine Synchronisation wurde durchgeführt.
 
-
-
-
-
-
-
-
-
+__Kriterium__               Das Ergebnis der Konfliktauflösung wird dem Client
+                            übermittelt.
+-------------------------------------------------------------------------------
 
 
 
@@ -511,11 +582,13 @@ Heimatord & Waldkirch \\
 
 
 # Bestätigung
-Hiermit versichere ich, die vorliegende Bachelorthesis eigenständig und ausschliesslich unter Verwendung der angegebenen Hilfsmittel angefertigt zu haben.
-Alle öffentlichen Quellen sind als solche kenntlich gemacht. Die vorliegende Arbeit ist in dieser oder anderer Form zuvor nicht als Semesterarbeit zur Begutachtung vorgelegt worden.
+Hiermit bestätigt der Unterzeichnende, dass die Bachelorarbeit mit dem Thema "Evaluation von Synchronisations- und Konfliktlösungsverfahren im Web-Umfeld" gemäss freigegebener Aufgabenstellung mit Freigabe vom 09.02.2015 ohne jede fremde Hilfe im Rahmen der gültigen Reglements selbständig ausgeführt wurde. 
 
-St.Gallen 1.05.2015
-
+Alle öffentlichen Quellen sind als solche kenntlich gemacht. Die vorliegende Arbeit ist in dieser oder anderer Form zuvor nicht zur Begutachtung vorgelegt worden.\
+\
+St.Gallen den 30.06.2015
+\
+\
 Martin Eigenmann
 
 

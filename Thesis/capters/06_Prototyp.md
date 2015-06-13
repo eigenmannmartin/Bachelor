@@ -25,7 +25,7 @@ In diesem Kapitel wird ein Prototyp entworfen, der die Erkenntnisse aus dem Kapi
 
 Konzeptbestandteile
 -------------------
-Die Konventionen und Richtlinien des Kapitels [Leitfaden] berücksichtigend müssen nicht alle im Konzept erarbeiteten Ansätze umgesetzt werden.
+Die Konventionen und Richtlinien des Kapitels [Leitfaden] und die Anforderungen aus der [Anforderungsanalyse] berücksichtigend, müssen nicht alle erarbeiteten Konzeptnsätze umgesetzt werden.
 Die Datenübermittlung wird Unterschieds basiert durchgeführt und serverseitig mit einem auf dem Konzept des Singlestate basierenden Datenspeichers komplettiert. Zur Konfliktvermeidung wird sowohl die Update Transformation, wiederholbare Transaktionen als auch Serverfunktionen verwendet. Bezüglich der Konfliktauflösung wird nur die Zusammenführung umgesetzt, da Konflikte explizit erlaubt sind.
 
 
@@ -122,7 +122,7 @@ Message = {
     messageName: ""
     meta: {
         model: ""
-        function: ""
+        func: ""
     }
     data: {
         obj: {}

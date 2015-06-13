@@ -278,30 +278,25 @@ Die übrigen Verfahren wie Update Transformation, Zusammenführung sowie die kon
 
 
 Leitfaden
-=========
+---------
 Dies ist ein Set von Konventionen und Richtlinien für die Synchronisation von Daten im Web-Umfeld basierend auf den Ergebnissen aus der Analyse und Auswertung der Beispieldaten.
 Der Wert von Software ist direkt gekoppelt an die Qualität ihrer Codebasis. Nicht nur die Fehleranfälligkeit, sondern auch die Wartbarkeit steigt mit der Verwendung von nicht durchdachten Designs.
 Diese Regeln helfen Probleme bei der Synchronisation zu reduzieren und gleichzeitig die Wartbarkeit zu erhöhen.
 
 
-Konflikte erlauben
-------------------
+### Konflikte erlauben
 Die Applikation soll die Möglichkeit des Auftretens von Konflikten vorsehen. So sollen benutzerfreundliche Fehlermeldungen generiert werden, die den Benutzer darauf hinweist, dass von ihm bearbeitete Daten und Informationen nicht übernommen werden konnten. Konflikte sollen darüber hinaus aufgezeichnet und für Analysen gespeichert werden. Nicht übernommene Daten werden so gespeichert und gehen nicht verloren.
 
 
-Zuständigkeit für Daten
------------------------
+### Zuständigkeit für Daten
 Wenn immer möglich, sollen Daten nur einem Benutzer zugewiesen sein. Somit ist Verwaltung und Veränderung der Daten nur einem Benutzer möglich. Synchronisationskonflikte entfallen so fast vollständig.
 
-Objekte erstellen
------------------
+### Objekte erstellen
 Wenn immer möglich sollen neue Objekte erstellt werden statt bestehenden zu mutieren. Zusätzliche Informationen werden dazu in neuen Objekten, entsprechen referenziert, hinzugefügt,
 
-Sperren
--------
+### Sperren
 Das setzten von Sperren erlaubt es vorübergehend alle anderen Mutationen zu verbieten. Dadurch kann ein Benutzer konfliktfrei Änderungen durchführen.
 Dabei wird bei betreten des Editiermodus eines Objekts, dieses auf dem Server für alle anderen Benutzer gesperrt. Diese nun, bis der Bearbeiter das Objekt speichert und damit wieder freigibt, nur noch lesend darauf zugreifen.
 
-Serverfunktionen
-----------------
+### Serverfunktionen
 Das Verwenden von Serverfunktionen beschränkt die Ausführung dieser nur auf den Zeitraum, in dem eine Verbindung zum Server besteht. Dadurch werden kritische Mutationen zeitnah vom Server verarbeitet und die Wahrscheinlichkeit für Konflikte sinkt drastisch.
