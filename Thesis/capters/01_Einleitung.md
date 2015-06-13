@@ -1,5 +1,7 @@
 
 
+\pagestyle{scrheadings}
+
 \part[Präambel]{Einleitung und Abgrenzung}
 
 
@@ -59,21 +61,21 @@ Zusätzlich wird die Arbeit durch folgende Punkte klar abgegrenzt:
 Aufbau der Arbeit
 =================
 
-_Teil i - __Präambel__ - Einleitung und Abgrenzung_
+#### _Teil i - Präambel_
 Im ersten Kapitel [Einleitung] werden die Daten-Synchronisations-Probleme mit mobilen Endgeräten angedeutet und die daraus resultierende Motivation für diese Arbeit dargelegt. Weiter wird die Abgrenzung dieser Arbeit erörtert.
 Schliesslich wird im Kapitel [Aufbau der Arbeit] die Struktur sowie die Eigenleistungen betont.
 
-_Teil ii - __Grundlagen__ - Technische Grundlagen und Architekturen_
+#### _Teil ii - Grundlagen_
 Das Kapitel [Recherche] setzt sich mit den Grundlagen, Fachbegriffen und bekannten Verfahren zur Synchronisation und Replikation auseinander. Bekannte Verfahren zur verteilten Ausführung von Programmen, synchronen und asynchronen Replikation von Datenbanken sowie Synchronisationsverfahren werden umrissen.
 
 
-_Teil iii - __Konzept__ - Konzeption und Konzeptüberprüfung_
+#### _Teil iii - Konzept_
 In diesem Teil der Thesis werden die Grundlagen geschaffen um darauf basierend Konzepte zu erstellen. Zwei Beispielfälle für die Synchronisation von Daten werden eingeführt. Es wird darauf basierend eine [Analyse] der zu synchronisierenden Daten erstellt und überprüft ob eine sinnvolle Klassifikation der Daten durchführbar ist um so das Synchronisationsproblem abzuschwächen. 
 Die basierend auf der Analyse der Daten werden [Konzeptansätze] erarbeite und anschliessend auf ihre Anwendbarkeit hin überprüft (Konzept Untersuchung). Die sich daraus ergebenen Erkenntnisse werden im [Leitfaden] übersichtlich dargestellt. Die Vorschlägen des Leitfadens berücksichtigend wird der Aufbau des Prototypen ([Design des Prototypen]) konzipiert.   
 
-_Teil iv - __Implementation__ - Implementierung und Testing_
+#### _Teil iv - Implementation_
 Dieser Teil beschäftigt sich mit der Implementierung des Prototypen unter Verwendung der TDD Methode. Ein spezielles Augenmerk wird dem Testing und der verwendeten Frameworks gewidmet.
 
-_Teil v - __Ausklang__ - Abschluss und Ausblick_
+#### _Teil v - Ausklang_
 In diesem Teil der Thesis wird evaluiert, ob die erarbeiten und implementierten Konzepte der Aufgabenstellung genügen und welche Fragestellungen offen geblieben sind.
 

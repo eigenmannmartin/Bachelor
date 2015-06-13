@@ -1,3 +1,5 @@
+
+
 \part[Konzept]{Konzeption und Konzeptüberprüfung}
 
 
@@ -91,29 +93,29 @@ Weiter kann die Klassifikation zwischen Struktur und Art der Daten unterscheiden
 ### Klassifikation nach Art
 Um Daten nach ihrer Art zu Klassifizieren reicht es zu untersuchen wie die Lese- und Schreibrechte sowie deren Gültigkeitsdauer aussehen.
 
-__Exklusive Daten__ können nur von einem Benutzer bearbeitet, aber von diesem oder vielen Benutzern gelesen werden.
+- _Exklusive Daten_ können nur von einem Benutzer bearbeitet, aber von diesem oder vielen Benutzern gelesen werden.
 
-__Gemeinsame Daten__ können von vielen Benutzern gleichzeitig gelesen und bearbeitet werden.
+- _Gemeinsame Daten_ können von vielen Benutzern gleichzeitig gelesen und bearbeitet werden.
 
-__Dynamische Daten__ werden automatisch von System generiert. Benutzer greifen nur lesend darauf zu.
+- _Dynamische Daten_ werden automatisch von System generiert. Benutzer greifen nur lesend darauf zu.
 
-__Statische Daten__ bleiben über einen grossen Zeitraum hinweg unverändert. Viele Benutzer können diese Daten verändern und lesen.
+- _Statische Daten_ bleiben über einen grossen Zeitraum hinweg unverändert. Viele Benutzer können diese Daten verändern und lesen.
 
-__Temporäre Daten__ werden von System oder Benutzer generiert und sind nur sehr kurz gültig. Nur der Autor der Daten kann diese lesen.
+- _Temporäre Daten_ werden von System oder Benutzer generiert und sind nur sehr kurz gültig. Nur der Autor der Daten kann diese lesen.
 
 
 ### Klassifikation nach Struktur
 Bei der Unterscheidung der Daten nach ihrer Struktur, kann zwischen Kontextbezogenen und Kontextunabhängigen Daten differenziert werden. Die Entscheidung welcher Strukturklasse die Daten angehören ist abhängig vom Verständnis der Daten uns liegt somit im Entscheidungsbereich des Datendesigners.
 
-__Kontextunabhängige Daten__ gewinnen selbst durch andere Daten nicht mehr an Informationsgehalt. Gemeint ist damit, dass durch das zusätzliche Betrachten anderer Informationen nicht mehr Wissen bezüglich des einen Attributs entsteht.
+- _Kontextunabhängige Daten_ gewinnen selbst durch andere Daten nicht mehr an Informationsgehalt. Gemeint ist damit, dass durch das zusätzliche Betrachten anderer Informationen nicht mehr Wissen bezüglich des einen Attributs entsteht.
 
-__Kontextbezogene Daten__ weisen nur bezüglich eines bestimmten Kontext einen signifikanten Informationsgehalt auf. 
+- _Kontextbezogene Daten_ weisen nur bezüglich eines bestimmten Kontext einen signifikanten Informationsgehalt auf. 
 
 Die Adresse eines Kontakts spezifiziert üblicherweise den Ort und das Haus. Zusammen mit dem Namen wird auch die Wohnung eindeutig identifiziert. Die Adresse besitzt also zusammen mit dem Name einen grösseren Informationsgehalt.
 Wohingegen die Adresse den Namen nicht weiter spezifiziert.
 
 ### Datentypisierung
-Die Unterscheidung der Daten nach Datentyp differenziert zwischen __numerischen__, __binären__, __logischen__ und __textuellen__ Daten. Zur Typisierung wird immer die für den Benutzer sichtbare Darstellung verwendet, also jene Darstellung, in welcher die Daten erfasst wurden.
+Die Unterscheidung der Daten nach Datentyp differenziert zwischen _numerischen_, _binären_, _logischen_ und _textuellen_ Daten. Zur Typisierung wird immer die für den Benutzer sichtbare Darstellung verwendet, also jene Darstellung, in welcher die Daten erfasst wurden.
 
 
 ## Datenanalyse der Synchronisationsprobleme

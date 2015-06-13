@@ -8,7 +8,7 @@ date: 1.3.2015
 \pagenumbering{roman}
 
 
-# Abstract
+\chapter*{Abstract}
 
 
 <!-- 
@@ -17,7 +17,7 @@ Personen die Korrekturgelesen haben!!!!
 
 \setcounter{tocdepth}{1}
 
-# Inhaltsverzeichnis 
+\chapter*{Inhaltsverzeichnis}
 
 
 \renewcommand{\contentsname}{} \begingroup\let\clearpage\relax

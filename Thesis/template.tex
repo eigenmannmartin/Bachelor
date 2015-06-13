@@ -1,4 +1,7 @@
-\documentclass[oneside,11pt,parskip=half,ngerman]{scrreprt}
+\documentclass[ oneside,openright,titlepage,numbers=noenddot,headinclude,%1headlines,% letterpaper a4paper
+                BCOR=5mm,paper=a4,fontsize=11pt,%11pt,a4paper,%
+                ngerman,american,%
+                ]{scrreprt}
 %\documentclass[a4paper,oneside,11pt,parskip=half,ngerman]{scrreprt}
 \usepackage{typearea}
 
@@ -14,8 +17,6 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{color}
-\usepackage{fancyhdr}
-\renewcommand{\headrulewidth}{0pt}
 
 \usepackage{rotating}
 \usepackage{titlesec}
@@ -39,7 +40,6 @@
 \usepackage{array}
 \usepackage{float}
 \usepackage{scrhack}
-\usepackage{fancyvrb}
 
 \usepackage[section]{placeins}
 
@@ -47,11 +47,6 @@
 
 \usepackage[firstpage]{draftwatermark}
 
-%Typesetting
-\usepackage[activate=true,final,tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
-\SetProtrusion{encoding={*},family={bch},series={*},size={6,7}}
-              {1={ ,750},2={ ,500},3={ ,500},4={ ,500},5={ ,500},
-               6={ ,500},7={ ,600},8={ ,500},9={ ,500},0={ ,500}}
 
 % Bibliography
 \usepackage[backend=bibtex]{biblatex}
@@ -59,8 +54,6 @@
 \bibliography{./Citer}
 
 
-%define page margin
-\geometry{a4paper, top=30mm, left=37mm, right=37mm, bottom=35mm,headsep=10mm,footskip=10mm}
 
 \usepackage{tocloft}
 \setlength\cftbeforetoctitleskip{-2.5em}
@@ -90,39 +83,7 @@ $if(graphics)$
 $endif$
 
 
-% Chapter styling
-\usepackage[grey]{quotchap}
-\makeatletter 
-\renewcommand*{\chapnumfont}{%
-  \usefont{T1}{\@defaultcnfont}{b}{n}\fontsize{80}{100}\selectfont% Default: 100/130
-  \color{chaptergrey}%
-}
-\makeatother
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[R]{%
-   % We want italics
-   \itshape
-   % The chapter number only if it's greater than 0
-   \ifnum\value{chapter}>2 \leftmark. \fi
-   }
-\fancyfoot[C]{\thepage}
-
-
-\titleformat{\section}
-  {\normalfont\scshape}{\thesection}{1em}{\MakeUppercase}
-
-\titleformat{\subsection}
-  {\normalfont\scshape}{\thesubsection}{1em}{\textit}
-
-\titleformat{\subsubsection}
-  {\normalfont\scshape}{}{1em}{\textit}
-
-
-
-
-
+% remove newpage from Part
 \makeatletter
 
 \let\LaTeXStandardPart\part%
@@ -152,11 +113,16 @@ $endif$
 
 
 
+%styling \part
+\titleclass{\part}{top} % make part like a chapter
+\titleformat{\part}
+[display]
+{\centering}
+{\MakeUppercase{\partname} \thepart}
+{5pt}
+{\color{red}\MakeUppercase}
 
-
-
-
-
+\usepackage[pdfspacing]{classicthesis} 
 
 
 
