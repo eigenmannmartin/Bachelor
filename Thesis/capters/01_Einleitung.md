@@ -1,16 +1,5 @@
-<!--
-
-Beispiel:
-
-Kontakte Synchronisieren
-Single- und Multistate möglich
-Implementation möglich
-
-"Grosses" Problem - jeder kennt das
 
 
-
--->
 \part[Präambel]{Einleitung und Abgrenzung}
 
 
@@ -52,7 +41,7 @@ Abgrenzung der Arbeit
 
 Grosse Anbieter von Web-Software wie Google und Facebook arbeiten intensiv an spezifischen Lösungen für ihre Produkte. Zwar werden in Talks Techniken und Lösungsansätze erläutert (Facebook stellt Flux und Message-Driven Architecture vor[^fb-flux]), wissenschaftliche Arbeiten darüber, sind jedoch nicht publiziert.
 
-[^fb-flux]:https://www.youtube.com/watch?v=KtmjkCuV-EU
+[^fb-flux]:[https://www.youtube.com/watch?v=KtmjkCuV-EU](https://www.youtube.com/watch?v=KtmjkCuV-EU)
 
 Ich möchte in dieser Arbeit einen allgemeinen Ansatz erarbeiten und die Grenzen ausloten, um so zu zeigen, wo die Limitationen der Synchronisation liegen.
 
@@ -71,18 +60,20 @@ Aufbau der Arbeit
 =================
 
 _Teil i - __Präambel__ - Einleitung und Abgrenzung_
+Im ersten Kapitel [Einleitung] werden die Daten-Synchronisations-Probleme mit mobilen Endgeräten angedeutet und die daraus resultierende Motivation für diese Arbeit dargelegt. Weiter wird die Abgrenzung dieser Arbeit erörtert.
+Schliesslich wird im Kapitel [Aufbau der Arbeit] die Struktur sowie die Eigenleistungen betont.
 
 _Teil ii - __Grundlagen__ - Technische Grundlagen und Architekturen_
-Das Kapitel [Recherche] setzt sich mit den Grundlagen, Fachbegriffen und bekannten Verfahren zur Synchronisation und Replikation auseinander.
-Im Kapitel [Analyse] werden die Grundlagen geschaffen um darauf Konzepte zu erstellen. Es wird eine Analyse der zu synchronisierenden Daten erstellt und überprüft ob eine sinnvolle Klassifikation durchführbar ist.
+Das Kapitel [Recherche] setzt sich mit den Grundlagen, Fachbegriffen und bekannten Verfahren zur Synchronisation und Replikation auseinander. Bekannte Verfahren zur verteilten Ausführung von Programmen, synchronen und asynchronen Replikation von Datenbanken sowie Synchronisationsverfahren werden umrissen.
+
 
 _Teil iii - __Konzept__ - Konzeption und Konzeptüberprüfung_
-In diesem Teil der Thesis...
-Ich überprüfe die erarbeiten Konzepte auch auf deren Wirksamkeit...
+In diesem Teil der Thesis werden die Grundlagen geschaffen um darauf basierend Konzepte zu erstellen. Zwei Beispielfälle für die Synchronisation von Daten werden eingeführt. Es wird darauf basierend eine [Analyse] der zu synchronisierenden Daten erstellt und überprüft ob eine sinnvolle Klassifikation der Daten durchführbar ist um so das Synchronisationsproblem abzuschwächen. 
+Die basierend auf der Analyse der Daten werden [Konzeptansätze] erarbeite und anschliessend auf ihre Anwendbarkeit hin überprüft (Konzept Untersuchung). Die sich daraus ergebenen Erkenntnisse werden im [Leitfaden] übersichtlich dargestellt. Die Vorschlägen des Leitfadens berücksichtigend wird der Aufbau des Prototypen ([Design des Prototypen]) konzipiert.   
 
 _Teil iv - __Implementation__ - Implementierung und Testing_
-Dieser Teil beschäftigt sich mit der Entwicklung des Prototypen. Obwohl Testing und Implementation immer zusammen umgesetzt werden, ist in dieser Arbeit eine Aufteilung in die beiden Kapitel [Prototyp] und [Testing] gewählt, um dem Leser...
+Dieser Teil beschäftigt sich mit der Implementierung des Prototypen unter Verwendung der TDD Methode. Ein spezielles Augenmerk wird dem Testing und der verwendeten Frameworks gewidmet.
 
 _Teil v - __Ausklang__ - Abschluss und Ausblick_
-In diesem Teil wird evaluiert, ob die erarbeiten und implementierten Konzepte der Aufgabenstellung genügen...
+In diesem Teil der Thesis wird evaluiert, ob die erarbeiten und implementierten Konzepte der Aufgabenstellung genügen und welche Fragestellungen offen geblieben sind.
 

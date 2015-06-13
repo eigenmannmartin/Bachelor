@@ -3,7 +3,7 @@
 \usepackage{typearea}
 
 \usepackage[ngerman]{babel}
-\usepackage[colorlinks=false, pdfborder={0 0 0}]{hyperref}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=green,filecolor=black,urlcolor=red,linktoc=page, pdfborder={0 0 0}]{hyperref}
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage[utf8]{inputenc}
@@ -15,6 +15,8 @@
 \usepackage{xcolor}
 \usepackage{color}
 \usepackage{fancyhdr}
+\renewcommand{\headrulewidth}{0pt}
+
 \usepackage{rotating}
 \usepackage{titlesec}
 \usepackage{mathptmx}
@@ -37,7 +39,6 @@
 \usepackage{array}
 \usepackage{float}
 \usepackage{scrhack}
-\usepackage{fancyhdr}
 \usepackage{fancyvrb}
 
 \usepackage[section]{placeins}
@@ -59,7 +60,7 @@
 
 
 %define page margin
-\geometry{a4paper, top=30mm, left=30mm, right=30mm, bottom=30mm,headsep=10mm,footskip=10mm}
+\geometry{a4paper, top=30mm, left=37mm, right=37mm, bottom=35mm,headsep=10mm,footskip=10mm}
 
 \usepackage{tocloft}
 \setlength\cftbeforetoctitleskip{-2.5em}
@@ -97,6 +98,67 @@ $endif$
   \color{chaptergrey}%
 }
 \makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{%
+   % We want italics
+   \itshape
+   % The chapter number only if it's greater than 0
+   \ifnum\value{chapter}>2 \leftmark. \fi
+   }
+\fancyfoot[C]{\thepage}
+
+
+\titleformat{\section}
+  {\normalfont\scshape}{\thesection}{1em}{\MakeUppercase}
+
+\titleformat{\subsection}
+  {\normalfont\scshape}{\thesubsection}{1em}{\textit}
+
+\titleformat{\subsubsection}
+  {\normalfont\scshape}{}{1em}{\textit}
+
+
+
+
+
+\makeatletter
+
+\let\LaTeXStandardPart\part%
+\newcommand{\unstarredpart@@noopt}[1]{%
+  \unstarredpart@@opt[#1]{#1}%
+}%
+
+\newcommand{\unstarredpart@@opt}[2][]{%
+  \cleardoublepage% (For clearing content before!!!)
+  \begingroup%
+  \let\newpage\relax%
+  \LaTeXStandardPart[#1]{#2}%
+  \endgroup%
+}%
+
+\newcommand{\starredpart}[1]{%
+  \LaTeXStandardPart*{#1}%
+}%
+
+\newcommand{\unstarredpart}{%
+  \@ifnextchar[{\unstarredpart@@opt}{\unstarredpart@@noopt}%
+}%
+
+\renewcommand{\part}{%
+  \@ifstar{\starredpart}{\unstarredpart}%
+}%
+
+
+
+
+
+
+
+
+
+
 
 \begin{titlepage}
 \title{\bigskip \bigskip $title$}

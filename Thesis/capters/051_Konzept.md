@@ -59,8 +59,8 @@ Die beiden im Kapitel [Konzept] untersuchten Datenhaltungskonzepte sind nachfolg
 Das Konzept des Singlestate ist sehr konservativ und ist in ähnlicher Form weit verbreitet. MongoDB und MySQL bieten beide das Konzept eines einzigen gültigen und rückwirkend unveränderbaren Status. Auch eine Versionierung und somit ein wahlfreier Zugriff auf alle Stati ist implementierbar.
 
 Die Implementation auf konzeptioneller Stufe ist dabei wenig anspruchsvoll.
-Beim Eingehen einer neuen Nachricht wird die Funktion addMessage() aufgerufen.
-Die Funktion @State($t$) gibt den Staus zum Zeitpunkt $t$ zurück. Falls kein Zeitpunkt angegeben ist, wird der neueste zurückgegeben.
+Beim Eingehen einer neuen Nachricht wird die Funktion _addMessage_ aufgerufen.
+Die Funktion _State_ gibt den Staus zum Zeitpunkt $t$ zurück. Falls kein Zeitpunkt angegeben ist, wird der neueste zurückgegeben.
 Die MessageQueue wird durch das Stausobjekt verwaltet.
 
 
@@ -86,7 +86,7 @@ addMessage(Message): ->
 Die Funktionen canResolvConfict sowie resolveConflict greifen auf den referenzierten Status der Nachricht zu.
 
 #### Performance
-Der Zugriff auf einen beliebigen Status ist von der Laufzeitkomplexität $O(n)$ (mit $n$ = Grösse der MessageQueue).
+Der Zugriff auf einen beliebigen Status ist von der Laufzeitkomplexität $O(n)$ (mit $n$ Grösse der MessageQueue).
 
 #### Verbesserung
 Da jede schreibende Operation zuerst den referenzierten Staus auslesen muss, und dies sehr Rechenintensiv ist, wird jeder errechneter Zustand zwischengespeichert. So existiert für jede Nachricht bereits ein zwischengespeicherter Status und muss daher nicht für jede Operation erneut generiert werden.
@@ -98,7 +98,7 @@ Das grösste Manko liegt jedoch im Umstand, einen Konflikt direkt beim Auftreten
 
 ### Multistate
 Die Multistate Implementation unterschiedet sich insbesondere darin, dass das Annehmen einer Nachricht und das Auflösen des Konflikts voneinander unabhängig sind.
-Beim Eingehen einer neuen Nachricht wird ebenfalls die Funktion addMessage() aufgerufen. Die Funktion @StateTree($t$) gibt den Status zum Zeitpunkt $t$ zurück. Neu wird jedoch die MessageQueue separat geführt, da der Statusbaum bei jeder schreibenden Operation neu aufgebaut werden muss.
+Beim Eingehen einer neuen Nachricht wird ebenfalls die Funktion _addMessage_ aufgerufen. Die Funktion _StateTree_ gibt den Status zum Zeitpunkt $t$ zurück. Neu wird jedoch die MessageQueue separat geführt, da der Statusbaum bei jeder schreibenden Operation neu aufgebaut werden muss.
 
 ``` {.coffee}
 getState(t): ->
@@ -122,7 +122,7 @@ addMessage(Message): ->
  -->
 
 #### Performance
-Da bei jeder schreibenden Operation der gesamte Statusbaum neu aufgebaut wird, weist diese Implemantation eine Laufzeitkomplexität von $O(n)$ (mit $n$ = Grösse der MessageQueue) auf.
+Da bei jeder schreibenden Operation der gesamte Statusbaum neu aufgebaut wird, weist diese Implemantation eine Laufzeitkomplexität von $O(n)$ (mit $n$ Grösse der MessageQueue) auf.
 
 #### Verbesserung 1
 Falls eine Nachricht auf einen aktuell gültigen Zustand referenziert, muss der Baum nicht erneut aufgebaut werden, da es ausreichend ist, den Baum nur zu erweitern.
