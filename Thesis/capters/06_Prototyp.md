@@ -386,23 +386,24 @@ Integrationstests werden deshalb nur manuell durchgeführt, damit die vorhandene
 
 Im nachfolgenden sind die Tests basierend auf den Anforderungen an den Prototypen aufgeführt.
 
--------------------------------------------------------------------------------
-__Test__            __Beschreibung__                            __Status__
-------------------- ------------------------------------------- ---------------
-Kontakt erstellen   
 
-Kontakt ändern
+-----------------------------------------------------------------------
+__MT__  __AC__  __Status__  __Datum__   __Beschreibung__
+------- ------- ----------- ----------- -------------------------------
+T1      AC01    OK          21.05.2015
+                                        Initiale Synchronisation wurde ausgeführt.
 
-Kontakt löschen
+T2      AC02    OK          10.05.2015
+                                        Mutationen können ohn Verbindung zum Server durchgeführt werden.
 
-Datenbank
- initialisieren
+T3      AC03    OK          21.05.2015  
+                                        Mutationen werden bei Verbindung zum Server übertragen. 
 
-Synchronisation mit
- mobilem Endgeräten
+T4      AC04    OK          21.05.2015
+                                        Die Konfliktauflösung wird bei der Synchronisation durchgeführt.
 
-
---------------------------------------------------------------------
+-----------------------------------------------------------------------
 Table: Manuelle Tests
+
 
 

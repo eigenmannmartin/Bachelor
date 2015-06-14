@@ -1,38 +1,41 @@
 
+\part[Anhang]{Anhang}
 
 \appendix
 
 
-Anhang {#appendixA}
-===================
-
 Glossar
--------
+================
+
 __ORM__
 ORM steht für object-relational mapping und ist eine Technik mit der Objekte einer Anwendung in einem relationalen Datenbanksystem abgelegt werden kann.
-
-
+\
 __Node__
 Node oder Node.js ist eine Plattform welche es erlaubt JavaScript serverseitig auszuführen.
 [https://nodejs.org/](https://nodejs.org/)
-
-RPC
-
-jasmine
-karma
-
-
+\
+__RPC__
+Remote Procedure Call ist eine Technologie um Funktionsbausteine in einem anderen Prozess aufzurufen.
+\
+__Jasmine__
+Jasmine ist ein verhaltensbasiertes Testframework für JavaScript.
+[http://jasmine.github.io](http://jasmine.github.io)
+\
+__Karma__
+Karma ist ein Testrunner-Framework zur kontinuierlichen Ausführung von UnitTests.
+[http://karma-runner.github.io](http://karma-runner.github.io)
+\
 __Mocks__
 Mocks sind Code-Atrappen, die es ermöglichen, noch nicht vorhandene oder nicht verfügbare, Funktionalitäten und Objekte zu simulieren.
 [http://de.wikipedia.org/wiki/Mock-Objekt](http://de.wikipedia.org/wiki/Mock-Objekt)
-
+\
 __Github__
 Github ist ein Cloud basierter SourceCode Verwaltungsdienst für Git.
 [https://github.com](https://github.com)
 
 
 Aufgabenstellung {#appendix_aufgabenstellung}
----------------------------------------------
+=============================================
 
 ### Thema
 
@@ -48,60 +51,50 @@ Das Ziel der Bachelorthesis besteht in der in der Konzeption und der Entwicklung
 
 ### Aufgabenstellung
 
-_A1 Recherche:_
+- _A1 Recherche:_
+       - Definition der Fachbegriffe
+       - Erarbeitung der technischen Grundlagen zur Synchronisation von Datenbanken und Datenspeichern
 
-- Definition der Fachbegriffe
-- Erarbeitung der technischen Grundlagen zur Synchronisation von Datenbanken und Datenspeichern
+- _A2 Analyse:_
+       - Analyse der Synchronisationsverfahren und deren Umgang mit Konflikten
+       - Analyse der Synchronisationsverfahren im Bereich der Web-Anwendungen
+       - Durchführen einer Anforderungsanalyse an die Software
 
-_A2 Analyse:_
+- _A3 Konzept:_
+       - Erstellen eines Konzepts der Synchronisation
+       - Erstellen eines Konzepts der Implementierung zweier ausgewählten Synchronisations-Verfahren
 
-- Analyse der Synchronisationsverfahren und deren Umgang mit Konflikten
-- Analyse der Synchronisationsverfahren im Bereich der Web-Anwendungen
-- Durchführen einer Anforderungsanalyse an die Software
+- _A4 Prototyp:_
+       - Konzeption des Prototypen der die gestellten Anforderungen erfüllt
+       - Entwickeln des Software-Prototyps
+       - Implementation zweier ausgewählter Synchronisations- und Konfliktlösungsverfahren
 
-_A3 Konzept:_
-
-- Erstellen eines Konzepts der Synchronisation
-- Erstellen eines Konzepts der Implementierung zweier ausgewählten Synchronisations-Verfahren
-
-_A4 Prototyp:_
-
-- Konzeption des Prototypen der die gestellten Anforderungen erfüllt
-- Entwickeln des Software-Prototyps
-- Implementation zweier ausgewählter Synchronisations- und Konfliktlösungsverfahren
-
-_A5 Review:_
-
-- Test des Prototyps und Protokollierung der Ergebnisse
+- _A5 Review:_
+       - Test des Prototyps und Protokollierung der Ergebnisse
 
 
 ### Erwartete Resultate
 
-_R1 Recherche:_
+- _R1 Recherche:_
+       - Glossar mit Fachbegriffen
+       - Erläuterung der bereits bekannten Synchronisation- und Konfliktlösungs-Verfahren, sowie deren mögliches Einsatzgebiet
 
-- Glossar mit Fachbegriffen
-- Erläuterung der bereits bekannten Synchronisation- und Konfliktlösungs-Verfahren, sowie deren mögliches Einsatzgebiet
+- _R2 Analyse:_
+       - Dokumentation der Verfahren und deren Umgang mit Synchronisation-Konflikten (Betrachtet werden nur MySQL, MongoDB)
+       - Dokumentation der Verfahren zur Synchronisation im Bereich von Web-Anwendungen (Betrachtet werden nur die Frameworks Backbone.js und Meteor.js)
+       - Anforderungsanalyse der Software
 
-_R2 Analyse:_
+- _R3 Konzept:_
+       - Dokumentation des Konzepts der Synchronisation
+       - Dokumentation der Umsetzung der ausgewählten Synchronisations-Verfahren
 
-- Dokumentation der Verfahren und deren Umgang mit Synchronisation-Konflikten (Betrachtet werden nur MySQL, MongoDB)
-- Dokumentation der Verfahren zur Synchronisation im Bereich von Web-Anwendungen (Betrachtet werden nur die Frameworks Backbone.js und Meteor.js)
-- Anforderungsanalyse der Software
+- _R4 Prototyp:_
+       - Dokumentation des Prototypen
+       - Implementation des Prototypen gemäss Konzept und Anforderungsanalyse
+       - Implementation zweier ausgewählter Synchronisations- und Konfliktlösungsverfahren
 
-_R3 Konzept:_
-
-- Dokumentation des Konzepts der Synchronisation
-- Dokumentation der Umsetzung der ausgewählten Synchronisations-Verfahren
-
-_R4 Prototyp:_
-
-- Dokumentation des Prototypen
-- Implementation des Prototypen gemäss Konzept und Anforderungsanalyse
-- Implementation zweier ausgewählter Synchronisations- und Konfliktlösungsverfahren
-
-_R5 Review:_
-
-- Protokoll der Tests des Software Prototypen
+- _R5 Review:_
+       - Protokoll der Tests des Software Prototypen
 
 
 
@@ -109,34 +102,33 @@ _R5 Review:_
 Detailanalyse der Aufgabenstellung
 ----------------------------------
 
-Die Detailanalyse der Aufgabenstellung...
+Die Detailanalyse der Aufgabenstellung formuliert die zu erbringenden Aufgaben aus und unterteilt diese in Deliveries _D1_ bis _D8_.
 
-### Aufgabenstellung und erwartete Resultate
 #### Recherche
 Es sollen die technischen Grundlagen zur Bearbeitung dieser Thesis zusammengetragen werden. Für das Verständnis wichtige Sachverhalte erläutert und Fachbegriffe erklärt werden.
 
-Erwartet wird ein Glossar, sowie eine Zusammenfassung der bekannten Synchronisations und Konfliktlösungsverfahren, sowie deren Einsatzgebiet.
+Erwartet wird ein Glossar (_D1_), sowie eine Zusammenfassung (_D2_) der bekannten Synchronisations und Konfliktlösungsverfahren, sowie deren Einsatzgebiet.
 
 #### Analyse
 Eine genauere Betrachtung der ausgewählten Systeme (MySQL, MongoDB, Backbone.js und Meteor.js) zeigt auf, wo die aktuelle Systeme an ihre Grenzen stossen.
 Weiter muss eine Anforderungsanalyse für eine Beispielapplikation durchgeführt werden.
 
-Erwartet wird Sowohl die Dokumentation der Synchronisationsverfahren als auch das Ergebnis der Anforderungsanalyse.
+Erwartet wird Sowohl die Dokumentation der Synchronisationsverfahren (_D3_) als auch das Ergebnis der Anforderungsanalyse (_D4_).
 
 #### Konzept
 Die Erarbeitung und Überprüfung der Umsetzbarkeit neuer Synchronisationskonzepte wird in der Konzeptionsphase gefordert.
 
-Sowohl eine Darstellung der erarbeitete Konzepte, als auch eine Umsetzungsplanung derer ist gefordert.
+Erwartet wird eine Darstellung der erarbeiteten Konzepte (_D5_), als auch eine Konzeption zur Umsetzung (_D6_) derer ist gefordert.
 
 #### Prototyp
 Der Prototyp soll anhand eines Beispiels aufzeigen, wo die Stärken und Schwächen eines der Konzepte liegt.
 
-Erwartet wird ein Prototyp der zwei Synchronisations- und Konfliktauflösungsverfahren implementiert.
+Erwartet wird ein Prototyp der zwei Synchronisations- und Konfliktauflösungsverfahren (_D7_) implementiert.
 
 #### Review
 Das Review soll eine Retrospektive auf die Erarbeiteten Resultate werfen und kritisch hinterfragen.
 
-Erwartet wird ein Protokoll der durchgeführten Tests.
+Erwartet wird ein Test des Prototyps sowie ein Protokoll der durchgeführten Tests (_D8_).
 
 Projektmanagement
 =================
@@ -158,11 +150,11 @@ Die aus der Projektplanung hervorgehenden Arbeitsschritte müssen geschätzt wer
 __Arbeitsschritt__           Aufwand in Stunden
 --------------------------- ---------------------------------------------------
 Initialisierung             10
-Recherche                   45
-Analyse                     20
-Konzeption                  80
-Prototyp                    60
-Dokumentation               135
+Recherche (_D2_,_D3_)       45
+Analyse (_D2_,_D3_,_D4_)    20
+Konzeption (_D5_,_D6_)      80
+Prototyp (_D7_,_D8_)        60
+Dokumentation (_D1_)        135
 Abgabe                      20
 
 __Total__                   __370__
@@ -237,7 +229,8 @@ Die Schlüsselwörter „muss“, „muss nicht“, „erforderlich“, „empfo
 
 
 
-### Use-Cases
+Use-Cases
+---------
 Im Nachfolgenden werden alle UseCases aufgelistet die im Rahmen dieser Thesis gefunden wurden.
 
 
@@ -246,7 +239,7 @@ Im Nachfolgenden werden alle UseCases aufgelistet die im Rahmen dieser Thesis ge
 -------------------------------------------------------------------------------
 __UseCase__
 --------------------------- --------------------------------------------------
-__Ziel__                    Ein existierendes Objekt wird gelesen. 
+__Ziel__                    Ein existierendes Objekt wird gelesen.
 
 __Beschreibung__            
                             Der Benutzer kann jedes Objekt anfordern. Das System liefert das angeforderte Objekt zurück.
@@ -330,7 +323,9 @@ __Alternativszenario__      -
 -------------------------------------------------------------------------------
 
 
-### Anforderungen
+Anforderungen
+-------------
+
 In diesem Kapitel sind alle funktionalen und nicht-funktionalen Anforderungen aufgeführt die aus den UseCases resultieren. Der entsprechende UseCase ist dabei jeweils referenziert.
 
 <!-- FREQ01.01 Abfragen eines Elementverzeichnis -->
@@ -468,7 +463,9 @@ __Beschreibung__
 -------------------------------------------------------------------------------
 
 
-### Akzeptanzkriterien
+Akzeptanzkriterien
+------------------
+
 In den nachfolgenden Tabellen findet sich eine Aufführung der Akzeptanzkriterien, basierend auf den bereits erarbeitete Anforderungen.
 
 <!-- AC01 Initiale Synchronisation -->
@@ -479,11 +476,11 @@ __Akzeptanzkriterium__
 --------------------------- --------------------------------------------------
 __REQ-Referenz__            FREQ01.01, FREQ01.02, FREQ04.02
 
-__Vorbedingung__            Der Client hat eine Verbindung zum Server
-                            aufgebaut.
+__Vorbedingung__            
+                            Der Client hat eine Verbindung zum Server aufgebaut.
 
-__Kriterium__               Beim Starten des Clients wird der gesamte
-                            Datenbestand des Servers an den Client übermittelt.
+__Kriterium__               
+                            Beim Starten des Clients wird der gesamte Datenbestand des Servers an den Client übermittelt.
 -------------------------------------------------------------------------------
 
 <!-- AC02 Einfügen/Ändern/Löschen Lokal -->
@@ -494,11 +491,11 @@ __Akzeptanzkriterium__
 --------------------------- --------------------------------------------------
 __REQ-Referenz__            FREQ04.01, FREQ04.02
 
-__Vorbedingung__            Der Client hat bereits eine initiale 
-                            Synchronisation durchgeführt.
+__Vorbedingung__            
+                            Der Client hat bereits eine initiale Synchronisation durchgeführt.
 
-__Kriterium__               Jedes Element des lokalen Datenbestand des Clients 
-                            kann gelesen, mutiert, gelöscht werden. Neue Elementen können dem Datenbestand hinzugefügt werden. 
+__Kriterium__               
+                            Jedes Element des lokalen Datenbestand des Clients kann gelesen, mutiert und gelöscht werden. Neue Elementen können dem Datenbestand hinzugefügt werden. 
 -------------------------------------------------------------------------------
 
 
@@ -508,14 +505,14 @@ __Kriterium__               Jedes Element des lokalen Datenbestand des Clients
 -------------------------------------------------------------------------------
 __Akzeptanzkriterium__
 --------------------------- --------------------------------------------------
-__REQ-Referenz__            FREQ02.01, FREQ02.02, FREQ03.01, FREQ05.01, 
-                            FREQ05.02, NFREQ01, NFREQ02
+__REQ-Referenz__            
+                            FREQ02.01, FREQ02.02, FREQ03.01, FREQ05.01, FREQ05.02, NFREQ01, NFREQ02
 
-__Vorbedingung__            Der lokale Datenbestand des Clients wurde mutiert
-                            und noch nicht synchronisiert. Der Client hat eine Verbindung zum Server aufgebaut.
+__Vorbedingung__            
+                            Der lokale Datenbestand des Clients wurde mutiert und noch nicht synchronisiert. Der Client hat eine Verbindung zum Server aufgebaut.
 
-__Kriterium__               Jede auf dem Client durchgeführte Mutation wurde
-                            aufgezeichnet und wird dem Server in der aufgezeichneten Reihenfolge übermittelt.
+__Kriterium__               
+                            Jede auf dem Client durchgeführte Mutation wurde aufgezeichnet und wird dem Server in der aufgezeichneten Reihenfolge übermittelt.
 -------------------------------------------------------------------------------
 
 
@@ -527,11 +524,11 @@ __Akzeptanzkriterium__
 --------------------------- --------------------------------------------------
 __REQ-Referenz__            NFREQ02
 
-__Vorbedingung__            Der Client hat eine Verbindung zum Server
-                            aufgebaut. Eine Synchronisation wurde durchgeführt.
+__Vorbedingung__            
+                            Der Client hat eine Verbindung zum Server aufgebaut. Eine Synchronisation wurde durchgeführt.
 
-__Kriterium__               Das Ergebnis der Konfliktauflösung wird dem Client
-                            übermittelt.
+__Kriterium__              
+                            Das Ergebnis der Konfliktauflösung wird dem Client übermittelt.
 -------------------------------------------------------------------------------
 
 
