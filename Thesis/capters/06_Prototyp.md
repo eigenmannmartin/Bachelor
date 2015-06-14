@@ -136,7 +136,7 @@ Table: Nachrichten Server-Logik
 Das Verhalten des Singlestate Konzepts ist mit einer Datenbank abbildbar. Der referenzierte Status wird jeweils in der Nachricht vom Client, vollständig mitgeliefert. Das Implementieren eines wahlfreier Zugriff auf vergangene Stati ist deshalb nicht notwendig.
 
 ### Frontend
-Die beiden Nachrichten können von den Views versendet werden, aktualisieren den Store und werden vom Client-API Teil verarbeitet.
+Die beiden Nachrichten können von den Views versendet werden, aktualisieren den Store und werden vom Client-API Teil verarbeitet. Nur diese beiden Nachrichten aktualisieren den Store des Clients.
 
 -------------------------------------------------------------------------------
 __Nachrichtname__           __Beschreibung__
@@ -152,29 +152,38 @@ Table: Nachrichten Client
 
 
 ### Interaktionen
+Die Gestaltung des Ablaufs der Interaktionen zwischen Client und Server ist für die drei wichtigsten Fälle im Folgenden aufgeführt.
 
 #### Initiale Synchronisation
+Die Abbildung {@fig:initsync} illustriert den Ablauf der initialen Synchronisation. Sobald sich der Client mit dem Server verbunden hat, wird der initiale Datenbestand des Servers an den Client übermittelt. Dazu wird jedes Element des Servers einzeln in einer Nachricht an den Client gesendet. Der Vorgang ist abgeschlossen sobald eine Kopie aller Elemente versendet wurde.
 
-![Ablauf der initiale Synchronisation](img/initsync.png)
+![Ablauf der initiale Synchronisation](img/initsync.png) {#fig:initsync}
+
+\FloatBarrier
 
 #### Synchronisation
+Beim durchführen lokaler Änderungen werden die dazugehörenden Nachrichten bereits an die API weitergereicht und dort zur Weiterleitung an den Server zwischengespeichert.
+Sobald eine Verbindung mit dem Server besteht werden diese zwischengespeicherten Nachrichten, wie in Abbildung {@fig:ssync}, an den Server übermittelt.
 
-![Ablauf der Synchronisation](img/sync.png)
+![Ablauf der Synchronisation](img/sync.png) {#fig:ssync}
+
+\FloatBarrier
 
 #### Serverfunktion
+Der Aufruf einer Serverfunktion wird auch asynchron durchgeführt. Der Aufruf wird zusammen mit den dazu nötigen Parametern in Form einer Nachricht an den Server gesendet. Die geänderten Elemente werden anschliessend vom Server, wie im Abbildung {@fig:sfunc}, retourniert.
 
-![Ablauf eines Aufrufs einer Serverfunktion](img/sfunc.png)
+![Ablauf eines Aufrufs einer Serverfunktion](img/sfunc.png) {#fig:sfunc}
 
-
-
-
+\FloatBarrier
 
 
 <!-- Nachrichtenbasiert, desshalb Flux -->
 ### Flux Architektur
-Das Flux Paradigma[@facebook-flux] ist eine Applikationsarchitektur welche sehr stark auf das Konzept der nachrichtenbasierten Kommunikation verfolgt und somit auch einen unidirektionalen Datenfluss vorgibt.
-Daten können nur über das versenden einer Nachricht manipuliert werden. Sowohl Views als auch die API können Aktionen auslösen, und so den Datenbestand mutieren.
-![Flux Diagramm](img/flux-diagram.png)
+Das Flux Paradigma[@facebook-flux] ist eine Applikationsarchitektur welche sehr stark auf das Konzept der nachrichtenbasierten Kommunikation basiert und somit auch einen unidirektionalen Datenfluss, wie in Abbildung {@fig:flux} vorgibt. Daten können nur über das versenden einer Nachricht manipuliert werden. Sowohl Views als auch die API können Aktionen auslösen, und so den Datenbestand mutieren.
+
+![Flux Diagramm](img/flux-diagram.png) {#fig:flux} 
+
+\FloatBarrier
 
 Die Verwendung des Dispatchers ermöglicht es, Abhängigkeiten zwischen verschiedenen Stores zentral zu verwalten, da jeder Mutation zwangsweise zuerst von ihm bearbeitet wird.
 
@@ -186,14 +195,15 @@ Da in jedem Modul die Abhängigkeiten definiert werden müssen, kann während de
 
 
 ## Beispielapplikation
-Gem. Aufgabenstellung soll der Prototyp anhand eines passenden Fallbeispiel die Funktionsfähigkeit und Praxistauglichkeit zeigen Dazu wird das erste Fallbeispiel "Synchronisation von Kontakten" umgesetzt.
+Die Aufgabenstellung verlangt, dass der Prototyp anhand eines passenden Fallbeispiel die Funktionsfähigkeit und Praxistauglichkeit der Synchronisations- und Konflitlösungs-verfahren zeigt. Dazu wird das Fallbeispiel "Synchronisation von Kontakten" umgesetzt. Die Umsetzung konzentriert sich auf die Synchronisationsverfahren und lässt Aspekte des Benutzerverwaltung und Usability bewusst weg.
+\
+Die Beispielapplikation muss aufgrund der Anforderungen der [Anforderungsanalyse] und der Beschreibung des Fallbeispiels, auf der für den Endbenutzer sichtbaren Ebene, folgende Funktionalität aufweisen:
 
-Die Beispielapplikation soll eine Ressourcenplan-Software sein. Folgendes soll möglich sein:
+1. Ein neuer Kontakt kann erfassen werden.
+2. Ein bestehender Kontakt kann mutiert werden.
+3. Ein bestehender Kontakt kann gelöscht werden. 
+4. Die gesamten Funktionalität ist online wie auch offline verfügbar.
 
-1. einen neuen Kontakt erfassen oder einen Bestehenden ändern
-2. einen bestehenden Kontakt löschen
-3. neue Email-Adresse oder Telefonnummer erfassen oder bestehende anpassen
-4. persönliche Notizen zu einem Kontakt hinterlegen
 
 
 
@@ -201,19 +211,145 @@ Die Beispielapplikation soll eine Ressourcenplan-Software sein. Folgendes soll m
 
 
 # Prototyp
-Dieses Kapitel adressiert die Implementation des Prototypen gemäss den Anroderungen aus Kapitel [Analyse].
+In diesem Kapitel wird die Implementation des Prototypen gemäss den Anroderungen aus dem Kapitel [Analyse] adressiert, sowie auf die dafür verwendeten Technologien und Frameworks eingegangen.
 
-## Umsetzung
-<!-- Konkrete Implementations-Streategie/Algorythmen --> 
-- Modulare Konfliktauflösung (Logic [Algos -> Datenzuordnung])
-- Modulare Serverfunktionen
+## Umsetzung Konfliktauflösungsverfahren
+Die Implementation der Konfliktauflösungsverfahren "Zusammenführung", "kontextbezogene Zusammenführung" sowie die traditionelle Synchronisation ist mit wenigen Zeilen Code implementierbar. 
+
+Die Traditionelle Synchronisation überprüft auf Zeile 3 ob das Attribut des übermittelten Objekts (_new_obj_) auf dem Server (_db_obj_) bereits verändert wurde und übernimmt, nur falls dies nicht der Fall ist, das neue Attribut.
+
+
+``` {.coffee .numberLines}
+traditional: (data, db_obj, new_obj, prev_obj, attr) ->
+    if new_obj[attr]?
+        data[attr] = if prev_obj[attr] is db_obj[attr] 
+        then new_obj[attr] else db_obj[attr] 
+``` 
+<!-- 
+```
+-->
+
+Zur Umsetzung des Konzepts der Zusammenführung wird auf Zeile 3 überprüft, ob das Attribut des übermittelten Objekts in dieser Nachricht mutiert wurde und nur, falls dies der Fall ist, das neue Attribut übernommen.
+
+``` {.coffee .numberLines}
+combining: (data, db_obj, new_obj, prev_obj, attr) ->
+    if new_obj[attr]?
+        data[attr] = if new_obj[attr] is prev_obj[attr] 
+        then db_obj[attr] else new_obj[attr]
+``` 
+<!-- 
+```
+-->
+
+Die kontextbasierte Zusammenführung wird umgesetzt indem auf Zeile 4 geprüft wird, ob das Kontextattribut des Objekts auf dem Server bereits mutiert wurde. Nur wenn dies nicht der Fall ist, wird das neue Attribut übernommen.
+
+``` {.coffee .numberLines}
+contextual: (data, db_obj, new_obj, prev_obj,
+                attr, cont) ->
+    if new_obj[attr]?
+        data[attr] = if prev_obj[cont] is db_obj[cont] 
+        then new_obj[attr] else db_obj[attr] 
+``` 
+<!-- 
+```
+ -->
+
+
+## Umsetzung Konfliktverhinderungsverfahren
+Da der Prototyp durch sein Design bereits die Unterschiedsbasierte Synchronisation einsetzt und die Konfliktauflösung bereits auf Ebene der Attribute durchführt und somit das Konzept der Update Transformation bereits unterstützt, muss nur das Konzept der wiederholbaren Transaktion gesondert implementiert werden.
+Die Implementation dessen setzt jedoch numerischen Attribute voraus. Auf Zeile 4 wird die nummerische Änderung des übermittelten Attributs auf das Objekt des Servers übertragen.
+
+``` {.coffee .numberLines}
+_repeatable: (data, db_obj, new_obj, prev_obj, attr) ->
+    if new_obj[attr]?
+        data[attr] = 
+            db_obj[attr] + (new_obj[attr] - prev_obj[attr])
+``` 
+<!-- 
+```
+ -->
+
+## Entwicklung
+
+
+Die, beim Server, über die Verbindung zum Client eingehenden Nachrichten, werden über den Nachrichtenbus weitergeleitet. Auf Zeile 3 wird die Server-Interne _dispatch_-Funktion mit dem Nachrichtennamen und der tatsächlichen Nachricht aufgerufen und somit auf den Nachrichtenbus publiziert.
+
+``` {.coffee .numberLines}
+me = @
+@Socket.on 'message', ( msg ) ->
+    me.dispatch msg.messageName, msg.message
+``` 
+<!-- 
+```
+-->
+Sowohl über die API eingehende Nachrichten, als auch interne Nachrichten des Servers werden gleichwertig behandelt. Alle Nachrichten werden gleichermassen über den Nachrichtenbus verteilt.
+
+Auf dem Client werden eingehenden Nachrichten nur in den Nachrichtenbus des Clients eingespeist, wenn diese gültig sind. Auf Zeile 2 wird überprüft ob der Name der empfangenen Nachricht gültig ist. Falls dem so ist, wird dem Client eigenen Nachrichtenbus eine neue Nachricht übergeben. Um später zu erkennen, ob die Nachricht von einer View oder der API selbst kam, wird das Flag _updated_ gesetzt.
+
+``` {.coffee .numberLines}
+@.io.on 'message', ( msg ) ->
+    if msg.messageName is 'C_PRES_STORE_update'
+        flux.doAction 'C_PRES_STORE_update',
+        meta:
+            model:msg.message.meta.model
+            updated:true
+        data:
+            msg.message.data
+``` 
+<!-- 
+```
+-->
+
+
+Die Struktur der Daten muss nur auf dem Server definiert werden. Der Client selbst übernimmt automatisch die vom Server verwendete Struktur. Lediglich der Name des Objekts muss eingetragen werden (Zeile 2 und 8). Die Datenhaltung des Clients selbst, reagiert auch auf die _update_ Nachrichten (Zeile 7) und aktualisiert sich dem entsprechend.
+``` {.coffee .numberLines}
+flux.createStore
+    id: "prototype_contact",
+    initialState: 
+        contacts : []
+            
+    actionCallbacks:
+        C_PRES_STORE_update: ( updater, msg ) ->
+            if msg.meta.model is "Contact"
+                ...
+``` 
+<!-- 
+```
+-->
+
+
+Die Datenstruktur wird auf dem Server direkt in den Datendefinitionen von Sequelize eingetragen. Sequelize stellt dafür Datentypen zur Verfügung. Die so definierten Objekte können automatisiert in einem relationalen Datenbanksystem abgespeichert werden.
+
+``` {.coffee .numberLines}
+module.exports = (sequelize, DataTypes) ->
+    Contact = sequelize.define "Contact", { 
+        first_name: DataTypes.STRING
+        last_name: DataTypes.STRING
+        ...
+    }, {}
+``` 
+<!-- 
+```
+-->
+
+Die Konfiguration der Konfliktauflösungsstrategie wird in der Logikschicht für jedes Attribut einzeln definiert.
+
+``` {.coffee .numberLines}
+_traditional data, db_objs, me.obj, me.prev, 'first_name'
+_traditional data, db_objs, me.obj, me.prev, 'last_name'
+``` 
+<!-- 
+```
+-->
 
 <!-- Begründung Technologiestack -->
 ## Technologie Stack
+Die für die Entwicklung eingesetzten Technologien und Frameworks sind in der Tabelle \ref{techstack} aufgeführt.
 
---------------------------------------------------------------------
+
+------------------------------------------------------------------------------
 Software            Beschreibung/Auswahlgrund
-------------------- ------------------------------------------------
+------------------- ----------------------------------------------------------
 __Grunt__           
                     Grunt ermöglicht es dem Benutzer vordefinierte Tasks von der Kommandozeile aus durchzuführen. So sind Build- und Test-Prozesse für alle Benutzer ohne detaillierte Kenntnisse durchführbar.
                     Da Grunt eine sehr grosse Community besitzt und viele Plugins sowie hervorragende Dokumentationen verfügbar, wurde Grunt eingesetzt.
@@ -244,6 +380,7 @@ __Socket.io__
                     Socket.io ist eine Implementation des Websocket Standards und erlaubt eine Asynchrone Kommunikation zwischen Client und Server.
 
 -------------------------------------------------------------
+Table: Technologie Stack  \label{techstack}
 
 ## Entwicklungsumgebung
 Die Entwicklungsumgebung ist so portabel wie möglich gestaltet. Alle benötigten Abhängigkeiten sind automatisiert installierbar. Die dazu nötigen Befehle sind nachfolgend aufgeführt.
@@ -256,111 +393,6 @@ Die Entwicklungsumgebung ist so portabel wie möglich gestaltet. Alle benötigte
 ```
 -->
 
-
-## Entwicklung
-<!--Tricks mit API & Message Routing, binding to io.on 'message' -> flux.doAction -->
-
-Sowohl über die API eingehende Nachrichten, als auch interne Nachrichten des Servers werden gleichwertig behandelt.
-
-server/api.coffee
-``` {.coffee}
-me = @
-@Socket.on 'message', ( msg ) ->
-    me.dispatch msg.messageName, msg.message
-
-flux.dispatcher.register (messageName, message) ->
-    me.dispatch messageName, message
-
-``` 
-<!-- 
-```
--->
-
-
-
-Express Server: 
-Statisches Daten -> Frontend /
-Socket.io -> /socket.io
-
-<!-- Message-Bus -> Fluxify also in the backend -->
-Auch das Backend verwendet Fluxify als zentralen MessageBus. Eine Einheitliche Code-Struktur sowie ein besseres Verständnis ist dadurch begünstigt.
-
-
-<!--RequireJS Modules testable in the Browser :-D -->
-Durch den Einsatz von RequireJS Modulen sind diese auch mit Karma direkt im Browser Testbar. So sind statische Analysen über das gesamte Projekt in nur einem Schritt durchführbar.
-
-
-
-
-<!-- Implementierung Konfliktauflösung -->
-Die Implementation des Konfliktverhinderungsverfahren "Wiederholbare Transaktion" sowie der Konfliktauflösungsverfahren "Zusammenführung", "kontextbezogene Zusammenführung" sowie die traditionelle Synchronisation
-
-
-``` {.coffee}
-_repeatable: (data, db_obj, new_obj, prev_obj, attr) ->
-    if new_obj[attr]?
-        data[attr] = db_obj[attr] + (new_obj[attr] - prev_obj[attr])
-
-_combining: (data, db_obj, new_obj, prev_obj, attr) ->
-    if new_obj[attr]?
-        data[attr] = if new_obj[attr] is prev_obj[attr] 
-        then db_obj[attr] else new_obj[attr]
-
-_traditional: (data, db_obj, new_obj, prev_obj, attr) ->
-    if new_obj[attr]?
-        data[attr] = if prev_obj[attr] is db_obj[attr] 
-        then new_obj[attr] else db_obj[attr] 
-
-_contextual: (data, db_obj, new_obj, prev_obj, attr, context) ->
-    if new_obj[attr]?
-        data[attr] = if prev_obj[context] is db_obj[context] 
-        then new_obj[attr] else db_obj[attr] 
-
-
-``` 
-<!-- 
-```
- -->
-
-
-
-Stores in the Frontend
-client/store.coffee
-``` {.coffee}
-flux.createStore
-     id: "prototype_rooms",
-    initialState: 
-        rooms : []
-            
-    actionCallbacks:
-        C_PRES_STORE_update: ( updater, msg ) ->
-            ...
-``` 
-<!-- 
-```
--->
-
-
-Models in the Backend
-
-server/models/*
-``` {.coffee}
-module.exports = (sequelize, DataTypes) ->
-    Room = sequelize.define "Room", { 
-        name: DataTypes.STRING
-        description: DataTypes.TEXT
-
-        free: DataTypes.BOOLEAN
-        beamer: DataTypes.BOOLEAN
-        ac: DataTypes.BOOLEAN
-        seats: DataTypes.INTEGER
-
-        image: DataTypes.STRING
-    }, {}
-``` 
-<!-- 
-```
--->
 
 \newpage
 
@@ -384,8 +416,6 @@ Die Detailansicht des Kontakts zeigt alle Attribute des Kontakts, gruppiert nach
 
 Testing
 =======
--Mocks!!!
-
 Da während der Entwicklung des Prototypen viel Wert auf eine stabile Implementation gelegt wird, wir die gesamte Codebasis sowohl automatisch und manuell getestet sowie automatisiert analysiert. In den nachfolgenden Kapiteln, werden die beiden Methoden kurz ausgeführt.
 
 ### Unit-Testing
@@ -398,7 +428,6 @@ Karma erlaubt weiter bei jedem Durchlauf der Tests auch die Durchführung einer 
 
 <!-- Besseres Bild -->
 ![Istanbul Coverage](img/coverage.png)
-
 
 ### Manuelles Testen
 Die durchgeführten Tests und Analysen testen nahezu die gesamte Codebasis. Durch den Einsatz der nachrichtenbasierten Architektur sind die Schnittstellen zwischen den einzelnen Bausteinen und Layers bereits sehr gut mit Unit-Testing überprüfbar.

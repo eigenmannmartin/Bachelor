@@ -8,12 +8,10 @@ date: 1.3.2015
 \pagenumbering{roman}
 
 
-\chapter*{Abstract}
+\chapter*{Zusammenfassung}
+Diese Arbeit handelt von der Analyse und Erstellung von Konzepten und Lösungsansätzen zur Abschwächung des schweren Dantensynchronisationsproblems. Anhand einer umfassenden Analyse der Beschaffenheit und Struktur der Daten unter zurhilfenhame von Fallbeispielen werden Konzepte zur Synchronisation, Datenhaltung, Konfliktvermeidung und Konfliktauflösung erarbietet. Unter Beachtung der Vor- und Nachteile jedes einzelnen Konzepts wird für die Entwicklung des Prototyps die geeignetsten ausgewählt. Über die gesamte Arbeit hinweg stehen dabei Techniken zur Erstellung guter Software im Mittelpunkt.
 
 
-<!-- 
-Personen die Korrekturgelesen haben!!!!
--->
 
 \setcounter{tocdepth}{1}
 

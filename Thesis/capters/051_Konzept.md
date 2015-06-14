@@ -218,6 +218,27 @@ resolvConflict (valid, reference, current): ->
 #### Probleme/Lösungen
 Die wesentlich Idee ist, einzelne Attribute als vollwertige Objekte zu behandeln. So können mehr Informationen übernommen werden.-->
 
+### Kontextbezogene Zusammenführung
+Zur Implementation der kontextbezogenen Transaktion, muss der Kontext auf Ebene der Attribute definiert sein. Nur Attribute bei welchen sich der Kontext nicht änderte, werden übernommen.
+
+``` {.coffee}
+resolvConflict (current, contextFor): ->
+
+    NewState = new State
+    
+    for AttrName, Attribut in current
+        if contextFor[AttrName].didNotChange
+            NewState[AttrName] = Attribut
+        else
+            break
+
+    return NewState
+
+``` 
+<!-- 
+```
+ -->
+
 ### geschätzte Zusammenführung
 Zur Auflösung von Konflikten mittels der geschätzten geschätzten Zusammenführung wird eine Distanzfunktion benötigt. Diese Distanzfunktion ermittelt den Abstand zur optimalen Lösung und wendet dann die Mutation mit dem geringsten Abstand an.
 

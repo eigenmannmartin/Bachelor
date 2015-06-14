@@ -15,52 +15,33 @@ Auseinandersetzung mit der eigenen Arbeit statt. Typische Fragen sind:
 - Hätte man das Ergebnis nach dem aktuellen Wissensstand, d.h. nach Abschluss der Arbeit, noch auf eine andere Art und Weise, beispielsweise effizienter oder mit anderen Methoden, erreichen können?
 
 -->
-
-
-## Validation
-
-In der nachfolgenden Tabelle ist die Erfüllung der gestellten Ziele gemäss Aufgabenstellung aufgelistet.
-
-
--------------------------------------------------------------------------------
-__Ziel__    __Beschreibung__                            __Erfüllung / Kapitel__
------------ ------------------------------------------- -----------------------
-__R1__      Definition der Fachbegriffe                 OK [Recherche]
-            
-            Erarbeitung technischer Grundlagen          OK [Recherche]
-
-__R2__      Analyse des Umgangs mit Konflikten          OK [Recherche]
-            
-            Analyse der Synchronisationsverfahren       OK [Recherche]
-             in Web-Anwendungen
-            
-            Durchführung einer Anforderungsanalyse      OK [Anforderungsanalyse]
-
-__R3__      Erstellen eines Konzepts der                OK [Analyse],
-             Synchronisation                            OK [Konzeptansätze]
-            
-            Erstellen eines                             OK [Konzept Untersuchung]
-             Implementationskonzepts
-
-__R4__      Konzeption des Prototypen                   OK [Design des Prototypen]
-            
-            Entwickeln des Prototypen                   OK [Prototyp]
-            
-            Implementation zweier ausgewählter          OK [Prototyp]
-             Synchronisation und 
-             Konfliktlösungsverfahren    
-
-__R5__      Test des Prototyps                          OK [Testing]
-
--------------------------------------------------------------------------------
-Table: Überprüfung der Aufgabenstellung
-
-
 ## Offene Fragestellungen
 
+Q1:
+Q2:
+Q3:
 
 
 ## Ausblick
+Es konnte zwar gezeigt werden dass eine Vereinfachung und Generalisierung des sehr schweren Synchronisationsproblems möglich ist, ein benutzerfreundliches Framework dafür wurde jedoch nicht erarbeitet. Gerade aber in einem flexiblen und von jedem einsetzbaren Frontend, würde der Fortschritt im Bereich mobiler Applikationen weitaus schneller voran schreiten.
+Die Grundlagen für ein solches Framework wurden mit dieser Arbeit gelegt, eine produktiv einsetzbare Lösung bedarf jedoch viel Arbeitsaufwand.
+
+
+## Validation
+Die umgesetzten Konzepte haben gut funktioniert. In Nachfolgenden wird die Erfüllung der Aufgabenstellung und die Erstellung der Deliveries überprüft. Dafür wird die Fragestellung aus dem Kapitel [Detailanalyse der Aufgabenstellung] erneut durchlaufen und darauf geprüft.
+
+
+R1    D1,D2       Wurden die technische Grundlagen dokumentiert?   [Recherche] erfüllt
+
+R2    D3, D4      Wurden die bestehenden Synchronisations- und Replikationsverfahren analysiert?      [Recherche] erfüllt
+
+R3    D5, D6      Wurden Konzepte zur Synchronisation sowie zur Implementaton eines Prototypen erarbeitet? [Analyse],[Konzeptansätze],[Konzept Untersuchung], [Design des Prototypen] erfüllt
+
+R4    D7          Wurde ein Prototyp mit den ausgewählten Verfahren implementiert?  [Prototyp]  erfüllt
+
+R5    D8          Wurde die Funktionsfähigkeit des Prototypen getestet? [Testing]   erfüllt
+
+
 
 
 # Das Wort zum Schluss

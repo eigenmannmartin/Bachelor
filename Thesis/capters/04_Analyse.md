@@ -134,9 +134,13 @@ Alle im Fallbeispiel gezeigten Attribute lassen sich klassifizieren und einem Da
 __Attribut__    __Struktur__        __Art__         __Typ__
 --------------- ------------------- --------------- ---------------------------
 Name            Unabhängig          gemeinsam       textuell
+
 Adresse         Abhängig (Name)     gemeinsam       textuell
+
 Email           Abhängig (Name)     gemeinsam       textuell
+
 Telefon         Abhängig (Name)     gemeinsam       textuell
+
 pNotes          Unabhängig          exklusiv        textuell
 -------------------------------------------------------------------------------
 Table: Klassifikation Attribute Kontakt
@@ -148,13 +152,18 @@ Die beiden Attribute Titel und Beschreibung können nur beim Erfassen eines Supp
 Die Totale Arbeitszeit (tArbeitszeit) wird in Abhängigkeit vom Attribut Arbeitszeit vom System errechnet und kann nicht geändert werden.
 
 -------------------------------------------------------------------------------
-__Attribut__    __Struktur__          __Art__         __Typ__
+__Attribut__    __Struktur__        __Art__         __Typ__
 --------------- ------------------- --------------- ---------------------------
 Titel           Unabhängig          statisch        textuell
+
 Beschreibung    Abhängig (Titel)    statisch        textuell
+
 Anmerkungen     Abhängig (Titel)    gemeinsam       textuell
+
 Arbeitszeit     Unabhängig          exklusiv        numerisch
+
 tArbeitszeit    Unabhängig          dynamisch       numerisch
+
 pNotes          Unabhängig          exklusiv        textuell
 -------------------------------------------------------------------------------
 Table: Klassifikation Attribute Kontakt
