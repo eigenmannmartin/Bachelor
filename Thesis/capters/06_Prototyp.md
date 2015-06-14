@@ -20,103 +20,40 @@ Gibt es bessere Synch Verfahre?
 
 Design des Prototypen
 =====================
-In diesem Kapitel wird ein Prototyp entworfen, der die Erkenntnisse aus dem Kapitel [Konzept Untersuchung] so umgesetzt dass sie auch den Richtlinien aus dem Kapitel [Leitfaden] genügen.
+In diesem Kapitel wird ein Prototyp entworfen, der, der Konklusion aus dem Kapitel [Konzept Untersuchung] und den Richtlinien aus dem Kapitel [Leitfaden] genügt. Da der Quellcode einsehbar ist, wird hier nur auf die Entscheide und Details der Implementation eigegangen, welche nicht aus dem Quellcode ersichtlich sind.
 
 
-Konzeptbestandteile
--------------------
-Die Konventionen und Richtlinien des Kapitels [Leitfaden] und die Anforderungen aus der [Anforderungsanalyse] berücksichtigend, müssen nicht alle erarbeiteten Konzeptnsätze umgesetzt werden.
-Die Datenübermittlung wird Unterschieds basiert durchgeführt und serverseitig mit einem auf dem Konzept des Singlestate basierenden Datenspeichers komplettiert. Zur Konfliktvermeidung wird sowohl die Update Transformation, wiederholbare Transaktionen als auch Serverfunktionen verwendet. Bezüglich der Konfliktauflösung wird nur die Zusammenführung umgesetzt, da Konflikte explizit erlaubt sind.
+Designentscheidungen
+--------------------
+Die Datenübermittlung wird basierend auf den Erkenntnissen aus den vorhergehenden Kapiteln, Unterschieds basiert durchgeführt und serverseitig mit einem, auf dem Konzept des Singlestate basierenden, Datenspeicher komplettiert. Dieses Nachrichten basierte Kommunikationskonzept wird geradezu perfekt durch die [Flux Architektur] umgesetzt. Jede Benutzerinteraktion mit dem Client erzeugt eine neue Nachricht. Daten verändernde Nachrichten können so auf einfache Art und Weise auch dem Server übermittelt werden.
 
+Um die Modulare Struktur, welche vom Flux vorgegeben wird zu komplettieren wird das AMD Pattern verwendet. Dadurch können Module und deren Abhängigkeiten gleichermassen für Server und Client definiert werden.
+
+
+Auswahl Synchronisations- und Konfliktauflösungs-verfahren
+----------------------------------------------------------
+Zur Konfliktvermeidung werden alle erarbeiten Konzepte umgesetzt, es werden also sowohl die Update Transformation, wiederholbare Transaktionen als auch Serverfunktionen implementiert. Bezüglich der Konfliktauflösung wird nur die Zusammenführung umgesetzt, da einerseits Konflikte explizit erlaubt sind und andererseits nur die Zusammenführung garantiert fehlerfreie Resultate liefert.
 
 
 Design
 ------
-Der Prototyp besteht aus 3 Bausteinen; Server, API und Client.
+Der Prototyp besteht aus den drei Bausteinen: Server, API und Client.
 ![Bausteinübersicht](img/design_components.jpg)
-Die API-Komponente steht für sich alleine, obschon sie von Server und Client direkt angesprochen wird und implementatiorisch in eine Server und eine Client Part geteilt ist. Weiter übernimmt die API-Komponente den Nachrichtenaustausch zwischen Server und Client. 
+Die API-Komponente steht für sich alleine, obschon sie sowohl im Server als auch im Client direkt eingebettet ist. Die API-Komponente selbst ist aufgeteilt in einen Server- und Client-Teil und stellt den Austausch der Nachrichten zwischen Server und Client sicher.
+
 Die Bausteine, sowie deren Interaktion miteinander, wird in den folgenden Kapitel genauer erläutert.
 
+### Datenfluss
+Der Datenfluss des Prototypen ist wie in der Abbildung {@fig:dataflow} dargestellt, nur unidirektional. Daraus ergibt sich auch, dass die gesamte Interkomponenten-Kommunikation, vom Client bis hin zum Server, asynchron durchgeführt wird.
 
-### Backend
-Das Backend ist in drei Schichten unterteilt (Api, Logik und Persistenz), um so eine möglichst grosse Separation of Concerns (SoC) zu erreichen. Die Kommunikation zwischen diesen Schichten findet nur über Nachrichten statt.
+![Datenflussdiagramm](img/dataflow.png) {#fig:dataflow}
 
-Jede über die API eingehende Nachricht wird an den Logik-Layer weitergeleitet.
-Der Logik-Layer übernimmt dann die Verarbeitung und leitet dann die Resultate der Persistenz-Schicht weiter.
-
-### API
-Die API stellt wenn immer möglich einen ständigen Kommunikationskanal zwischen Server und Client her. Der serverseitige Part der API kann sowohl broadcast Nachrichten als auch an nur einen Client gerichtet Nachrichten verwenden. Die API verfügt jedoch über keine MessageQueue und Nachrichten die nicht beim ersten Versucht zugestellt werden können, gehen verloren.
-
-Die Benennung der Nachrichten ist den bekannten Funktionen des HTTP Standards nachempfunden.
-
--------------------------------------------------------------------------------
-__Nachrichtname__           __Beschreibung__
---------------------------- --------------------------------------------------
-S_API_WEB_get               Die Get-Nachricht gibt eines oder alle Objekte
-                            einer Collection zurück.
-
-S_API_WEB_put               Ein neues Objekt wird mit der Put-Nachricht
-                            erstellt.
-
-S_API_WEB_update            Mit der Update-Nachricht können bestehende Objekte 
-                            aktualisiert werden.   
-
-S_API_WEB_delete            Bestehende Objekte können mit der Delete-Nachricht 
-                            gelöscht werden.
-
-S_API_WEB_execute           Die Execute-Nachricht führt eine Serverfunktion 
-                            aus.
-
--------------------------------------------------------------------------------
-Table: Nachrichten Server-API
-
-
-#### Logik
-Der Logik-Layer führt die Konfliktauflösung sowie die Verwaltung des Status durch. Es werden vier Nachrichten akzeptiert, welche dem SQL Jargon nachempfunden sind, sowie eine execute Nachricht. Die Resultate werden nach vollständiger Bearbeitung dem Sender der ursprünglichen Nachrichten über eine neue Nachricht mitgeteilt.
-
--------------------------------------------------------------------------------
-__Nachrichtname__           __Beschreibung__
---------------------------- --------------------------------------------------
-S_LOGIC_SM_select           Die Abfrage-Nachricht gibt eine oder mehrere
-                            Objekte zurück.
-
-S_LOGIC_SM_create           Die Einfügenachricht erstellt ein neues Objekt
-                            und gibt dieses zurück.
-
-S_LOGIC_SM_update           Die Mutationsnachricht aktualisiert ein
-                            vorhandenes Objekt.
-
-S_LOGIC_SM_delete           Die Löschnachricht löscht ein vorhandenes Objekt.
-
-S_LOGIC_SM_execute          Die Ausführnachricht löst die Ausführung einer
-                            Serverfunktion aus.
-
--------------------------------------------------------------------------------
-Table: Nachrichten Server-Logik
-
-
-#### Persistenz
-Die Persistenz muss nur einen einzigen Status verwalten. Das Verhalten des Singlestate Konzepts ist mit einer Datenbank abbildbar. Der referenzierte Status wird jeweils in der Nachricht vom Client mitgeliefert. Ein wahlfreier Zugriff auf vergangene Stati ist deshalb nicht notwendig.
-
-### Frontend
-Das Frontend ist auf der Flux-Architektur aufbauen. Die beiden Nachrichten können von den Views versendet werden, aktualisieren den Store und werden vom Client-API Teil verarbeitet.
-
--------------------------------------------------------------------------------
-__Nachrichtname__           __Beschreibung__
---------------------------- --------------------------------------------------
-C_PRES_STORE_update         Fügt ein Objekt hinzu oder aktualisiert ein
-                            bestehendes.
-
-C_PRES_STORE_delete         Löscht ein bestehendes Objekt.
-
--------------------------------------------------------------------------------
-Table: Nachrichten Client
 
 ### Nachrichten
-Nachrichten können entweder eine Serverfunktion aufrufen oder eine Mutation durchführen. Der Payload besteht aus dem Meta-Teil, welcher den Objektnamen oder die Serverfunktion bezeichnet, sowie dem Data-Teil, welcher die Mutationsfunktion oder die Argumente der Serverfunktion beinhaltet.
+Jede versendete Nachricht enthält neben einem Nachrichtennamen, den zu versendenden Daten auch Meta-Informationen. In den Meta-Informationen ist der Name der versendeten Daten oder der Name der Serverfunktion eingetragen.
+Neben der des gesamten veränderten Elements wird auch das zuvor aktive Element in den Daten übermittelt. Dadurch kann auf dem Server das Delta ermittelt werden.
 
-Die Mutationsfunktion wird implizit durch die Übermittlung vom neuen Status (obj) und dem vorhergehenden Status (prev) umgesetzt.
-
+<!--
 ``` {.coffee}
 Message = {
     messageName: ""
@@ -138,20 +75,99 @@ Message = {
 -->
 
 
-### Datenfluss
-Der Datenfluss des Prototypen funktioniert wie in der Abbildung {@fig:dataflow} dargestellt. Der gesamte Datenfluss findet nur über Nachrichten statt.
 
-Zu beachten gilt, dass die gesamte Interkomponenten-Kommunikation asynchron durchgeführt wird.
 
-![Datenflussdiagramm](img/dataflow.png) {#fig:dataflow}
+### Backend
+Das Backend ist in drei Schichten Api, Logik und Persistenz unterteilt, um so eine möglichst grosse Separation of Concerns (SoC) zu erreichen. Die Kommunikation zwischen diesen Schichten findet nur über Nachrichten statt. Jede über die API eingehende Nachricht wird an den Logik-Layer weitergeleitet. Der Logik-Layer übernimmt dann die Verarbeitung und leitet dann die Resultate der Persistenz-Schicht weiter.
 
-<!--Frontend    <->  API    <->     Backend
+### API
+Die API stellt wenn immer möglich einen ständigen Kommunikationskanal zwischen Server und Client her. Der serverseitige Part der API kann sowohl broadcast Nachrichten als auch an nur einen Client gerichtet Nachrichten verwenden. Die API verfügt jedoch über keine MessageQueue und Nachrichten die nicht beim ersten Versucht zugestellt werden können, gehen verloren.
 
-Frontend: ActionCreator -> Dispatcher -> Store -> API -> ActionCreator
+Die Benennung der Nachrichten ist den bekannten Funktionen des HTTP Standards nachempfunden. So ist die tatsächliche Implementation der API maximal flexibel und trotzdem immer noch Standard konform.
 
-API: Queue -> Transporter
+-------------------------------------------------------------------------------
+__Nachrichtname__           __Beschreibung__
+--------------------------- --------------------------------------------------
+S_API_WEB_get               
+                            Die Get-Nachricht gibt eines oder alle Objekte einer Collection zurück.
 
-Backend: API -> Logiclayer -> API -->
+S_API_WEB_put               
+                            Ein neues Objekt wird mit der Put-Nachricht erstellt.
+
+S_API_WEB_update
+                            Mit der Update-Nachricht können bestehende Objekte aktualisiert werden.   
+
+S_API_WEB_delete            
+                            Bestehende Objekte können mit der Delete-Nachricht gelöscht werden.
+
+S_API_WEB_execute           
+                            Die Execute-Nachricht führt eine Serverfunktion aus.
+
+-------------------------------------------------------------------------------
+Table: Nachrichten Server-API
+
+
+#### Logik
+Der Logik-Layer führt die Konfliktauflösung sowie die Verwaltung des Status durch. Es werden vier Nachrichten akzeptiert, welche dem SQL Jargon nachempfunden sind, sowie eine execute Nachricht. Die Resultate werden nach vollständiger Bearbeitung dem Sender der ursprünglichen Nachrichten über eine neue Nachricht mitgeteilt.
+
+-------------------------------------------------------------------------------
+__Nachrichtname__           __Beschreibung__
+--------------------------- --------------------------------------------------
+S_LOGIC_SM_select           
+                            Die Abfrage-Nachricht gibt eine oder mehrere Objekte zurück.
+
+S_LOGIC_SM_create           
+                            Die Einfügenachricht erstellt ein neues Objekt  und gibt dieses zurück.
+
+S_LOGIC_SM_update           
+                            Die Mutationsnachricht aktualisiert ein vorhandenes Objekt.
+
+S_LOGIC_SM_delete           
+                            Die Löschnachricht löscht ein vorhandenes Objekt.
+
+S_LOGIC_SM_execute          
+                            Die Ausführnachricht löst die Ausführung einer Serverfunktion aus.
+
+-------------------------------------------------------------------------------
+Table: Nachrichten Server-Logik
+
+
+#### Persistenz
+Das Verhalten des Singlestate Konzepts ist mit einer Datenbank abbildbar. Der referenzierte Status wird jeweils in der Nachricht vom Client, vollständig mitgeliefert. Das Implementieren eines wahlfreier Zugriff auf vergangene Stati ist deshalb nicht notwendig.
+
+### Frontend
+Die beiden Nachrichten können von den Views versendet werden, aktualisieren den Store und werden vom Client-API Teil verarbeitet.
+
+-------------------------------------------------------------------------------
+__Nachrichtname__           __Beschreibung__
+--------------------------- --------------------------------------------------
+C_PRES_STORE_update         
+                            Fügt ein Objekt hinzu oder aktualisiert ein bestehendes.
+
+C_PRES_STORE_delete         
+                            Löscht ein bestehendes Objekt.
+
+-------------------------------------------------------------------------------
+Table: Nachrichten Client
+
+
+### Interaktionen
+
+#### Initiale Synchronisation
+
+![Ablauf der initiale Synchronisation](img/initsync.png)
+
+#### Synchronisation
+
+![Ablauf der Synchronisation](img/sync.png)
+
+#### Serverfunktion
+
+![Ablauf eines Aufrufs einer Serverfunktion](img/sfunc.png)
+
+
+
+
 
 
 <!-- Nachrichtenbasiert, desshalb Flux -->
@@ -189,6 +205,8 @@ Dieses Kapitel adressiert die Implementation des Prototypen gemäss den Anroderu
 
 ## Umsetzung
 <!-- Konkrete Implementations-Streategie/Algorythmen --> 
+- Modulare Konfliktauflösung (Logic [Algos -> Datenzuordnung])
+- Modulare Serverfunktionen
 
 <!-- Begründung Technologiestack -->
 ## Technologie Stack
@@ -366,6 +384,8 @@ Die Detailansicht des Kontakts zeigt alle Attribute des Kontakts, gruppiert nach
 
 Testing
 =======
+-Mocks!!!
+
 Da während der Entwicklung des Prototypen viel Wert auf eine stabile Implementation gelegt wird, wir die gesamte Codebasis sowohl automatisch und manuell getestet sowie automatisiert analysiert. In den nachfolgenden Kapiteln, werden die beiden Methoden kurz ausgeführt.
 
 ### Unit-Testing

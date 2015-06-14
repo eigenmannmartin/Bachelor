@@ -259,8 +259,8 @@ some more work is needed!
 
 
 <!-- Zusammenführung der Aufteilung -->
-Resümee
--------
+Konklusion
+----------
 In diesem Kapitel sind die einzelnen Teile des Konzeptes kondensiert zusammengefasst und hinsichtlich der Praxistauglichkeit bewertet.
 
 
@@ -268,7 +268,7 @@ In diesem Kapitel sind die einzelnen Teile des Konzeptes kondensiert zusammengef
 Die Unterschieds basierte Synchronisation ist sehr granular und flexibel einsetzbar. Die Logik des Synchronisierens ist vollständig von der Datenhaltung entkoppelt und ermöglicht einen sehr flexiblen Einsatz auch in bereits bestehenden Projekten. Dahingegen benötigt die Objekt basierte Synchronisation eine Anpassung an der clientseitigen Datenhaltung.
 
 <!-- Datenhaltung -->
-Die Multistate Datenhaltung erlaubt zwar die zeitliche Entkoppelung von Synchronisation und Konfliktauflösung, garantiert jedoch keine Isolation, keine Atomarität und auch keine Konsistenz. Vor allem die Tatsache, dass wiederholte Abfragen, nicht das selbe Resultat zurückliefern, birgt grosse Risiken im Betrieb.
+Die Multistate Datenhaltung erlaubt zwar die zeitliche Entkoppelung von Synchronisation und Konfliktauflösung, garantiert jedoch keine Isolation, keine Atomarität und auch keine Konsistenz. Vor allem die Tatsache, dass wiederholte Abfragen, nicht das selbe Resultat zurückliefern, birgt grosse Risiken im Betrieb. Der Singlestate ist deshalb deutlich besser zur Datenhaltung geeignet.
 
 
 <!-- Konfliktauflösung/Konfliktverhinderung -->
