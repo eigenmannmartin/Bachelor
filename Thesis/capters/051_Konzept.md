@@ -6,10 +6,10 @@ Konzept Untersuchung
 Synchronsation
 --------------
 
-Zur Übermittlung von Informationen über Mutationen am Datenbestand, wird eine Form der Marierung benötigt. Die mutierten Daten müssen markiert werden, damit sie, sobald die Synchronisierung durchgeführt werden soll, übermittelt werden können. 
+Zur Aufzeichnung der Informationen über Mutationen am Datenbestand, wird eine Form der Markierung benötigt. Die mutierten Daten müssen markiert werden, damit sie, sobald die Synchronisierung durchgeführt werden soll, übermittelt werden können. 
 
-### Unterschieds basiert
-Die Unterschieds basierte Synchronisation zeichnet direkt bei der Mutation eines Objekts die an den Server zu sendende Nachricht auf und speichert diese in einer Messagequeue zur späteren Synchronisation ab. Sobald also die Synchronisation ausgelöst wird, werden alle aufgezeichneten Nachrichten, in der gleichen Reihenfolge wie bei der Aufzeichnung, dem Server zugestellt. 
+### Unterschiedsbasiert
+Die unterschiedsbasierte Synchronisation zeichnet direkt bei der Mutation eines Objekts die an den Server zu sendende Nachricht auf und speichert diese in einer Messagequeue zur späteren Synchronisation ab. Sobald also die Synchronisation ausgelöst wird, werden alle aufgezeichneten Nachrichten, in der gleichen Reihenfolge wie bei der Aufzeichnung, dem Server zugestellt. 
 
 
 ``` {.coffee}
@@ -25,8 +25,8 @@ mutateObject(Mutation, referenceObject): ->
 ```
  -->
 
-### Objekt basiert
-Bei der Objekt basierten Synchronisation wird direkt bei der Mutation eines Objekts, dessen _dirty_ Flag gesetzt. Bei der Auslösung der Synchronisation werden alle Objekte, welche dieses Flag gesetzt haben, dem Server übermittelt und das _dirty_ Flag wieder entfernt.
+### Objektbasiert
+Bei der objektbasierten Synchronisation wird direkt bei der Mutation eines Objekts, dessen _dirty_ Flag gesetzt. Bei der Auslösung der Synchronisation werden alle Objekte, welche dieses Flag gesetzt haben, dem Server übermittelt und das _dirty_ Flag wieder entfernt.
 
 <!-- Object ist ein reserviertes Key-Word -> Element -->
 ``` {.coffee}
@@ -49,8 +49,8 @@ mutateObject(Element): ->
 Datenhaltung
 ------------
 
-Eine sehr elegante Form der Datenhaltung ist die Messagequeue. Der aktuell gültige Staus ist durch die Anwendung aller in der Messagequeue enthaltenen Nachrichten auf den initialen Status erreichbar.
-Der wahlfreie Zugriff auf jeden beliebigen Staus zeichnet dieses einfache Design aus. Gerade wegen diesem wahlfreien Zugriff auf beliebige Stati ist diese Form ideal für die Verwendung im Rahmen dieser Thesis geeignet.  
+Eine sehr elegante Form der Datenhaltung ist die Messagequeue. Der aktuell gültige Status ist durch die Anwendung aller in der Messagequeue enthaltenen Nachrichten auf den initialen Status erreichbar.
+Der wahlfreie Zugriff auf jeden beliebigen Status zeichnet dieses einfache Design aus. Gerade wegen diesem wahlfreien Zugriff auf beliebige Stati ist diese Form ideal für die Verwendung im Rahmen dieser Thesis geeignet.  
 
 
 Die beiden im Kapitel [Konzept] untersuchten Datenhaltungskonzepte sind nachfolgend genauer untersucht. Gezeigt wird wie ansatzweise eine Implementation aussehen könnte, um Probleme und Vorteile besser erkennen zu können. Konflikt-verhinderung und -auflösung wird in den darauf folgenden Kapiteln genauer untersucht.
@@ -60,8 +60,8 @@ Das Konzept des Singlestate ist sehr konservativ und ist in ähnlicher Form weit
 
 Die Implementation auf konzeptioneller Stufe ist dabei wenig anspruchsvoll.
 Beim Eingehen einer neuen Nachricht wird die Funktion _addMessage_ aufgerufen.
-Die Funktion _State_ gibt den Staus zum Zeitpunkt $t$ zurück. Falls kein Zeitpunkt angegeben ist, wird der neueste zurückgegeben.
-Die MessageQueue wird durch das Stausobjekt verwaltet.
+Die Funktion _State_ gibt den Status zum Zeitpunkt $t$ zurück. Falls kein Zeitpunkt angegeben ist, wird der neueste zurückgegeben.
+Die MessageQueue wird durch das Statusobjekt verwaltet.
 
 
 ``` {.coffee}
@@ -73,7 +73,7 @@ addMessage(Message): ->
         @State().apply Message.Mutation
     else
         if not @State().conflictsWith Message 
-        or @State().canResolvConfict Message
+        or @State().canResolvConflict Message
             @State().apply Message
         else
             break
@@ -83,13 +83,14 @@ addMessage(Message): ->
 ```
  -->
 
-Die Funktionen canResolvConfict sowie resolveConflict greifen auf den referenzierten Status der Nachricht zu.
+Die Funktionen canResolvConflict sowie resolveConflict greifen auf den referenzierten Status der Nachricht zu.
 
+<!--
 #### Performance
-Der Zugriff auf einen beliebigen Status ist von der Laufzeitkomplexität $O(n)$ (mit $n$ Grösse der MessageQueue).
+Der Zugriff auf einen beliebigen Status ist von der Laufzeitkomplexität $O(n)$ (mit $n$ Grösse der MessageQueue).-->
 
 #### Verbesserung
-Da jede schreibende Operation zuerst den referenzierten Staus auslesen muss, und dies sehr Rechenintensiv ist, wird jeder errechneter Zustand zwischengespeichert. So existiert für jede Nachricht bereits ein zwischengespeicherter Status und muss daher nicht für jede Operation erneut generiert werden.
+Da jede schreibende Operation zuerst den referenzierten Status auslesen muss, und dies sehr rechenintensiv ist, wird jeder errechneten Zustand zwischengespeichert. So existiert für jede Nachricht bereits ein zwischengespeicherter Status und muss daher nicht für jede Operation erneut generiert werden.
 
 <!--
 #### Probleme/Lösungen
@@ -97,7 +98,7 @@ Das grösste Manko liegt jedoch im Umstand, einen Konflikt direkt beim Auftreten
 
 
 ### Multistate
-Die Multistate Implementation unterschiedet sich insbesondere darin, dass das Annehmen einer Nachricht und das Auflösen des Konflikts voneinander unabhängig sind.
+Die Multistate Implementation unterschiedet sich insbesondere darin, dass das Annehmen einer Nachricht und das Auflösen des Konflikts zeitlich voneinander unabhängig sind.
 Beim Eingehen einer neuen Nachricht wird ebenfalls die Funktion _addMessage_ aufgerufen. Die Funktion _StateTree_ gibt den Status zum Zeitpunkt $t$ zurück. Neu wird jedoch die MessageQueue separat geführt, da der Statusbaum bei jeder schreibenden Operation neu aufgebaut werden muss.
 
 ``` {.coffee}
@@ -120,9 +121,9 @@ addMessage(Message): ->
 <!-- 
 ```
  -->
-
+<!--
 #### Performance
-Da bei jeder schreibenden Operation der gesamte Statusbaum neu aufgebaut wird, weist diese Implemantation eine Laufzeitkomplexität von $O(n)$ (mit $n$ Grösse der MessageQueue) auf.
+Da bei jeder schreibenden Operation der gesamte Statusbaum neu aufgebaut wird, weist diese Implemantation eine Laufzeitkomplexität von $O(n)$ (mit $n$ Grösse der MessageQueue) auf.-->
 
 #### Verbesserung 1
 Falls eine Nachricht auf einen aktuell gültigen Zustand referenziert, muss der Baum nicht erneut aufgebaut werden, da es ausreichend ist, den Baum nur zu erweitern.
@@ -138,6 +139,8 @@ Und genau darin besteht auch das grösste Problem, denn dadurch ist nicht garant
 
 Konfliktvermeidung
 ------------------
+
+Die Konfliktvermeidung zielt darauf ab, Konflikte gar nicht erst entstehen zu lassen. Dazu müssen entweder funktionale Einschränkungen oder erhöhte Komplexität des Vorgangs hingenommen werden. Die Konzepte sind im Folgenden erläutert.
 
 ### Update Transformation
 Die einfachste Implementation einer Update-Transformation besteht darin, sowohl das mutierte Objekt, also auch das Ausgangsobjekt zu übertragen. Implizit wird so eine Mutationsfunktion übermittelt. Es wird der referenzierte Zustand des Objekts sowie die geänderten Attribute des neuen Status übermittelt.
@@ -193,11 +196,13 @@ composeMessage(FunctionName, Args): ->
 Konfliktauflösung
 -----------------
 
+Die Konfliktauflösung wird erst ausgeführt, wenn Konflikte auftreten. Im eine übersichtlichere Implementation zu ermöglichen, übernimmt die Konfliktauflösung jedoch auch die Konflikterkennung.
+
 ### Zusammenführung
 Die einfachste Implementation der Zusammenführung besteht darin, nur geänderte Attribute zu übertragen. So werden Konflikte nur behandelt, wenn das entsprechende Attribut mutiert wurde.
 
 ``` {.coffee}
-resolvConflict (valid, reference, current): ->
+resolveConflict (valid, reference, current): ->
 
     NewState = new State
     
@@ -219,10 +224,10 @@ resolvConflict (valid, reference, current): ->
 Die wesentlich Idee ist, einzelne Attribute als vollwertige Objekte zu behandeln. So können mehr Informationen übernommen werden.-->
 
 ### Kontextbezogene Zusammenführung
-Zur Implementation der kontextbezogenen Transaktion, muss der Kontext auf Ebene der Attribute definiert sein. Nur Attribute bei welchen sich der Kontext nicht änderte, werden übernommen.
+Zur Implementation der kontextbezogenen Zusammenführung, muss der Kontext auf Ebene der Attribute definiert sein. Nur Attribute bei welchen sich der Kontext nicht änderte, werden übernommen.
 
 ``` {.coffee}
-resolvConflict (current, contextFor): ->
+resolveConflict (current, contextFor): ->
 
     NewState = new State
     
@@ -243,7 +248,7 @@ resolvConflict (current, contextFor): ->
 Zur Auflösung von Konflikten mittels der geschätzten geschätzten Zusammenführung wird eine Distanzfunktion benötigt. Diese Distanzfunktion ermittelt den Abstand zur optimalen Lösung und wendet dann die Mutation mit dem geringsten Abstand an.
 
 ``` {.coffee}
-resolvConflict (valid, reference, average): ->
+resolveConflict (valid, reference, average): ->
 
     NewState = new State
     Distances = new DistanceCalculator()
@@ -286,23 +291,22 @@ In diesem Kapitel sind die einzelnen Teile des Konzeptes kondensiert zusammengef
 
 
 <!-- Synchronsation -->
-Die Unterschieds basierte Synchronisation ist sehr granular und flexibel einsetzbar. Die Logik des Synchronisierens ist vollständig von der Datenhaltung entkoppelt und ermöglicht einen sehr flexiblen Einsatz auch in bereits bestehenden Projekten. Dahingegen benötigt die Objekt basierte Synchronisation eine Anpassung an der clientseitigen Datenhaltung.
+Die unterschiedsbasierte Synchronisation ist sehr granular und flexibel einsetzbar. Die Logik des Synchronisierens ist vollständig von der Datenhaltung entkoppelt und ermöglicht einen sehr flexiblen Einsatz auch in bereits bestehenden Projekten. Dahingegen benötigt die objektbasierte Synchronisation eine Anpassung an der clientseitigen Datenhaltung.
 
 <!-- Datenhaltung -->
-Die Multistate Datenhaltung erlaubt zwar die zeitliche Entkoppelung von Synchronisation und Konfliktauflösung, garantiert jedoch keine Isolation, keine Atomarität und auch keine Konsistenz. Vor allem die Tatsache, dass wiederholte Abfragen, nicht das selbe Resultat zurückliefern, birgt grosse Risiken im Betrieb. Der Singlestate ist deshalb deutlich besser zur Datenhaltung geeignet.
+Die Multistate Datenhaltung erlaubt zwar die zeitliche Entkoppelung von Synchronisation und Konfliktauflösung, garantiert jedoch keine Isolation, keine Atomarität und auch keine Konsistenz. Vor allem die Tatsache, dass wiederholte Abfragen nicht das selbe Resultat zurückliefern, birgt grosse Risiken im Betrieb. Der Singlestate ist deshalb deutlich besser zur Datenhaltung geeignet.
 
 
 <!-- Konfliktauflösung/Konfliktverhinderung -->
-Sowohl die wiederholbare Transaktion, als auch die geschätzte Zusammenführung lösen schwierige Konflikte. Da das Konfliktauflösung jedoch nicht notwendigerweise korrekt sein muss und die Implementation sehr aufwändig ist, ist die Einsetzbarkeit nicht gegeben.
+Sowohl die wiederholbare Transaktion, als auch die geschätzte Zusammenführung lösen schwierige Konflikte. Da die Konfliktauflösung jedoch nicht notwendigerweise korrekt sein muss und die Implementation sehr aufwändig ist, ist die Einsetzbarkeit nicht gegeben.
 
 Die übrigen Verfahren wie Update Transformation, Zusammenführung sowie die kontextbezogene Zusammenführung sind gut einsetzbar und schwächen das Synchronisationsproblem deutlich ab.
 
 
 Leitfaden
 ---------
-Dies ist ein Set von Konventionen und Richtlinien für die Synchronisation von Daten im Web-Umfeld basierend auf den Ergebnissen aus der Analyse und Auswertung der Beispieldaten.
-Der Wert von Software ist direkt gekoppelt an die Qualität ihrer Codebasis. Nicht nur die Fehleranfälligkeit, sondern auch die Wartbarkeit steigt mit der Verwendung von nicht durchdachten Designs.
-Diese Regeln helfen Probleme bei der Synchronisation zu reduzieren und gleichzeitig die Wartbarkeit zu erhöhen.
+Dies ist ein Set von Konventionen und Richtlinien für die Synchronisation von Daten im Web-Umfeld basierend auf den Ergebnissen aus der Analyse und Bewertung der erarbeiteten Konzepte.
+Diese fünf Regeln sollen das sehr schwere Synchronisationsproblem im Web-Umfeld abzuschwächen und somit die Komplexität der Software zu reduzieren.
 
 
 ### Konflikte erlauben
@@ -313,11 +317,10 @@ Die Applikation soll die Möglichkeit des Auftretens von Konflikten vorsehen. So
 Wenn immer möglich, sollen Daten nur einem Benutzer zugewiesen sein. Somit ist Verwaltung und Veränderung der Daten nur einem Benutzer möglich. Synchronisationskonflikte entfallen so fast vollständig.
 
 ### Objekte erstellen
-Wenn immer möglich sollen neue Objekte erstellt werden statt bestehenden zu mutieren. Zusätzliche Informationen werden dazu in neuen Objekten, entsprechen referenziert, hinzugefügt,
+Wenn immer möglich sollen neue Objekte erstellt werden statt bestehende zu mutieren. Zusätzliche Informationen werden dazu in neuen Objekten, entsprechend referenziert, hinzugefügt.
 
-### Sperren
-Das setzten von Sperren erlaubt es vorübergehend alle anderen Mutationen zu verbieten. Dadurch kann ein Benutzer konfliktfrei Änderungen durchführen.
-Dabei wird bei betreten des Editiermodus eines Objekts, dieses auf dem Server für alle anderen Benutzer gesperrt. Diese nun, bis der Bearbeiter das Objekt speichert und damit wieder freigibt, nur noch lesend darauf zugreifen.
+### Lock
+Das setzten von Sperren erlaubt es vorübergehend alle anderen Mutationen zu verbieten. Dadurch kann ein Benutzer konfliktfrei Änderungen durchführen. Dabei wird beim Aufrufen des Editiermodus eines Objekts, dieses auf dem Server für alle anderen Benutzer gesperrt. Diese können nun, bis der aktuelle Bearbeiter das Objekt speichert und damit wieder freigibt, nur noch lesend auf das Objekt zugreifen.
 
 ### Serverfunktionen
-Das Verwenden von Serverfunktionen beschränkt die Ausführung dieser nur auf den Zeitraum, in dem eine Verbindung zum Server besteht. Dadurch werden kritische Mutationen zeitnah vom Server verarbeitet und die Wahrscheinlichkeit für Konflikte sinkt drastisch.
+Das Verwenden von Serverfunktionen beschränkt die Ausführung dieser nur auf den Zeitraum, in dem eine Verbindung zum Server besteht. Dadurch werden kritische Mutationen synchron vom Server verarbeitet und Konfliktfreiheit wird somit für diese eine Operation garantiert.

@@ -49,9 +49,17 @@
 
 
 % Bibliography
-\usepackage[backend=bibtex]{biblatex}
+\usepackage[
+backend=bibtex,
+style=alphabetic-verb,
+citestyle=alphabetic-verb
+]{biblatex}
 \usepackage{csquotes}
 \bibliography{./Citer}
+
+
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}p{6cm}}
 
 
 
@@ -137,7 +145,8 @@ $endif$
 
 \end{titlepage}
 
-\begin{document}  
+\begin{document} 
+\selectlanguage{ngerman} 
 \maketitle
 
 $body$

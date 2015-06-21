@@ -26,7 +26,7 @@ Karma ist ein Testrunner-Framework zur kontinuierlichen Ausführung von UnitTest
 [http://karma-runner.github.io](http://karma-runner.github.io)
 \
 __Mocks__
-Mocks sind Code-Atrappen, die es ermöglichen, noch nicht vorhandene oder nicht verfügbare, Funktionalitäten und Objekte zu simulieren.
+Mocks sind Code-Attrappen, die es ermöglichen, noch nicht vorhandene oder nicht verfügbare, Funktionalitäten und Objekte zu simulieren.
 [http://de.wikipedia.org/wiki/Mock-Objekt](http://de.wikipedia.org/wiki/Mock-Objekt)
 \
 __Github__
@@ -110,15 +110,15 @@ Es sollen die technischen Grundlagen zur Bearbeitung dieser Thesis zusammengetra
 Erwartet wird ein Glossar (_D1_), sowie eine Zusammenfassung (_D2_) der bekannten Synchronisations und Konfliktlösungsverfahren, sowie deren Einsatzgebiet.
 
 #### Analyse
-Eine genauere Betrachtung der ausgewählten Systeme (MySQL, MongoDB, Backbone.js und Meteor.js) zeigt auf, wo die aktuelle Systeme an ihre Grenzen stossen.
+Eine genauere Betrachtung der ausgewählten Systeme (MySQL, MongoDB, Backbone.js und Meteor.js) zeigt auf, wo die aktuellen Systeme an ihre Grenzen stossen.
 Weiter muss eine Anforderungsanalyse für eine Beispielapplikation durchgeführt werden.
 
-Erwartet wird Sowohl die Dokumentation der Synchronisationsverfahren (_D3_) als auch das Ergebnis der Anforderungsanalyse (_D4_).
+Erwartet wird sowohl die Dokumentation der Synchronisationsverfahren (_D3_) als auch das Ergebnis der Anforderungsanalyse (_D4_).
 
 #### Konzept
 Die Erarbeitung und Überprüfung der Umsetzbarkeit neuer Synchronisationskonzepte wird in der Konzeptionsphase gefordert.
 
-Erwartet wird eine Darstellung der erarbeiteten Konzepte (_D5_), als auch eine Konzeption zur Umsetzung (_D6_) derer ist gefordert.
+Erwartet wird eine Darstellung der erarbeiteten Konzepte (_D5_) und eine Konzeption zur Umsetzung (_D6_) derer gefordert.
 
 #### Prototyp
 Der Prototyp soll anhand eines Beispiels aufzeigen, wo die Stärken und Schwächen eines der Konzepte liegt.
@@ -126,7 +126,7 @@ Der Prototyp soll anhand eines Beispiels aufzeigen, wo die Stärken und Schwäch
 Erwartet wird ein Prototyp der zwei Synchronisations- und Konfliktauflösungsverfahren (_D7_) implementiert.
 
 #### Review
-Das Review soll eine Retrospektive auf die Erarbeiteten Resultate werfen und kritisch hinterfragen.
+Das Review soll eine Retrospektive auf die erarbeiteten Resultate werfen und kritisch hinterfragen.
 
 Erwartet wird ein Test des Prototyps sowie ein Protokoll der durchgeführten Tests (_D8_).
 
@@ -172,11 +172,11 @@ __Termin__                  __Datum__     __Bemerkungen__
 --------------------------- ------------- -------------------------------------
 Kick-Off                    18.03.2015    -
 
-Design Review               20.05.2015    Der Entscheid über das Abgabedatum
-                                          muss am 06.06.2015 gefällt werden.
+Design Review               20.05.2015    
+                                          Der Entscheid über das Abgabedatum muss am 06.06.2015 gefällt werden.
 
-Abgabe-Entscheid            06.06.2015    Die Thesis wird am 30.06.2015
-                                          abgegeben.
+Abgabe-Entscheid            06.06.2015    
+                                          Die Thesis wird am 30.06.2015 abgegeben.
 
 Abgabe Bachelorthesis       30.06.2015    -
 
@@ -194,18 +194,18 @@ Recherche                   45                   47
 Analyse                     20                   41
 Konzeption                  80                   78
 Prototyp                    60                   65
-Dokumentation               135                  ??
-Abgabe                      20                   ??
+Dokumentation               135                  157
+Abgabe                      20                   5
 
-__Total__                   __370__              __??__
+__Total__                   __370__              __412__
 -------------------------------------------------------------------------------
-Der Mehraufwand von ~10% beruht vornehmlich darauf, dass das Sammeln und Verstehen von Informationen über bestehende Synchronisationsverfahren (Analyse) sich als deutlich zeitintensiver als geplant herausgestellt hat.
+Der Mehraufwand von ~10% beruht vornehmlich darauf, dass das Sammeln und Verstehen von Informationen über bestehende Synchronisationsverfahren (Analyse) und das Verfassen der Arbeit selbst, sich als deutlich zeitintensiver als geplant herausgestellt hat.
 
 Dokumentation
 -------------
 
-Da die Nachvollziehbarkeit von Änderungen in MS Word sehr umständlich ist, habe ich in Betracht gezogen, die Arbeit mit \LaTeX zu schreiben.
-Da ich jedoch dieses Format sehr unübersichtlich finde habe ich mich stattdessen für Markdown entschieden. Markdown kann mit dem Tool pandoc in ein PDF Dokument konvertiert werden. Darüber hinaus versteht pandoc die Latex-Syntax.
+Da die Nachvollziehbarkeit von Änderungen in MS Word sehr umständlich ist, habe ich in Betracht gezogen, die Arbeit mit Latex zu schreiben.
+Da ich jedoch dieses Format sehr unübersichtlich finde habe ich mich stattdessen für Markdown entschieden. Markdown kann mit dem Tool pandoc in ein PDF Dokument konvertiert werden. Darüber hinaus versteht pandoc auch die Latex-Syntax.
 
 
 Versionsverwaltung
@@ -573,7 +573,7 @@ Adresse & Harfenbergstrasse 5 \\
 Wohnort & 9000 St.Gallen \\
 & \\
 Geboren & 4. Juli 1990 \\
-Heimatord & Waldkirch \\
+Heimatort & Waldkirch \\
 \end{tabular}
 
 

@@ -9,30 +9,30 @@
 Dieses Kapitel erklärt die wichtigsten Grundbegriffe und wiedergibt die während der Recherche gesammelten Informationen.-->
 
 ## Fachbegriffe
-Eine Aufführung und dazugehörende Ernährung der für das Verständnis der Arbeit notwendigen Fachbegriffe befindet sich im Anhang unter dem Kapitel "[Glossar]".
+Eine Aufführung und dazugehörende Erklärung, der für das Verständnis der Arbeit notwendigen Fachbegriffe befindet sich im Anhang unter dem Kapitel "[Glossar]".
 
 ## Erläuterung der Grundlagen
-In diesem Kapitel werden Funktionsweisen und Grundlage ausgeführt, die als für die Bearbeitung dieser Bachlorthesis herangezogen wurden.
+In diesem Kapitel werden Funktionsweisen und Grundlage ausgeführt, die als für die Bearbeitung dieser Bachelorthesis herangezogen wurden.
 
 ### Datenbanken
-Eine Datenbank [^Datenbanken_DBS] ist ein System zur Verwaltung und Speicherung von strukturierten Daten. Erst durch den Kontext des Datenbankschemas wird aus den Daten Informationen, die zur weiteren Verarbeitung genutzt werden können. Ein Datenbanksystem umfasst die beiden Komponenten Datenbankmanagementsystem (DBMS) sowie die zu veraltenden Daten selbst.
-Ein DBMS muss die vier Aufgaben [^Datenbanken_ACID] erfüllen.
+Eine Datenbank[^Datenbanken_DBS] ist ein System zur Verwaltung und Speicherung von strukturierten Daten. Erst durch den Kontext des Datenbankschemas wird aus den Daten Informationen, die zur weiteren Verarbeitung genutzt werden können. Ein Datenbanksystem umfasst die beiden Komponenten Datenbankmanagementsystem (DBMS) sowie die zu verwaltenden Daten selbst.
+Ein DBMS muss vier Aufgaben[^Datenbanken_ACID] erfüllen.
 
 - Atomarität
 - Konsistenzerhaltung
 - Isolation
 - Dauerhaftigkeit
 
-Neben den vielen neu auf den Markt erschienen Technologien wie Document Store oder Key-Value Store ist das Relationale Datenbankmodell immer noch am weitesten verbreitet. [@dbenginesranking]. 
+Neben den vielen neu auf den Markt erschienen Technologien wie Document Store oder Key-Value Store ist das Relationale Datenbankmodell immer noch am weitesten verbreitet. [@dbenginesranking]
 
 
-[^Datenbanken_DBS]: In der Literatur oft auch als **D**aten**B**ank**S**ystemen (DBS) oder Informationssystem bezeichnet. [@rupDatenbanken pp. 3-4]
+[^Datenbanken_DBS]: In der Literatur oft auch als **D**aten**B**ank**S**ystem (DBS) oder Informationssystem bezeichnet. [@rupDatenbanken pp. 3-4]
 
 [^Datenbanken_ACID]: Bekannt als ACID-Prinzip [@rupDatenbanken pp.105] umfasst es **A**tomicity, **C**onsistency, **I**solation und **D**urability. 
 
 
 ### Monolithische Systeme
-Als Monolithisch wird ein logisches System bezeichnet, wenn es in sich geschlossen, ohne Abhängigkeiten zu anderen Systemen operiert. Alle zur Erfüllung der Aufgaben benötigten Ressourcen sind im System selbst enthalten. Es müssen also keine Ressourcen anderer Systeme alloziert werden und somit ist auch keine Kommunikation oder Vernetzung notwendig.
+Als monolithisch wird ein logisches System bezeichnet, wenn es in sich geschlossen, ohne Abhängigkeiten zu anderen Systemen operiert. Alle zur Erfüllung der Aufgaben benötigten Ressourcen sind im System selbst enthalten. Es müssen also keine Ressourcen anderer Systeme alloziert werden und somit ist auch keine Kommunikation oder Vernetzung notwendig.
 Das System selbst muss jedoch nicht notwendigerweise aus nur einem Rechenknoten bestehen, sondern darf auch als Cluster implementiert sein.
 
 ### Verteilte Systeme
@@ -65,7 +65,7 @@ Replikation vervielfacht ein sich möglicherweise mutierendes Objekt (Datei, Dat
 Eine synchrone Replikation stellt sicher, dass zu jeder Zeit der gesamte Objektbestand auf allen Replikationsteilnehmern identisch ist.
 
 Wird ein Objekt eines Replikationsteilnehmers mutiert, wird zum erfolgreichen Abschluss dieser Transaktion, von allen anderen Replikationsteilnehmern verlangt, dass sie diese Operation ebenfalls erfolgreich abschliessen. 
-Üblicherweise wird dies über ein Primary-Backup Verfahren realisiert. Andere Verfahren wie der 2-Phase-Commit und 3-Phase-Commit ermöglichen darüber hinaus auch das synchrone Editieren von Objekten auf allen Replikationsteilnehmern. [@SWB-327013990 p. 23ff, 134ff]
+Üblicherweise wird dies über ein Primary-Backup Verfahren realisiert. Andere Verfahren wie 2-Phase und 3-Phase-Commit ermöglichen darüber hinaus auch das synchrone Editieren von Objekten auf allen Replikationsteilnehmern. [@SWB-327013990 p. 23ff, 134ff]
 
 
 #### Asynchrone Replikation
@@ -78,7 +78,7 @@ Entgegen der [synchronen Replikation][Synchrone Replikation] müssen nicht alle 
 #### Merge Replikation
 <!-- Merge Konflikt beschreiben -->
 Die merge Replikation erlaubt das mutieren der Objekte auf jedem beliebigen Replikationsteilnehmer. 
-Mutationen auf einem einzelnen Replikationsteilnehmer werden periodisch allen übrigen Replikationsteilnehmern mitgeteilt. Da ein Objekt zwischenzeitlich[^merge_repl_latenz] auch auf anderen Teilnehmern mutiert worden sein kann, müssen während des Synchronisationsvorgang[^merge_repl] eventuell auftretenden Konflikte aufgelöst werden.
+Mutationen auf einem einzelnen Replikationsteilnehmer werden periodisch allen übrigen Replikationsteilnehmern mitgeteilt. Da ein Objekt zwischenzeitlich[^merge_repl_latenz] auch auf anderen Teilnehmern mutiert worden sein kann, müssen während des Synchronisationsvorgangs[^merge_repl] eventuell auftretenden Konflikte aufgelöst werden.
 
 [^merge_repl_latenz]: Zwischen der lokalen Mutation und der Publikation dieser an die übrigen Replikationsteilnehmer, liegt eine beliebige Latenz.
 
@@ -86,7 +86,7 @@ Mutationen auf einem einzelnen Replikationsteilnehmer werden periodisch allen ü
 
 
 ### Block-Chain
-Die Block-Chain ist eine verteilte Datenbank die ohne Zentrale Autorität auskommt. Jede Transaktion wird kryptographisch gesichert der Kette von Transaktionen hinzugefügt. So ist das entfernen oder ändern vorhergehender Einträge nicht mehr möglich[^block_chani_proof_of_work]. Jeder Teilnehmer darf also alle Einträge lesen und neue Einträge hinzufügen. Da Einträge nur hinzugefügt werden und nie ein Eintrag geändert wird, kann eine Block-Chain immer ohne Synchronisationskonflikte repliziert werden. Konflikte können nur in den darüberlegenden logischen Schichten[^block_chain_logic_layer] auftreten. [@block-chain]
+Die Block-Chain ist eine verteilte Datenbank die ohne Zentrale Autorität auskommt. Jede Transaktion wird kryptographisch gesichert, der Kette von Transaktionen hinzugefügt. So ist das entfernen oder ändern vorhergehender Einträge nicht mehr möglich[^block_chani_proof_of_work]. Jeder Teilnehmer darf also alle Einträge lesen und neue Einträge hinzufügen. Da Einträge nur hinzugefügt werden und nie ein Eintrag geändert wird, kann eine Block-Chain immer ohne Synchronisationskonflikte repliziert werden. Konflikte können nur in den darüberlegenden logischen Schichten[^block_chain_logic_layer] auftreten. [@block-chain]
 
 [^block_chani_proof_of_work]: Das ändern vorhergehender Einträge benötigt mehr Rechenzeit, als alle anderen Teilnehmer ab dem Zeitpunkt des Hinzufügens des Eintrages, zusammen aufgewendet haben.
 
@@ -96,7 +96,7 @@ Die Block-Chain ist eine verteilte Datenbank die ohne Zentrale Autorität auskom
 ## Replikationsverfahren
 
 ### MySQL
-Das Datenbanksystem MySQL unterstützt asynchrone als auch synchrone Replikation. Beide Betriebsmodi können entweder in der Master-Master[^mysql_active_active] oder in der Master-Slave Konfiguration betreiben werden. 
+Das Datenbanksystem MySQL unterstützt sowohl asynchrone als auch synchrone Replikation. Beide Betriebsmodi können entweder in der Master-Master[^mysql_active_active] oder in der Master-Slave Konfiguration betreiben werden. 
 
 [^mysql_active_active]: Oft wird Master-Master Replikation auch als Active-Active Replikation referenziert.
 
@@ -124,19 +124,19 @@ Das Web-Framework Backbone.js implementiert zur Datenhaltung und Synchronisation
 
 [^backbone_model_collection]: Backbone.js verwendet die Begriffe Model für ein einzelnes Objekt, wobei einem Objekt genau ein Key, aber mehrere Values zugeordnet werden können, und Collection für eine Sammlung an Objekten.
 
-Der REST-Standard[@restdissertation] verlangt dass für die Übermittlung eines Objekt immer der vollständige Status übermittelt wird. So wird bei lesendem und schreibenden Zugriff immer die gesamte Objekt kopiert.
+Der REST-Standard[@restdissertation] verlangt dass für die Übermittlung eines Objekt immer der vollständige Status übermittelt wird. So wird bei lesendem und schreibenden Zugriff immer das gesamte Objekt kopiert.
 
 Backbone.js sieht keinen Mechanismus vor, die auf dem Server stattfindenden Änderungen automatisch auf den Client zu übernehmen. Es muss entweder periodisch die gesamte Collection gelesen oder auf ein Änderungs-Log zugegriffen werden.
-Darüber hinaus entscheidet der Server alleine, ob eine konkurrierende Version des Clients übernommen wird. Backbone.js sendet beim Synchronisieren eines Objekts, dessen gesamten Inhalt an den Server und übernimmt anschliessend die von der REST-API zurückgelieferten Version. Die zurückgelieferte Version kann eine auf dem Server bereits zuvor als aktiv gesetzte Version des Objekts sein und somit die gesendeten Aktualisierung gar nicht enthalten[^backbone_restapi_log].
+Darüber hinaus entscheidet der Server alleine, welche konkurrierende Version bei der Synchronisation des Clients übernommen wird. Backbone.js sendet beim Synchronisieren eines Objekts, dessen gesamten Inhalt an den Server und übernimmt anschliessend die von der REST-API zurückgelieferten Version. Die zurückgelieferte Version kann eine auf dem Server bereits zuvor als aktiv gesetzte Version des Objekts sein und somit die gesendeten Aktualisierung gar nicht enthalten[^backbone_restapi_log].
 
 [^backbone_restapi_log]: Auf dem Server können alle Requests aufgezeichnet werden, um Mutationen nicht zu verlieren. Dies wird vom Standard aber nicht vorausgesetzt und ist ein applikatorisches Problem.
 
-Das Senden einer Aktualisierung an den Server wird mit drei Schritten erledigt.
+Das Senden einer Aktualisierung an den Server wird in drei Schritten erledigt.
 
 1. Im ersten Schritt wird ein neues oder mutiertes Objekt an den Server übermittelt.
 2. Der Server entscheidet im zweiten Schritt ob die Änderung komplett oder überhaupt nicht übernommen wird. Wird eine Änderung komplett übernommen wird dem Client dies so bestätigt.
 Wird eine Änderung abgelehnt wird der Client darüber informiert.
-3. Im Nachgang wird kann das Objekt vom Client erneut angefordert werden, und so die aktuellste Version zu beziehen.
+3. Im Nachgang wird das Objekt vom Client erneut angefordert, um so die aktuellste Version des Objekts zu beziehen.
 
 ### Meteor.js
 Das WEB-Framework Meteor.js implementiert eine Mongo-Light-DB im Client-Teil und synchronisiert diese über das Distributed Data Protokoll mit der auf dem Server liegenden MongoDB in Echtzeit. 
@@ -149,4 +149,4 @@ Die Synchronisation einer Anpassung eines Objekts benötigt drei Schritte.
 
 1. Im ersten Schritt wird ein neues oder die mutierten Attribute eines Objekts an den Server übermittelt.
 2. Der Server entscheidet im zweiten Schritt ob die übermittelten Änderungen komplett, teilweise oder nicht angenommen werden.
-3. Im dritten Schritt wird dem Client mitgeteilt welche Änderungen angenommen wurden. Der Client aktualisiert sein lokales Objekt entsprechen.
+3. Im dritten Schritt wird dem Client mitgeteilt welche Änderungen angenommen wurden. Der Client aktualisiert sein lokales Objekt dem entsprechen.
