@@ -29,12 +29,39 @@ define ['react', 'reactrouter', 'flux'
 
 	
 	Nav = React.createClass
+
+		getInitialState: ->
+			connected: flux.stores.prototype_api.getState().connected
+			disabled: flux.stores.prototype_api.getState().disabled
+
+		componentDidMount: ->
+			me = @
+			flux.stores.prototype_api.on 'change:connected', ( data ) ->
+				me.setState
+					connected: data
+
+			flux.stores.prototype_api.on 'change:disabled', ( data ) ->
+				me.setState
+					disabled: data
+
+		disconnect: () ->
+			flux.doAction( 'C_API_Connection', { meta:{function:"disconnect"} } )
+
+		connect: () ->
+			flux.doAction( 'C_API_Connection', { meta:{function:"connect"} } )
+
 		render: ->
 			<div className="navbar-fixed-2 ">
 				<nav>
 					<div className="nav-wrapper indigo">
 						<ul id="nav-mobile" className="right hide-on-med-and-down">
-							<li><Link to="Home">Home</Link></li>
+							{if @state.connected
+								<li><i className="mdi-notification-sync" onClick={@disconnect}></i></li>
+							else if @state.disabled
+								<li><i className="mdi-notification-sync-disabled" onClick={@connect}></i></li>
+							else if not @state.connected
+								<li><i className="mdi-notification-sync-problem"></i></li>
+							}
 							<li><Link to="Contacts">Contacts</Link></li>
 							<li><Link to="About">About</Link></li>
 						</ul>
@@ -43,19 +70,12 @@ define ['react', 'reactrouter', 'flux'
 			</div>
 
 	About = React.createClass
-		getInitialState: ->
-			color: ''
-
-		componentDidMount: ->
-			me = @
-			flux.stores.materialize_colors.on 'change:active_color', ( active_color ) ->
-				me.setState
-					color: active_color
-
 		componentWillUnmount: ->
 
 		exec_init: () ->
 			flux.doAction( 'C_PRES_STORE_update', { meta:{function:"init"}, args:"" } )
+
+		
 
 		render: ->
 			<div className="container">
@@ -75,6 +95,15 @@ define ['react', 'reactrouter', 'flux'
 	App = React.createClass
 		contextTypes:
 			router: React.PropTypes.func
+
+		getInitialState: ->
+			sync_error:false
+
+		componentDidMount: ->
+			# Error Message Handler
+			flux.dispatcher.register (messageName, message) ->
+				if messageName is 'C_PRES_STORE_conflict'
+					alert "An error occured while syncing - sorry about that!"
 
 		render: ->
 			name = @context.router.getCurrentPath()

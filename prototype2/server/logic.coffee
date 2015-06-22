@@ -58,30 +58,47 @@ define ['flux'], (flux) ->
 					me._contextual data, db_objs, me.obj, me.prev, 'email', 'last_name'
 					me._contextual data, db_objs, me.obj, me.prev, 'phone', 'last_name'
 
-
-
-					data  #returning data
-
+					return data  #returning data
 
 			_repeatable: (data, db_obj, new_obj, prev_obj, attr) ->
 				### istanbul ignore else ###
 				if new_obj[attr]?
 					data[attr] = db_obj[attr] + (new_obj[attr] - prev_obj[attr])
 
+				return data
+
 			_combining: (data, db_obj, new_obj, prev_obj, attr) ->
 				### istanbul ignore else ###
 				if new_obj[attr]?
-					data[attr] = if new_obj[attr] is prev_obj[attr] then db_obj[attr] else new_obj[attr]
+					if new_obj[attr] is prev_obj[attr] 
+						data[attr] = db_obj[attr] 
+					else 
+						data[attr] = new_obj[attr]
+						data['conflict'] = true
+
+				return data
 
 			_traditional: (data, db_obj, new_obj, prev_obj, attr) ->
 				### istanbul ignore else ###
 				if new_obj[attr]?
-					data[attr] = if prev_obj[attr] is db_obj[attr] then new_obj[attr] else db_obj[attr] 
+					if prev_obj[attr] is db_obj[attr] 
+						data[attr] = new_obj[attr] 
+					else 
+						data[attr] = db_obj[attr]
+						data['conflict'] = true 
+
+				return data
 
 			_contextual: (data, db_obj, new_obj, prev_obj, attr, context) ->
 				### istanbul ignore else ###
 				if new_obj[attr]?
-					data[attr] = if prev_obj[context] is db_obj[context] then new_obj[attr] else db_obj[attr] 
+					if prev_obj[context] is db_obj[context]
+						data[attr] = new_obj[attr]
+					else 
+						data[attr] = db_obj[attr]
+						data['conflict'] = true
+
+				return data
 
 
 		constructor: (sequelize=false) ->
@@ -150,11 +167,15 @@ define ['flux'], (flux) ->
 		_update: (message) ->
 			@message = message  #bind message to @
 			me = @  #bind @ to me
+			socket = message.meta.socket
 			promise = @sync[message.meta.model]( @, message.data.obj, message.data.prev )  #call corresponding sync method
 			promise.then (data) ->  #apply object do db
-				model = me._DB_update( meta:{ model:me.message.meta.model }, data: data ).then (model) ->
+				if data['conflict']? is true
+					me._send_message 'S_API_WEB_send', { meta:{ model:me.message.meta.model, socket:me.message.meta.socket, conflict:true }, data: me.message.data.obj }
+
+
+				me._DB_update( meta:{ model:me.message.meta.model }, data: data ).then (model) ->
 					me._send_message 'S_API_WEB_send', { meta:{ model:me.message.meta.model }, data: model }  #send message, so clients know
-				
 				
 
 		###

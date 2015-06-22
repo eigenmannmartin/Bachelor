@@ -42,6 +42,9 @@ define ['flux'],(flux) ->
 				messageName = 'C_PRES_STORE_delete'
 			else
 				messageName = 'C_PRES_STORE_update'
+
+			if message.meta.conflict?
+				messageName = 'C_PRES_STORE_conflict'
 				
 			if 'socket' of message.meta
 				if @Socket.id is message.meta.socket.id
@@ -57,6 +60,7 @@ define ['flux'],(flux) ->
 			@_send_message 'S_LOGIC_SM_create', message
 
 		_update: (message) ->
+			message.meta.socket = @Socket
 			@_send_message 'S_LOGIC_SM_update', message
 
 		_delete: (message) ->

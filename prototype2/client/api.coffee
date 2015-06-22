@@ -8,20 +8,38 @@ define ['flux', 'io'], (flux, io) ->
 					flux.doAction 'C_PRES_STORE_update', {meta:{ model:msg.message.meta.model, updated:true }, data:msg.message.data}
 				if msg.messageName is 'C_PRES_STORE_delete'
 					flux.doAction 'C_PRES_STORE_delete', {meta:{ model:msg.message.meta.model, updated:true }, data:msg.message.data}
+				if msg.messageName is 'C_PRES_STORE_conflict'
+					flux.doAction 'C_PRES_STORE_conflict', {meta:{ model:msg.message.meta.model, updated:true }, data:msg.message.data}
+
 
 			me = @
+
 			@io.on 'connect', () ->
 				me._initial_sync()
+				flux.doAction 'prototype_stores_api_connect'
 
 			@io.on 'reconnect', () ->
 				me._initial_sync()
+				flux.doAction 'prototype_stores_api_connect'
+
+			@io.on 'reconnecting', () ->
+				flux.doAction 'prototype_stores_api_connecting'
+
+			@io.on 'disconnect', () ->
+				flux.doAction 'prototype_stores_api_disable'
+
+			@io.on 'connect_failed', () ->
+				flux.doAction 'prototype_stores_api_disconnect'
+
+			@io.on 'reconnect_failed', () ->
+				flux.doAction 'prototype_stores_api_disconnect'
 			
 			flux.dispatcher.register 'api', (messageName, message) ->
 				me.dispatch messageName, message
 
 
 		_initial_sync: ->
-			@.io.emit 'message', 
+			@io.emit 'message', 
 				messageName: 'S_API_WEB_get'
 				message:
 					meta:
@@ -29,8 +47,14 @@ define ['flux', 'io'], (flux, io) ->
 
 
 		dispatch: (messageName, message) ->
-			console.log
-			if message.meta.function?
+			if messageName is 'C_API_Connection'
+				if message.meta.function is 'disconnect'
+					@io.close()
+				if message.meta.function is 'connect'
+					@io.open()
+
+			if messageName is 'C_PRES_STORE_update'
+				if message.meta.function?
 					@.io.emit 'message',
 						messageName:"S_API_WEB_execute"
 						message:

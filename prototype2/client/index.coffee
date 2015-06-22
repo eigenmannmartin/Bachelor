@@ -10,9 +10,9 @@ require.config
 require ['api', 'store', 'router', 'flux'],(api, store, router, flux)->
 
 	# debug output
-	flux.dispatcher.register (messageName, message) ->
-		console.log " ----- " + messageName + " ----- Server: " + message.meta.updated
-		console.log message
+	#flux.dispatcher.register (messageName, message) ->
+	#	console.log " ----- " + messageName + " ----- Server: " + message.meta.updated
+	#	console.log message
 	
 	window.api = api
 	window.flux = flux

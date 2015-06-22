@@ -66,6 +66,13 @@ define ['react', 'reactrouter', 'flux'
 				</div>
 			</div>
 
+
+
+	# Error Message Handler
+	flux.dispatcher.register (messageName, message) ->
+		if messageName is 'C_PRES_STORE_conflict'
+			console.log "you got an sync-error!!!"	
+
 	ContactEdit = React.createClass
 		mixins: [Router.Navigation]
 
@@ -159,6 +166,12 @@ define ['react', 'reactrouter', 'flux'
 			flux.doAction( 'C_PRES_STORE_update', { meta:{model:"Contact"}, data:object, prev:prev } )
 			@transitionTo('Contacts')
 
+		click_delete: (event) ->
+			object = JSON.parse JSON.stringify @state.contact
+
+			flux.doAction( 'C_PRES_STORE_delete', { meta:{model:"Contact"}, data:object } )
+			@transitionTo('Contacts')
+
 		render: ->
 			contact = @state.contact
 			if contact
@@ -173,52 +186,52 @@ define ['react', 'reactrouter', 'flux'
 										<form className="col s12">
 											<div className="row">
 												<div className="input-field col s2">
-													<input id="title" type="text" defaultValue={contact.title} onChange={@change_title} className="validate" />
+													<input id="title" type="text" value={contact.title} onChange={@change_title} className="validate" />
 													<label htmlFor="title" className={if contact.title then "active"}>Title</label>
 												</div>
 												<div className="input-field col s3">
-													<input id="first_name" type="text" defaultValue={contact.first_name} onChange={@change_first_name} className="validate" />
+													<input id="first_name" type="text" value={contact.first_name} onChange={@change_first_name} className="validate" />
 													<label htmlFor="first_name" className={if contact.first_name then "active"}>Firstname</label>
 												</div>
 												<div className="input-field col s2">
-													<input id="middle_name" type="text" defaultValue={contact.middle_name} onChange={@change_middle_name} className="validate" />
+													<input id="middle_name" type="text" value={contact.middle_name} onChange={@change_middle_name} className="validate" />
 													<label htmlFor="middle_name" className={if contact.middle_name then "active"}>Middlename</label>
 												</div>
 												<div className="input-field col s5">
-													<input id="last_name" type="text" defaultValue={contact.last_name} onChange={@change_last_name} className="validate" />
+													<input id="last_name" type="text" value={contact.last_name} onChange={@change_last_name} className="validate" />
 													<label htmlFor="last_name" className={if contact.last_name then "active"}>Lastname</label>
 												</div>
 											</div>
 
 											<div className="row">
 												<div className="input-field col s4">
-													<input id="country" type="text" defaultValue={contact.country} onChange={@change_country} className="validate" />
+													<input id="country" type="text" value={contact.country} onChange={@change_country} className="validate" />
 													<label htmlFor="country" className={if contact.country then "active"}>Country</label>
 												</div>
 												<div className="input-field col s3">
-													<input id="state" type="text" defaultValue={contact.state} onChange={@change_state} className="validate" />
+													<input id="state" type="text" value={contact.state} onChange={@change_state} className="validate" />
 													<label htmlFor="state" className={if contact.state then "active"}>State</label>
 												</div>
 												<div className="input-field col s5">
-													<input id="city" type="text" defaultValue={contact.city} onChange={@change_city} className="validate" />
+													<input id="city" type="text" value={contact.city} onChange={@change_city} className="validate" />
 													<label htmlFor="city" className={if contact.city then "active"}>City</label>
 												</div>
 											</div>
 
 											<div className="row">
 												<div className="input-field col s12">
-													<input id="street" type="text" defaultValue={contact.street} onChange={@change_street} className="validate" />
+													<input id="street" type="text" value={contact.street} onChange={@change_street} className="validate" />
 													<label htmlFor="street" className={if contact.street then "active"}>Street</label>
 												</div>
 											</div>
 
 											<div className="row">
 												<div className="input-field col s6">
-													<input id="email" type="text" defaultValue={contact.email} onChange={@change_email} className="validate" />
+													<input id="email" type="text" value={contact.email} onChange={@change_email} className="validate" />
 													<label htmlFor="email" className={if contact.email then "active"}>E-mail</label>
 												</div>
 												<div className="input-field col s6">
-													<input id="phone" type="text" defaultValue={contact.phone} onChange={@change_phone} className="validate" />
+													<input id="phone" type="text" value={contact.phone} onChange={@change_phone} className="validate" />
 													<label htmlFor="phone" className={if contact.phone then "active"}>Phone</label>
 												</div>
 											</div>
@@ -230,9 +243,18 @@ define ['react', 'reactrouter', 'flux'
 												</div>
 											</div>
 
+											<div className="row">
+												<div className="col s12">
+													<a className="waves-effect waves-light btn right grey" onClick={@click_delete}><i className="mdi-action-delete"></i></a>
+												</div>
+											</div>
+
+
 										</form>
 
 									</div>
+									
+									
 								</div>
 							</div>
 
