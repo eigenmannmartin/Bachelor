@@ -16,24 +16,26 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       
-      {pattern: 'src/**/*.coffee', included: false},
-      {pattern: 'src/templates/**/*.tpl', included: false},
-      //{pattern: 'src/**/*.js', included: false},
+      {pattern: 'client/**/*.coffee', included: false},
 
-      {pattern: 'spec/**/*Spec.coffee', included: false},
-      //{pattern: 'spec/**/*Spec.js', included: false},
+      {pattern: 'server/**/*', included: false},
 
-      {pattern: 'bower_components/**/*', included: false},
+      {pattern: 'specs/**/*Spec.coffee', included: false},
 
-      {pattern: 'components/**/*', included: false},
+      {pattern: 'bower_components/fluxify/build/fluxify.min.js', included: false},
+      {pattern: 'bower_components/react-router/build/umd/ReactRouter.min.js', included: false},
+      {pattern: 'bower_components/react/react.js', included: false},
 
-      'spec/test-main.js',
+      'specs/test-main.js',
+
+
     ],
 
 
     // list of files to exclude
     exclude: [
-      'src/main.coffee'
+      'client/index.coffee',
+      'server/index.coffee'
     ],
 
 
@@ -41,7 +43,8 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
         '**/*.coffee': 'cjsx',
-        'src/**/*.coffee': 'coverage'
+        'server/**/*.coffee': 'coverage',
+        'client/**/*.coffee': 'coverage'
     },
 
     coverageReporter: { 
@@ -86,7 +89,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'Firefox'],
+    browsers: [/*'Chrome',*/'Firefox'/*,  'PhantomJS'*/],
 
 
     // Continuous Integration mode

@@ -11,10 +11,18 @@ require('load-grunt-tasks')(grunt);
     },
     watch: {
       app: {
-        files: ['src/**/*', 'index.html', 'copy'],
-        tasks: ['cjsx:compile', /*'requirejs'*/],
+        files: ['client/**/*'],
+        tasks: ['cjsx:compileCLI', 'copy:cli'/*'requirejs'*/],
         options: {
           livereload: true
+        }
+      },
+
+      server: {
+        files: ['server/**/*'],
+        tasks: ['cjsx:compileSRV', 'express:dev', 'copy:srv'],
+        options: {
+          spawn: false 
         }
       },
 
@@ -43,24 +51,41 @@ require('load-grunt-tasks')(grunt);
     },  
 
     cjsx: {
-      compile: {
+      compileCLI: {
         expand: true,
         flatten: false,
-        cwd: './src/',
+        cwd: './client/',
         src: ['**/*.coffee'],
-        dest: './js/src',
+        dest: './build/client',
         bare: true,
         ext: '.js',
         options: {
           sourceMap: true
         }
       },
+      compileSRV: {
+        expand: true,
+        flatten: false,
+        cwd: './server/',
+        src: ['**/*.coffee'],
+        dest: './build/server/',
+        bare: true,
+        ext: '.js',
+        options: {
+          sourceMap: false
+        }
+      },
     },
 
     copy: {
-      tpl: {
+      srv: {
         files: [
-          {expand: true, src: ['src/templates/**/*.tpl'], dest: 'js/'},
+          {expand: true, src: ['server/**/*.js', 'server/**/*.json'], dest: 'build/'},
+        ]
+      },
+      cli:{
+        files: [
+          {expand: true, src: ['client/**/*.html','client/**/*.jpg', 'client/**/*.css'], dest: 'build/'},
         ]
       }
     },
@@ -82,6 +107,16 @@ require('load-grunt-tasks')(grunt);
       }
     },
 
+    express: {
+      options: {
+      },
+      dev: {
+        options: {
+          script: 'build/server/index.js'
+        }
+      }
+    }
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -90,13 +125,16 @@ require('load-grunt-tasks')(grunt);
   grunt.loadNpmTasks('grunt-coffee-react');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-express-server');
 
   grunt.registerTask('default', [
-      'cjsx',
+      'cjsx:compileSRV',
+      'cjsx:compileCLI',
       'copy',
       //'requirejs',
-      'connect:app',
-      'connect:coverage',
+      //'connect:app',
+      //'connect:coverage',
+      'express:dev',
       'watch'
     ]);
 
