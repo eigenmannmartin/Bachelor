@@ -182,7 +182,7 @@ Der Aufruf einer Serverfunktion wird asynchron durchgeführt. Der Aufruf wird zu
 ### Flux Architektur
 Das Flux Paradigma[@facebook-flux] ist eine Applikationsarchitektur welche sehr stark auf das Konzept der nachrichtenbasierten Kommunikation basiert und somit auch einen unidirektionalen Datenfluss, wie in Abbildung {@fig:flux} vorgibt. Daten können nur über das versenden einer Nachricht manipuliert werden. Sowohl Views als auch die API können Aktionen auslösen, und so den Datenbestand mutieren.
 
-![Flux Diagramm](img/flux-diagram.png) {#fig:flux} 
+![Flux Diagramm [@facebook-flux]](img/flux-diagram.png) {#fig:flux} 
 
 \FloatBarrier
 
