@@ -24,9 +24,11 @@ In diesem Kapitel wird ein Prototyp entworfen, der, der Konklusion aus dem Kapit
 
 Designentscheidungen
 --------------------
-Die Datenübermittlung wird basierend auf den Erkenntnissen aus den vorhergehenden Kapiteln, Unterschieds basiert durchgeführt und serverseitig mit einem, auf dem Konzept des Singlestate basierenden, Datenspeicher komplettiert. Dieses Nachrichten basierte Kommunikationskonzept wird geradezu perfekt durch die [Flux Architektur] umgesetzt. Jede Benutzerinteraktion mit dem Client, erzeugt eine neue Nachricht. Daten verändernde Nachrichten können so auf einfache Art und Weise auch dem Server übermittelt werden.
+Die im [Leitfaden] vorgeschlagenen Lösungsansätze sollen in das Design des Prototypen mit einfliessen. Die beiden Konventionen "Zuständigkeit für Daten" und "Lock" bedingen jedoch eine Benutzerverwaltung und finden daher keinen Eingang.
 
-Um die Modulare Struktur, welche vom Flux vorgegeben wird zu komplettieren wird das AMD Pattern verwendet. Dadurch können Module und deren Abhängigkeiten gleichermassen für Server und Client definiert werden.
+Die Datenübermittlung wird basierend auf den Erkenntnissen aus den vorhergehenden Kapiteln, Unterschieds basiert durchgeführt und serverseitig mit einem, auf dem Konzept des Singlestate basierenden, Datenspeicher komplettiert. Dieses Nachrichten basierte Kommunikationskonzept wird geradezu perfekt durch die [Flux Architektur] umgesetzt. Jede Benutzerinteraktion mit dem Client, erzeugt eine neue Nachricht. Daten verändernde Nachrichten können so auf einfache Art und Weise auch dem Server übermittelt werden. Um die Modulare Struktur, welche vom Flux vorgegeben wird zu komplettieren wird das AMD Pattern verwendet. Dadurch können Module und deren Abhängigkeiten gleichermassen für Server und Client definiert werden.
+
+Serverfunktionen sind über Nachrichten mit dem darin enthaltenen Argumenten aufrufbar und über aufgetretene Konflikte wird der Client mit einer entsprechenden Nachricht informiert. Die Konvention "Objekte erstellen" besitzt im umzusetzenden Fallbeispiel nur einen geringen Einfluss, da die Datenstruktur bereits auf ein einziges Objekt pro Kontakt festgelegt ist.
 
 
 Auswahl Synchronisations- und Konfliktauflösungsverfahren

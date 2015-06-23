@@ -308,10 +308,11 @@ Leitfaden
 Dies ist ein Set von Konventionen und Richtlinien für die Synchronisation von Daten im Web-Umfeld basierend auf den Ergebnissen aus der Analyse und Bewertung der erarbeiteten Konzepte.
 Diese fünf Regeln sollen das sehr schwere Synchronisationsproblem im Web-Umfeld abzuschwächen und somit die Komplexität der Software zu reduzieren.
 
+### Unterschiedsbasierte Synchronisation
+Mutationen am Datenbestand sollen in der chronologischen Reihenfolge ihres Auftretens zwischengespeichert werden, um sie anschliessend in genau der gleichen Reihenfolge auf dem Server anwenden zu können.
 
 ### Konflikte erlauben
 Die Applikation soll die Möglichkeit des Auftretens von Konflikten vorsehen. So sollen benutzerfreundliche Fehlermeldungen generiert werden, die den Benutzer darauf hinweist, dass von ihm bearbeitete Daten und Informationen nicht übernommen werden konnten. Konflikte sollen darüber hinaus aufgezeichnet und für Analysen gespeichert werden. Nicht übernommene Daten werden so gespeichert und gehen nicht verloren.
-
 
 ### Zuständigkeit für Daten
 Wenn immer möglich, sollen Daten nur einem Benutzer zugewiesen sein. Somit ist Verwaltung und Veränderung der Daten nur einem Benutzer möglich. Synchronisationskonflikte entfallen so fast vollständig.
