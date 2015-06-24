@@ -214,9 +214,9 @@
           if (new_obj[attr] != null) {
             if (new_obj[attr] === prev_obj[attr]) {
               data[attr] = db_obj[attr];
+              data['conflict'] = true;
             } else {
               data[attr] = new_obj[attr];
-              data['conflict'] = true;
             }
           }
           return data;
@@ -237,7 +237,7 @@
         _contextual: function(data, db_obj, new_obj, prev_obj, attr, context) {
 
           /* istanbul ignore else */
-          if (new_obj[attr] != null) {
+          if ((new_obj[attr] != null) && prev_obj[attr] !== new_obj[attr]) {
             if (prev_obj[context] === db_obj[context]) {
               data[attr] = new_obj[attr];
             } else {

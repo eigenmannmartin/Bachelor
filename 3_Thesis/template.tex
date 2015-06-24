@@ -40,10 +40,10 @@
 \usepackage{array}
 \usepackage{float}
 \usepackage{scrhack}
-
+\usepackage{csquotes}
+\usepackage{tocloft}
+\usepackage[pdfspacing]{classicthesis}  
 \usepackage[section]{placeins}
-
-\usepackage{pdfpages}
 
 \usepackage[firstpage]{draftwatermark}
 
@@ -54,16 +54,14 @@ backend=bibtex,
 style=alphabetic-verb,
 citestyle=alphabetic-verb
 ]{biblatex}
-\usepackage{csquotes}
 \bibliography{./Citer}
 
 
-
+% new table type
 \newcolumntype{L}{>{\raggedright\arraybackslash}p{6cm}}
 
 
-
-\usepackage{tocloft}
+% remove header spacing vor to*
 \setlength\cftbeforetoctitleskip{-2.5em}
 \setlength\cftbeforeloftitleskip{-2.5em}
 \setlength\cftbeforelottitleskip{-2.5em}
@@ -76,9 +74,6 @@ $if(highlighting-macros)$
 $highlighting-macros$
 $endif$
 
-
-$if(graphics)$
-\usepackage{graphicx}
 % We will generate all images so they have a width \maxwidth. This means
 % that they will get their normal width if they fit onto the page, but
 % are scaled down if they would overflow the margins.
@@ -88,7 +83,6 @@ $if(graphics)$
 \makeatother
 \let\Oldincludegraphics\includegraphics
 \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth,height=20em,keepaspectratio]{#1}}
-$endif$
 
 
 % remove newpage from Part
@@ -120,7 +114,6 @@ $endif$
 }%
 
 
-
 %styling \part
 \titleclass{\part}{top} % make part like a chapter
 \titleformat{\part}
@@ -130,29 +123,27 @@ $endif$
 {5pt}
 {\color{red}\MakeUppercase}
 
-\usepackage[pdfspacing]{classicthesis} 
+
 
 
 \setlength{\parindent}{0pt}
 
 
-\begin{titlepage}
-\title{\bigskip \bigskip $title$}
-\author{$for(author)$$author$$sep$\\$endfor$}
-
-%\include{../content/Titelblatt.tex}
-%\includepdf[pages=1]{../content/Titelblatt}
-
-\end{titlepage}
-
 \begin{document} 
 \selectlanguage{ngerman} 
+
+\begin{titlepage}
+\includegraphics{./img/zhaw.png} 
+\title{\bigskip \bigskip $title$}
+\author{$for(author)$$author$$sep$\\$endfor$}
+\end{titlepage}
+
+
 \maketitle
 
 $body$
-
 $for(include-after)$
-$include-after$
+  $include-after$
 $endfor$
 
 \end{document}

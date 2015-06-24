@@ -71,17 +71,17 @@ define ['flux'], (flux) ->
 				### istanbul ignore else ###
 				if new_obj[attr]?
 					if new_obj[attr] is prev_obj[attr] 
-						data[attr] = db_obj[attr] 
+						data[attr] = db_obj[attr]
+						data['conflict'] = true
 					else 
 						data[attr] = new_obj[attr]
-						data['conflict'] = true
 
 				return data
 
 			_traditional: (data, db_obj, new_obj, prev_obj, attr) ->
 				### istanbul ignore else ###
 				if new_obj[attr]?
-					if prev_obj[attr] is db_obj[attr] 
+					if prev_obj[attr] is db_obj[attr]
 						data[attr] = new_obj[attr] 
 					else 
 						data[attr] = db_obj[attr]
@@ -91,7 +91,7 @@ define ['flux'], (flux) ->
 
 			_contextual: (data, db_obj, new_obj, prev_obj, attr, context) ->
 				### istanbul ignore else ###
-				if new_obj[attr]?
+				if new_obj[attr]? and prev_obj[attr] isnt new_obj[attr]
 					if prev_obj[context] is db_obj[context]
 						data[attr] = new_obj[attr]
 					else 
