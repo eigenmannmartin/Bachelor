@@ -214,6 +214,8 @@
           if (new_obj[attr] != null) {
             if (new_obj[attr] === prev_obj[attr]) {
               data[attr] = db_obj[attr];
+            } else if (new_obj[attr] !== prev_obj[attr] && prev_obj[attr] !== db_obj[attr]) {
+              data[attr] = db_obj[attr];
               data['conflict'] = true;
             } else {
               data[attr] = new_obj[attr];
@@ -225,7 +227,9 @@
 
           /* istanbul ignore else */
           if (new_obj[attr] != null) {
-            if (prev_obj[attr] === db_obj[attr]) {
+            if (new_obj[attr] === prev_obj[attr]) {
+              data[attr] = db_obj[attr];
+            } else if (prev_obj[attr] === db_obj[attr]) {
               data[attr] = new_obj[attr];
             } else {
               data[attr] = db_obj[attr];

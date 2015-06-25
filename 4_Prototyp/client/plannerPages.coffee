@@ -53,7 +53,7 @@ define ['react', 'reactrouter', 'flux'
 						</thead>
 						<tbody>
 						{@state.contacts.map (contact) ->
-							<tr>
+							<tr className="nowrap">
 								<td>{contact.title} {contact.first_name} {contact.last_name}</td>
 								<td>{contact.phone}</td> 
 								<td>{contact.email}</td>

@@ -29,6 +29,11 @@
   }
 
 
+  .nowrap {
+    white-space: nowrap;
+  }
+
+
 
 	/* label color */
    .input-field label {
@@ -42,4 +47,25 @@
    .input-field input[type=text]:focus {
      /*border-bottom: 1px solid #FFF;
      box-shadow: 0 1px 0 0 #FFF;*/
+   }
+
+
+
+   #messages {
+    display: none;
+    position:fixed;
+    bottom: 0px;
+    width: 100%;
+    height: 30%;
+    overflow: scroll;
+   }
+
+   #messages-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+   }
+
+   #messages-row {
+    min-height: 100%;
    }

@@ -67,7 +67,9 @@
         })), React.createElement("table", {
           "className": "hoverable"
         }, React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "Name"), React.createElement("th", null, "Phone"), React.createElement("th", null, "Email"), React.createElement("th", null, "Country"))), React.createElement("tbody", null, this.state.contacts.map(function(contact) {
-          return React.createElement("tr", null, React.createElement("td", null, contact.title, " ", contact.first_name, " ", contact.last_name), React.createElement("td", null, contact.phone), React.createElement("td", null, contact.email), React.createElement("td", null, contact.country), React.createElement("td", null, React.createElement(Link, {
+          return React.createElement("tr", {
+            "className": "nowrap"
+          }, React.createElement("td", null, contact.title, " ", contact.first_name, " ", contact.last_name), React.createElement("td", null, contact.phone), React.createElement("td", null, contact.email), React.createElement("td", null, contact.country), React.createElement("td", null, React.createElement(Link, {
             "to": "Contact/Edit",
             "params": {
               Id: contact.id

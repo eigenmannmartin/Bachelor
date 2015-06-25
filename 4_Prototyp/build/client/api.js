@@ -58,6 +58,7 @@
         flux.dispatcher.register('api', function(messageName, message) {
           return me.dispatch(messageName, message);
         });
+        window.io = this.io;
       }
 
       API.prototype._initial_sync = function() {

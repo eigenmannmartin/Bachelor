@@ -73,4 +73,29 @@ define ['flux'], (flux) ->
 						
 					}
 
+				flux.createStore
+					id: "prototype_msgs",
+					initialState: {
+						messages:[]
+					}
+					actionCallbacks: {
+						C_PRES_STORE_update: ( updater, msg ) ->
+							newmessages = @.getState().messages
+							newmessages.push { name:"C_PRES_STORE_update", msg:msg, id:newmessages.length }
+							updater.set { messages: newmessages }
+							updater.emit 'change', @.getState()
+
+						C_PRES_STORE_delete: ( updater, msg ) ->
+							newmessages = @.getState().messages
+							newmessages.push { name:"C_PRES_STORE_delete", msg:msg, id:newmessages.length }
+							updater.set { messages: newmessages }
+							updater.emit 'change', @.getState()
+
+						C_PRES_STORE_conflict: ( updater, msg ) ->
+							newmessages = @.getState().messages
+							newmessages.push { name:"C_PRES_STORE_conflict", msg:msg, id:newmessages.length }
+							updater.set { messages: newmessages }
+							updater.emit 'change', @.getState()
+					}
+
 	new Store

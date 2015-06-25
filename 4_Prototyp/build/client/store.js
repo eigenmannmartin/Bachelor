@@ -111,6 +111,52 @@
               });
             }
           }
+        }), flux.createStore({
+          id: "prototype_msgs",
+          initialState: {
+            messages: []
+          },
+          actionCallbacks: {
+            C_PRES_STORE_update: function(updater, msg) {
+              var newmessages;
+              newmessages = this.getState().messages;
+              newmessages.push({
+                name: "C_PRES_STORE_update",
+                msg: msg,
+                id: newmessages.length
+              });
+              updater.set({
+                messages: newmessages
+              });
+              return updater.emit('change', this.getState());
+            },
+            C_PRES_STORE_delete: function(updater, msg) {
+              var newmessages;
+              newmessages = this.getState().messages;
+              newmessages.push({
+                name: "C_PRES_STORE_delete",
+                msg: msg,
+                id: newmessages.length
+              });
+              updater.set({
+                messages: newmessages
+              });
+              return updater.emit('change', this.getState());
+            },
+            C_PRES_STORE_conflict: function(updater, msg) {
+              var newmessages;
+              newmessages = this.getState().messages;
+              newmessages.push({
+                name: "C_PRES_STORE_conflict",
+                msg: msg,
+                id: newmessages.length
+              });
+              updater.set({
+                messages: newmessages
+              });
+              return updater.emit('change', this.getState());
+            }
+          }
         }));
       }
 

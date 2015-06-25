@@ -37,6 +37,8 @@ define ['flux', 'io'], (flux, io) ->
 			flux.dispatcher.register 'api', (messageName, message) ->
 				me.dispatch messageName, message
 
+			window.io = @io
+
 
 		_initial_sync: ->
 			@io.emit 'message', 
