@@ -59,15 +59,29 @@
         }
         if ('socket' in message.meta) {
           if (this.Socket.id === message.meta.socket.id) {
-            return message.meta.socket.emit('message', {
-              messageName: messageName,
-              message: {
-                meta: {
-                  model: message.meta.model
-                },
-                data: message.data
-              }
-            });
+            if ((message.prev != null) && (message["try"] != null)) {
+              return message.meta.socket.emit('message', {
+                messageName: messageName,
+                message: {
+                  meta: {
+                    model: message.meta.model
+                  },
+                  data: message.data,
+                  prev: message.prev,
+                  "try": message["try"]
+                }
+              });
+            } else {
+              return message.meta.socket.emit('message', {
+                messageName: messageName,
+                message: {
+                  meta: {
+                    model: message.meta.model
+                  },
+                  data: message.data
+                }
+              });
+            }
           }
         } else {
           return this.Socket.emit('message', {

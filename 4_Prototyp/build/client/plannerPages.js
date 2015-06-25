@@ -78,11 +78,6 @@
         })))));
       }
     });
-    flux.dispatcher.register(function(messageName, message) {
-      if (messageName === 'C_PRES_STORE_conflict') {
-        return console.log("you got an sync-error!!!");
-      }
-    });
     ContactEdit = React.createClass({
       mixins: [Router.Navigation],
       getInitialState: function() {

@@ -67,12 +67,6 @@ define ['react', 'reactrouter', 'flux'
 			</div>
 
 
-
-	# Error Message Handler
-	flux.dispatcher.register (messageName, message) ->
-		if messageName is 'C_PRES_STORE_conflict'
-			console.log "you got an sync-error!!!"	
-
 	ContactEdit = React.createClass
 		mixins: [Router.Navigation]
 

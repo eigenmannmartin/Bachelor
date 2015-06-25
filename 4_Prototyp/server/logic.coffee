@@ -53,6 +53,7 @@ define ['flux'], (flux) ->
 
 					#contextual 
 					me._contextual data, db_objs, me.obj, me.prev, 'street', 'last_name'
+					me._contextual data, db_objs, me.obj, me.prev, 'city', 'last_name'
 					me._contextual data, db_objs, me.obj, me.prev, 'country', 'last_name'
 					me._contextual data, db_objs, me.obj, me.prev, 'state', 'last_name'
 					me._contextual data, db_objs, me.obj, me.prev, 'email', 'last_name'
@@ -62,7 +63,7 @@ define ['flux'], (flux) ->
 
 			_repeatable: (data, db_obj, new_obj, prev_obj, attr) ->
 				### istanbul ignore else ###
-				if new_obj[attr]?
+				if new_obj[attr]? and new_obj[attr] isnt prev_obj[attr]
 					data[attr] = db_obj[attr] + (new_obj[attr] - prev_obj[attr])
 
 				return data
@@ -72,7 +73,7 @@ define ['flux'], (flux) ->
 				if new_obj[attr]?
 					if new_obj[attr] is prev_obj[attr] 
 						data[attr] = db_obj[attr]
-					else if new_obj[attr] isnt prev_obj[attr] and prev_obj[attr] isnt db_obj[attr]
+					else if new_obj[attr] isnt prev_obj[attr] and prev_obj[attr] isnt db_obj[attr] and db_obj[attr] isnt null
 						data[attr] = db_obj[attr]
 						data['conflict'] = true
 					else
@@ -82,7 +83,7 @@ define ['flux'], (flux) ->
 
 			_traditional: (data, db_obj, new_obj, prev_obj, attr) ->
 				### istanbul ignore else ###
-				if new_obj[attr]?
+				if new_obj[attr]? and new_obj[attr] isnt prev_obj[attr]
 					if new_obj[attr] is prev_obj[attr] 
 						data[attr] = db_obj[attr]
 					else if prev_obj[attr] is db_obj[attr]
@@ -175,7 +176,7 @@ define ['flux'], (flux) ->
 			promise = @sync[message.meta.model]( @, message.data.obj, message.data.prev )  #call corresponding sync method
 			promise.then (data) ->  #apply object do db
 				if data['conflict']? is true
-					me._send_message 'S_API_WEB_send', { meta:{ model:me.message.meta.model, socket:me.message.meta.socket, conflict:true }, data: me.message.data.obj }
+					me._send_message 'S_API_WEB_send', { meta:{ model:me.message.meta.model, socket:me.message.meta.socket, conflict:true }, prev:me.message.data.prev, try:me.message.data.obj, data:data }
 
 
 				me._DB_update( meta:{ model:me.message.meta.model }, data: data ).then (model) ->

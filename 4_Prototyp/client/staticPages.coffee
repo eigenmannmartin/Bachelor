@@ -109,34 +109,40 @@ define ['react', 'reactrouter', 'flux'
 			<div>
 				<a id="messages-btn" className="btn-floating btn-large waves-effect grey waves-red btn" onClick={@messageToggle}><i className="mdi-content-add"></i></a>
 				<div id="messages">
-					<div id="messages-row" className="row grey">
+					<div id="messages-row" className="row">
 						<div className="col s12 l10 offset-l1">
-							<table>
+							<table className="striped">
 								{@state.messages.slice(0).reverse().map (msg) ->
 									if msg.msg.meta.function?
-										<tr key={msg.id}>
+										<tr key={msg.id} className={if msg.id%2 is 0 then "grey lighten-2" else ""}>
 											<td>{msg.id}</td>
 											<td><i className="mdi-communication-call-split blue"></i></td>
 											<td>{msg.msg.meta.function}</td>
 											<td>Function Call</td>
+											<td></td>
+											<td></td>
 										</tr>
 									else if msg.name is "C_PRES_STORE_conflict"
-										<tr key={msg.id}>
+										<tr key={msg.id} className={if msg.id%2 is 0 then "grey lighten-2" else ""}>
 											<td>{msg.id}</td>
 											<td><i className="mdi-communication-call-missed red"></i></td>
 											<td>{msg.msg.data.id}</td>
 											<td>Conflict</td>
+											<td></td>
+											<td></td>
 										</tr>
 
-									else if msg.name is "C_PRES_STORE_conflict"
-										<tr key={msg.id}>
+									else if msg.name is "C_PRES_STORE_delete"
+										<tr key={msg.id} className={if msg.id%2 is 0 then "grey lighten-2" else ""}>
 											<td>{msg.id}</td>
-											<td><i className="mdi-communication-call-received purble"></i></td>
+											<td><i className={if msg.msg.meta.updated then "mdi-communication-call-received purple" else "mdi-communication-call-made purple"}></i></td>
 											<td>{msg.msg.data.id}</td>
 											<td>Delete</td>
+											<td></td>
+											<td></td>
 										</tr>
 									else
-										<tr key={msg.id}>
+										<tr key={msg.id} className={if msg.id%2 is 0 then "grey lighten-2" else ""}>
 											<td>{msg.id}</td>
 											<td><i className={if msg.msg.meta.updated then "mdi-communication-call-received green" else "mdi-communication-call-made blue"}></i></td>
 											<td>{msg.msg.data.id}</td>
@@ -151,6 +157,46 @@ define ['react', 'reactrouter', 'flux'
 				</div>
 			</div>
 
+	SyncError = React.createClass
+
+		getInitialState: ->
+			message: false
+
+		componentDidMount: ->
+			me = @
+			# Error Message Handler
+			flux.dispatcher.register (messageName, message) ->
+				if messageName is 'C_PRES_STORE_conflict'
+					me.setState
+						message: message
+
+					$('#modal-syncError').openModal()
+
+		clickhandler: (event) ->
+			event.preventDefault()
+
+
+		render: ->
+			<div id="modal-syncError" className="modal">
+				<div className="modal-content">
+					<h4>Synchronisation Error</h4>
+					<table>
+						<tr>
+							<th>You changed</th><th>to</th><th>but was already changed to</th>
+						</tr>
+						{for key, attr of @state.message.data
+							if key of @state.message.try and @state.message.try[key] isnt @state.message.data[key]
+								<tr>
+									<td>{key}</td><td>{@state.message.try[key]}</td><td>{@state.message.data[key]}</td>
+								</tr>
+						}
+					</table>
+				</div>
+				<div className="modal-footer">
+					<a href="" onClick={@clickhandler} className="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+				</div>
+			</div>
+
 	App = React.createClass
 		contextTypes:
 			router: React.PropTypes.func
@@ -159,10 +205,6 @@ define ['react', 'reactrouter', 'flux'
 			sync_error:false
 
 		componentDidMount: ->
-			# Error Message Handler
-			flux.dispatcher.register (messageName, message) ->
-				if messageName is 'C_PRES_STORE_conflict'
-					alert "An error occured while syncing - sorry about that!"
 
 		render: ->
 			name = @context.router.getCurrentPath()
@@ -170,6 +212,7 @@ define ['react', 'reactrouter', 'flux'
 				<Nav />
 				<RouteHandler key={name} />
 				<Messages />
+				<SyncError />
 			</div>
 
 

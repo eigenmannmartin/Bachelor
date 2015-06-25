@@ -1,6 +1,6 @@
 (function() {
   define(['react', 'reactrouter', 'flux'], function(React, Router, flux) {
-    var About, App, Home, Messages, Nav, NotFound;
+    var About, App, Home, Messages, Nav, NotFound, SyncError;
     this.RouteHandler = Router.RouteHandler;
     this.Route = Router.Route;
     this.NotFoundRoute = Router.NotFoundRoute;
@@ -139,36 +139,92 @@
           "id": "messages"
         }, React.createElement("div", {
           "id": "messages-row",
-          "className": "row grey"
+          "className": "row"
         }, React.createElement("div", {
           "className": "col s12 l10 offset-l1"
-        }, React.createElement("table", null, this.state.messages.slice(0).reverse().map(function(msg) {
+        }, React.createElement("table", {
+          "className": "striped"
+        }, this.state.messages.slice(0).reverse().map(function(msg) {
           if (msg.msg.meta["function"] != null) {
             return React.createElement("tr", {
-              "key": msg.id
+              "key": msg.id,
+              "className": (msg.id % 2 === 0 ? "grey lighten-2" : "")
             }, React.createElement("td", null, msg.id), React.createElement("td", null, React.createElement("i", {
               "className": "mdi-communication-call-split blue"
-            })), React.createElement("td", null, msg.msg.meta["function"]), React.createElement("td", null, "Function Call"));
+            })), React.createElement("td", null, msg.msg.meta["function"]), React.createElement("td", null, "Function Call"), React.createElement("td", null), React.createElement("td", null));
           } else if (msg.name === "C_PRES_STORE_conflict") {
             return React.createElement("tr", {
-              "key": msg.id
+              "key": msg.id,
+              "className": (msg.id % 2 === 0 ? "grey lighten-2" : "")
             }, React.createElement("td", null, msg.id), React.createElement("td", null, React.createElement("i", {
               "className": "mdi-communication-call-missed red"
-            })), React.createElement("td", null, msg.msg.data.id), React.createElement("td", null, "Conflict"));
-          } else if (msg.name === "C_PRES_STORE_conflict") {
+            })), React.createElement("td", null, msg.msg.data.id), React.createElement("td", null, "Conflict"), React.createElement("td", null), React.createElement("td", null));
+          } else if (msg.name === "C_PRES_STORE_delete") {
             return React.createElement("tr", {
-              "key": msg.id
+              "key": msg.id,
+              "className": (msg.id % 2 === 0 ? "grey lighten-2" : "")
             }, React.createElement("td", null, msg.id), React.createElement("td", null, React.createElement("i", {
-              "className": "mdi-communication-call-received purble"
-            })), React.createElement("td", null, msg.msg.data.id), React.createElement("td", null, "Delete"));
+              "className": (msg.msg.meta.updated ? "mdi-communication-call-received purple" : "mdi-communication-call-made purple")
+            })), React.createElement("td", null, msg.msg.data.id), React.createElement("td", null, "Delete"), React.createElement("td", null), React.createElement("td", null));
           } else {
             return React.createElement("tr", {
-              "key": msg.id
+              "key": msg.id,
+              "className": (msg.id % 2 === 0 ? "grey lighten-2" : "")
             }, React.createElement("td", null, msg.id), React.createElement("td", null, React.createElement("i", {
               "className": (msg.msg.meta.updated ? "mdi-communication-call-received green" : "mdi-communication-call-made blue")
             })), React.createElement("td", null, msg.msg.data.id), React.createElement("td", null, "Update"), React.createElement("td", null, msg.msg.data.title, " ", msg.msg.data.first_name, " ", msg.msg.data.middle_name, " ", msg.msg.data.last_name), React.createElement("td", null, msg.msg.data.email));
           }
         }))))));
+      }
+    });
+    SyncError = React.createClass({
+      getInitialState: function() {
+        return {
+          message: false
+        };
+      },
+      componentDidMount: function() {
+        var me;
+        me = this;
+        return flux.dispatcher.register(function(messageName, message) {
+          if (messageName === 'C_PRES_STORE_conflict') {
+            me.setState({
+              message: message
+            });
+            return $('#modal-syncError').openModal();
+          }
+        });
+      },
+      clickhandler: function(event) {
+        return event.preventDefault();
+      },
+      render: function() {
+        var attr, key;
+        return React.createElement("div", {
+          "id": "modal-syncError",
+          "className": "modal"
+        }, React.createElement("div", {
+          "className": "modal-content"
+        }, React.createElement("h4", null, "Synchronisation Error"), React.createElement("table", null, React.createElement("tr", null, React.createElement("th", null, "You changed"), React.createElement("th", null, "to"), React.createElement("th", null, "but was already changed to")), (function() {
+          var _ref, _results;
+          _ref = this.state.message.data;
+          _results = [];
+          for (key in _ref) {
+            attr = _ref[key];
+            if (key in this.state.message["try"] && this.state.message["try"][key] !== this.state.message.data[key]) {
+              _results.push(React.createElement("tr", null, React.createElement("td", null, key), React.createElement("td", null, this.state.message["try"][key]), React.createElement("td", null, this.state.message.data[key])));
+            } else {
+              _results.push(void 0);
+            }
+          }
+          return _results;
+        }).call(this))), React.createElement("div", {
+          "className": "modal-footer"
+        }, React.createElement("a", {
+          "href": "",
+          "onClick": this.clickhandler,
+          "className": "modal-action modal-close waves-effect waves-green btn-flat"
+        }, "OK")));
       }
     });
     App = React.createClass({
@@ -180,19 +236,13 @@
           sync_error: false
         };
       },
-      componentDidMount: function() {
-        return flux.dispatcher.register(function(messageName, message) {
-          if (messageName === 'C_PRES_STORE_conflict') {
-            return alert("An error occured while syncing - sorry about that!");
-          }
-        });
-      },
+      componentDidMount: function() {},
       render: function() {
         var name;
         name = this.context.router.getCurrentPath();
         return React.createElement("div", null, React.createElement(Nav, null), React.createElement(RouteHandler, {
           "key": name
-        }), React.createElement(Messages, null));
+        }), React.createElement(Messages, null), React.createElement(SyncError, null));
       }
     });
     return [App, NotFound, Nav, Home, About];

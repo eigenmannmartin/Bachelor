@@ -9,7 +9,7 @@ define ['flux', 'io'], (flux, io) ->
 				if msg.messageName is 'C_PRES_STORE_delete'
 					flux.doAction 'C_PRES_STORE_delete', {meta:{ model:msg.message.meta.model, updated:true }, data:msg.message.data}
 				if msg.messageName is 'C_PRES_STORE_conflict'
-					flux.doAction 'C_PRES_STORE_conflict', {meta:{ model:msg.message.meta.model, updated:true }, data:msg.message.data}
+					flux.doAction 'C_PRES_STORE_conflict', {meta:{ model:msg.message.meta.model, updated:true }, data:msg.message.data, prev:msg.message.prev, try:msg.message.try}
 
 
 			me = @

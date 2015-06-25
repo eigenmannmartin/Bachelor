@@ -48,7 +48,10 @@ define ['flux'],(flux) ->
 				
 			if 'socket' of message.meta
 				if @Socket.id is message.meta.socket.id
-					message.meta.socket.emit 'message', { messageName:messageName, message:{ meta:{ model:message.meta.model }, data:message.data } }
+					if message.prev? and message.try?
+						message.meta.socket.emit 'message', { messageName:messageName, message:{ meta:{ model:message.meta.model }, data:message.data, prev:message.prev, try:message.try } }
+					else
+						message.meta.socket.emit 'message', { messageName:messageName, message:{ meta:{ model:message.meta.model }, data:message.data} }
 			else
 				@Socket.emit 'message', { messageName:messageName, message:{ meta:{ model:message.meta.model }, data:message.data } }
 		

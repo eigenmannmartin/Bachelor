@@ -30,7 +30,9 @@
                 model: msg.message.meta.model,
                 updated: true
               },
-              data: msg.message.data
+              data: msg.message.data,
+              prev: msg.message.prev,
+              "try": msg.message["try"]
             });
           }
         });

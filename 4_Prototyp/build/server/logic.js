@@ -193,6 +193,7 @@
             me._traditional(data, db_objs, me.obj, me.prev, 'middle_name');
             me._combining(data, db_objs, me.obj, me.prev, 'title');
             me._contextual(data, db_objs, me.obj, me.prev, 'street', 'last_name');
+            me._contextual(data, db_objs, me.obj, me.prev, 'city', 'last_name');
             me._contextual(data, db_objs, me.obj, me.prev, 'country', 'last_name');
             me._contextual(data, db_objs, me.obj, me.prev, 'state', 'last_name');
             me._contextual(data, db_objs, me.obj, me.prev, 'email', 'last_name');
@@ -203,7 +204,7 @@
         _repeatable: function(data, db_obj, new_obj, prev_obj, attr) {
 
           /* istanbul ignore else */
-          if (new_obj[attr] != null) {
+          if ((new_obj[attr] != null) && new_obj[attr] !== prev_obj[attr]) {
             data[attr] = db_obj[attr] + (new_obj[attr] - prev_obj[attr]);
           }
           return data;
@@ -214,7 +215,7 @@
           if (new_obj[attr] != null) {
             if (new_obj[attr] === prev_obj[attr]) {
               data[attr] = db_obj[attr];
-            } else if (new_obj[attr] !== prev_obj[attr] && prev_obj[attr] !== db_obj[attr]) {
+            } else if (new_obj[attr] !== prev_obj[attr] && prev_obj[attr] !== db_obj[attr] && db_obj[attr] !== null) {
               data[attr] = db_obj[attr];
               data['conflict'] = true;
             } else {
@@ -226,7 +227,7 @@
         _traditional: function(data, db_obj, new_obj, prev_obj, attr) {
 
           /* istanbul ignore else */
-          if (new_obj[attr] != null) {
+          if ((new_obj[attr] != null) && new_obj[attr] !== prev_obj[attr]) {
             if (new_obj[attr] === prev_obj[attr]) {
               data[attr] = db_obj[attr];
             } else if (prev_obj[attr] === db_obj[attr]) {
@@ -376,7 +377,9 @@
                 socket: me.message.meta.socket,
                 conflict: true
               },
-              data: me.message.data.obj
+              prev: me.message.data.prev,
+              "try": me.message.data.obj,
+              data: data
             });
           }
           return me._DB_update({
