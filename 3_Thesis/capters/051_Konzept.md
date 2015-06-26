@@ -129,7 +129,7 @@ Da bei jeder schreibenden Operation der gesamte Statusbaum neu aufgebaut wird, w
 Falls eine Nachricht auf einen aktuell gültigen Zustand referenziert, muss der Baum nicht erneut aufgebaut werden, da es ausreichend ist, den Baum nur zu erweitern.
 
 #### Verbesserung 2
-Jede schreibende Operation löst die erneute Generierung des gesamten Statusbaums aus. Um diese rechenintensive Operation zu vereinfachen, wird bei jeder Verzweigung der Zustand gespeichert. Eine Schreibende Aktion, muss so nur noch den betroffenen Teilbaum aktualisieren.
+Jede schreibende Operation löst die erneute Generierung des gesamten Statusbaums aus. Um diese rechenintensive Operation zu vereinfachen, wird bei jeder Verzweigung der Zustand gespeichert. Eine schreibende Aktion, muss so nur noch den betroffenen Teilbaum aktualisieren.
 
 <!--
 #### Probleme/Lösungen
@@ -196,7 +196,7 @@ composeMessage(FunctionName, Args): ->
 Konfliktauflösung
 -----------------
 
-Die Konfliktauflösung wird erst ausgeführt, wenn Konflikte auftreten. Im eine übersichtlichere Implementation zu ermöglichen, übernimmt die Konfliktauflösung jedoch auch die Konflikterkennung.
+Die Konfliktauflösung wird erst ausgeführt, wenn Konflikte auftreten. Um eine übersichtlichere Implementation zu ermöglichen, übernimmt die Konfliktauflösung jedoch auch die Konflikterkennung.
 
 ### Zusammenführung
 Die einfachste Implementation der Zusammenführung besteht darin, nur geänderte Attribute zu übertragen. So werden Konflikte nur behandelt, wenn das entsprechende Attribut mutiert wurde.
@@ -306,13 +306,13 @@ Die übrigen Verfahren wie Update Transformation, Zusammenführung sowie die kon
 Leitfaden
 ---------
 Dies ist ein Set von Konventionen und Richtlinien für die Synchronisation von Daten im Web-Umfeld basierend auf den Ergebnissen aus der Analyse und Bewertung der erarbeiteten Konzepte.
-Diese fünf Regeln sollen das sehr schwere Synchronisationsproblem im Web-Umfeld abzuschwächen und somit die Komplexität der Software zu reduzieren.
+Diese fünf Regeln sollen das sehr schwere Synchronisationsproblem im Web-Umfeld abschwächen und somit auch die Komplexität der Software reduzieren.
 
 ### Unterschiedsbasierte Synchronisation
 Mutationen am Datenbestand sollen in der chronologischen Reihenfolge ihres Auftretens zwischengespeichert werden, um sie anschliessend in genau der gleichen Reihenfolge auf dem Server anwenden zu können.
 
 ### Konflikte erlauben
-Die Applikation soll die Möglichkeit des Auftretens von Konflikten vorsehen. So sollen benutzerfreundliche Fehlermeldungen generiert werden, die den Benutzer darauf hinweist, dass von ihm bearbeitete Daten und Informationen nicht übernommen werden konnten. Konflikte sollen darüber hinaus aufgezeichnet und für Analysen gespeichert werden. Nicht übernommene Daten werden so gespeichert und gehen nicht verloren.
+Die Applikation soll die Möglichkeit des Auftretens von Konflikten vorsehen. So sollen benutzerfreundliche Fehlermeldungen generiert werden, die den Benutzer darauf hinweisen, dass von ihm bearbeitete Daten und Informationen nicht übernommen werden konnten. Konflikte sollen darüber hinaus aufgezeichnet und für Analysen gespeichert werden. Nicht übernommene Daten werden so gespeichert und gehen nicht verloren.
 
 ### Zuständigkeit für Daten
 Wenn immer möglich, sollen Daten nur einem Benutzer zugewiesen sein. Somit ist Verwaltung und Veränderung der Daten nur einem Benutzer möglich. Synchronisationskonflikte entfallen so fast vollständig.
@@ -321,7 +321,7 @@ Wenn immer möglich, sollen Daten nur einem Benutzer zugewiesen sein. Somit ist 
 Wenn immer möglich sollen neue Objekte erstellt werden statt bestehende zu mutieren. Zusätzliche Informationen werden dazu in neuen Objekten, entsprechend referenziert, hinzugefügt.
 
 ### Lock
-Das setzten von Sperren erlaubt es vorübergehend alle anderen Mutationen zu verbieten. Dadurch kann ein Benutzer konfliktfrei Änderungen durchführen. Dabei wird beim Aufrufen des Editiermodus eines Objekts, dieses auf dem Server für alle anderen Benutzer gesperrt. Diese können nun, bis der aktuelle Bearbeiter das Objekt speichert und damit wieder freigibt, nur noch lesend auf das Objekt zugreifen.
+Das Setzen von Sperren erlaubt es vorübergehend alle anderen Mutationen zu verbieten. Dadurch kann ein Benutzer konfliktfrei Änderungen durchführen. Dabei wird beim Aufrufen des Editiermodus eines Objekts, dieses auf dem Server für alle anderen Benutzer gesperrt. Diese können nun, bis der aktuelle Bearbeiter das Objekt speichert und damit wieder freigibt, nur noch lesend auf das Objekt zugreifen.
 
 ### Serverfunktionen
 Das Verwenden von Serverfunktionen beschränkt die Ausführung dieser nur auf den Zeitraum, in dem eine Verbindung zum Server besteht. Dadurch werden kritische Mutationen synchron vom Server verarbeitet und Konfliktfreiheit wird somit für diese eine Operation garantiert.

@@ -107,9 +107,9 @@ Für jedes, als kontextbezogen klassifiziertes Attribut, muss ein Kontextattribu
 
 
 ### Vergabelungs-Funktion
-Die Vergabelungs-Funktion kann nur zusammen mit dem Dantenhaltungskonzept Multistate eingesetzt werden. 
+Die Vergabelungs-Funktion kann nur zusammen mit dem Datenhaltungskonzept Multistate eingesetzt werden. 
 Bei der Entscheidung welcher Teilbaum aktiv wird können unterschiedliche Vorgehensweisen angewendet werden. Die verwendete Lösung muss auf die Datenbeschaffenheit und Struktur angepasst werden.
-Nachfolgende sind fünf Ansätze dafür ausgeführt.
+Nachfolgend sind fünf Ansätze dafür ausgeführt.
 
 #### Wichtigste Information
 Die Attribute eines Objekts können in aufsteigenden Wichtigkeits-Klassen gruppiert werden. Die Wichtigkeit einer Nachricht entspricht der höchsten Wichtigkeits-Klasse die mutiert wird.

@@ -33,7 +33,7 @@ Serverfunktionen sind über Nachrichten mit dem darin enthaltenen Argumenten auf
 
 Auswahl Synchronisations- und Konfliktauflösungsverfahren
 ----------------------------------------------------------
-Zur Konfliktvermeidung werden die beiden erarbeiten Konzepte Update Transformation und Serverfunktionen umgesetzt. Bezüglich der Konfliktauflösung wird nur die Zusammenführung umgesetzt, da einerseits Konflikte explizit erlaubt sind und andererseits nur die Zusammenführung garantiert fehlerfreie Resultate liefert.
+Zur Konfliktvermeidung werden die beiden erarbeiteten Konzepte Update Transformation und Serverfunktionen umgesetzt. Bezüglich der Konfliktauflösung wird nur die Zusammenführung umgesetzt, da einerseits Konflikte explizit erlaubt sind und andererseits nur die Zusammenführung garantiert fehlerfreie Resultate liefert.
 
 
 Design
@@ -42,7 +42,7 @@ Der Prototyp besteht aus den drei Bausteinen: Server, API und Client.
 ![Bausteinübersicht](img/design_components.jpg)
 Die API-Komponente steht für sich alleine, obschon sie sowohl im Server als auch im Client direkt eingebettet ist. Die API-Komponente selbst ist aufgeteilt in einen Server- und Client-Teil und stellt den Austausch der Nachrichten zwischen Server und Client sicher.
 
-Die Bausteine und deren Interaktion miteinander, werden in den folgenden Kapitel genauer erläutert.
+Die Bausteine und deren Interaktion miteinander, werden in den folgenden Kapiteln genauer erläutert.
 
 ### Datenfluss
 Der Datenfluss des Prototypen ist wie in der Abbildung {@fig:dataflow} dargestellt, nur unidirektional. Daraus ergibt sich auch, dass die gesamte Interkomponenten-Kommunikation, vom Client bis hin zum Server, asynchron durchgeführt wird.
