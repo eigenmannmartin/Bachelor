@@ -133,13 +133,31 @@ $endif$
 \selectlanguage{ngerman} 
 
 \begin{titlepage}
-\includegraphics{./img/zhaw.png} 
-\title{\bigskip \bigskip $title$}
-\author{$for(author)$$author$$sep$\\$endfor$}
+
+\begin{center}
+
+
+\includegraphics{./img/zhaw.png}\\[5cm]
+\textsc{\Large Bachelorthesis}\\[1cm]
+{\huge Evaluation von Synchronisations- und Konfliktlösungsverfahren im Web-Umfeld}\\[6.0cm]
+
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large \emph{Author:}\\ Martin \textsc{Eigenmann} \end{flushleft}
+\end{minipage} 
+\hfill 
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} 
+\large \emph{Betreuer:} \\ Philip \textsc{Stanik} \\[1cm]
+\large \emph{Experte:} \\ Silvan \textsc{Spross}
+\end{flushright} 
+\end{minipage}
+
+\vfill
+
+{\large April bis Juli 2015}
+\end{center}
 \end{titlepage}
-
-
-\maketitle
 
 $body$
 $for(include-after)$
