@@ -174,6 +174,7 @@ define ['flux'], (flux) ->
 			me = @  #bind @ to me
 			socket = message.meta.socket
 			promise = @sync[message.meta.model]( @, message.data.obj, message.data.prev )  #call corresponding sync method
+			### istanbul ignore next ###
 			promise.then (data) ->  #apply object do db
 				if data['conflict']? is true
 					me._send_message 'S_API_WEB_send', { meta:{ model:me.message.meta.model, socket:me.message.meta.socket, conflict:true }, prev:me.message.data.prev, try:me.message.data.obj, data:data }
@@ -209,16 +210,19 @@ define ['flux'], (flux) ->
 
 		_DB_update: (message) ->
 			r = @Sequelize[message.meta.model].find( message.data.id )
+			### istanbul ignore next ###
 			r.then (el) ->
 				el.updateAttributes( message.data )
 				el.save()
 
 		_DB_delete: (message) ->
+			### istanbul ignore next ###
 			@Sequelize[message.meta.model].find(message.data.id).then (el) ->
 				el.destroy()
 
 		_DB_clear: (model) ->
 			me = @
+			### istanbul ignore next ###
 			@Sequelize[model].findAll().then (els) ->
 				for el in els
 					me._send_message 'S_API_WEB_send', { meta:{ model:model }, data: { id: el.id, deleted: 1 } }

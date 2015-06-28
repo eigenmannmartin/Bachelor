@@ -1,3 +1,4 @@
+### istanbul ignore next ###
 define ['es6-promise', 'fluxify'], (promise, flux) ->
 
 	###

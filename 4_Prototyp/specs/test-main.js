@@ -27,6 +27,7 @@ require.config({
     server_storage: 'base/server/storage',
 
     client_store: 'base/client/store',
+    client_api: 'base/client/api',
     staticPages: 'base/client/staticPages',
 
   },
