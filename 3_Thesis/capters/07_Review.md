@@ -16,7 +16,7 @@ Auseinandersetzung mit der eigenen Arbeit statt. Typische Fragen sind:
 
 -->
 ## Limitationen
-Synchronisationskonzepte können zwar die Komplexität des Vorgangs einer Synchronisation insgesamt reduzieren, jedoch nicht das Problem an sich eliminieren. Mutationen müssen immer von einem Referenzstatus aus betrachtet werden, und können nur auf diesem angewendet werden. Andernfalls kann nicht garantiert werden, dass die Mutation auf einer korrekten Informationsbasis beruht. Die Entscheidungen warum und wie Daten von einem Benutzer in einem System erfasst werden, wird massgeblich durch die bereits vorhandenen Informationen vorgegeben. Änderungen an diesen bereits vorhandenen Daten können maschinell nicht vorhersagbare Effekte auslösen uns so die Datenbasis auf Domänenebene in einen inkonsistenten Zustand überführen.
+Synchronisationskonzepte können zwar die Komplexität des Vorgangs einer Synchronisation insgesamt reduzieren, jedoch nicht das Problem an sich eliminieren. Mutationen müssen immer von einem Referenzstatus aus betrachtet werden, und können nur auf diesen angewendet werden. Andernfalls kann nicht garantiert werden, dass die Mutation auf einer korrekten Informationsbasis beruht. Die Entscheidungen warum und wie Daten von einem Benutzer in einem System erfasst werden, wird massgeblich durch die bereits vorhandenen Informationen vorgegeben. Änderungen an diesen bereits vorhandenen Daten können maschinell nicht vorhersagbare Effekte auslösen und so die Datenbasis auf Domänenebene in einen inkonsistenten Zustand überführen.
 
 ## Offene Fragestellungen
 
