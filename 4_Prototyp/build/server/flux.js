@@ -1,3 +1,6 @@
+
+/* istanbul ignore next */
+
 (function() {
   define(['es6-promise', 'fluxify'], function(promise, flux) {
 

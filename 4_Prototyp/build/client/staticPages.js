@@ -30,7 +30,9 @@
       getInitialState: function() {
         return {
           connected: flux.stores.prototype_api.getState().connected,
-          disabled: flux.stores.prototype_api.getState().disabled
+          disabled: flux.stores.prototype_api.getState().disabled,
+          color: 0,
+          colors: ["indigo", "red", "orange", "teal"]
         };
       },
       componentDidMount: function() {
@@ -61,12 +63,22 @@
           }
         });
       },
+      color: function() {
+        return this.setState({
+          color: this.state.color + 1 < this.state.colors.length ? this.state.color + 1 : 0
+        });
+      },
       render: function() {
         return React.createElement("div", {
           "className": "navbar-fixed-2 "
         }, React.createElement("nav", null, React.createElement("div", {
-          "className": "nav-wrapper indigo"
-        }, React.createElement("ul", {
+          "className": "nav-wrapper " + this.state.colors[this.state.color]
+        }, React.createElement("a", {
+          "className": "left",
+          "onClick": this.color
+        }, React.createElement("i", {
+          "className": "mdi-action-invert-colors"
+        })), React.createElement("ul", {
           "id": "nav-mobile",
           "className": "right"
         }, (this.state.connected ? React.createElement("li", null, React.createElement("i", {

@@ -33,6 +33,8 @@ define ['react', 'reactrouter', 'flux'
 		getInitialState: ->
 			connected: flux.stores.prototype_api.getState().connected
 			disabled: flux.stores.prototype_api.getState().disabled
+			color: 0
+			colors: ["indigo", "red", "orange", "teal"]
 
 		componentDidMount: ->
 			me = @
@@ -50,10 +52,16 @@ define ['react', 'reactrouter', 'flux'
 		connect: () ->
 			flux.doAction( 'C_API_Connection', { meta:{function:"connect"} } )
 
+		color: () ->
+
+			@setState
+				color: if @state.color+1 < @state.colors.length then @state.color+1 else 0
+
 		render: ->
 			<div className="navbar-fixed-2 ">
 				<nav>
-					<div className="nav-wrapper indigo">
+					<div className={"nav-wrapper " + @state.colors[@state.color]}>
+						<a className="left" onClick={@color}><i className="mdi-action-invert-colors"></i></a>
 						<ul id="nav-mobile" className="right">
 							{if @state.connected
 								<li><i className="mdi-notification-sync" onClick={@disconnect}></i></li>

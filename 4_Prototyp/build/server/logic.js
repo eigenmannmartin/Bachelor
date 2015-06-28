@@ -369,6 +369,8 @@
         me = this;
         socket = message.meta.socket;
         promise = this.sync[message.meta.model](this, message.data.obj, message.data.prev);
+
+        /* istanbul ignore next */
         return promise.then(function(data) {
           if ((data['conflict'] != null) === true) {
             me._send_message('S_API_WEB_send', {
@@ -443,6 +445,8 @@
       Logic.prototype._DB_update = function(message) {
         var r;
         r = this.Sequelize[message.meta.model].find(message.data.id);
+
+        /* istanbul ignore next */
         return r.then(function(el) {
           el.updateAttributes(message.data);
           return el.save();
@@ -450,6 +454,8 @@
       };
 
       Logic.prototype._DB_delete = function(message) {
+
+        /* istanbul ignore next */
         return this.Sequelize[message.meta.model].find(message.data.id).then(function(el) {
           return el.destroy();
         });
@@ -458,6 +464,8 @@
       Logic.prototype._DB_clear = function(model) {
         var me;
         me = this;
+
+        /* istanbul ignore next */
         return this.Sequelize[model].findAll().then(function(els) {
           var el, _i, _len, _results;
           _results = [];
