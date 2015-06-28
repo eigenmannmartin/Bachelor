@@ -16,7 +16,7 @@ Auseinandersetzung mit der eigenen Arbeit statt. Typische Fragen sind:
 
 -->
 ## Limitationen
-
+Synchronisationskonzepte können zwar die Komplexität des Vorgangs einer Synchronisation insgesamt reduzieren, jedoch nicht das Problem an sich eliminieren. Mutationen müssen immer von einem Referenzstatus aus betrachtet werden, und können nur auf diesem angewendet werden. Andernfalls kann nicht garantiert werden, dass die Mutation auf einer korrekten Informationsbasis beruht. Die Entscheidungen warum und wie Daten von einem Benutzer in einem System erfasst werden, wird massgeblich durch die bereits vorhandenen Informationen vorgegeben. Änderungen an diesen bereits vorhandenen Daten können maschinell nicht vorhersagbare Effekte auslösen uns so die Datenbasis auf Domänenebene in einen inkonsistenten Zustand überführen.
 
 ## Offene Fragestellungen
 
@@ -31,6 +31,7 @@ Q3: Wo liegen die Chancen und Probleme beim Einsatz von neuronalen Netzen zur Au
 Es konnte zwar gezeigt werden, dass eine Vereinfachung und Generalisierung des schweren Synchronisationsproblems möglich ist, ein benutzerfreundliches Framework, welches dabei unterstützt, wurde jedoch nicht erarbeitet. Gerade mit einem flexiblen und von jedem einsetzbaren Framework, würde der Fortschritt im Bereich mobiler Applikationen weitaus schneller voran schreiten.
 Die Grundlagen für ein solches Framework wurden mit dieser Arbeit gelegt, eine produktiv einsetzbare Lösung bedarf jedoch noch viel Arbeitsaufwand.
 
+\newpage
 
 ## Validation
 Die umgesetzten Konzepte haben gut funktioniert. In Nachfolgenden wird die Erfüllung der Aufgabenstellung und die Erstellung der Deliveries überprüft. Dafür wird die Fragestellung aus dem Kapitel [Detailanalyse der Aufgabenstellung] erneut durchlaufen und darauf geprüft.
@@ -62,7 +63,7 @@ Die umgesetzten Konzepte haben gut funktioniert. In Nachfolgenden wird die Erfü
 
 -->
 
-Im Verlaufe dieser Bachelorarbeit durfte ich mich intensiv mit Web-Technologien und Synchronisationsverfahren auseinandersetzen und so einen tiefen Einblick in die Techniken und Standards gewinnen. Neben dem persönlichen Interesse daran konnten Richtlinien erarbeitet werden, die das sehr schwere Problem der Synchronisation von Daten aufbricht.
+Im Verlauf dieser Bachelorthesis durfte ich mich intensiv mit verschiedenen Web-Technologien und Synchronisationsverfahren auseinandersetzen und so einen tiefen Einblick in die Techniken und Standards gewinnen. Neben dem persönlichen Interesse daran konnten Richtlinien erarbeitet werden, die das sehr schwere Problem der Synchronisation von Daten aufbricht.
 
 Ich konnte im Verlauf des Projekts alle gesetzten Ziele erreichen. Eine Analyse der möglichen Synchronisationsverfahren und eine Analyse auf deren Umsetzbarkeit hin, wurde durchgeführt und die ausgewählten Konzepte umgesetzt.
 

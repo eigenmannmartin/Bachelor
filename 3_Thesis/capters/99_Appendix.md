@@ -39,7 +39,7 @@ Aufgabenstellung {#appendix_aufgabenstellung}
 
 ### Thema
 
-Zeil der Arbeit ist es verschiedene Konfliktlösungsverfahren bei Multi-Master Datenbanksystemen zu untersuchen.
+Ziel der Arbeit ist es verschiedene Konfliktlösungsverfahren bei Multi-Master Datenbanksystemen zu untersuchen.
 
 ### Ausgangslage
 
@@ -47,7 +47,7 @@ Mobile Applikationen (Ressourcen-Planung, Ausleihlisten, etc.) gleichen lokale D
 
 ### Ziele der Arbeit
 
-Das Ziel der Bachelorthesis besteht in der in der Konzeption und der Entwicklung eines lauffähigen Software-Prototypen, welcher mögliche Synchronisations- und Konfliktlösungsverfahren von Clientseitiger und Serverseitiger Datenbank demonstriert. Im Speziellen, soll gezeigt werden, welche Möglichkeiten der Synchronisation beim Einsatz von mobilen Datenbanken (Web-Anwendungen) bestehen, so dass die Clientseitige Datenbank auch ohne Verbindung zum Server mutiert und erst zu einem späteren Zeitpunkt synchronisiert werden kann, ohne dass Inkonsistenzen auftreten. Die Art und Funktionsweise des Software-Prototyp soll in einer geeigneten Form gewählt werden, so dass verschiedene Synchronisations- und Konfliktlösungsverfahren an ihm gezeigt werden können. Der Software-Prototyp soll nach denen, im Unterricht behandelten Vorgehensweisen des Test Driven Development (TDD) entwickelt werden.
+Das Ziel der Bachelorthesis besteht in der Konzeption und der Entwicklung eines lauffähigen Software-Prototypen, welcher mögliche Synchronisations- und Konfliktlösungsverfahren von clientseitiger und serverseitiger Datenbank demonstriert. Im Speziellen, soll gezeigt werden, welche Möglichkeiten der Synchronisation beim Einsatz von mobilen Datenbanken (Web-Anwendungen) bestehen, so dass die Clientseitige Datenbank auch ohne Verbindung zum Server mutiert und erst zu einem späteren Zeitpunkt synchronisiert werden kann, ohne dass Inkonsistenzen auftreten. Die Art und Funktionsweise des Software-Prototyp soll in einer geeigneten Form gewählt werden, so dass verschiedene Synchronisations- und Konfliktlösungsverfahren an ihm gezeigt werden können. Der Software-Prototyp soll nach denen, im Unterricht behandelten Vorgehensweisen des Test Driven Development (TDD) entwickelt werden.
 
 ### Aufgabenstellung
 
@@ -579,7 +579,7 @@ Heimatort & Waldkirch \\
 
 
 # Bestätigung
-Hiermit bestätigt der Unterzeichnende, dass die Bachelorarbeit mit dem Thema "Evaluation von Synchronisations- und Konfliktlösungsverfahren im Web-Umfeld" gemäss freigegebener Aufgabenstellung mit Freigabe vom 09.02.2015 ohne jede fremde Hilfe im Rahmen der gültigen Reglements selbständig ausgeführt wurde. 
+Hiermit bestätigt der Unterzeichnende, dass die Bachelorthesis mit dem Thema "Evaluation von Synchronisations- und Konfliktlösungsverfahren im Web-Umfeld" gemäss freigegebener Aufgabenstellung mit Freigabe vom 09.02.2015 ohne jede fremde Hilfe im Rahmen der gültigen Reglements selbständig ausgeführt wurde. 
 
 Alle öffentlichen Quellen sind als solche kenntlich gemacht. Die vorliegende Arbeit ist in dieser oder anderer Form zuvor nicht zur Begutachtung vorgelegt worden.\
 \

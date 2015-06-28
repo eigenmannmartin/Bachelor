@@ -24,7 +24,7 @@ Der Abgleich der Datenbestände wird durchgeführt sobald eine Verbindung mit de
 Datenhaltung
 ------------
 
-Die Datenhaltung beschäftigt sich mit der Frage, wie Daten verwaltet und wann und wie Mutationen darauf angewendet wird. Die beiden erarbeiteten Konzepte Singlestate und Multistate werden im Folgenden genauer erläutert.
+Die Datenhaltung beschäftigt sich mit der Frage, wie Daten verwaltet, wann und wie Mutationen darauf angewendet werden. Die beiden erarbeiteten Konzepte Singlestate und Multistate werden im Folgenden genauer erläutert.
 
 
 ### Singlestate
@@ -72,7 +72,7 @@ Das Konzept der Konfliktvermeidung verhindert das Auftreten von möglichen Konfl
 ### Update Transformation
 Damit Mutationen für eines oder mehrere Attribute gleichzeitig konfliktfrei synchronisiert werden können, wird für jedes einzelne Attribut eine Mutations-Funktion erstellt. Die einzelnen Funktionen können in einer Nachricht zusammengefasst werden.
 
-Wie die Abbildung {@fig:updatetransform} zeigt, muss nicht das gesamte Objekt aktualisiert werden und es wird so ermöglicht die Konfliktauflösung granularer durch zu führen.
+Wie die Abbildung {@fig:updatetransform} zeigt, muss nicht das gesamte Objekt aktualisiert werden und es wird so ermöglicht die Konfliktauflösung granularer durchzuführen.
 
 ![Update Transformation](img/update-transformation.jpg)  {#fig:updatetransform}
 
@@ -103,7 +103,7 @@ Wenn zwei oder mehr Mutationen auf einen Status angewendet werden sollen, wird d
 
 
 ### Kontextbezogene Zusammenführung
-Für jedes, als kontextbezogen klassifiziertes Attribut, muss ein Kontextattribut, also ein anderes Attribut des selben Objekts, definiert werden. Bei der Konfliktauflösung wird das Attribut nur dann übernommen, wenn sich das Kontextattribut nicht geändert hat. 
+Für jedes als kontextbezogen klassifiziertes Attribut, muss ein Kontextattribut, also ein anderes Attribut des selben Objekts, definiert werden. Bei der Konfliktauflösung wird das Attribut nur dann übernommen, wenn sich das Kontextattribut nicht geändert hat. 
 
 
 ### Vergabelungs-Funktion

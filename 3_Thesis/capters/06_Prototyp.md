@@ -26,13 +26,13 @@ Designentscheidungen
 --------------------
 Die im [Leitfaden] vorgeschlagenen Lösungsansätze sollen in das Design des Prototypen mit einfliessen. Die beiden Konventionen "Zuständigkeit für Daten" und "Lock" bedingen jedoch eine Benutzerverwaltung und finden daher keinen Eingang.
 
-Die Datenübermittlung wird basierend auf den Erkenntnissen aus den vorhergehenden Kapiteln, Unterschieds basiert durchgeführt und serverseitig mit einem, auf dem Konzept des Singlestate basierenden, Datenspeicher komplettiert. Dieses Nachrichten basierte Kommunikationskonzept wird geradezu perfekt durch die [Flux Architektur] umgesetzt. Jede Benutzerinteraktion mit dem Client, erzeugt eine neue Nachricht. Daten verändernde Nachrichten können so auf einfache Art und Weise auch dem Server übermittelt werden. Um die Modulare Struktur, welche vom Flux vorgegeben wird zu komplettieren wird das AMD Pattern verwendet. Dadurch können Module und deren Abhängigkeiten gleichermassen für Server und Client definiert werden.
+Die Datenübermittlung wird basierend auf den Erkenntnissen aus den vorhergehenden Kapiteln, unterschiedsbasiert durchgeführt und serverseitig mit einem, auf dem Konzept des Singlestate basierenden, Datenspeicher komplettiert. Dieses nachrichtenbasierte Kommunikationskonzept wird geradezu perfekt durch die [Flux Architektur] umgesetzt. Jede Benutzerinteraktion mit dem Client, erzeugt eine neue Nachricht. Daten verändernde Nachrichten können so auf einfache Art und Weise auch dem Server übermittelt werden. Um die Modulare Struktur, welche vom Flux vorgegeben wird zu komplettieren wird das AMD Pattern verwendet. Dadurch können Module und deren Abhängigkeiten gleichermassen für Server und Client definiert werden.
 
 Serverfunktionen sind über Nachrichten mit dem darin enthaltenen Argumenten aufrufbar und über aufgetretene Konflikte wird der Client mit einer entsprechenden Nachricht informiert. Die Konvention "Objekte erstellen" besitzt im umzusetzenden Fallbeispiel nur einen geringen Einfluss, da die Datenstruktur bereits auf ein einziges Objekt pro Kontakt festgelegt ist.
 
 
-Auswahl Synchronisations- und Konfliktauflösungsverfahren
-----------------------------------------------------------
+Auswahl der Verfahren
+---------------------
 Zur Konfliktvermeidung werden die beiden erarbeiteten Konzepte Update Transformation und Serverfunktionen umgesetzt. Bezüglich der Konfliktauflösung wird nur die Zusammenführung umgesetzt, da einerseits Konflikte explizit erlaubt sind und andererseits nur die Zusammenführung garantiert fehlerfreie Resultate liefert.
 
 
@@ -45,7 +45,7 @@ Die API-Komponente steht für sich alleine, obschon sie sowohl im Server als auc
 Die Bausteine und deren Interaktion miteinander, werden in den folgenden Kapiteln genauer erläutert.
 
 ### Datenfluss
-Der Datenfluss des Prototypen ist wie in der Abbildung {@fig:dataflow} dargestellt, nur unidirektional. Daraus ergibt sich auch, dass die gesamte Interkomponenten-Kommunikation, vom Client bis hin zum Server, asynchron durchgeführt wird.
+Der Datenfluss des Prototypen ist wie in der Abbildung {@fig:dataflow} dargestellt, nur unidirektional. Daraus ergibt sich auch, dass die gesamte Interkomponenten-kommunikation, vom Client bis hin zum Server, asynchron durchgeführt wird.
 
 ![Datenflussdiagramm von Server und Client](img/dataflow.png) {#fig:dataflow}
 
@@ -137,7 +137,7 @@ Table: Nachrichten Server-Logik
 Das Verhalten des Singlestate Konzepts ist mit einer Datenbank abbildbar. Der referenzierte Status wird jeweils in der Nachricht vom Client, vollständig mitgeliefert. Das Implementieren eines wahlfreien Zugriffs auf vergangene Stati ist deshalb nicht notwendig.
 
 ### Frontend
-Die beiden Nachrichten können von den Views versendet werden, aktualisieren den Store und werden vom Client-API Teil verarbeitet. Nur diese beiden Nachrichten aktualisieren den Store des Clients.
+Die beiden Nachrichten (update und delete) können von den Views versendet werden, aktualisieren den Store und werden vom Client-API Teil verarbeitet. Nur diese beiden Nachrichten aktualisieren den Store des Clients. Die letzte Nachricht (conflict) zeigt einen Konflikt bei der Synchronisation an.
 
 -------------------------------------------------------------------------------
 __Nachrichtname__           __Beschreibung__
@@ -147,6 +147,9 @@ C_PRES_STORE_update
 
 C_PRES_STORE_delete         
                             Löscht ein bestehendes Objekt.
+
+C_PRES_STORE_conflict         
+                            Benachrichtigt über einen aufgetretenen Konflikt.
 
 -------------------------------------------------------------------------------
 Table: Nachrichten Client
@@ -180,7 +183,7 @@ Der Aufruf einer Serverfunktion wird asynchron durchgeführt. Der Aufruf wird zu
 
 <!-- Nachrichtenbasiert, desshalb Flux -->
 ### Flux Architektur
-Das Flux Paradigma[@facebook-flux] ist eine Applikationsarchitektur welche sehr stark auf das Konzept der nachrichtenbasierten Kommunikation basiert und somit auch einen unidirektionalen Datenfluss, wie in Abbildung {@fig:flux} vorgibt. Daten können nur über das versenden einer Nachricht manipuliert werden. Sowohl Views als auch die API können Aktionen auslösen, und so den Datenbestand mutieren.
+Das Flux Paradigma[@facebook-flux] ist eine Applikationsarchitektur welche sehr stark auf das Konzept der nachrichtenbasierten Kommunikation aufbaut und somit auch einen unidirektionalen Datenfluss, wie in Abbildung {@fig:flux} vorgibt. Daten können nur über das versenden einer Nachricht manipuliert werden. Sowohl Views als auch die API können Aktionen auslösen, und so den Datenbestand mutieren.
 
 ![Flux Diagramm [@facebook-flux]](img/flux-diagram.png) {#fig:flux} 
 
@@ -257,7 +260,7 @@ contextual: (data, db_obj, new_obj, prev_obj,
 
 Umsetzung Konfliktverhinderungsverfahren
 ----------------------------------------
-Da der Prototyp durch sein Design bereits die Unterschiedsbasierte Synchronisation einsetzt und die Konfliktauflösung bereits auf Ebene der Attribute durchführt und somit das Konzept der Update Transformation bereits unterstützt, muss nur das Konzept der Serverfunktion gesondert implementiert werden.
+Da der Prototyp durch sein Design bereits die unterschiedsbasierte Synchronisation einsetzt und die Konfliktauflösung bereits auf der Ebene der Attribute durchführt und somit das Konzept der Update Transformation bereits unterstützt, muss nur das Konzept der Serverfunktion gesondert implementiert werden.
 
 Entwicklung
 -----------
@@ -389,7 +392,7 @@ Graphische Umsetzung
 --------------------
 Bei der Umsetzung des GUI sind die Richtlinien Material Design[^matdesign] angewendet worden.
 
-[^matdesign] [https://www.google.com/design/spec/material-design/introduction.html](https://www.google.com/design/spec/material-design/introduction.html)
+[^matdesign]:[https://www.google.com/design/spec/material-design/introduction.html](https://www.google.com/design/spec/material-design/introduction.html)
 
 
 ### Kontaktübersicht
@@ -398,7 +401,7 @@ Alle im System erfassten Kontakte werden beim Aufrufen der Web-Applikation dem B
 ![Kontaktübersicht](img/umsetzung-Contacts.png)
 
 ### Kontakt Detailansicht
-Die Detailansicht des Kontakts zeigt alle Attribute des Kontakts, gruppiert nach Zusammengehörigkeit, an. So sind die Attribute Nachname, Vorname, akademischer Grad sowie der Mittelname auf einer Zeile zusammengefasst. Die Adresse mit den Attributen Land, Kanton, Stadt und Strasse sind darunter auf zwei Zeilen verteilt. Die Email-Adresse sowie Telefonnummer ist zuunterst aufgeführt.
+Die Detailansicht des Kontakts zeigt alle Attribute des Kontakts, gruppiert nach Zusammengehörigkeit an. So sind die Attribute Nachname, Vorname, akademischer Grad sowie der Mittelname auf einer Zeile zusammengefasst. Die Adresse mit den Attributen Land, Kanton, Stadt und Strasse sind darunter auf zwei Zeilen verteilt. Die Email-Adresse sowie Telefonnummer ist zuunterst aufgeführt.
 
 ![Kontakt Detailansicht](img/umsetzung-Contacts-edit.png)
 
@@ -414,7 +417,7 @@ Die Testrunner-Suite Karma erlaubt es Programmcode fortlaufend zu testen. Dabei 
 ![Karma Testrunner](img/tdd.png)
 
 ## Coverage Analyse
-Karma erlaubt weiter bei jedem Durchlauf der Tests auch die Durchführung einer Coverage-Analyse. Dafür wir die Coverage-Suite Istanbul verwendet. Neben der Anzahl, in den Tests durchlaufenen Befehle und Zeilen und aufgerufenen Funktionen wird auch angezeigt wie viele Verzweigungen durchlaufen und durch Tests abgedeckt werden.
+Karma erlaubt weiter bei jedem Durchlauf der Tests auch die Durchführung einer Coverage-Analyse. Dafür wir die Coverage-Suite Istanbul verwendet. Neben der Anzahl, in den Tests durchlaufenen Befehle, Zeilen und aufgerufenen Funktionen wird auch angezeigt, wie viele Verzweigungen durchlaufen und durch Tests abgedeckt werden.
 
 <!-- Besseres Bild -->
 ![Istanbul Coverage](img/coverage.png)

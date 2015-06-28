@@ -15,7 +15,7 @@ Eine Aufführung und dazugehörende Erklärung, der für das Verständnis der Ar
 In diesem Kapitel werden Funktionsweisen und Grundlage ausgeführt, die als für die Bearbeitung dieser Bachelorthesis herangezogen wurden.
 
 ### Datenbanken
-Eine Datenbank[^Datenbanken_DBS] ist ein System zur Verwaltung und Speicherung von strukturierten Daten. Erst durch den Kontext des Datenbankschemas wird aus den Daten Informationen, die zur weiteren Verarbeitung genutzt werden können. Ein Datenbanksystem umfasst die beiden Komponenten Datenbankmanagementsystem (DBMS) sowie die zu verwaltenden Daten selbst.
+Eine Datenbank[^Datenbanken_DBS] ist ein System zur Verwaltung und Speicherung von strukturierten Daten. Erst durch den Kontext des Datenbankschemas werden aus den Daten Informationen, die zur weiteren Verarbeitung genutzt werden können. Ein Datenbanksystem umfasst die beiden Komponenten Datenbankmanagementsystem (DBMS) sowie die zu verwaltenden Daten selbst.
 Ein DBMS muss vier Aufgaben[^Datenbanken_ACID] erfüllen.
 
 - Atomarität
@@ -40,7 +40,7 @@ Man kann zwischen physisch und logisch verteilten Systemen unterscheiden. Weiter
 
 #### physisch verteilte Systeme
 Rechnernetze und Cluster-Systeme werden typischerweise als physisch verteiltes System betrachtet. Die Kommunikation zwischen den einzelnen Rechenknoten erfolgt nachrichtenorientiert und ist somit asynchron ausgelegt. Jeder Rechenknoten verfügt über exklusive Speicherressourcen und einen eigenen Zeitgeber.
-Durch die Implementation eines Systems über mehrere unabhängige physische Rechenknoten kann eine erhöhte Ausfallsicherheit und/oder ein Performance-Gewinn erreicht werden.
+Durch die Implementation eines Systems über mehrere unabhängige physische Rechenknoten kann eine erhöhte Ausfallsicherheit und ein Performance-Gewinn erreicht werden.
 
 #### logisch verteilte Systeme
 Falls innerhalb eines Rechenknoten echte Nebenläufigkeit[^log_dist_system_nebenläufigkeit] oder Modularität[^log_dist_system_modularität] erreicht wird, kann von einem logisch verteilten System gesprochen werden. Einzelne Rechenschritte und Aufgaben werden unabhängig voneinander auf der selben Hardware ausgeführt. Dies ermöglicht den flexiblen Austausch[^logic_dist_system_modularprogramming] einzelner Module.
@@ -50,7 +50,7 @@ Falls innerhalb eines Rechenknoten echte Nebenläufigkeit[^log_dist_system_neben
 
 [^log_dist_system_modularität]: Modularität beschreibt die Unabhängigkeit und Austauschbarkeit einzelner (Software-) Komponenten. (Auch Lose Kopplung gennant)
 
-[^logic_dist_system_modularprogramming]: Austauschbarkeit einzelner Programmteile wird durch die Einhaltung der Grundsätze von modularer Programmierung erreicht.
+[^logic_dist_system_modularprogramming]: Austauschbarkeit einzelner Programmteile werden durch die Einhaltung der Grundsätze von modularer Programmierung erreicht.
 
 
 ### Verteilte Algorithmen
@@ -72,7 +72,7 @@ Wird ein Objekt eines Replikationsteilnehmers mutiert, wird zum erfolgreichen Ab
 Eine asynchrone Replikation, stellt periodisch sicher, dass der gesamte Objektbestand auf allen Replikationsteilnehmern identisch ist. Mutationen können nur auf dem Master-Knoten durchgeführt werden. Einer oder mehrere Backup-Knoten übernehmen dann periodisch die Mutationen. 
 Entgegen der [synchronen Replikation][Synchrone Replikation] müssen nicht alle Replikationsteilnehmer zu jedem Zeitpunkt verfügbar sein[^async_repl_bsp].
 
-[^async_repl_bsp]: So kann der Backup-Knoten nur Nachts über verfügbar sein, damit der dazwischen liegende Kommunikationsweg Tags über nicht belastet wird.
+[^async_repl_bsp]: So kann der Backup-Knoten nur Nachts über verfügbar sein, damit der dazwischen liegende Kommunikationsweg tagsüber nicht belastet wird.
 
 
 #### Merge Replikation
@@ -106,7 +106,7 @@ Der Master-Master Betrieb erlaubt die Mutation des Datenbestand auf allen Replik
 
 
 #### 2-Phase-Commit Protokoll
-Um eine Transaktion erfolgreich abzuschliessen, müssen alle daran beteiligten Datenbanksysteme bekannt und in einem Zustand sein, in dem sie die Transaktion durchführen (commit) oder nicht (roll back). Die Transaktion muss auf allen Datenbanksystemen als eine einzige Atomare Aktion durchgeführt werden.
+Um eine Transaktion erfolgreich abzuschliessen, müssen alle daran beteiligten Datenbanksysteme bekannt und in einem Zustand sein, in dem sie die Transaktion durchführen (commit) oder nicht (roll back). Die Transaktion muss auf allen Datenbanksystemen als eine einzige atomare Aktion durchgeführt werden.
 
 Das Protokoll unterscheidet zwischen zwei Phasen[@mysqlhandbook]:
 
@@ -124,7 +124,7 @@ Das Web-Framework Backbone.js implementiert zur Datenhaltung und Synchronisation
 
 [^backbone_model_collection]: Backbone.js verwendet die Begriffe Model für ein einzelnes Objekt, wobei einem Objekt genau ein Key, aber mehrere Values zugeordnet werden können, und Collection für eine Sammlung an Objekten.
 
-Der REST-Standard[@restdissertation] verlangt dass für die Übermittlung eines Objekt immer der vollständige Status übermittelt wird. So wird bei lesendem und schreibenden Zugriff immer das gesamte Objekt kopiert.
+Der REST-Standard[@restdissertation] verlangt, dass für die Übermittlung eines Objekt immer der vollständige Status übermittelt wird. So wird bei lesendem und schreibenden Zugriff immer das gesamte Objekt kopiert.
 
 Backbone.js sieht keinen Mechanismus vor, die auf dem Server stattfindenden Änderungen automatisch auf den Client zu übernehmen. Es muss entweder periodisch die gesamte Collection gelesen oder auf ein Änderungs-Log zugegriffen werden.
 Darüber hinaus entscheidet der Server alleine, welche konkurrierende Version bei der Synchronisation des Clients übernommen wird. Backbone.js sendet beim Synchronisieren eines Objekts, dessen gesamten Inhalt an den Server und übernimmt anschliessend die von der REST-API zurückgelieferten Version. Die zurückgelieferte Version kann eine auf dem Server bereits zuvor als aktiv gesetzte Version des Objekts sein und somit die gesendeten Aktualisierung gar nicht enthalten[^backbone_restapi_log].
@@ -149,4 +149,4 @@ Die Synchronisation einer Anpassung eines Objekts benötigt drei Schritte.
 
 1. Im ersten Schritt wird ein neues oder die mutierten Attribute eines Objekts an den Server übermittelt.
 2. Der Server entscheidet im zweiten Schritt ob die übermittelten Änderungen komplett, teilweise oder nicht angenommen werden.
-3. Im dritten Schritt wird dem Client mitgeteilt welche Änderungen angenommen wurden. Der Client aktualisiert sein lokales Objekt dem entsprechen.
+3. Im dritten Schritt wird dem Client mitgeteilt welche Änderungen angenommen wurden und der Client aktualisiert sein lokales Objekt dem entsprechend.

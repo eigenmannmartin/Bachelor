@@ -61,21 +61,21 @@ Zusätzlich wird die Arbeit durch folgende Punkte klar abgegrenzt:
 Aufbau der Arbeit
 =================
 
-#### _Teil i - Präambel_
+#### _Teil I - Präambel_
 Im ersten Kapitel [Einleitung] werden die Daten-Synchronisations-Probleme mit mobilen Endgeräten angedeutet und die daraus resultierende Motivation für diese Arbeit dargelegt. Weiter wird die Abgrenzung dieser Arbeit erörtert.
 Schliesslich wird im Kapitel [Aufbau der Arbeit] die Struktur sowie die Eigenleistungen betont.
 
-#### _Teil ii - Grundlagen_
+#### _Teil II - Grundlagen_
 Das Kapitel [Recherche] setzt sich mit den Grundlagen, Fachbegriffen und bekannten Verfahren zur Synchronisation und Replikation auseinander. Bekannte Verfahren zur verteilten Ausführung von Programmen, synchronen und asynchronen Replikation von Datenbanken sowie Synchronisationsverfahren werden umrissen.
 
 
-#### _Teil iii - Konzept_
+#### _Teil III - Konzept_
 In diesem Teil der Thesis werden die Grundlagen geschaffen um darauf basierend Konzepte zu erstellen. Zwei Fallbeispiele für die Synchronisation von Daten werden eingeführt. Es wird darauf basierend eine [Analyse] der zu synchronisierenden Daten erstellt und überprüft ob eine sinnvolle Klassifikation der Daten durchführbar ist um so das Synchronisationsproblem abzuschwächen. 
 Basierend auf der Analyse der Daten, werden [Konzeptansätze] erarbeitet und anschliessend auf ihre Anwendbarkeit hin überprüft. Die sich daraus ergebenen Erkenntnisse werden im [Leitfaden] übersichtlich dargestellt. Die Ansätze des Leitfadens berücksichtigend wird der Aufbau des Prototypen ([Design des Prototypen]) konzipiert.   
 
-#### _Teil iv - Implementation_
+#### _Teil IV - Implementation_
 Dieser Teil beschäftigt sich mit der Implementierung des Prototypen unter Verwendung der TDD Methode. Ein spezielles Augenmerk wird dem Testing und der verwendeten Frameworks gewidmet.
 
-#### _Teil v - Ausklang_
-In diesem Teil der Thesis wird evaluiert, ob die erarbeiten und implementierten Konzepte der Aufgabenstellung genügen, welche Limitationen sie aufweisen und welche Fragestellungen offen geblieben sind.
+#### _Teil V - Ausklang_
+In diesem Teil der Thesis wird evaluiert, ob die erarbeiteten und implementierten Konzepte der Aufgabenstellung genügen, welche Limitationen sie aufweisen und welche Fragestellungen offen geblieben sind.
 

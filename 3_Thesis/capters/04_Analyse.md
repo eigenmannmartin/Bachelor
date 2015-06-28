@@ -54,7 +54,7 @@ __pNotes__
 Table: Attribute Firmen-Kontakt 
 
 
-### Syncrhonisation eines Service Desks
+### Synchronisation eines Service Desks
 Ein anderes Anwendungsszenario bezieht sich auf die Synchronisation von Ablaufdaten in einem definierten Umfeld. So werden in vielen  Fällen auch Daten von Abläufen und Vorgängen synchronisiert. Abhängigkeiten (zeitlich sowie inhaltlich) zwischen den Daten sind stark ausgeprägt und müssen von der Business-Logik überprüft werden.
 
 In vielen IT-Organisationen kommt irgend eine Form eines Service-Desks zum Einsatz. Typischerweise werden Arbeitszeiten, Aufwendungen und Tätigkeiten direkt auf einen Support-Fall gebucht. Auch die Kommunikation mit dem Kunden wird hauptsächlich über den Service-Desk geführt. Das Erfassen dieser Einträge soll jederzeit möglich sein, auch ohne Verbindung zum Service-Desk. 
@@ -107,7 +107,7 @@ Um Daten nach ihrer Art zu Klassifizieren reicht es zu untersuchen wie die Lese-
 
 
 ### Klassifikation nach Struktur
-Bei der Unterscheidung der Daten nach ihrer Struktur, kann zwischen Kontextbezogenen und Kontextunabhängigen Daten differenziert werden. Die Entscheidung welcher Strukturklasse die Daten angehören, ist abhängig vom Verständnis der Daten und liegt somit im Entscheidungsbereich des Datendesigners.
+Bei der Unterscheidung der Daten nach ihrer Struktur, kann zwischen kontextbezogenen und kontextunabhängigen Daten differenziert werden. Die Entscheidung welcher Strukturklasse die Daten angehören, ist abhängig vom Verständnis der Daten und liegt somit im Entscheidungsbereich des Datendesigners.
 
 - _Kontextunabhängige Daten_ gewinnen selbst durch andere Daten nicht mehr an Informationsgehalt. Gemeint ist damit, dass durch das Betrachten zusätzlicher Informationen, nicht mehr Wissen, bezüglich des ursprünglichen Attributs entsteht.
 
@@ -171,9 +171,9 @@ Table: Klassifikation Attribute Kontakt
 
 
 ## Überprüfung der Klassifikation
-Die durchgeführte [Datenanalyse der Synchronisationsprobleme] der beiden Fallbeispiele zeigt, dass sowohl die Klassifikation nach Struktur, als auch die Klassifikation nach Art durchführbar und repräsentativ ist. Es kann klar zwischen der Klassifikation exklusiv, gemeinsam und dynamisch unterschieden werden. Auch sind die beiden Struktur-Klassen, kontextbezogen und kontextunabhängig, anwendbar und ermöglichen eine Repräsentation der Abhängigkeiten zwischen den verschiedenen Attributen. 
+Die durchgeführte [Datenanalyse der Synchronisationsprobleme] der beiden Fallbeispiele zeigt, dass sowohl die Klassifikation nach Struktur, als auch die Klassifikation nach Art durchführbar und repräsentativ ist. Es kann klar zwischen der Klassifikation _exklusiv_, _gemeinsam_ und _dynamisch_ unterschieden werden. Auch sind die beiden Struktur-Klassen, _kontextbezogen_ und _kontextunabhängig_ anwendbar und ermöglichen eine Repräsentation der Abhängigkeiten zwischen den verschiedenen Attributen. 
 
-Die beiden weiteren vorgeschlagenen Arten-Klassen, statisch und temporär, sind nicht eindeutig genug, um eingesetzt werden zu können. Daten die mit der Art temporär klassifiziert werden könnten, können mit der Klasse exklusiv, mit gleichwertiger Aussagekraft klassifiziert werden. Die Klasse exklusiv ist sogar noch genereller und eine Unterscheidung der Klassen nach der Gültigkeitsdauer der klassifizierten Daten bietet keinen Mehrwert. Die zweite Arten-Klasse statisch ist ebenso besser durch der Klasse gemeinsam repräsentiert.
+Die beiden weiteren vorgeschlagenen Arten-Klassen, _statisch_ und _temporär_, sind nicht eindeutig genug, um eingesetzt werden zu können. Daten die mit der Art _temporär_ klassifiziert werden könnten, können mit der Klasse _exklusiv_, mit gleichwertiger Aussagekraft klassifiziert werden. Die Klasse _exklusiv_ ist sogar noch genereller und eine Unterscheidung der Klassen nach der Gültigkeitsdauer der klassifizierten Daten bietet keinen Mehrwert. Die zweite Arten-Klasse _statisch_ ist ebenso besser durch die Klasse _gemeinsam_ repräsentiert.
 
 Die gefundenen Klassen können also auf Daten angewendet werden und repräsentieren diese auch auf dem gewünschten Abstraktionslevel.
 
